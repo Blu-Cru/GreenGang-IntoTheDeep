@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.util;
 
 import androidx.annotation.NonNull;
 
@@ -29,30 +29,33 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
-import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
+//import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+//import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
+//import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
+//import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+//
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.MAX_ACCEL;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.RUN_USING_ENCODER;
+
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.util.DriveConstants.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
+
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
     private HardwareMap hardwareMap;
@@ -66,7 +69,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
 
-    private TrajectorySequenceRunner trajectorySequenceRunner;
+    //private TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
@@ -90,7 +93,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
 
-        LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
+       // LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
 
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
@@ -100,7 +103,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
@@ -117,21 +120,20 @@ public class SampleMecanumDrive extends MecanumDrive {
             motor.setMotorType(motorConfigurationType);
         }
 
-        if (RUN_USING_ENCODER) {
-            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+//        if (RUN_USING_ENCODER) {
+//            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        }
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
-            setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
-        }
+//        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
+//            setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+//        }
 
-        // TODO: reverse any motors using DcMotor.setDirection()
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
         List<Integer> lastTrackingEncVels = new ArrayList<>();
@@ -139,104 +141,104 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: if desired, use setLocalizer() to change the localization method
         // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
-        trajectorySequenceRunner = new TrajectorySequenceRunner(
-                follower, HEADING_PID, batteryVoltageSensor,
-                lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
-        );
+//        trajectorySequenceRunner = new TrajectorySequenceRunner(
+//                follower, HEADING_PID, batteryVoltageSensor,
+//                lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
+//        );
     }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
-        return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
-    }
+//    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
+//        return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
+//    }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
-        return new TrajectoryBuilder(startPose, reversed, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
-    }
+//    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
+//        return new TrajectoryBuilder(startPose, reversed, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
+//    }
+//
+//    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
+//        return new TrajectoryBuilder(startPose, startHeading, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
+//    }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
-        return new TrajectoryBuilder(startPose, startHeading, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
-    }
+//    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d startPose) {
+//        return new TrajectorySequenceBuilder(
+//                startPose,
+//                VEL_CONSTRAINT, ACCEL_CONSTRAINT,
+//                MAX_ANG_VEL, MAX_ANG_ACCEL
+//        );
+//    }
+//
+//    public void turnAsync(double angle) {
+//        trajectorySequenceRunner.followTrajectorySequenceAsync(
+//                trajectorySequenceBuilder(getPoseEstimate())
+//                        .turn(angle)
+//                        .build()
+//        );
+//    }
 
-    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d startPose) {
-        return new TrajectorySequenceBuilder(
-                startPose,
-                VEL_CONSTRAINT, ACCEL_CONSTRAINT,
-                MAX_ANG_VEL, MAX_ANG_ACCEL
-        );
-    }
+//    public void turn(double angle) {
+//        turnAsync(angle);
+//        waitForIdle();
+//    }
 
-    public void turnAsync(double angle) {
-        trajectorySequenceRunner.followTrajectorySequenceAsync(
-                trajectorySequenceBuilder(getPoseEstimate())
-                        .turn(angle)
-                        .build()
-        );
-    }
+//    public void resetIMU() {
+//        imu.resetDeviceConfigurationForOpMode();
+//        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+//                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
+//        imu.initialize(parameters);
+//        this.setExternalHeading(Math.toRadians(0));
+//    }
 
-    public void turn(double angle) {
-        turnAsync(angle);
-        waitForIdle();
-    }
+//    public void followTrajectoryAsync(Trajectory trajectory) {
+//        trajectorySequenceRunner.followTrajectorySequenceAsync(
+//                trajectorySequenceBuilder(trajectory.start())
+//                        .addTrajectory(trajectory)
+//                        .build()
+//        );
+//    }
 
-    public void resetIMU() {
-        imu.resetDeviceConfigurationForOpMode();
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
-        imu.initialize(parameters);
-        this.setExternalHeading(Math.toRadians(0));
-    }
-
-    public void followTrajectoryAsync(Trajectory trajectory) {
-        trajectorySequenceRunner.followTrajectorySequenceAsync(
-                trajectorySequenceBuilder(trajectory.start())
-                        .addTrajectory(trajectory)
-                        .build()
-        );
-    }
-
-    public void followTrajectory(Trajectory trajectory) {
-        followTrajectoryAsync(trajectory);
-        waitForIdle();
-    }
-
-    public void followTrajectorySequenceAsync(TrajectorySequence trajectorySequence) {
-        trajectorySequenceRunner.followTrajectorySequenceAsync(trajectorySequence);
-    }
-
-    public void followTrajectorySequence(TrajectorySequence trajectorySequence) {
-        followTrajectorySequenceAsync(trajectorySequence);
-        waitForIdle();
-    }
-
-    public Pose2d getLastError() {
-        return trajectorySequenceRunner.getLastPoseError();
-    }
-
-    public void updateTrajectory() {
-        updatePoseEstimate();
-        DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
-        if (signal != null) setDriveSignal(signal);
-    }
-
-    public void waitForIdle() {
-        while (!Thread.currentThread().isInterrupted() && isBusy())
-            updateTrajectory();
-    }
-
-    public boolean isBusy() {
-        return trajectorySequenceRunner.isBusy();
-    }
-
-    public void stop() {
-        trajectorySequenceRunner.stop();
-        setDriveSignal(new DriveSignal());
-    }
-
-    public void setMode(DcMotor.RunMode runMode) {
-        for (DcMotorEx motor : motors) {
-            motor.setMode(runMode);
-        }
-    }
+//    public void followTrajectory(Trajectory trajectory) {
+//        followTrajectoryAsync(trajectory);
+//        waitForIdle();
+//    }
+//
+//    public void followTrajectorySequenceAsync(TrajectorySequence trajectorySequence) {
+//        trajectorySequenceRunner.followTrajectorySequenceAsync(trajectorySequence);
+//    }
+//
+//    public void followTrajectorySequence(TrajectorySequence trajectorySequence) {
+//        followTrajectorySequenceAsync(trajectorySequence);
+//        waitForIdle();
+//    }
+//
+//    public Pose2d getLastError() {
+//        return trajectorySequenceRunner.getLastPoseError();
+//    }
+//
+//    public void updateTrajectory() {
+//        updatePoseEstimate();
+//        DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
+//        if (signal != null) setDriveSignal(signal);
+//    }
+//
+//    public void waitForIdle() {
+//        while (!Thread.currentThread().isInterrupted() && isBusy())
+//            updateTrajectory();
+//    }
+//
+//    public boolean isBusy() {
+//        return trajectorySequenceRunner.isBusy();
+//    }
+//
+//    public void stop() {
+//        trajectorySequenceRunner.stop();
+//        setDriveSignal(new DriveSignal());
+//    }
+//
+//    public void setMode(DcMotor.RunMode runMode) {
+//        for (DcMotorEx motor : motors) {
+//            motor.setMode(runMode);
+//        }
+//    }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         for (DcMotorEx motor : motors) {
@@ -275,32 +277,32 @@ public class SampleMecanumDrive extends MecanumDrive {
         setDrivePower(vel);
     }
 
-    @NonNull
-    @Override
-    public List<Double> getWheelPositions() {
-        lastEncPositions.clear();
-
-        List<Double> wheelPositions = new ArrayList<>();
-        for (DcMotorEx motor : motors) {
-            int position = motor.getCurrentPosition();
-            lastEncPositions.add(position);
-            wheelPositions.add(encoderTicksToInches(position));
-        }
-        return wheelPositions;
-    }
-
-    @Override
-    public List<Double> getWheelVelocities() {
-        lastEncVels.clear();
-
-        List<Double> wheelVelocities = new ArrayList<>();
-        for (DcMotorEx motor : motors) {
-            int vel = (int) motor.getVelocity();
-            lastEncVels.add(vel);
-            wheelVelocities.add(encoderTicksToInches(vel));
-        }
-        return wheelVelocities;
-    }
+//    @NonNull
+//    @Override
+//    public List<Double> getWheelPositions() {
+//        lastEncPositions.clear();
+//
+//        List<Double> wheelPositions = new ArrayList<>();
+//        for (DcMotorEx motor : motors) {
+//            int position = motor.getCurrentPosition();
+//            lastEncPositions.add(position);
+//            wheelPositions.add(encoderTicksToInches(position));
+//        }
+//        return wheelPositions;
+//    }
+//
+//    @Override
+//    public List<Double> getWheelVelocities() {
+//        lastEncVels.clear();
+//
+//        List<Double> wheelVelocities = new ArrayList<>();
+//        for (DcMotorEx motor : motors) {
+//            int vel = (int) motor.getVelocity();
+//            lastEncVels.add(vel);
+//            wheelVelocities.add(encoderTicksToInches(vel));
+//        }
+//        return wheelVelocities;
+//    }
 
     @Override
     public void setMotorPowers(double v, double v1, double v2, double v3) {
@@ -329,5 +331,11 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
         return new ProfileAccelerationConstraint(maxAccel);
+    }
+
+    @NonNull
+    @Override
+    public List<Double> getWheelPositions() {
+        return null;
     }
 }
