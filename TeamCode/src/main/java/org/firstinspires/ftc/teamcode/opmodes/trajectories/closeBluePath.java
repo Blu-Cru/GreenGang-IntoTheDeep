@@ -21,7 +21,7 @@ public class closeBluePath extends LinearOpMode {
 
         TrajectorySequence closeBlue = drive.trajectorySequenceBuilder(startPose)
 
-                .splineToLinearHeading(new Pose2d(47, 50, Math.toRadians(90)), Math.toRadians(180)) // get first piece
+                .splineToLinearHeading(new Pose2d(47, 50, Math.toRadians(90)), Math.toRadians(145)) // get first piece, 135 p good
                 .waitSeconds(2) // collect piece 1
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // turn towards bucket
                 .waitSeconds(2) // outake piece 1
@@ -36,7 +36,8 @@ public class closeBluePath extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180)) // drive to bucket
                 .waitSeconds(2) // outtake piece 3
 
-                .splineToLinearHeading(new Pose2d(48,62, Math.toRadians(90)), Math.toRadians(180)) // park
+                .splineToLinearHeading(new Pose2d(48,62, Math.toRadians(90)), Math.toRadians(45)) // park 90 works
+                .waitSeconds(2)
                 .build();
 
         waitForStart();
