@@ -6,14 +6,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.transfer;
 
 @TeleOp(name = "claw test",group = "TeleOp")
 public class clawTest extends LinearOpMode {
 
+    transfer claw;
+
     @Override
     public void runOpMode() throws InterruptedException {
-        drivetrain = new Drivetrain(hardwareMap);
         claw = new transfer(hardwareMap);
 
         claw.init();
@@ -26,38 +27,15 @@ public class clawTest extends LinearOpMode {
 
         while(opModeIsActive()) {
 
-            y = -gamepad1.left_stick_y;
-            x = gamepad1.left_stick_x;
-            rx = -gamepad1.right_stick_x;
-
-            //Robot moves slower
-            if(gamepad1.right_trigger > 0.4) {
-                Drivetrain.drivePower = 0.3;
-            }
-            else {
-                Drivetrain.drivePower = 0.6;
+            if (gamepad1.left_trigger >.2){
+                claw.clawSetPower(1);
+            } else {
+                claw.clawSetPower(0);
             }
 
-            if (gamepad1.options) {
-                drivetrain.setExternalHeading(Math.toRadians(90));
-            }
-
-
-            if(gamepad1.left_bumper) {
-                intake.IntakeSetPower(1);
-            }
-            else if(gamepad1.right_bumper) {
-                intake.IntakeSetPower(-1);
-            }
-            else{
-                intake.IntakeSetPower(0);
-            }
-
-            drivetrain.fieldCentricDrive(x, y, rx);
-            drivetrain.telemetry(telemetry);
             telemetry.update();
         }
 
     }
 }
-}
+
