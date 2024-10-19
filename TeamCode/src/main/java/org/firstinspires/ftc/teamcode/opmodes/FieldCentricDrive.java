@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 //@Config
 @TeleOp(name = "Field centric test",group = "TeleOp")
@@ -12,11 +13,15 @@ public class FieldCentricDrive extends LinearOpMode {
     double y;
     double x;
     double rx, power;
+    Intake intake;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         drivetrain = new Drivetrain(hardwareMap);
+        intake = new Intake(hardwareMap);
+
+        intake.init();
 
         while(opModeInInit()) {
             telemetry.update();
@@ -41,6 +46,17 @@ public class FieldCentricDrive extends LinearOpMode {
            if (gamepad1.options) {
                drivetrain.setExternalHeading(Math.toRadians(90));
            }
+
+
+            if(gamepad1.left_bumper) {
+                intake.IntakeSetPower(intake.intakeIn);
+            }
+            else if(gamepad1.right_bumper) {
+                intake.IntakeSetPower(intake.intakeOut);
+            }
+            else{
+                intake.IntakeSetPower(0);
+            }
 
            drivetrain.fieldCentricDrive(x, y, rx);
            drivetrain.telemetry(telemetry);
