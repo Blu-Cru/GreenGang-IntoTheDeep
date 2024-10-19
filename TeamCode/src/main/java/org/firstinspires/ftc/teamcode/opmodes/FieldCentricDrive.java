@@ -49,10 +49,10 @@ public class FieldCentricDrive extends LinearOpMode {
 
 
             if(gamepad1.left_bumper) {
-                intake.IntakeSetPower(intake.intakeIn);
+                intake.IntakeSetPower(1);
             }
             else if(gamepad1.right_bumper) {
-                intake.IntakeSetPower(intake.intakeOut);
+                intake.IntakeSetPower(-1);
             }
             else{
                 intake.IntakeSetPower(0);
