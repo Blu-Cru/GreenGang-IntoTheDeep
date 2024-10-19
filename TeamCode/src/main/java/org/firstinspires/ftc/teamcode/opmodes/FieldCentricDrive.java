@@ -46,16 +46,15 @@ public class FieldCentricDrive extends LinearOpMode {
            if (gamepad1.options) {
                drivetrain.setExternalHeading(Math.toRadians(90));
            }
-
-
+           
             if(gamepad1.left_bumper) {
-                intake.IntakeSetPower(1);
+                intake.intakeSetPower(1);
             }
             else if(gamepad1.right_bumper) {
-                intake.IntakeSetPower(-1);
+                intake.intakeSetPower(-1);
             }
             else{
-                intake.IntakeSetPower(0);
+                intake.intakeSetPower(0);
             }
 
            drivetrain.fieldCentricDrive(x, y, rx);

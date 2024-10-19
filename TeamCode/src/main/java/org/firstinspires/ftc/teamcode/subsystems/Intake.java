@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -18,7 +16,7 @@ public class Intake {
         intake = hardwareMap.get(CRServo.class, "leftServo");
         intake2 = hardwareMap.get(CRServo.class, "rightServo");
 
-        intake.setDirection(Direction.FORWARD);
+        intake.setDirection(Direction.REVERSE);
         intake2.setDirection(Direction.FORWARD);
         // set directions
         //Forward = blocks in
@@ -26,15 +24,18 @@ public class Intake {
 
     public void init() {
         intake.setPower(0);
+        intake2.setPower(0);
     }
 
 
-    public void IntakeSetPower(double power){
+    public void intakeSetPower(double power) {
         intake.setPower(power);
+        intake2.setPower(power);
     }
 
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("intake power", intake.getPower());
+        telemetry.addData("intake2 power", intake2.getPower());
 
     }
 }
