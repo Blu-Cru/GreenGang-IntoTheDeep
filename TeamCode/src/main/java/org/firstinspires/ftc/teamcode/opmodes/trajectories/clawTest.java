@@ -29,7 +29,8 @@ public class clawTest extends LinearOpMode {
 
             if (gamepad1.left_trigger >.2){
                 claw.clawSetPower(1);
-            } else {
+            }
+            else if{
                 claw.clawSetPower(0);
             }
 

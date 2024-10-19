@@ -20,7 +20,7 @@ public class transfer {
         clawController = (ServoControllerEx) claw.getController();
     }
 
-    public void wristSetPos(double pos){
+    public void clawSetPower(double pos){
         clawController.setServoPwmEnable(claw.getPortNumber());
         claw.setPosition(pos);
     }
