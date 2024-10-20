@@ -9,8 +9,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Transfer {
     public Servo claw;
     private ServoControllerEx clawController;
-    public static final double depositPos = 0.89; // TODO: make sure these are correct
-    public static final double intakePos = 0.17; // TODO: make sure these are correct
     public Transfer(HardwareMap hardwareMap) {
         claw = hardwareMap.get(Servo.class, "clawServo");
     }
