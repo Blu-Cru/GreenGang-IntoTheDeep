@@ -24,12 +24,12 @@ public class closeBluePath extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(47, 50, Math.toRadians(90)), Math.toRadians(145)) // get first piece, 135 p good
                 .waitSeconds(2) // collect piece 1
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // turn towards bucket
-                .waitSeconds(2) // outake piece 1
+                .waitSeconds(2) // outtake piece 1
 
                 .splineToLinearHeading(new Pose2d(58,50, Math.toRadians(90)), Math.toRadians(180)) // get piece 2
                 .waitSeconds(2) // collect piece 2
                 .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180)) // drive to bucket
-                .waitSeconds(2) // outake piece 2
+                .waitSeconds(2) // outtake piece 2
 
                 .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(-225)), Math.toRadians(180)) // get piece 3
                 .waitSeconds(2) // collect piece 3

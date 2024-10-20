@@ -12,16 +12,12 @@ public class FieldCentricDrive extends LinearOpMode {
     Drivetrain drivetrain;
     double y;
     double x;
-    double rx, power;
-    Intake intake;
+    double rx;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         drivetrain = new Drivetrain(hardwareMap);
-        intake = new Intake(hardwareMap);
-
-        intake.init();
 
         while(opModeInInit()) {
             telemetry.update();
@@ -46,16 +42,6 @@ public class FieldCentricDrive extends LinearOpMode {
            if (gamepad1.options) {
                drivetrain.setExternalHeading(Math.toRadians(90));
            }
-
-            if(gamepad1.left_bumper) {
-                intake.intakeSetPower(1);
-            }
-            else if(gamepad1.right_bumper) {
-                intake.intakeSetPower(-1);
-            }
-            else{
-                intake.intakeSetPower(0);
-            }
 
            drivetrain.fieldCentricDrive(x, y, rx);
            drivetrain.telemetry(telemetry);

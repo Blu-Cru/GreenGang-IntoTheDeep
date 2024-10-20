@@ -1,21 +1,19 @@
-package org.firstinspires.ftc.teamcode.opmodes.trajectories;
+package org.firstinspires.ftc.teamcode.testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.transfer;
+import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 
 @TeleOp(name = "claw test",group = "TeleOp")
-public class clawTest extends LinearOpMode {
+public class ClawTest extends LinearOpMode {
 
-    transfer claw;
+    Transfer claw;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        claw = new transfer(hardwareMap);
+        claw = new Transfer(hardwareMap);
 
         claw.init();
 
@@ -28,10 +26,10 @@ public class clawTest extends LinearOpMode {
         while(opModeIsActive()) {
 
             if (gamepad1.left_trigger >.2){
-                claw.clawSetPower(1);
+                claw.clawSetPower(1); //TODO: Test on FTC Dash to get correct num
             }
-            else if{
-                claw.clawSetPower(0);
+            else {
+                claw.clawSetPower(0); //TODO: Test on FTC Dash to get correct num
             }
 
             telemetry.update();
