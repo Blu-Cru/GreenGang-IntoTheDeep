@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode.testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@TeleOp(name = "claw test",group = "TeleOp")
+@TeleOp(name = "intake test",group = "TeleOp")
 public class IntakeTest extends LinearOpMode {
 
     Intake intake;

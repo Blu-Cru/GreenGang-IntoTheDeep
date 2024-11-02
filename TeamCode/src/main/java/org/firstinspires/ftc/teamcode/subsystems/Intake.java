@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -23,7 +24,6 @@ public class Intake {
         intake.setPower(0);
         intake2.setPower(0);
     }
-
     public void intakeSetPower(double power) {
         intake.setPower(power);
         intake2.setPower(power);
