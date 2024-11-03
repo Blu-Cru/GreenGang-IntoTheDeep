@@ -19,10 +19,17 @@ public class MeepMeepTesting {
 
                 // extendo is 10 inches
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24, 58, Math.toRadians(-90)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24, 62, Math.toRadians(-90)))
+                        //.setTangent(-90)
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90)) // turn towards bucket
+                        .waitSeconds(2) // outtake block thats placed in auto
 
-                        .setTangent(Math.toRadians(0))
-                        .turn(90) // implement far side path
+                        .splineToLinearHeading(new Pose2d(-53, 15, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(-60, 15, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(-60, 50, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(-48, 62, Math.toRadians(-90)), Math.toRadians(90))
+
                         .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
