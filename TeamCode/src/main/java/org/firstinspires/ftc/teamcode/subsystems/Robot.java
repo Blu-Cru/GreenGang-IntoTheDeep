@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class Robot {
     private static Robot instance;
-
     HardwareMap hardwareMap; // reference to hardware
 
     // all subsystems

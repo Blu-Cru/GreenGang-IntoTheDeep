@@ -55,21 +55,20 @@ public class Solo extends GreenLinearOpMode {
             driveControl();
             drive(drive);
 
-            if(gamepad1.left_bumper && !color.isFull()) {
+            if (gamepad1.left_bumper && !color.isFull()) {
                 intake.intakeSetPower(1);
-            } else if(gamepad1.right_bumper) {
+            } else if (gamepad1.right_bumper) {
                 intake.intakeSetPower(-1);
-            } else{
+            } else {
                 intake.intakeSetPower(0);
             }
 
-            if(color.isFull())
+            if (color.isFull())
                 spit(color, intake, alliance);
 
             bot.telemetry(telemetry);
             telemetry.update();
         }
-
     }
 
     public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){

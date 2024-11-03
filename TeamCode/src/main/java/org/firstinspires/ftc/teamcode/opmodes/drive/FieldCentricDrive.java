@@ -1,20 +1,19 @@
 package org.firstinspires.ftc.teamcode.opmodes.drive;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 
-//@Config
 @TeleOp(name = "Field centric test",group = "TeleOp")
-public class FieldCentricDrive extends LinearOpMode {
+public class FieldCentricDrive extends GreenLinearOpMode {
     Drivetrain drivetrain;
     double y, x, rx;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        drivetrain = new Drivetrain(hardwareMap);
+        addDrivetrain();
 
         while(opModeInInit()) {
             telemetry.update();
