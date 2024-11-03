@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class Transfer {
+public class Transfer implements Subsystem {
     public Servo claw;
     private ServoControllerEx clawController;
     public Transfer(HardwareMap hardwareMap) {
@@ -16,6 +16,16 @@ public class Transfer {
     public void init() {
         clawController = (ServoControllerEx) claw.getController();
         claw.setPosition(0);
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
     public void clawSetPower(double pos){

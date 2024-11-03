@@ -1,19 +1,20 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 
 @TeleOp(name = "claw test",group = "TeleOp")
-public class ClawTest extends LinearOpMode {
+public class ClawTest extends GreenLinearOpMode {
 
     Transfer claw;
 
-    @Override
+    //@Override
     public void runOpMode() throws InterruptedException {
-        claw = new Transfer(hardwareMap);
+        addTransfer();
 
         claw.init();
 

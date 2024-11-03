@@ -1,18 +1,19 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.opmodes.test;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @TeleOp(name = "intake test",group = "TeleOp")
-public class IntakeTest extends LinearOpMode {
-
+public class IntakeTest extends GreenLinearOpMode {
     Intake intake;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        intake = new Intake(hardwareMap);
+        addIntake();
 
         intake.init();
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,9 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 @TeleOp(name = "Robot centric drive",group = "TeleOp")
 public class RobotCentricDrive extends LinearOpMode {
     Drivetrain drivetrain;
-    double y;
-    double x;
-    double rx, power;
+    double y, x, rx, power;
 
     @Override
     public void runOpMode() throws InterruptedException {

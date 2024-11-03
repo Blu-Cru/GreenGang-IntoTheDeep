@@ -7,10 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
-public class Drivetrain extends SampleMecanumDrive {
+public class Drivetrain extends SampleMecanumDrive implements Subsystem {
 
     public static double drivePower;
 
@@ -42,6 +41,21 @@ public class Drivetrain extends SampleMecanumDrive {
         y = output.getY();
 
         setWeightedDrivePower(new Pose2d(x * drivePower, y * drivePower, rotate * drivePower));
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
     public void telemetry(Telemetry tele) {
