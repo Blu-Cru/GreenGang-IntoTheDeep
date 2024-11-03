@@ -11,12 +11,12 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
 
-@TeleOp(name="solo", group ="TeleOp")
+@TeleOp(name="Solo", group ="TeleOp")
 public class Solo extends GreenLinearOpMode {
 
     Intake intake;
     IntakeColorSensor color;
-    Transfer claw;
+    // Transfer claw;
     Alliance alliance;
     Drivetrain dt;
     double y, x, rx;
@@ -25,18 +25,22 @@ public class Solo extends GreenLinearOpMode {
     Robot bot;
     @Override
     public void runOpMode() throws InterruptedException {
-        addIntake();
-        addIntakeColorSensor();
-        addTransfer();
-        addDrivetrain();
+        intake = new Intake(hardwareMap);
+        color = new IntakeColorSensor(hardwareMap);
+        // claw = new Transfer(hardwareMap);
+        dt = new Drivetrain(hardwareMap);
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
 
         while(opModeInInit()) {
-            telemetry.update();
+
             intake.init();
-            claw.init();
+            color.init();
+            color.startReading();
+            dt.init();
+
+            // claw.init();
 
             if(gamepad1.x) {
                 alliance = alliance.flip();
@@ -45,6 +49,10 @@ public class Solo extends GreenLinearOpMode {
             if (gamepad1.y){
                 drive = drive.flip();
             }
+
+            telemetry.addData("ALLIANCE: ", alliance);
+            telemetry.addData("DRIVE TYPE: ", drive);
+            telemetry.update();
         }
 
         waitForStart();
@@ -66,7 +74,9 @@ public class Solo extends GreenLinearOpMode {
             if (color.isFull())
                 spit(color, intake, alliance);
 
-            bot.telemetry(telemetry);
+            // bot.telemetry(telemetry);
+
+            telemetry.addData("SLOT ", color.slotState);
             telemetry.update();
         }
     }
@@ -74,12 +84,12 @@ public class Solo extends GreenLinearOpMode {
     public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
         switch(alliance) {
             case RED:
-                if (color.slotState == IntakeColorSensor.SlotState.BLUE) {
+                if (color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
                     intake.intakeSetPower(-1);
                 }
 
             case BLUE:
-                if (color.slotState == IntakeColorSensor.SlotState.RED) {
+                if (color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
                     intake.intakeSetPower(-1);
                 }
         }

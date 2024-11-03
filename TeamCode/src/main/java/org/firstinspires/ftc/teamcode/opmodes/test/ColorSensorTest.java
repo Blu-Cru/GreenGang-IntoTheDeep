@@ -29,7 +29,7 @@ public class ColorSensorTest extends GreenLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        addIntakeColorSensor();
+        color = new IntakeColorSensor(hardwareMap);
 
         while(opModeInInit()) {
             initialize();

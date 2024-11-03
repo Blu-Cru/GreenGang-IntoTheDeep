@@ -83,11 +83,11 @@ public class Robot {
         return transfer;
     }
 
-    public void telemetry(Telemetry telemetry) {
-        for(Subsystem subsystem : subsystems) {
-            subsystem.telemetry(telemetry);
-        }
-    }
+//    public void telemetry(Telemetry telemetry) {
+//        for(Subsystem subsystem : subsystems) {
+//            subsystem.telemetry(telemetry);
+//        }
+//    }
 
     // call this after every op mode
     public static void kill() {
