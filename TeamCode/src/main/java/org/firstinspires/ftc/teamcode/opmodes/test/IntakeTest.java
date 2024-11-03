@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 
 @TeleOp(name = "intake test",group = "TeleOp")
 public class IntakeTest extends GreenLinearOpMode {

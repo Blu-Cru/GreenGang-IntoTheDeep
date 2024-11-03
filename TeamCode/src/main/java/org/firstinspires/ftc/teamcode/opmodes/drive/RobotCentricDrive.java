@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.opmodes.tele;
+package org.firstinspires.ftc.teamcode.opmodes.drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 
 //@Config
-@TeleOp(name = "Field centric test",group = "TeleOp")
-public class FieldCentricDrive extends LinearOpMode {
+@TeleOp(name = "Robot centric drive",group = "TeleOp")
+public class RobotCentricDrive extends LinearOpMode {
     Drivetrain drivetrain;
-    double y, x, rx;
+    double y, x, rx, power;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,13 +36,9 @@ public class FieldCentricDrive extends LinearOpMode {
                 Drivetrain.drivePower = 0.6;
             }
 
-           if (gamepad1.options) {
-               drivetrain.setExternalHeading(Math.toRadians(90));
-           }
+            drivetrain.drive(x, y, rx);
 
-           drivetrain.fieldCentricDrive(x, y, rx);
-           drivetrain.telemetry(telemetry);
-           telemetry.update();
         }
     }
 }
+

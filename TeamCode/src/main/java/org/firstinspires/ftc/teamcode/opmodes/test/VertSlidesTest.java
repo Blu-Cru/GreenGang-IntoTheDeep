@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.VertSlides;
+import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
 @Config
 @TeleOp(name = "vert slides test",group = "TeleOp")

@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
 
 public class GreenLinearOpMode extends LinearOpMode {
 
@@ -31,6 +31,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addIntake() {intake = robot.addIntake();}
 
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
+
     @Override
     public void runOpMode() throws InterruptedException {
 

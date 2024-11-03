@@ -1,12 +1,13 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems.intake;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
-public class Intake implements Subsystem{
+public class Intake implements Subsystem {
     CRServo intake, intake2;
     public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(CRServo.class, "leftServo");
