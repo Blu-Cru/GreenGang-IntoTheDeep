@@ -1,37 +1,32 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
 
-@TeleOp(name = "claw test",group = "TeleOp")
-public class ClawTest extends GreenLinearOpMode {
-
+@TeleOp(name = "claw test",group = "test")
+public class TransferTest extends GreenLinearOpMode {
     Transfer claw;
-
-    //@Override
     public void runOpMode() throws InterruptedException {
-        addTransfer();
 
-        claw.init();
+        claw = new Transfer(hardwareMap);
 
         while(opModeInInit()) {
-            telemetry.update();
+            claw.init();
         }
 
         waitForStart();
 
         while(opModeIsActive()) {
 
-            if (gamepad1.left_trigger >.2){
+            if (gamepad2.right_trigger >.2){
                 claw.clawSetPower(1); //TODO: Test on FTC Dash to get correct num
             }
             else {
                 claw.clawSetPower(0); //TODO: Test on FTC Dash to get correct num
             }
 
-            telemetry.update();
+            claw.telemetry(telemetry);
         }
 
     }

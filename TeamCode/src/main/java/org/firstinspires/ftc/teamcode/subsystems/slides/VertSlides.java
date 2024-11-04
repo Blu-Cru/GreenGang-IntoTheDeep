@@ -7,21 +7,31 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
 @Config
-public class VertSlides {
+public class VertSlides implements Subsystem {
     public static double kP = 0.0, kI = 0.0, kD = 0.0;
     DcMotor motor;
     PIDController pid;
 
     public VertSlides(HardwareMap hardwareMap) {
         motor = hardwareMap.get(DcMotor.class, "slidesMotor");
-
         pid = new PIDController(kP, kI, kD);
     }
 
     public void init() {
         pid.setSetPoint(0);
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
     public void update(){

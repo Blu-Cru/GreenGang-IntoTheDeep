@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
+import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
@@ -22,6 +23,7 @@ public class Solo extends GreenLinearOpMode {
     double y, x, rx;
     Drive drive;
 
+    Arm arm; // test wed. then add this into class
     Robot bot;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,6 +31,8 @@ public class Solo extends GreenLinearOpMode {
         color = new IntakeColorSensor(hardwareMap);
         // claw = new Transfer(hardwareMap);
         dt = new Drivetrain(hardwareMap);
+        // arm = new Arm(hardwareMap);
+        // vs = new VertSlides(hardwareMap);
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
@@ -39,19 +43,18 @@ public class Solo extends GreenLinearOpMode {
             color.init();
             color.startReading();
             dt.init();
-
             // claw.init();
 
             if(gamepad1.x) {
                 alliance = alliance.flip();
             }
 
-            if (gamepad1.y){
+            if (gamepad1.b){
                 drive = drive.flip();
             }
 
             telemetry.addData("ALLIANCE: ", alliance);
-            telemetry.addData("DRIVE TYPE: ", drive);
+            telemetry.addData("DRIVE: ", drive);
             telemetry.update();
         }
 
@@ -76,7 +79,7 @@ public class Solo extends GreenLinearOpMode {
 
             // bot.telemetry(telemetry);
 
-            telemetry.addData("SLOT ", color.slotState);
+            telemetry.addData("SLOT ", color.slotState); // not updating for some reason
             telemetry.update();
         }
     }

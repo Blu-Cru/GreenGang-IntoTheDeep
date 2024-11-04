@@ -34,6 +34,6 @@ public class Transfer implements Subsystem {
         claw.setPosition(pos);
     }
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("claw power", claw.getPosition());
+        telemetry.addData("CLAW POWER: ", claw.getPosition());
     }
 }

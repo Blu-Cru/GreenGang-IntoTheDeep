@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
@@ -19,8 +20,7 @@ public class Robot {
     public Transfer transfer;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
-
-    public Alliance alliance;
+    public Arm arm;
 
     // list of all subsystems
     ArrayList<Subsystem> subsystems;
@@ -75,6 +75,12 @@ public class Robot {
         drivetrain = new Drivetrain(hardwareMap);
         subsystems.add(drivetrain);
         return drivetrain;
+    }
+
+    public Arm addArm() {
+        arm = new Arm(hardwareMap);
+        subsystems.add(arm);
+        return arm;
     }
 
     public Transfer addTransfer() {

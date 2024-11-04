@@ -15,21 +15,19 @@ public class VertSlidesTest extends LinearOpMode {
     public static double targetPos = 0.0;
     @Override
     public void runOpMode() throws InterruptedException {
+
         vs = new VertSlides(hardwareMap);
+
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        vs.init();
-
         while(opModeInInit()) {
-            telemetry.update();
+            vs.init();
         }
 
         waitForStart();
 
-
         while(opModeIsActive()) {
             vs.setTargetPos(targetPos);
-
             vs.update();
             vs.telemetry(telemetry);
             telemetry.update();
