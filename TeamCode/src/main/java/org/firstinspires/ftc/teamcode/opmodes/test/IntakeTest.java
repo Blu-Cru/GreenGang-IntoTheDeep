@@ -15,7 +15,9 @@ public class IntakeTest extends GreenLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        addIntake();
+        //addIntake();
+        intake = new Intake(hardwareMap);
+        wrist = new IntakeWrist(hardwareMap);
 
         intake.init();
         wrist.init();

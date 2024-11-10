@@ -11,7 +11,7 @@ public class IntakeWrist implements Subsystem {
 
     CRServo wrist;
 
-    private IntakeWrist(HardwareMap hardwareMap) {
+    public IntakeWrist(HardwareMap hardwareMap) {
         wrist = hardwareMap.get(CRServo.class, "wrist");
         wrist.setDirection(DcMotorSimple.Direction.FORWARD);
     }
