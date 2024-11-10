@@ -21,6 +21,18 @@ public class IntakeWrist implements Subsystem {
         wrist.setPosition(0); // could be wrong
     }
 
+    public void transfer() {
+        wrist.setPosition(0.8);
+    }//update with the bucket
+
+    public void intake(){
+        wrist.setPosition(0.45);
+    }
+
+    public void telemetry(Telemetry telemetry){
+        telemetry.addData("wrist power", wrist.getPosition());
+    }
+
     @Override
     public void read() {
 
@@ -31,15 +43,4 @@ public class IntakeWrist implements Subsystem {
 
     }
 
-    public void transfer() {
-        wrist.setPosition(0.8);
-    }
-
-    public void intake(){
-        wrist.setPosition(0.45);
-    }
-
-    public void telemetry(Telemetry telemetry){
-        telemetry.addData("wrist power", wrist.getPosition());
-    }
 }

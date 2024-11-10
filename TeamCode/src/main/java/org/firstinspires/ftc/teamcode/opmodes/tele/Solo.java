@@ -10,12 +10,14 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
 
 @TeleOp(name="Solo", group ="TeleOp")
 public class Solo extends GreenLinearOpMode {
 
     Intake intake;
+    IntakeWrist wrist;
     IntakeColorSensor color;
     // Transfer claw;
     Alliance alliance;
@@ -75,6 +77,11 @@ public class Solo extends GreenLinearOpMode {
 
             if (color.isFull())
                 spit(color, intake, alliance);
+
+            if(gamepad1.a)
+                wrist.intake();
+            else if(gamepad1.b)
+                wrist.transfer();
 
             // bot.telemetry(telemetry);
 

@@ -44,8 +44,6 @@ public class IntakeTest extends GreenLinearOpMode {
                 wrist.intake();
             } else if (gamepad2.right_bumper){
                 wrist.transfer();
-            } else {
-                wrist.init();
             }
 
             telemetry.update();
