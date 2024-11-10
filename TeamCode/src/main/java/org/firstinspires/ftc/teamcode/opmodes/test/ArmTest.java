@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,6 +17,7 @@ public class ArmTest extends GreenLinearOpMode {
 
     public static int position = 40;
     double power;
+
     public void runOpMode() throws InterruptedException {
 
         //arm = new Arm(hardwareMap);
