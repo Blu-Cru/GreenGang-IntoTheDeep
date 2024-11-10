@@ -11,7 +11,8 @@ public class Intake implements Subsystem {
     CRServo intake, intake2, wrist;
 
     // wrist transfer servo .8
-// intake .45
+    // intake .45
+    // rest
     public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(CRServo.class, "leftServo");
         intake2 = hardwareMap.get(CRServo.class, "rightServo");
