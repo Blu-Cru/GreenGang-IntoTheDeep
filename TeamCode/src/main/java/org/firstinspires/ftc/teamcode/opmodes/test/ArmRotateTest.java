@@ -10,8 +10,6 @@ import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 public class ArmRotateTest extends GreenLinearOpMode {
 
     Arm arm;
-
-    public static int position = 40;
     double power;
     public void runOpMode() throws InterruptedException {
 
@@ -23,12 +21,15 @@ public class ArmRotateTest extends GreenLinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-
-            power = -gamepad2.left_trigger;
-            if (power > .75) { power = .75; }
-            arm.setArmRotatePower(power);
+            if (gamepad2.a){
+               arm.armRotate.setPower(.2);
+            } else if (gamepad2.b){
+                arm.intake();
+            } else {
+                arm.rest();
+            }
+            arm.update();
             arm.telemetry(telemetry);
-
         }
 
     }

@@ -12,6 +12,7 @@ public class IntakeTest extends GreenLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         addIntake();
 
         intake.init();

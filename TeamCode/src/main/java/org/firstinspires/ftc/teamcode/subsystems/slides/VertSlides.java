@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -14,6 +15,8 @@ public class VertSlides implements Subsystem {
     public static double kP = 0.0, kI = 0.0, kD = 0.0;
     DcMotor motor;
     PIDController pid;
+
+    Servo transfer;
 
     public VertSlides(HardwareMap hardwareMap) {
         motor = hardwareMap.get(DcMotor.class, "slidesMotor");
@@ -42,6 +45,10 @@ public class VertSlides implements Subsystem {
 
     public void setTargetPos(double targetPos) {
         pid.setSetPoint(targetPos);
+    }
+
+    public void transfer() {
+        transfer.setPosition(0);
     }
 
     public void SetPower(double power) {

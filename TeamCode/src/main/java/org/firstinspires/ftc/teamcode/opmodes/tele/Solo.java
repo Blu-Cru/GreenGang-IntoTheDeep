@@ -22,7 +22,6 @@ public class Solo extends GreenLinearOpMode {
     Drivetrain dt;
     double y, x, rx;
     Drive drive;
-
     Arm arm; // test wed. then add this into class
     Robot bot;
     @Override

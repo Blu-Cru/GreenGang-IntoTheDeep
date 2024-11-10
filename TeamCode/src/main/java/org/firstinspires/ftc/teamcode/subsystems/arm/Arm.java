@@ -11,11 +11,17 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
 public class Arm implements Subsystem {
-    DcMotorEx armRotate;
+    public DcMotorEx armRotate;
     public static double armP = 0.003, armI = 0, armD = 0.0001;
     private final PIDController armRotatePID;
     public int armRotateTargetPos;
     public double armRotatePower;
+
+    public static int
+        VERTICAL_POS = 0,
+        DOWN_POS = 0,
+        TRANSFER_POS = 0;
+
 
     public Arm(HardwareMap hardwareMap) {
         armRotate = hardwareMap.get(DcMotorEx.class, "armRotate");
@@ -25,8 +31,8 @@ public class Arm implements Subsystem {
     }
 
     public void init() {
-        armRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        armRotate.setPower(0);
+        armRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRotate.setPower(0); // check what power it should be
         armRotate.setDirection(DcMotorSimple.Direction.REVERSE);
         armRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -40,6 +46,17 @@ public class Arm implements Subsystem {
     @Override
     public void write() {
 
+    }
+
+    public void intake(){
+        armRotateTargetPos = DOWN_POS;
+    }
+    public void rest() {
+        armRotateTargetPos = VERTICAL_POS;
+    }
+
+    public void transfer() {
+        armRotateTargetPos = TRANSFER_POS;
     }
 
     public void update() {
