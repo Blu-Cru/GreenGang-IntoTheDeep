@@ -17,6 +17,7 @@ public class ArmTest extends GreenLinearOpMode {
 
     public static int position = 40;
     double power;
+
     public void runOpMode() throws InterruptedException {
 
         //arm = new Arm(hardwareMap);
