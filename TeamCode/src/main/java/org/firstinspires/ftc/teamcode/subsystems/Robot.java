@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class Robot {
 
     // all subsystems
     public Intake intake;
-    public Transfer transfer;
+    public ClawArm transfer;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
     public Arm arm;
@@ -83,8 +82,8 @@ public class Robot {
         return arm;
     }
 
-    public Transfer addTransfer() {
-        transfer = new Transfer(hardwareMap);
+    public ClawArm addTransfer() {
+        transfer = new ClawArm(hardwareMap);
         subsystems.add(transfer);
         return transfer;
     }

@@ -11,13 +11,13 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
-import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
 
 @TeleOp(name="Solo", group ="TeleOp")
 public class Solo extends GreenLinearOpMode {
 
     Intake intake;
-    IntakeWrist wrist;
+    IntakeWrist intakeWrist;
+
     IntakeColorSensor color;
     // Transfer claw;
     Alliance alliance;
@@ -77,6 +77,8 @@ public class Solo extends GreenLinearOpMode {
         dpad left:              med
         dpad up:                high
             */
+
+            /******_Color Sensor_******/
             color.read();
             driveControl();
             drive(drive);
@@ -88,17 +90,24 @@ public class Solo extends GreenLinearOpMode {
             } else {
                 intake.intakeSetPower(0);
             }
-
             if (color.isFull())
                 spit(color, intake, alliance);
 
+
+            /*******_servos_*******/
+
+
+            //intake wrist
             if(gamepad1.a)//x button
-                wrist.intake();
+                intakeWrist.intake();
             else if(gamepad1.b)//circle button
-                wrist.transfer();
+                intakeWrist.transfer();
+
+
+
+            
 
             // bot.telemetry(telemetry);
-
             telemetry.addData("SLOT ", color.slotState); // not updating for some reason
             telemetry.update();
         }

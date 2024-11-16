@@ -2,14 +2,14 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.transfer.Transfer;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
 
 @TeleOp(name = "claw test",group = "test")
 public class TransferTest extends GreenLinearOpMode {
-    Transfer claw;
+    ClawArm claw;
     public void runOpMode() throws InterruptedException {
 
-        claw = new Transfer(hardwareMap);
+        claw = new ClawArm(hardwareMap);
 
         while(opModeInInit()) {
             claw.init();
@@ -20,10 +20,10 @@ public class TransferTest extends GreenLinearOpMode {
         while(opModeIsActive()) {
 
             if (gamepad2.right_trigger >.2){
-                claw.clawSetPower(1); //TODO: Test on FTC Dash to get correct num
+                //.clawArmSetPos(1); //TODO: Test on FTC Dash to get correct num
             }
             else {
-                claw.clawSetPower(0); //TODO: Test on FTC Dash to get correct num
+                //claw.clawArmSetPos(0); //TODO: Test on FTC Dash to get correct num
             }
 
             claw.telemetry(telemetry);
