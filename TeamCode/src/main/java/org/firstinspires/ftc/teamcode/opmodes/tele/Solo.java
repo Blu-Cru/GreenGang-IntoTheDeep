@@ -62,7 +62,21 @@ public class Solo extends GreenLinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-
+            /*
+        CONTROLS:
+        gamepad1:
+        left stick:             Driving
+        right stick:            Rotation
+        left bumper (hold):     slower driving
+        a (x):                  close grabber
+        b (circle):             open grabber
+        x (square):             manual slide down
+        y (triangle):           manual slide up
+        dpad down:              base
+        dpad right:             low
+        dpad left:              med
+        dpad up:                high
+            */
             color.read();
             driveControl();
             drive(drive);
@@ -78,9 +92,9 @@ public class Solo extends GreenLinearOpMode {
             if (color.isFull())
                 spit(color, intake, alliance);
 
-            if(gamepad1.a)
+            if(gamepad1.a)//x button
                 wrist.intake();
-            else if(gamepad1.b)
+            else if(gamepad1.b)//circle button
                 wrist.transfer();
 
             // bot.telemetry(telemetry);
