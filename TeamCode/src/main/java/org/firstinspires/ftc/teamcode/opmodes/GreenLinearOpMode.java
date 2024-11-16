@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
 
 public class GreenLinearOpMode extends LinearOpMode {
@@ -15,6 +16,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Drivetrain drivetrain;
     public ClawArm transfer;
     public Intake intake;
+    public IntakeWrist intakeWrist;
     public IntakeColorSensor intakeColorSensor;
     public Arm arm;
 
@@ -31,6 +33,10 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addTransfer() {transfer = robot.addTransfer();}
 
     public void addIntake() {intake = robot.addIntake();}
+    public void addIntakeWrist()
+    {
+        intakeWrist = robot.addIntakeWrist();
+    }
 
     public void addArm() {arm = robot.addArm();}
 

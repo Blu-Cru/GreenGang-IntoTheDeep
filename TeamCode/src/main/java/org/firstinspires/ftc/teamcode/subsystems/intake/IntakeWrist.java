@@ -20,17 +20,15 @@ public class IntakeWrist implements Subsystem {
     }
 
     public void init() {
-        intakeWristController = (ServoControllerEx) wrist.getController();
         wrist.setPosition(0); // could be wrong
     }
 
     public void transfer() {
-        intakeWristController.setServoPwmEnable(wrist.getPortNumber());
-        wrist.setPosition(0.8);
+        wrist.setPosition(0);
     }//update with the bucket
 
     public void intake(){
-        wrist.setPosition(0.45);
+        wrist.setPosition(0.62);
     }
 
     public void telemetry(Telemetry telemetry){

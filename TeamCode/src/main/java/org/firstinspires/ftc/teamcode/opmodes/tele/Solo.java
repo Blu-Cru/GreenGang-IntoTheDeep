@@ -15,23 +15,19 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 @TeleOp(name="Solo", group ="TeleOp")
 public class Solo extends GreenLinearOpMode {
 
-    Intake intake;
-    IntakeWrist intakeWrist;
 
-    IntakeColorSensor color;
-    // Transfer claw;
     Alliance alliance;
-    Drivetrain dt;
     double y, x, rx;
     Drive drive;
-    Arm arm; // test wed. then add this into class
-    Robot bot;
+
     @Override
     public void runOpMode() throws InterruptedException {
-        intake = new Intake(hardwareMap);
-        color = new IntakeColorSensor(hardwareMap);
+        robot = Robot.getInstance().create(hardwareMap);
+        addDrivetrain();
+        addIntakeColorSensor();
+        addIntake();
+        addIntakeWrist();
         // claw = new Transfer(hardwareMap);
-        dt = new Drivetrain(hardwareMap);
         // arm = new Arm(hardwareMap);
         // vs = new VertSlides(hardwareMap);
 
@@ -40,11 +36,8 @@ public class Solo extends GreenLinearOpMode {
 
         while(opModeInInit()) {
 
-            intake.init();
-            color.init();
-            color.startReading();
-            dt.init();
-            // claw.init();
+            robot.init();
+            robot.color.startReading();
 
             if(gamepad1.x) {
                 alliance = alliance.flip();
@@ -79,19 +72,19 @@ public class Solo extends GreenLinearOpMode {
             */
 
             /******_Color Sensor_******/
-            color.read();
+            robot.color.read();
             driveControl();
             drive(drive);
 
-            if (gamepad1.left_bumper && !color.isFull()) {
-                intake.intakeSetPower(1);
+            if (gamepad1.left_bumper && !robot.color.isFull()) {
+                robot.intake.intakeSetPower(1);
             } else if (gamepad1.right_bumper) {
-                intake.intakeSetPower(-1);
+                robot.intake.intakeSetPower(-1);
             } else {
-                intake.intakeSetPower(0);
+                robot.intake.intakeSetPower(0);
             }
-            if (color.isFull())
-                spit(color, intake, alliance);
+            if (robot.color.isFull())
+                spit(robot.color, robot.intake, alliance);
 
 
             /*******_servos_*******/
@@ -99,16 +92,16 @@ public class Solo extends GreenLinearOpMode {
 
             //intake wrist
             if(gamepad1.a)//x button
-                intakeWrist.intake();
+                robot.intakeWrist.intake();
             else if(gamepad1.b)//circle button
-                intakeWrist.transfer();
+                robot.intakeWrist.transfer();
 
 
 
             
 
             // bot.telemetry(telemetry);
-            telemetry.addData("SLOT ", color.slotState); // not updating for some reason
+            telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
             telemetry.update();
         }
     }
@@ -116,14 +109,15 @@ public class Solo extends GreenLinearOpMode {
     public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
         switch(alliance) {
             case RED:
-                if (color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
-                    intake.intakeSetPower(-1);
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
+                    robot.intake.intakeSetPower(-1);
                 }
-
+                break;
             case BLUE:
-                if (color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
-                    intake.intakeSetPower(-1);
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
+                    robot.intake.intakeSetPower(-1);
                 }
+                break;
         }
     }
 
@@ -132,12 +126,13 @@ public class Solo extends GreenLinearOpMode {
             case FIELDCENTRIC:
 
                 if (gamepad1.options) {
-                    dt.setExternalHeading(Math.toRadians(90));
+                    robot.drivetrain.setExternalHeading(Math.toRadians(90));
                 }
-                dt.fieldCentricDrive(x, y, rx);
-
+                robot.drivetrain.fieldCentricDrive(x, y, rx);
+                break;
             case ROBOTCENTRIC:
-                dt.drive(x, y, rx);
+                robot.drivetrain.drive(x, y, rx);
+                break;
         }
     }
 

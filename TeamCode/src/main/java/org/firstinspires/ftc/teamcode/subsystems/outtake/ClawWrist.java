@@ -20,7 +20,7 @@ public class ClawWrist {
     }
 
     public void intake(){
-        clawWrist.setPosition(0.45);//fix
+        clawWrist.setPosition(0.448);//fix
     }
     public void transfer() {
         clawWrist.setPosition(0.8);
