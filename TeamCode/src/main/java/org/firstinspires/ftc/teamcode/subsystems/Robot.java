@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.OuttakeClaw;
 
 import java.util.ArrayList;
 
@@ -22,8 +24,8 @@ public class Robot {
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
     public Arm arm;
-
-    // list of all subsystems
+    public ClawWrist clawWrist;
+    public OuttakeClaw outtakeClaw;
     ArrayList<Subsystem> subsystems;
 
     public static Robot getInstance() {
@@ -65,6 +67,18 @@ public class Robot {
         intake = new Intake(hardwareMap);
         subsystems.add(intake);
         return intake;
+    }
+
+    public ClawWrist addClawWrist(){
+        clawWrist = new ClawWrist(hardwareMap);
+        subsystems.add(clawWrist);
+        return clawWrist;
+    }
+
+    public OuttakeClaw addOuttakeClaw(){
+        outtakeClaw = new OuttakeClaw(hardwareMap);
+        subsystems.add(outtakeClaw);
+        return outtakeClaw;
     }
 
     public IntakeWrist addIntakeWrist()

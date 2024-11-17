@@ -7,15 +7,31 @@ import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 
+/* CONTROLS:
+
+gamepad1:
+
+left stick:             Driving
+right stick:            Rotation
+left bumper (hold):     slower driving
+a (x):                  close grabber
+b (circle):             open grabber
+x (square):             manual slide down
+y (triangle):           manual slide up
+dpad down:              base
+dpad right:             low
+dpad left:              med
+dpad up:                high
+*/
+
 @TeleOp(name="Solo", group ="TeleOp")
 public class Solo extends GreenLinearOpMode {
-
-
     Alliance alliance;
     double y, x, rx;
     Drive drive;
@@ -23,27 +39,33 @@ public class Solo extends GreenLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = Robot.getInstance().create(hardwareMap);
+
         addDrivetrain();
         addIntakeColorSensor();
         addIntake();
         addIntakeWrist();
-        // claw = new Transfer(hardwareMap);
-        // arm = new Arm(hardwareMap);
+        addStickyG1();
+        addStickyG2();
+
+        // TODO: these need to be implemented to be used in this opmode
+        addClawArm();
+        addOuttakeClaw();
+        addClawWrist();
+        addArm();
+
         // vs = new VertSlides(hardwareMap);
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
 
         while(opModeInInit()) {
-
             robot.init();
             robot.color.startReading();
 
-            if(gamepad1.x) {
+            if(stickyG1.x) {
                 alliance = alliance.flip();
             }
-
-            if (gamepad1.b){
+            if (stickyG1.b){
                 drive = drive.flip();
             }
 
@@ -55,23 +77,9 @@ public class Solo extends GreenLinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-            /*
-        CONTROLS:
-        gamepad1:
-        left stick:             Driving
-        right stick:            Rotation
-        left bumper (hold):     slower driving
-        a (x):                  close grabber
-        b (circle):             open grabber
-        x (square):             manual slide down
-        y (triangle):           manual slide up
-        dpad down:              base
-        dpad right:             low
-        dpad left:              med
-        dpad up:                high
-            */
 
-            /******_Color Sensor_******/
+            /* INTAKE */
+
             robot.color.read();
             driveControl();
             drive(drive);
@@ -86,19 +94,10 @@ public class Solo extends GreenLinearOpMode {
             if (robot.color.isFull())
                 spit(robot.color, robot.intake, alliance);
 
-
-            /*******_servos_*******/
-
-
-            //intake wrist
-            if(gamepad1.a)//x button
+            if(gamepad1.a) //x button
                 robot.intakeWrist.intake();
-            else if(gamepad1.b)//circle button
+            else if(gamepad1.b) //circle button
                 robot.intakeWrist.transfer();
-
-
-
-            
 
             // bot.telemetry(telemetry);
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
@@ -124,7 +123,6 @@ public class Solo extends GreenLinearOpMode {
     public void drive(Drive drive){
         switch(drive) {
             case FIELDCENTRIC:
-
                 if (gamepad1.options) {
                     robot.drivetrain.setExternalHeading(Math.toRadians(90));
                 }

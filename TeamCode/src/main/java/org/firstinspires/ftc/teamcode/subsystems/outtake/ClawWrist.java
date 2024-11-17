@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
-public class ClawWrist {
+public class ClawWrist implements Subsystem {
     Servo clawWrist;
     private ServoControllerEx clawWristController;
 
@@ -17,6 +18,16 @@ public class ClawWrist {
     public void init() {
         clawWristController = (ServoControllerEx) clawWrist.getController();
         //clawWrist.setPosition(1);
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
     public void intake(){

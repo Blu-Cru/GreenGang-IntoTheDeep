@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
-public class OuttakeClaw {
+public class OuttakeClaw implements Subsystem {
     Servo outtakeClaw;
 
     private ServoControllerEx outtakeClawController;
@@ -18,6 +19,16 @@ public class OuttakeClaw {
     public void init() {
         outtakeClawController = (ServoControllerEx) outtakeClaw.getController();
         //outtakeClaw.setPosition(1);
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
     public void close(){

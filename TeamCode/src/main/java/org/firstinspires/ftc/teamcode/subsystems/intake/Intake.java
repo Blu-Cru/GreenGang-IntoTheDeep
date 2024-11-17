@@ -48,6 +48,4 @@ public class Intake implements Subsystem {
         telemetry.addData("intake2 power", intake2.getPower());
     }
 
-
-
 }
