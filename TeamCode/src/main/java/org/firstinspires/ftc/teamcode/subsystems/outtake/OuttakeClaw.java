@@ -21,16 +21,6 @@ public class OuttakeClaw implements Subsystem {
         //outtakeClaw.setPosition(1);
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
     public void close(){
         outtakeClaw.setPosition(0.45);//fix
     }
@@ -44,6 +34,16 @@ public class OuttakeClaw implements Subsystem {
 
     public void telemetry(Telemetry telemetry){
         telemetry.addData("outtake claw power", outtakeClaw.getPosition());
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
 

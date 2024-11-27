@@ -38,16 +38,6 @@ public class Arm implements Subsystem {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
     public void intake(){
         armRotateTargetPos = DOWN_POS;
     }
@@ -76,6 +66,16 @@ public class Arm implements Subsystem {
 
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("ARM CURRENT POS: ", armRotate.getCurrentPosition());
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 
 }
