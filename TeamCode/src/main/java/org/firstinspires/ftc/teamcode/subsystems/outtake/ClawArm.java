@@ -20,10 +20,10 @@ public class ClawArm implements Subsystem {
     }
 
     public void intake(){
-        clawArm.setPosition(0.45);//fix
+        clawArm.setPosition(0.3);//fix
     }
     public void transfer() {
-        clawArm.setPosition(0.8);//fix
+        clawArm.setPosition(0);//fix
     }
     public void clawWristSetPos(double pos){
         clawArmController.setServoPwmEnable(clawArm.getPortNumber());

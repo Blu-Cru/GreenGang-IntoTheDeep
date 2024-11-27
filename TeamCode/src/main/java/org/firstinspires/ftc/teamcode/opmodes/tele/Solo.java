@@ -57,9 +57,10 @@ public class Solo extends GreenLinearOpMode {
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
+        robot.init();
 
         while(opModeInInit()) {
-            robot.init();
+
             robot.color.startReading();
 
             if(stickyG1.x) {
@@ -69,6 +70,8 @@ public class Solo extends GreenLinearOpMode {
                 drive = drive.flip();
             }
 
+            stickyG1.update();
+            stickyG2.update();
             telemetry.addData("ALLIANCE: ", alliance);
             telemetry.addData("DRIVE: ", drive);
             telemetry.update();

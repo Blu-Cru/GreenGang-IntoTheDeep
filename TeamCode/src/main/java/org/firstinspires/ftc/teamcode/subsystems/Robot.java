@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
@@ -83,6 +85,7 @@ public class Robot {
 
     public IntakeWrist addIntakeWrist()
     {
+        intakeWrist =new IntakeWrist(hardwareMap);
         subsystems.add(intakeWrist);
         return intakeWrist;
     }

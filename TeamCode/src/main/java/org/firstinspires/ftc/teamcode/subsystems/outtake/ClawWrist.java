@@ -21,10 +21,10 @@ public class ClawWrist implements Subsystem {
     }
 
     public void intake(){
-        clawWrist.setPosition(0.448);//fix
+        clawWrist.setPosition(0.448);//0.448
     }
     public void transfer() {
-        clawWrist.setPosition(0.8);
+        clawWrist.setPosition(1);
     }
     public void clawWristSetPos(double pos){
         clawWristController.setServoPwmEnable(clawWrist.getPortNumber());
