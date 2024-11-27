@@ -20,7 +20,7 @@ public class ClawArm implements Subsystem {
     }
 
     public void intake(){
-        clawArm.setPosition(0.3);//fix
+        clawArm.setPosition(0.25);//fix
     }
     public void transfer() {
         clawArm.setPosition(0);//fix
@@ -30,8 +30,9 @@ public class ClawArm implements Subsystem {
         clawArm.setPosition(pos);
     }
 
-    public void telemetry(Telemetry telemetry) {
+    public String telemetry(Telemetry telemetry) {
         telemetry.addData("claw arm position: ", clawArm.getPosition());
+        return null;
     }
 
     @Override

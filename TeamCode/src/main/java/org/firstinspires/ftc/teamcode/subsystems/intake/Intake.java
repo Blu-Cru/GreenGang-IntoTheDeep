@@ -40,7 +40,7 @@ public class Intake implements Subsystem {
 
     public void in(){
         intake.setPower(1);
-        intake.setPower(1);
+        intake2.setPower(1);
     }
 
     public void stop(){
@@ -53,9 +53,10 @@ public class Intake implements Subsystem {
         intake2.setPower(-1);
     }
 
-    public void telemetry(Telemetry telemetry) {
+    public String telemetry(Telemetry telemetry) {
         telemetry.addData("intake power", intake.getPower());
         telemetry.addData("intake2 power", intake2.getPower());
+        return null;
     }
 
 }

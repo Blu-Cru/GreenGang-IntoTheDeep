@@ -32,8 +32,9 @@ public class OuttakeClaw implements Subsystem {
         outtakeClaw.setPosition(pos);
     }
 
-    public void telemetry(Telemetry telemetry){
+    public String telemetry(Telemetry telemetry){
         telemetry.addData("outtake claw power", outtakeClaw.getPosition());
+        return null;
     }
 
     @Override

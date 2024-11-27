@@ -18,8 +18,8 @@ public class Arm implements Subsystem {
     public double armRotatePower;
 
     public static int
-        VERTICAL_POS = 0,
-        DOWN_POS = 0,
+        VERTICAL_POS = 73,
+        DOWN_POS = 182,
         TRANSFER_POS = 0;
 
 
@@ -64,8 +64,9 @@ public class Arm implements Subsystem {
         armRotate.setPower(power);
     }
 
-    public void telemetry(Telemetry telemetry) {
+    public String telemetry(Telemetry telemetry) {
         telemetry.addData("ARM CURRENT POS: ", armRotate.getCurrentPosition());
+        return null;
     }
 
     @Override

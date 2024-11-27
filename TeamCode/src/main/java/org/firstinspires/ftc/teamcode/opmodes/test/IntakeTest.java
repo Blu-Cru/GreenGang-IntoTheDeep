@@ -31,13 +31,13 @@ public class IntakeTest extends GreenLinearOpMode {
         while(opModeIsActive()) {
 
             if(gamepad1.left_bumper) {
-                intake.intakeSetPower(1);
+                intake.in();
             }
             else if(gamepad1.right_bumper) {
-                intake.intakeSetPower(-1);
+                intake.spit();
             }
             else{
-                intake.intakeSetPower(0);
+                intake.stop();
             }
 
             if (gamepad2.left_bumper){

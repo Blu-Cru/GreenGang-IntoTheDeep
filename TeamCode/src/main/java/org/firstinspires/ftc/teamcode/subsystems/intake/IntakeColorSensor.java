@@ -134,7 +134,7 @@ public class IntakeColorSensor implements Subsystem {
             return slotState != SlotState.EMPTY;
         }
 
-        public void telemetry (Telemetry telemetry){
+        public String telemetry (Telemetry telemetry){
             telemetry.addData("R", r);
             telemetry.addData("G", g);
             telemetry.addData("front B", b);
@@ -143,6 +143,7 @@ public class IntakeColorSensor implements Subsystem {
 //            telemetry.addData("front V:: ", frontHSV[2]);
             telemetry.addData("slot state: ", slotState);
             telemetry.addData("distance", distance);
+            return null;
         }
     }
 

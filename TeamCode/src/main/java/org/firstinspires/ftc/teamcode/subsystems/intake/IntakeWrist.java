@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake;
 
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoControllerEx;
@@ -20,19 +18,20 @@ public class IntakeWrist implements Subsystem {
     }
 
     public void init() {
-        wrist.setPosition(0.62); // could be wrong
+        wrist.setPosition(0.75); // could be wrong
     }
 
     public void transfer() {
-        wrist.setPosition(0);
+        wrist.setPosition(0.4);
     }//update with the bucket
 
     public void intake(){
-        wrist.setPosition(0.62);
+        wrist.setPosition(0.75);
     }
 
-    public void telemetry(Telemetry telemetry){
+    public String telemetry(Telemetry telemetry){
         telemetry.addData("intake wrist power", wrist.getPosition());
+        return null;
     }
     @Override
     public void read() {

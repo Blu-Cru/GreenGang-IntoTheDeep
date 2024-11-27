@@ -31,8 +31,9 @@ public class ClawWrist implements Subsystem {
         clawWrist.setPosition(pos);
     }
 
-    public void telemetry(Telemetry telemetry){
+    public String telemetry(Telemetry telemetry){
         telemetry.addData("claw wrist power", clawWrist.getPosition());
+        return null;
     }
 
     @Override

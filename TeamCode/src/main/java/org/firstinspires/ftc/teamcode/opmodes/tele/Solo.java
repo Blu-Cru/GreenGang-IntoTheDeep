@@ -95,16 +95,27 @@ public class Solo extends GreenLinearOpMode {
                 robot.intake.stop();
             }
 
-            if (robot.color.isFull())
+            if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
                 spit(robot.color, robot.intake, alliance);
 
+
+            //Intake
             if(gamepad1.a) //x button
                 robot.intakeWrist.intake();
             else if(gamepad1.b) //circle button
                 robot.intakeWrist.transfer();
 
+            if(gamepad2.a)
+                robot.arm.intake();
+            else if(gamepad2.y)
+                robot.arm.transfer();
+            else if(gamepad2.b)
+                robot.arm.rest();
+
+
             // bot.telemetry(telemetry);
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
+            telemetry.addData("Arm Position", robot.arm.telemetry(telemetry));
             telemetry.update();
         }
     }

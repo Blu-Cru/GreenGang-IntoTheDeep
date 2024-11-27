@@ -55,8 +55,9 @@ public class VertSlides implements Subsystem {
         motor.setPower(power);
     }
 
-    public void telemetry(Telemetry telemetry) {
+    public String telemetry(Telemetry telemetry) {
         telemetry.addData("motor power", motor.getPower());
         telemetry.addData("current pos", motor.getCurrentPosition());
+        return null;
     }
 }
