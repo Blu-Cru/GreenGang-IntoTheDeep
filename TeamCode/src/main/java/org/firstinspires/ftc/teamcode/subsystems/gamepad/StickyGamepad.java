@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.subsystems.gamepad;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+
 // StickyGamepad is a copy pasted class that does rising edge detection for the buttons
-public class StickyGamepad {
+public class StickyGamepad implements Subsystem {
     private final Gamepad gamepad;
 
     public boolean dpad_up, dpad_down, dpad_left, dpad_right;
@@ -178,5 +181,25 @@ public class StickyGamepad {
             back = false;
             back_down = false;
         }
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
+    }
+
+    @Override
+    public void telemetry(Telemetry telemetry) {
+
     }
 }
