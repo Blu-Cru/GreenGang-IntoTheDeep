@@ -20,7 +20,7 @@ public class IntakeWrist implements Subsystem {
     }
 
     public void init() {
-        wrist.setPosition(0); // could be wrong
+        wrist.setPosition(0.62); // could be wrong
     }
 
     public void transfer() {

@@ -20,16 +20,6 @@ public class ClawWrist implements Subsystem {
         //clawWrist.setPosition(1);
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
     public void intake(){
         clawWrist.setPosition(0.448);//fix
     }
@@ -43,5 +33,15 @@ public class ClawWrist implements Subsystem {
 
     public void telemetry(Telemetry telemetry){
         telemetry.addData("claw wrist power", clawWrist.getPosition());
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void write() {
+
     }
 }
