@@ -94,7 +94,7 @@ public class IntakeColorSensor implements Subsystem {
     }
 
     public SlotState getSlotState() {
-        if (distance >= 1) {
+        if (distance >= 1.5) {
             return SlotState.EMPTY;
         } else {
             if (g > r && g > b) {
