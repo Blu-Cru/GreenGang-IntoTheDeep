@@ -88,12 +88,13 @@ public class Solo extends GreenLinearOpMode {
             drive(drive);
 
             if (gamepad1.left_bumper && !robot.color.isFull()) {
-                robot.intake.intakeSetPower(1);
+                robot.intake.in();
             } else if (gamepad1.right_bumper) {
-                robot.intake.intakeSetPower(-1);
+                robot.intake.spit();
             } else {
-                robot.intake.intakeSetPower(0);
+                robot.intake.stop();
             }
+
             if (robot.color.isFull())
                 spit(robot.color, robot.intake, alliance);
 
@@ -112,12 +113,12 @@ public class Solo extends GreenLinearOpMode {
         switch(alliance) {
             case RED:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
-                    robot.intake.intakeSetPower(-1);
+                    robot.intake.spit();
                 }
                 break;
             case BLUE:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
-                    robot.intake.intakeSetPower(-1);
+                    robot.intake.spit();
                 }
                 break;
         }

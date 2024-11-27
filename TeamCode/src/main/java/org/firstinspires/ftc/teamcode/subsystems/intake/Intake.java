@@ -38,9 +38,19 @@ public class Intake implements Subsystem {
 
     }
 
-    public void intakeSetPower(double power) {
-        intake.setPower(power);
-        intake2.setPower(power);
+    public void in(){
+        intake.setPower(1);
+        intake.setPower(1);
+    }
+
+    public void stop(){
+        intake.setPower(0);
+        intake2.setPower(0);
+    }
+
+    public void spit(){
+        intake.setPower(-1);
+        intake2.setPower(-1);
     }
 
     public void telemetry(Telemetry telemetry) {
