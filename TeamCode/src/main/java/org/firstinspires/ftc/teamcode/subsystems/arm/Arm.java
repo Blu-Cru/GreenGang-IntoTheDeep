@@ -59,6 +59,11 @@ public class Arm implements Subsystem {
         return armRotate.getCurrentPosition();
     }
 
+    public void autoArmRotate(double power, int targetPos) {
+        armRotate.setPower(power);
+        armRotate.setTargetPosition(targetPos);
+        armRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
     public void setArmRotatePower(double power) {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armRotate.setPower(power);

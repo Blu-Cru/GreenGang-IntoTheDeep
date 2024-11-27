@@ -106,14 +106,26 @@ public class Solo extends GreenLinearOpMode {
                 robot.intakeWrist.transfer();
 
             if(gamepad2.a)
-                robot.arm.intake();
+                robot.arm.autoArmRotate(.5, arm.DOWN_POS);
             else if(gamepad2.y)
-                robot.arm.transfer();
+                robot.arm.autoArmRotate(.5, arm.VERTICAL_POS);
             else if(gamepad2.b)
-                robot.arm.rest();
+                robot.arm.autoArmRotate(.5, arm.TRANSFER_POS);
 
 
-            // bot.telemetry(telemetry);
+            //Outtake
+            if(gamepad1.y) //triangle
+                robot.clawWrist.intake();
+            if(gamepad1.x)
+                robot.clawWrist.transfer();
+
+            if(gamepad2.y) //triangle
+                robot.transfer.intake();
+            if(gamepad2.x)
+                robot.transfer.transfer();//arm
+
+
+
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
             telemetry.addData("Arm Position", robot.arm.telemetry(telemetry));
             telemetry.update();
