@@ -138,9 +138,6 @@ public class IntakeColorSensor implements Subsystem {
             telemetry.addData("R", r);
             telemetry.addData("G", g);
             telemetry.addData("front B", b);
-//            telemetry.addData("front H:: ", frontHSV[0]);
-//            telemetry.addData("front S:: ", frontHSV[1]);
-//            telemetry.addData("front V:: ", frontHSV[2]);
             telemetry.addData("slot state: ", slotState);
             telemetry.addData("distance", distance);
             return null;

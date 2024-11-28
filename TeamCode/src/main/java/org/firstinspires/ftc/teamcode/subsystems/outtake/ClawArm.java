@@ -19,7 +19,8 @@ public class ClawArm implements Subsystem {
         //claw.setPosition(1);
     }
 
-    public void intake(){
+    public void intake() {
+
         clawArm.setPosition(0.25);//fix
     }
     public void transfer() {

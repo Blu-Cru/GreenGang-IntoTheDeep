@@ -9,26 +9,21 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
 public class ClawWrist implements Subsystem {
     Servo clawWrist;
-    private ServoControllerEx clawWristController;
 
     public ClawWrist(HardwareMap hardwareMap) {
         clawWrist = hardwareMap.get(Servo.class, "claw wrist");
     }
 
     public void init() {
-        clawWristController = (ServoControllerEx) clawWrist.getController();
-        //clawWrist.setPosition(1);
     }
 
     public void intake(){
-        clawWrist.setPosition(0.448);//0.448
+
+        clawWrist.setPosition(0.448);
     }
     public void transfer() {
+
         clawWrist.setPosition(1);
-    }
-    public void clawWristSetPos(double pos){
-        clawWristController.setServoPwmEnable(clawWrist.getPortNumber());
-        clawWrist.setPosition(pos);
     }
 
     public String telemetry(Telemetry telemetry){

@@ -10,17 +10,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 public class Intake implements Subsystem {
     CRServo intake, intake2;
 
-    // wrist transfer servo .8
-    // intake .45
-    // rest
     public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(CRServo.class, "leftServo");
         intake2 = hardwareMap.get(CRServo.class, "rightServo");
 
         intake.setDirection(Direction.REVERSE);
         intake2.setDirection(Direction.FORWARD);
-        // might need to be updated
-        // set direction: Forward = blocks in
     }
 
     public void init() {
