@@ -4,14 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
 
 public class GreenLinearOpMode extends LinearOpMode {
 
@@ -24,7 +24,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Intake intake;
     public IntakeWrist intakeWrist;
     public IntakeColorSensor intakeColorSensor;
-    public Arm arm;
+    public IntakeArm arm;
     public StickyGamepad stickyG1;
     public StickyGamepad stickyG2;
 

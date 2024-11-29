@@ -4,14 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
-import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 
 /* CONTROLS:
 
@@ -122,12 +119,12 @@ public class Solo extends GreenLinearOpMode {
             if(gamepad2.y) //triangle
                 robot.transfer.intake();
             if(gamepad2.x)
-                robot.transfer.transfer();//arm
+                robot.transfer.bucket();//arm
 
 
 
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
-            telemetry.addData("Arm Position", robot.arm.telemetry(telemetry));
+            telemetry.addData("IntakeArm Position", robot.arm.telemetry(telemetry));
             telemetry.update();
         }
     }

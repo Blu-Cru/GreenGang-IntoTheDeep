@@ -1,38 +1,51 @@
-package org.firstinspires.ftc.teamcode.subsystems.outtake;
+package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
 public class ClawArm implements Subsystem {
     public Servo clawArm;
-    private ServoControllerEx clawArmController;
+
+    public enum STATE {
+        INIT,
+        BUCKET,
+        SPEC;
+    }
+
+    public STATE state;
     public ClawArm(HardwareMap hardwareMap) {
         clawArm = hardwareMap.get(Servo.class, "claw arm");
+        state = STATE.INIT;
     }
 
     public void init() {
-        clawArmController = (ServoControllerEx) clawArm.getController();
         //claw.setPosition(1);
     }
 
     public void intake() {
+        clawArm.setPosition(0.25); //fix
+        state = STATE.INIT; // double check
+    }
+    public void bucket() {
+        clawArm.setPosition(0); //fix
+        state = STATE.BUCKET;
+    }
 
-        clawArm.setPosition(0.25);//fix
+    public void spec(){
+        clawArm.setPosition(0); // get num
+        state = STATE.SPEC;
     }
-    public void transfer() {
-        clawArm.setPosition(0);//fix
-    }
-    public void clawWristSetPos(double pos){
-        clawArmController.setServoPwmEnable(clawArm.getPortNumber());
+
+    private void clawWristSetPos(double pos){
         clawArm.setPosition(pos);
     }
 
     public String telemetry(Telemetry telemetry) {
-        telemetry.addData("claw arm position: ", clawArm.getPosition());
+        telemetry.addData("CLAW ARM POS: ", clawArm.getPosition());
+        telemetry.addData("CLAW ARM STATE: ", state);
         return null;
     }
 
