@@ -12,7 +12,8 @@ public class ClawArm implements Subsystem {
     public enum STATE {
         INIT,
         BUCKET,
-        SPEC;
+        OUTSPEC,
+        INSPEC;
     }
 
     public STATE state;
@@ -34,9 +35,14 @@ public class ClawArm implements Subsystem {
         state = STATE.BUCKET;
     }
 
-    public void spec(){
+    public void outSpec(){
         clawArm.setPosition(0); // get num
-        state = STATE.SPEC;
+        state = STATE.OUTSPEC;
+    }
+
+    public void inSpec(){
+        // sum
+        state = STATE.INSPEC;
     }
 
     private void clawWristSetPos(double pos){

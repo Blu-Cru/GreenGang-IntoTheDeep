@@ -20,7 +20,7 @@ public class IntakeArm implements Subsystem {
     public static int
         VERTICAL_POS = 73,
         DOWN_POS = 182,
-        TRANSFER_POS = 0;
+        INIT = 0;
 
 
     public IntakeArm(HardwareMap hardwareMap) {
@@ -46,7 +46,7 @@ public class IntakeArm implements Subsystem {
     }
 
     public void transfer() {
-        armRotateTargetPos = TRANSFER_POS;
+        armRotateTargetPos = INIT;
     }
 
     public void update() {

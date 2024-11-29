@@ -20,7 +20,8 @@ public class VertSlides implements Subsystem {
         INIT,
         LOW,
         HIGH,
-        SPEC;
+        OUTSPEC,
+        INSPEC;
     }
 
     public STATE state;
@@ -62,9 +63,14 @@ public class VertSlides implements Subsystem {
         state = STATE.HIGH;
         //sum
     }
-    public void spec(){
-        state = STATE.SPEC;
+    public void outkSpec(){
+        state = STATE.OUTSPEC;
         // sum
+    }
+
+    public void intkSpec(){
+        // sum
+        state = STATE.INSPEC;
     }
 
     public void drop(){

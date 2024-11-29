@@ -25,12 +25,15 @@ dpad down:              base
 dpad right:             low
 dpad left:              med
 dpad up:                high
+
+gamepad2:
+
 */
 
-@TeleOp(name="Solo", group ="TeleOp")
-public class Solo extends GreenLinearOpMode {
+@TeleOp(name="Main", group ="TeleOp")
+public class Main extends GreenLinearOpMode {
     Alliance alliance;
-    double y, x, rx;
+
     Drive drive;
 
     @Override
@@ -43,22 +46,18 @@ public class Solo extends GreenLinearOpMode {
         addIntakeWrist();
         addStickyG1();
         addStickyG2();
-
-        // TODO: these need to be implemented to be used in this opmode
         addClawArm();
         addOuttakeClaw();
         addClawWrist();
         addArm();
-
         // vs = new VertSlides(hardwareMap);
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
         robot.init();
+        robot.color.startReading();
 
         while(opModeInInit()) {
-
-            robot.color.startReading();
 
             if(stickyG1.x) {
                 alliance = alliance.flip();
@@ -78,12 +77,13 @@ public class Solo extends GreenLinearOpMode {
 
         while(opModeIsActive()) {
 
-            /* INTAKE */
-
             robot.color.read();
             driveControl();
             drive(drive);
 
+            /* INTAKE */
+
+            // intk
             if (gamepad1.left_bumper && !robot.color.isFull()) {
                 robot.intake.in();
             } else if (gamepad1.right_bumper) {
@@ -95,79 +95,37 @@ public class Solo extends GreenLinearOpMode {
             if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
                 spit(robot.color, robot.intake, alliance);
 
-
-            //Intake
+            // intk wrist
             if(gamepad1.a) //x button
                 robot.intakeWrist.intake();
             else if(gamepad1.b) //circle button
                 robot.intakeWrist.transfer();
 
+            // intk arm
             if(gamepad2.a)
-                robot.arm.autoArmRotate(.5, arm.DOWN_POS);
+                robot.intakeArm.autoArmRotate(.5, arm.DOWN_POS);
             else if(gamepad2.y)
-                robot.arm.autoArmRotate(.5, arm.VERTICAL_POS);
+                robot.intakeArm.autoArmRotate(.5, arm.VERTICAL_POS);
             else if(gamepad2.b)
-                robot.arm.autoArmRotate(.5, arm.TRANSFER_POS);
+                robot.intakeArm.autoArmRotate(.5, arm.INIT);
 
 
-            //Outtake
+            /* OUTTAKE */
+
             if(gamepad1.y) //triangle
                 robot.clawWrist.intake();
             if(gamepad1.x)
                 robot.clawWrist.transfer();
 
             if(gamepad2.y) //triangle
-                robot.transfer.intake();
+                robot.clawArm.intake();
             if(gamepad2.x)
-                robot.transfer.bucket();//arm
-
-
+                robot.clawArm.bucket(); //arm
 
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
-            telemetry.addData("IntakeArm Position", robot.arm.telemetry(telemetry));
+            telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));
             telemetry.update();
         }
     }
 
-    public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
-        switch(alliance) {
-            case RED:
-                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
-                    robot.intake.spit();
-                }
-                break;
-            case BLUE:
-                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
-                    robot.intake.spit();
-                }
-                break;
-        }
-    }
-
-    public void drive(Drive drive){
-        switch(drive) {
-            case FIELDCENTRIC:
-                if (gamepad1.options) {
-                    robot.drivetrain.setExternalHeading(Math.toRadians(90));
-                }
-                robot.drivetrain.fieldCentricDrive(x, y, rx);
-                break;
-            case ROBOTCENTRIC:
-                robot.drivetrain.drive(x, y, rx);
-                break;
-        }
-    }
-
-    public void driveControl(){
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        if(gamepad1.right_trigger > 0.4) {
-            Drivetrain.drivePower = 0.3;
-        }
-        else {
-            Drivetrain.drivePower = 0.6;
-        }
-    }
 }

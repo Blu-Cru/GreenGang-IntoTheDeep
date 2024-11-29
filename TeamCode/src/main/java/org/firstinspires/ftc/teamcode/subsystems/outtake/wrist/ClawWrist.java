@@ -12,8 +12,9 @@ public class ClawWrist implements Subsystem {
     public enum STATE {
         INIT,
         BUCKET,
-        SPEC,
         INTK,
+        OUTSPEC,
+        INSPEC,
         TRANSFER;
     }
 
@@ -39,9 +40,14 @@ public class ClawWrist implements Subsystem {
         clawWrist.setPosition(1); // GET NUM
         state = STATE.BUCKET;
     }
-    public void spec (){
+    public void outSpec(){
         clawWrist.setPosition(1);  // GET NUM
-        state = STATE.SPEC;
+        state = STATE.OUTSPEC;
+    }
+
+    public void inSpec(){
+        // get num
+        state = STATE.INSPEC;
     }
 
     public String telemetry(Telemetry telemetry){
