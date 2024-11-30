@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems.slides;
 
-import com.acmerobotics.dashboard.config.Config;
+//import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,31 +10,38 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
-@Config
 public class VertSlides implements Subsystem {
     public static double kP = 0.0, kI = 0.0, kD = 0.0;
     DcMotor motor;
     PIDController pid;
-
     Servo transfer;
 
+    public enum STATE {
+        INIT,
+        LOW,
+        HIGH,
+        OUTSPEC,
+        INSPEC;
+    }
+
+    public STATE state;
     public VertSlides(HardwareMap hardwareMap) {
         motor = hardwareMap.get(DcMotor.class, "slidesMotor");
         pid = new PIDController(kP, kI, kD);
+        state = STATE.INIT;
     }
 
     public void init() {
+        state = STATE.INIT;
         pid.setSetPoint(0);
     }
 
     @Override
     public void read() {
-
     }
 
     @Override
     public void write() {
-
     }
 
     public void update(){
@@ -43,21 +50,42 @@ public class VertSlides implements Subsystem {
         SetPower(power);
     }
 
-    public void setTargetPos(double targetPos) {
+    private void setTargetPos(double targetPos) {
         pid.setSetPoint(targetPos);
     }
 
-    public void transfer() {
-        transfer.setPosition(0);
+    public void low(){
+        state = STATE.LOW;
+        //sum
     }
 
-    public void SetPower(double power) {
+    public void high(){
+        state = STATE.HIGH;
+        //sum
+    }
+    public void outkSpec(){
+        state = STATE.OUTSPEC;
+        // sum
+    }
+
+    public void intkSpec(){
+        // sum
+        state = STATE.INSPEC;
+    }
+
+    public void drop(){
+        state = STATE.INIT;
+        //sum
+    }
+
+    private void SetPower(double power) {
         motor.setPower(power);
     }
 
     public String telemetry(Telemetry telemetry) {
-        telemetry.addData("motor power", motor.getPower());
-        telemetry.addData("current pos", motor.getCurrentPosition());
+        telemetry.addData("VS MOTOR POW ", motor.getPower());
+        telemetry.addData("VS POS ", motor.getCurrentPosition());
+        telemetry.addData("VS STATE ", state);
         return null;
     }
 }

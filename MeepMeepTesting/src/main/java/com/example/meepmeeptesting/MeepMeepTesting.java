@@ -13,33 +13,39 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
 
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 16.5)
 
-                // extendo is 10 inches
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24, 64, Math.toRadians(-90)))
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24, 62, Math.toRadians(-90)))
                         //.setTangent(-90)
-                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90)) // turn towards bucket
-                        .waitSeconds(2) // outtake block thats placed in auto
 
-                        .splineToLinearHeading(new Pose2d(-53, 15, Math.toRadians(-90)), Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(-90)), Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-45, 60, Math.toRadians(-90)), Math.toRadians(90))
-                        .waitSeconds(2)
+                        // PRELOAD PLACEMENT
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
-                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(-90)), Math.toRadians(0))
-                        .waitSeconds(2)
+                        // PRELOAD FROM HUMAN PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
-                        .splineToLinearHeading(new Pose2d(-60, 15, Math.toRadians(-90)), Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-60, 50, Math.toRadians(-90)), Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(-48, 62, Math.toRadians(-90)), Math.toRadians(90))
+                        // SPEC 3 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-48, 45, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
+                        .turn(Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
+                        // SPEC 4 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-58, 45, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
+                        .turn(Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
-
-
-
+                        // SPEC 5 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-56, 41, Math.toRadians(-135)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
+                        .turn(Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
                         .build());
 

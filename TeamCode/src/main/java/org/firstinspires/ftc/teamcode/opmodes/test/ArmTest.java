@@ -20,7 +20,7 @@ public class ArmTest extends GreenLinearOpMode {
 
     public void runOpMode() throws InterruptedException {
 
-        //arm = new Arm(hardwareMap);
+        //arm = new IntakeArm(hardwareMap);
 
         armRotate = hardwareMap.get(DcMotorEx.class, "armRotate");
         armRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -44,7 +44,7 @@ public class ArmTest extends GreenLinearOpMode {
             armRotate.setPower(power / 2);
 
             telemetry.addData("Rotation power:", power);
-            telemetry.addData("Arm Position:", armRotate.getCurrentPosition());
+            telemetry.addData("IntakeArm Position:", armRotate.getCurrentPosition());
             telemetry.addData("gamepad1.b:", gamepad1.b);
             telemetry.update();
         }

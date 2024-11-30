@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.subsystems.outtake;
+package org.firstinspires.ftc.teamcode.subsystems.outtake.outtake;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
@@ -10,30 +9,37 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 public class OuttakeClaw implements Subsystem {
     Servo outtakeClaw;
 
-    private ServoControllerEx outtakeClawController;
+    public enum STATE {
+        OPEN,
+        CLOSE;
+    }
+
+    public STATE state;
 
     public OuttakeClaw(HardwareMap hardwareMap) {
         outtakeClaw = hardwareMap.get(Servo.class, "outtake claw");
+        state = STATE.CLOSE;
     }
 
     public void init() {
-        outtakeClawController = (ServoControllerEx) outtakeClaw.getController();
         //outtakeClaw.setPosition(1);
     }
 
     public void close(){
         outtakeClaw.setPosition(0.45);//fix
+        state = STATE.CLOSE;
     }
     public void open() {
         outtakeClaw.setPosition(0.8);
+        state = STATE.OPEN;
     }
     public void outtakeClawSetPos(double pos){
-        outtakeClawController.setServoPwmEnable(outtakeClaw.getPortNumber());
         outtakeClaw.setPosition(pos);
     }
 
     public String telemetry(Telemetry telemetry){
-        telemetry.addData("outtake claw power", outtakeClaw.getPosition());
+        telemetry.addData("OUTK CLAW POS ", outtakeClaw.getPosition());
+        telemetry.addData("OUTK CLAW STATE ", state);
         return null;
     }
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems.arm;
+package org.firstinspires.ftc.teamcode.subsystems.intake.arm;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
-public class Arm implements Subsystem {
+public class IntakeArm implements Subsystem {
     public DcMotorEx armRotate;
     public static double armP = 0.003, armI = 0, armD = 0.0001;
     private final PIDController armRotatePID;
@@ -20,10 +20,10 @@ public class Arm implements Subsystem {
     public static int
         VERTICAL_POS = 73,
         DOWN_POS = 182,
-        TRANSFER_POS = 0;
+        INIT = 0;
 
 
-    public Arm(HardwareMap hardwareMap) {
+    public IntakeArm(HardwareMap hardwareMap) {
         armRotate = hardwareMap.get(DcMotorEx.class, "armRotate");
         armRotatePID = new PIDController(armP, armI, armD);
         armRotateTargetPos = 0;
@@ -46,15 +46,25 @@ public class Arm implements Subsystem {
     }
 
     public void transfer() {
-        armRotateTargetPos = TRANSFER_POS;
+        armRotateTargetPos = INIT;
     }
 
     public void update() {
-        int armRotateCurrentPos = getArmRotatePosition();
-        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos, armRotateTargetPos), -0.6, 0.75);
-        setArmRotatePower(armRotatePower);
+        //int armRotateCurrentPos = getArmRotatePosition();
+        //armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos, armRotateTargetPos), -0.6, 0.75);
+        //setArmRotatePower(armRotatePower);
+
+        int armRotateError = armRotate.getCurrentPosition() - armRotate.getTargetPosition();
+
+        if(Math.abs(armRotateError) < 50 && armRotate.getCurrentPosition() < 30) {
+            stopArmRotate();
+        }
     }
 
+    public void stopArmRotate() {
+        armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armRotate.setPower(0);
+    }
     public int getArmRotatePosition() {
         return armRotate.getCurrentPosition();
     }

@@ -1,17 +1,15 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawArm;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.ClawWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
 
 import java.util.ArrayList;
 
@@ -22,10 +20,10 @@ public class Robot {
     // all subsystems
     public Intake intake;
     public IntakeWrist intakeWrist;
-    public ClawArm transfer;
+    public ClawArm clawArm;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
-    public Arm arm;
+    public IntakeArm intakeArm;
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
     ArrayList<Subsystem> subsystems;
@@ -101,16 +99,16 @@ public class Robot {
         return drivetrain;
     }
 
-    public Arm addArm() {
-        arm = new Arm(hardwareMap);
-        subsystems.add(arm);
-        return arm;
+    public IntakeArm addArm() {
+        intakeArm = new IntakeArm(hardwareMap);
+        subsystems.add(intakeArm);
+        return intakeArm;
     }
 
     public ClawArm addTransfer() {
-        transfer = new ClawArm(hardwareMap);
-        subsystems.add(transfer);
-        return transfer;
+        clawArm = new ClawArm(hardwareMap);
+        subsystems.add(clawArm);
+        return clawArm;
     }
 
 //    public void telemetry(Telemetry telemetry) {

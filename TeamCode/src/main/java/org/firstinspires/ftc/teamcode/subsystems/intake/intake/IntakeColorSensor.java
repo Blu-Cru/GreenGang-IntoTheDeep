@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems.intake;
+package org.firstinspires.ftc.teamcode.subsystems.intake.intake;
 // package org.firstinspires.ftc.teamcode.blucru.common.subsystems.intake;
 
 import android.graphics.Color;
@@ -61,7 +61,6 @@ public class IntakeColorSensor implements Subsystem {
         float[] hsv = new float[3];
         int colorInt = Color.argb((int) (color.alpha * 255), (int) (color.red * 255), (int) (color.green * 255), (int) (color.blue * 255));
         Color.colorToHSV(colorInt, hsv);
-//        Color.RGBToHSV((int)(color.red * 255), (int)(color.green * 255), (int)(color.blue * 255), hsv);
         return hsv;
     }
 
@@ -135,14 +134,11 @@ public class IntakeColorSensor implements Subsystem {
         }
 
         public String telemetry (Telemetry telemetry){
-            telemetry.addData("R", r);
-            telemetry.addData("G", g);
-            telemetry.addData("front B", b);
-//            telemetry.addData("front H:: ", frontHSV[0]);
-//            telemetry.addData("front S:: ", frontHSV[1]);
-//            telemetry.addData("front V:: ", frontHSV[2]);
-            telemetry.addData("slot state: ", slotState);
-            telemetry.addData("distance", distance);
+            telemetry.addData("FRONT R", r);
+            telemetry.addData("FRONT G", g);
+            telemetry.addData("FRONT B", b);
+            telemetry.addData("INTK COLOR SENSOR STATE ", slotState);
+            telemetry.addData("INTK COLOR SENSOR DIST ", distance);
             return null;
         }
     }
