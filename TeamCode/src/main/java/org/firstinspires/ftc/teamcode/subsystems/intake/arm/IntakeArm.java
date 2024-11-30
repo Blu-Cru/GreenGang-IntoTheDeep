@@ -18,8 +18,8 @@ public class IntakeArm implements Subsystem {
     public double armRotatePower;
 
     public static int
-        VERTICAL_POS = 73,
-        DOWN_POS = 182,
+        VERTICAL_POS = -29,
+        DOWN_POS = -221,
         INIT = 0;
 
 
@@ -56,7 +56,7 @@ public class IntakeArm implements Subsystem {
 
         int armRotateError = armRotate.getCurrentPosition() - armRotate.getTargetPosition();
 
-        if(Math.abs(armRotateError) < 50 && armRotate.getCurrentPosition() < 30) {
+        if(Math.abs(armRotateError) < 10 && armRotate.getCurrentPosition() > -10) {
             stopArmRotate();
         }
     }
