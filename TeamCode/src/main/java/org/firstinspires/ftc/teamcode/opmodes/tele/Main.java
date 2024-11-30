@@ -49,7 +49,7 @@ public class Main extends GreenLinearOpMode {
         addClawArm();
         addOuttakeClaw();
         addClawWrist();
-        addArm();
+        addIntakeArm();
         // vs = new VertSlides(hardwareMap);
 
         alliance = Alliance.BLUE;
@@ -103,11 +103,11 @@ public class Main extends GreenLinearOpMode {
 
             //Intake Arm Rotate
             if(gamepad1.dpad_down)
-                robot.intakeArm.autoArmRotate(.2, arm.DOWN_POS);
+                robot.intakeArm.pidTo(arm.DOWN_POS);
             else if(gamepad1.dpad_right)
-                robot.intakeArm.autoArmRotate(.2, arm.VERTICAL_POS);
+                robot.intakeArm.pidTo(arm.VERTICAL_POS);
             else if(gamepad1.dpad_up)
-                robot.intakeArm.autoArmRotate(.2, arm.INIT);
+                robot.intakeArm.pidTo(arm.INIT);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -126,6 +126,8 @@ public class Main extends GreenLinearOpMode {
             if(gamepad2.b) {
                 robot.clawArm.bucket();
                 robot.clawWrist.transfer(); }
+
+            robot.intakeArm.update();
 
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
             telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));

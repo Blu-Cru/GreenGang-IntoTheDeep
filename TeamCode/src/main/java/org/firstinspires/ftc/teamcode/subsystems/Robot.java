@@ -99,7 +99,7 @@ public class Robot {
         return drivetrain;
     }
 
-    public IntakeArm addArm() {
+    public IntakeArm addIntakeArm() {
         intakeArm = new IntakeArm(hardwareMap);
         subsystems.add(intakeArm);
         return intakeArm;
