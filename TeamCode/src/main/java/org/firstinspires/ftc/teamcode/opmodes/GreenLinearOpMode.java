@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
@@ -49,7 +51,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     {
         intakeWrist = robot.addIntakeWrist();
     }
-    public void addArm() {arm = robot.addArm();}
+    public void addIntakeArm() {arm = robot.addIntakeArm();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
@@ -60,6 +62,10 @@ public class GreenLinearOpMode extends LinearOpMode {
             stickyG1.update();
             stickyG2.update();
         }
+    }
+
+    public void enableFTCDashboard() {
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
     public void bucket (Robot robot, int h) {

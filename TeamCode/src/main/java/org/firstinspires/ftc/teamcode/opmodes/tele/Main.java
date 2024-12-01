@@ -49,7 +49,7 @@ public class Main extends GreenLinearOpMode {
         addClawArm();
         addOuttakeClaw();
         addClawWrist();
-        addArm();
+        addIntakeArm();
         // vs = new VertSlides(hardwareMap);
 
         alliance = Alliance.BLUE;
@@ -95,32 +95,39 @@ public class Main extends GreenLinearOpMode {
             if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
                 spit(robot.color, robot.intake, alliance);
 
-            // intk wrist
+            // intkake wrist
             if(gamepad1.a) //x button
                 robot.intakeWrist.intake();
             else if(gamepad1.b) //circle button
                 robot.intakeWrist.transfer();
 
-            // intk arm
-            if(gamepad2.a)
-                robot.intakeArm.autoArmRotate(.5, arm.DOWN_POS);
-            else if(gamepad2.y)
-                robot.intakeArm.autoArmRotate(.5, arm.VERTICAL_POS);
-            else if(gamepad2.b)
-                robot.intakeArm.autoArmRotate(.5, arm.INIT);
+            //Intake Arm Rotate
+            if(gamepad1.dpad_down)
+                robot.intakeArm.pidTo(arm.DOWN_POS);
+            else if(gamepad1.dpad_right)
+                robot.intakeArm.pidTo(arm.VERTICAL_POS);
+            else if(gamepad1.dpad_up)
+                robot.intakeArm.pidTo(arm.INIT);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            /* OUTTAKE Gamepad 2 */
+
+            if(gamepad2.left_bumper)
+                robot.outtakeClaw.close();
+            if(gamepad2.right_bumper) //square
+                robot.outtakeClaw.open();
 
 
-            /* OUTTAKE */
-
-            if(gamepad1.y) //triangle
-                robot.clawWrist.intake();
-            if(gamepad1.x)
-                robot.clawWrist.transfer();
-
-            if(gamepad2.y) //triangle
+            if(gamepad2.a) {
                 robot.clawArm.intake();
-            if(gamepad2.x)
-                robot.clawArm.bucket(); //arm
+                robot.clawWrist.intake(); }
+
+            if(gamepad2.b) {
+                robot.clawArm.bucket();
+                robot.clawWrist.transfer(); }
+
+            robot.intakeArm.update();
 
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
             telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));

@@ -18,8 +18,8 @@ public class IntakeArm implements Subsystem {
     public double armRotatePower;
 
     public static int
-        VERTICAL_POS = 73,
-        DOWN_POS = 182,
+        VERTICAL_POS = 50,
+        DOWN_POS = 190,
         INIT = 0;
 
 
@@ -51,26 +51,49 @@ public class IntakeArm implements Subsystem {
 
     public void update() {
         int armRotateCurrentPos = getArmRotatePosition();
-        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos, armRotateTargetPos), -0.6, 0.75);
-        setArmRotatePower(armRotatePower);
+        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos), -0.6, 0.75);
+
+        double armRotateError = armRotate.getCurrentPosition() - armRotatePID.getSetPoint();
+        if(Math.abs(armRotateError) < 10 && armRotate.getCurrentPosition() < 15) {
+            stopArmRotate();
+        } else {
+            setArmRotatePower(armRotatePower);
+        }
     }
 
+    public void stopArmRotate() {
+        armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armRotate.setPower(0);
+    }
     public int getArmRotatePosition() {
         return armRotate.getCurrentPosition();
     }
 
     public void autoArmRotate(double power, int targetPos) {
+        armRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armRotatePower = power;
         armRotate.setPower(power);
         armRotate.setTargetPosition(targetPos);
-        armRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void pidTo(double targetPos) {
+        armRotatePID.setSetPoint(targetPos);
     }
     public void setArmRotatePower(double power) {
+        armRotatePower = power;
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armRotate.setPower(power);
+    }
+    public void updatePID() {
+        armRotatePID.setPID(armP, armI, armD);
     }
 
     public String telemetry(Telemetry telemetry) {
         telemetry.addData("ARM CURRENT POS: ", armRotate.getCurrentPosition());
+        telemetry.addData("ARM CURRENT POS: ", armRotatePower);
+
+
         return null;
     }
 
