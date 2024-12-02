@@ -35,6 +35,7 @@ public class Main extends GreenLinearOpMode {
     Alliance alliance;
 
     Drive drive;
+    double y, x, rx;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -134,5 +135,77 @@ public class Main extends GreenLinearOpMode {
             telemetry.update();
         }
     }
+
+    public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
+        switch(alliance) {
+            case RED:
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
+                    robot.intake.spit();
+                }
+                break;
+            case BLUE:
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
+                    robot.intake.spit();
+                }
+                break;
+        }
+    }
+
+    public void drive(Drive drive){
+        switch(drive) {
+            case FIELDCENTRIC:
+                if (gamepad1.options) {
+                    robot.drivetrain.setExternalHeading(Math.toRadians(90));
+                }
+                robot.drivetrain.fieldCentricDrive(x, y, rx);
+                break;
+            case ROBOTCENTRIC:
+                robot.drivetrain.drive(x, y, rx);
+                break;
+        }
+    }
+
+    public void driveControl(){
+        y = -gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
+        rx = -gamepad1.right_stick_x;
+
+        if(gamepad1.right_trigger > 0.4) {
+            Drivetrain.drivePower = 0.3;
+        }
+        else {
+            Drivetrain.drivePower = 0.6;
+        }
+    }
+
+    public void bucket (Robot robot, int h) {
+        robot.intakeArm.transfer();
+        robot.intakeWrist.transfer();
+        robot.outtakeClaw.open();
+        robot.intake.spit();
+        robot.outtakeClaw.close();
+        // slides lift (based on h)
+        robot.clawArm.bucket();
+        robot.clawWrist.bucket();
+        robot.outtakeClaw.open();
+        // wait 2 sec
+        robot.outtakeClaw.close();
+        robot.clawWrist.intake();
+        robot.clawArm.intake();
+        // slides drop
+    }
+    public void autoSpec(Robot robot){
+        // arm to spec, wrist to spec & claw to spec & slides to spec & open claw > slides down, arm reset, wrist reset, claw reset
+        robot.clawArm.outSpec();
+        robot.clawWrist.outSpec();
+        // slides to spec
+        robot.outtakeClaw.open();
+        // drop off piece wait 2 sec
+        robot.clawArm.intake();
+        robot.clawWrist.transfer();
+        robot.outtakeClaw.close();
+        // slides down
+    }
+
 
 }

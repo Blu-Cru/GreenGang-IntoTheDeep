@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
 import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
@@ -111,11 +112,11 @@ public class Robot {
         return clawArm;
     }
 
-//    public void telemetry(Telemetry telemetry) {
-//        for(Subsystem subsystem : subsystems) {
-//            subsystem.telemetry(telemetry);
-//        }
-//    }
+    public void telemetry(Telemetry telemetry) {
+        for(Subsystem subsystem : subsystems) {
+            subsystem.telemetry(telemetry);
+        }
+    }
 
     // call this after every op mode
     public static void kill() {
