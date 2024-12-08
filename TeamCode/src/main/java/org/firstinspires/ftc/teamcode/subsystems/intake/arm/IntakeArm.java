@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake.arm;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 
+@Config
 public class IntakeArm implements Subsystem {
     public DcMotorEx armRotate;
     public static double armP = 0.003, armI = 0, armD = 0.0001;
@@ -49,12 +51,17 @@ public class IntakeArm implements Subsystem {
         armRotateTargetPos = INIT;
     }
 
-    public void update() {
-        int armRotateCurrentPos = getArmRotatePosition();
-        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos), -0.6, 0.75);
+    public double getAngle(double armPos) {
+        return armPos * 1/3895.9 * (2*Math.PI);
+    }
 
-        double armRotateError = armRotate.getCurrentPosition() - armRotatePID.getSetPoint();
-        if(Math.abs(armRotateError) < 10 && armRotate.getCurrentPosition() < 15) {
+    public void update() {
+        double armRotateCurrentPos = this.getArmRotatePosition();
+
+        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos), -0.6, 0.75);
+        double armRotateError = this.getArmRotatePosition() - armRotatePID.getSetPoint();
+
+        if(Math.abs(armRotateError) < 10 && this.getArmRotatePosition() < 15) {
             stopArmRotate();
         } else {
             setArmRotatePower(armRotatePower);
@@ -65,8 +72,8 @@ public class IntakeArm implements Subsystem {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armRotate.setPower(0);
     }
-    public int getArmRotatePosition() {
-        return armRotate.getCurrentPosition();
+    public double getArmRotatePosition() {
+        return getAngle(armRotate.getCurrentPosition());
     }
 
     public void autoArmRotate(double power, int targetPos) {
@@ -74,12 +81,12 @@ public class IntakeArm implements Subsystem {
         armRotatePower = power;
         armRotate.setPower(power);
         armRotate.setTargetPosition(targetPos);
-
     }
 
     public void pidTo(double targetPos) {
         armRotatePID.setSetPoint(targetPos);
     }
+
     public void setArmRotatePower(double power) {
         armRotatePower = power;
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -90,10 +97,8 @@ public class IntakeArm implements Subsystem {
     }
 
     public String telemetry(Telemetry telemetry) {
-        telemetry.addData("ARM CURRENT POS: ", armRotate.getCurrentPosition());
-        telemetry.addData("ARM CURRENT POS: ", armRotatePower);
-
-
+        telemetry.addData("ARM CURRENT POS: ", this.getArmRotatePosition());
+        telemetry.addData("ARM POWER: ", armRotatePower);
         return null;
     }
 

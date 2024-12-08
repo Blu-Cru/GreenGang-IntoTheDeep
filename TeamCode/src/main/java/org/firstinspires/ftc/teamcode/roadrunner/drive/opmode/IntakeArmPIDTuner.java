@@ -34,5 +34,6 @@ public class IntakeArmPIDTuner extends GreenLinearOpMode {
     @Override
     public void telemetry() {
         telemetry.addData("Target Inches", targetInches);
+        telemetry.addData("Arm current pos", arm.getArmRotatePosition());
     }
 }

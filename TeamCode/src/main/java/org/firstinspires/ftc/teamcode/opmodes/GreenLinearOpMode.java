@@ -33,7 +33,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public StickyGamepad stickyG2;
 
     @Override
-    public final void runOpMode() throws InterruptedException {
+    public void runOpMode() throws InterruptedException {
 
         stickyG1 = new StickyGamepad(gamepad1);
         stickyG2 = new StickyGamepad(gamepad2);
