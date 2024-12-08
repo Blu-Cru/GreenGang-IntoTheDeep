@@ -50,7 +50,7 @@ public class VertSlides implements Subsystem {
         SetPower(power);
     }
 
-    private void setTargetPos(double targetPos) {
+    public void setTargetPos(double targetPos) {
         pid.setSetPoint(targetPos);
     }
 
