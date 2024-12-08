@@ -16,10 +16,12 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
 public class GreenLinearOpMode extends LinearOpMode {
 
     public Robot robot;
+    public VertSlides vs;
     public Drivetrain drivetrain;
     public ClawArm transfer;
     public ClawWrist clawWrist;
@@ -98,6 +100,7 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     // subsystems
     public void addClawArm() {transfer = robot.addTransfer();}
+    public void addVertSlides() {vs = robot.addVertSlides();}
     public void addClawWrist() {clawWrist = robot.addClawWrist();}
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
