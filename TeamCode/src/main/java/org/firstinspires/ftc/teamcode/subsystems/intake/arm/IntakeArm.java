@@ -14,14 +14,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 @Config
 public class IntakeArm implements Subsystem {
     public DcMotorEx armRotate;
-    public static double armP = 0.003, armI = 0, armD = 0.0001;
+    public static double armP = 0.015, armI = 0, armD = 0.0002; // tuned 0.0175
     private final PIDController armRotatePID;
-    public int armRotateTargetPos;
+    public double armRotateTargetPos;
     public double armRotatePower;
 
-    public static int
-        VERTICAL_POS = 50,
-        DOWN_POS = 190,
+    public static double
+        VERTICAL_POS = 0.2484,
+        DOWN_POS = 0.96,
+        INTAKE_POS =2.6003,
         INIT = 0;
 
 
@@ -40,15 +41,18 @@ public class IntakeArm implements Subsystem {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    public void parallel(){
+        pidTo(radToTick(DOWN_POS));
+    }
     public void intake(){
-        armRotateTargetPos = DOWN_POS;
+        pidTo(radToTick(INTAKE_POS));
     }
     public void rest() {
-        armRotateTargetPos = VERTICAL_POS;
+        pidTo(radToTick(VERTICAL_POS));
     }
 
     public void transfer() {
-        armRotateTargetPos = INIT;
+        pidTo(radToTick(INIT));
     }
 
     public double getAngle(double armPos) {
@@ -56,18 +60,21 @@ public class IntakeArm implements Subsystem {
     }
 
     public void update() {
-        double armRotateCurrentPos = this.getArmRotatePosition();
+        //double armRotateCurrentPos = this.getArmRotatePosition();
 
-        armRotatePower = Range.clip(armRotatePID.calculate(armRotateCurrentPos), -0.6, 0.75);
-        double armRotateError = this.getArmRotatePosition() - armRotatePID.getSetPoint();
+        armRotatePower = Range.clip(armRotatePID.calculate(armRotate.getCurrentPosition()), -0.6, 0.75);
+        double armRotateError = armRotate.getCurrentPosition() - armRotatePID.getSetPoint();
 
-        if(Math.abs(armRotateError) < 10 && this.getArmRotatePosition() < 15) {
+        if(Math.abs(armRotateError) < 0.08 && armRotate.getCurrentPosition() < 0.1) {
             stopArmRotate();
         } else {
             setArmRotatePower(armRotatePower);
         }
     }
 
+    public double radToTick(double target){
+        return target * 3895.9/(Math.PI*2);
+    }
     public void stopArmRotate() {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armRotate.setPower(0);

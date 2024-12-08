@@ -26,9 +26,13 @@ public class IntakeArmPIDTuner extends GreenLinearOpMode {
             arm.update();
 
             if(gamepad1.a) {
-                arm.pidTo(targetInches);
+                arm.pidTo(radToTick(targetInches));
             }
         }
+    }
+
+    public double radToTick(double target){
+        return target * 3895.9/(Math.PI*2);
     }
 
     @Override

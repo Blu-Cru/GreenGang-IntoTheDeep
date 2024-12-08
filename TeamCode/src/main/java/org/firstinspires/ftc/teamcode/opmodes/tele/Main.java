@@ -104,11 +104,14 @@ public class Main extends GreenLinearOpMode {
 
             //Intake Arm Rotate
             if(gamepad1.dpad_down)
-                robot.intakeArm.pidTo(arm.DOWN_POS);
+                robot.intakeArm.parallel();
             else if(gamepad1.dpad_right)
-                robot.intakeArm.pidTo(arm.VERTICAL_POS);
+                robot.intakeArm.intake();
             else if(gamepad1.dpad_up)
-                robot.intakeArm.pidTo(arm.INIT);
+                robot.intakeArm.rest();
+            else if(gamepad1.dpad_left)
+                robot.intakeArm.transfer();
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
