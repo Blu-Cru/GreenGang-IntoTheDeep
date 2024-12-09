@@ -26,6 +26,8 @@ public class ClawWrist implements Subsystem {
     }
 
     public void init() {
+        clawWrist.setPosition(0.448);
+        state = STATE.INIT;
     }
 
     public void intake(){

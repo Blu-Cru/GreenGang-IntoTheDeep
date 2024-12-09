@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
 
 @Config
-@TeleOp(name = "intakeArm PID Tuner", group = "test")
+@TeleOp(name = "vs PID Tuner", group = "test")
 public class vsPIDtuner extends GreenLinearOpMode {
     public static double targetHeight;
 
@@ -21,7 +21,7 @@ public class vsPIDtuner extends GreenLinearOpMode {
         vs.updatePID();
 
         if(!(gamepad1.right_trigger > 0.2)) {
-            vs.stopArmRotate();
+            vs.stopVSrotate();
         } else {
             vs.update();
 
@@ -34,6 +34,6 @@ public class vsPIDtuner extends GreenLinearOpMode {
     @Override
     public void telemetry() {
         telemetry.addData("Target Inches", targetHeight);
-        telemetry.addData("Arm current pos", vs.getCurrentPosition());
+        telemetry.addData("Arm current pos", vs.getVScurrRightPos());
     }
 }

@@ -22,7 +22,7 @@ public class IntakeArm implements Subsystem {
     public static double
         VERTICAL_POS = 0.2484,
         DOWN_POS = 0.96,
-        INTAKE_POS =2.6003,
+        INTAKE_POS =2.5503,
         INIT = 0;
 
 

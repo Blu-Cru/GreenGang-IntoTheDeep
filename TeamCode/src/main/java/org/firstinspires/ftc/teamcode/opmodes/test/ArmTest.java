@@ -37,7 +37,7 @@ public class ArmTest extends GreenLinearOpMode {
 /*
             power = -gamepad2.left_trigger;
             if (power > .75) { power = .75; }
-            arm.setArmRotatePower(power);
+            arm.setVSrotatePow(power);
             arm.telemetry(telemetry);
 */
             power = -gamepad1.left_stick_y;

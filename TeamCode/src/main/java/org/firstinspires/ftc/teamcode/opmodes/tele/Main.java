@@ -96,40 +96,40 @@ public class Main extends GreenLinearOpMode {
             if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
                 spit(robot.color, robot.intake, alliance);
 
-            // intkake wrist
-            if(gamepad1.a) //x button
-                robot.intakeWrist.intake();
-            else if(gamepad1.b) //circle button
-                robot.intakeWrist.transfer();
 
             //Intake Arm Rotate
             if(gamepad1.dpad_down)
                 robot.intakeArm.parallel();
-            else if(gamepad1.dpad_right)
+            else if(gamepad1.dpad_right) {
                 robot.intakeArm.intake();
-            else if(gamepad1.dpad_up)
+                robot.intakeWrist.intake();}
+            else if(gamepad1.dpad_up){
                 robot.intakeArm.rest();
-            else if(gamepad1.dpad_left)
+                robot.intakeWrist.transfer();}
+            else if(gamepad1.dpad_left){
                 robot.intakeArm.transfer();
+                robot.outtakeClaw.open();
+                robot.clawArm.intake();
+                robot.clawWrist.intake();}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             /* OUTTAKE Gamepad 2 */
 
-            if(gamepad2.left_bumper)
+
+            if(gamepad1.a) {
                 robot.outtakeClaw.close();
-            if(gamepad2.right_bumper) //square
-                robot.outtakeClaw.open();
-
-
-            if(gamepad2.a) {
-                robot.clawArm.intake();
-                robot.clawWrist.intake(); }
-
-            if(gamepad2.b) {
+            }
+            if(gamepad1.b) {
                 robot.clawArm.bucket();
-                robot.clawWrist.transfer(); }
+            }
+            if(gamepad1.y) {
+                robot.clawWrist.transfer();
+            }
+            if(gamepad1.x) {
+                robot.outtakeClaw.open();
+            }
 
             robot.intakeArm.update();
 
