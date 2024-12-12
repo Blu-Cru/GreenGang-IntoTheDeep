@@ -34,6 +34,6 @@ public class vsPIDtuner extends GreenLinearOpMode {
     @Override
     public void telemetry() {
         telemetry.addData("Target Inches", targetHeight);
-        telemetry.addData("Arm current pos", vs.getVScurrRightPos());
+        telemetry.addData("Arm current pos", vs.motorRight.getCurrentPosition());
     }
 }

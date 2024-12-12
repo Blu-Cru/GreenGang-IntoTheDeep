@@ -62,7 +62,7 @@ public class IntakeArm implements Subsystem {
     public void update() {
         //double armRotateCurrentPos = this.getArmRotatePosition();
 
-        armRotatePower = Range.clip(armRotatePID.calculate(armRotate.getCurrentPosition()), -0.6, 0.75);
+        armRotatePower = Range.clip(armRotatePID.calculate(armRotate.getCurrentPosition()), -0.6, 0.5); // slowed down
         double armRotateError = armRotate.getCurrentPosition() - armRotatePID.getSetPoint();
 
         if(Math.abs(armRotateError) < 0.08 && armRotate.getCurrentPosition() < 0.1) {

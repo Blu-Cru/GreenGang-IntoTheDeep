@@ -51,7 +51,7 @@ public class Main extends GreenLinearOpMode {
         addOuttakeClaw();
         addClawWrist();
         addIntakeArm();
-        // vs = new VertSlides(hardwareMap);
+        addVertSlides();
 
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
@@ -104,38 +104,47 @@ public class Main extends GreenLinearOpMode {
                 robot.intakeArm.intake();
                 robot.intakeWrist.intake();}
             else if(gamepad1.dpad_up){
-                robot.intakeArm.rest();
-                robot.intakeWrist.transfer();}
-            else if(gamepad1.dpad_left){
                 robot.intakeArm.transfer();
+                robot.intakeWrist.transfer();
                 robot.outtakeClaw.open();
                 robot.clawArm.intake();
-                robot.clawWrist.intake();}
-
+                robot.clawWrist.intake();
+            }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             /* OUTTAKE Gamepad 2 */
 
 
-            if(gamepad1.a) {
+            if(gamepad2.a) {
                 robot.outtakeClaw.close();
             }
-            if(gamepad1.b) {
-                robot.clawArm.bucket();
+
+            if(gamepad2.right_bumper){
+                robot.vs.lowBucket();
             }
-            if(gamepad1.y) {
-                robot.clawWrist.transfer();
+            if(gamepad2.right_trigger>.2){
+                robot.vs.high();
             }
-            if(gamepad1.x) {
+            if(gamepad2.left_bumper){
+                robot.vs.lower();
+            }
+
+            if(gamepad2.x) {
                 robot.outtakeClaw.open();
             }
+            if(gamepad2.b) {
+                robot.clawArm.bucket();
+                robot.clawWrist.transfer();
+            }
+
 
             robot.intakeArm.update();
 
             telemetry.addData("SLOT ", robot.color.slotState); // not updating for some reason
             telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));
             telemetry.update();
+            vs.update();
         }
     }
 

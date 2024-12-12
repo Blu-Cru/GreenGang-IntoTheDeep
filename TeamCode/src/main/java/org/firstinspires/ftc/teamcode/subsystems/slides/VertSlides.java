@@ -14,23 +14,25 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 @Config
 
 public class VertSlides implements Subsystem {
-    DcMotor motorLeft, motorRight;
+    public DcMotor motorLeft, motorRight;
     private final PIDController pid;
     public double targetHeight;
-    public static double vsP = 0.003, vsI = 0, vsD = 0.0001;
+    public static double vsP = 0.013, vsI = 0, vsD = 0.0001;
     public double motorPower;
 
     public static int
             down = 0,
-            highBucket = 0,
-            lowBucket = 0,
-            intkSpec = 0,
-            highSpec = 0;
+            highBucket = 2890,
+            lowBucket = 1636,
+            highSpec = 1107,
+            highSpecLow = 753;
+
 
 
     public enum STATE {
         INIT,
         LOW,
+        DOWN,
         HIGH,
         OUTSPEC,
         INSPEC;
@@ -41,7 +43,7 @@ public class VertSlides implements Subsystem {
     public void init() {
         motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLeft.setPower(0); // check what power it should be
-        motorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -73,7 +75,7 @@ public class VertSlides implements Subsystem {
     }
 
     public void update() {
-        double vsCurrPosLeft = this.getVScurrLeftPos();
+        double vsCurrPosLeft = this.getVScurrRightPos();
         motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 0.75);
 
         /*double vsRotateError = this.getVScurrPos() - pid.getSetPoint();
@@ -84,8 +86,8 @@ public class VertSlides implements Subsystem {
     }
 
     public void stopVSrotate() {
-//        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        motorLeft.setPower(0);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setPower(0);
 
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRight.setPower(0);
@@ -112,8 +114,8 @@ public class VertSlides implements Subsystem {
 
     public void setVSrotatePow(double power) {
         motorPower = power;
-//        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        motorLeft.setPower(power);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setPower(power);
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRight.setPower(power);
     }
@@ -125,8 +127,8 @@ public class VertSlides implements Subsystem {
         pid.setSetPoint(targetPos);
     }
 
-    public void low(){
-        state = STATE.LOW;
+    public void lower(){
+        state = STATE.DOWN;
         targetHeight = down;
     }
 
@@ -139,20 +141,20 @@ public class VertSlides implements Subsystem {
         targetHeight = highSpec;
     }
 
-    public void intkSpec(){
-        // sum
-        state = STATE.INSPEC;
-        targetHeight = intkSpec;
+    public void lowBucket() {
+        state = STATE.LOW;
+        targetHeight = lowBucket;
     }
 
-    public void drop(){
-        state = STATE.INIT;
-        targetHeight = down;
-    }
+//    public void intkSpec(){
+//        // sum
+//        state = STATE.INSPEC;
+//        targetHeight = intkSpec;
+//    }
 
     public String telemetry(Telemetry telemetry) {
-        telemetry.addData("VS MotorLeft, MotorRight POW ", motorLeft.getPower() + ", " +motorRight.getPower());
-        telemetry.addData("VS LEFT, RIGHT POS ", this.getVScurrLeftPos() + ", " + getVScurrRightPos());
+      //  telemetry.addData("VS MotorLeft, MotorRight POW ", motorLeft.getPower() + ", " +motorRight.getPower());
+       // telemetry.addData("VS LEFT, RIGHT POS ", this.getVScurrLeftPos() + ", " + getVScurrRightPos());
         return null;
     }
 }
