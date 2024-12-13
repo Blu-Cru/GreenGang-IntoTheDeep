@@ -32,8 +32,7 @@ gamepad2:
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
-    Alliance alliance;
-
+    static Alliance alliance;
     Drive drive;
     double y, x, rx;
 
