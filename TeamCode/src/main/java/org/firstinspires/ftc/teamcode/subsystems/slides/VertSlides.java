@@ -27,15 +27,12 @@ public class VertSlides implements Subsystem {
             highSpec = 1107,
             highSpecLow = 753;
 
-
-
     public enum STATE {
         INIT,
         LOW,
         DOWN,
         HIGH,
-        OUTSPEC,
-        INSPEC;
+        OUTSPEC;
     }
 
     public STATE state;
@@ -99,15 +96,6 @@ public class VertSlides implements Subsystem {
     public double getVScurrRightPos() {
         return motorRight.getCurrentPosition();
     }
-
-
-    /*public void autoVSrotate(double power, int targetPos) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorPower = power;
-        motor.setPower(power);
-        motor.setTargetPosition(targetPos);
-    }*/
-
     public void pidTo(double targetPos) {
         pid.setSetPoint(targetPos);
     }
@@ -122,39 +110,30 @@ public class VertSlides implements Subsystem {
     public void updatePID() {
         pid.setPID(vsP, vsI, vsD);
     }
-
-    public void setTargetPos(double targetPos) {
-        pid.setSetPoint(targetPos);
-    }
-
     public void lower(){
         state = STATE.DOWN;
         targetHeight = down;
+        pidTo(targetHeight);
     }
 
     public void high(){
         state = STATE.HIGH;
         targetHeight = highBucket;
+        pidTo(targetHeight);
     }
-    public void outkSpec(){
-        state = STATE.OUTSPEC;
-        targetHeight = highSpec;
-    }
+//    public void outkSpec(){
+//        state = STATE.OUTSPEC;
+//        targetHeight = highSpec;
+//        pidTo(targetHeight);
+//    }
 
     public void lowBucket() {
         state = STATE.LOW;
         targetHeight = lowBucket;
+        pidTo(targetHeight);
     }
 
-//    public void intkSpec(){
-//        // sum
-//        state = STATE.INSPEC;
-//        targetHeight = intkSpec;
-//    }
-
     public String telemetry(Telemetry telemetry) {
-      //  telemetry.addData("VS MotorLeft, MotorRight POW ", motorLeft.getPower() + ", " +motorRight.getPower());
-       // telemetry.addData("VS LEFT, RIGHT POS ", this.getVScurrLeftPos() + ", " + getVScurrRightPos());
         return null;
     }
 }

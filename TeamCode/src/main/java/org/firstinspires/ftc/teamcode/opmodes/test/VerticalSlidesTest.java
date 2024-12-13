@@ -29,7 +29,7 @@ public class VerticalSlidesTest extends LinearOpMode{
             motorR = hardwareMap.get(DcMotorEx.class, "slidesMotorRight");
             motorL = hardwareMap.get(DcMotorEx.class, "slidesMotorLeft");
 
-            vert = -gamepad1.left_stick_y;
+            vert = -gamepad2.left_stick_y;
 
             if(Math.abs(vert) > 0.1) {
                 motorR.setPower(vert);
@@ -37,6 +37,10 @@ public class VerticalSlidesTest extends LinearOpMode{
             } else {
                 motorR.setPower(vert);
                 motorL.setPower(vert);
+            }
+
+            if(gamepad2.a){
+
             }
 //
 //            telemetry.addData("name", name);

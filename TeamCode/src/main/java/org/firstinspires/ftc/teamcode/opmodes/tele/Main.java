@@ -84,7 +84,9 @@ public class Main extends GreenLinearOpMode {
 
             /* INTAKE */
 
-            // intk
+            // GAMEPAD 1
+
+            // Intake Sample from field
             if (gamepad1.left_bumper && !robot.color.isFull()) {
                 robot.intake.in();
             } else if (gamepad1.right_bumper) {
@@ -93,17 +95,24 @@ public class Main extends GreenLinearOpMode {
                 robot.intake.stop();
             }
 
-            if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
-                spit(robot.color, robot.intake, alliance);
+            // Grab piece & put into bucket outtake position
+            if(gamepad1.x) {
+                robot.outtakeClaw.open();
+            }else if(gamepad1.b) {
+                robot.outtakeClaw.close();
+                robot.clawArm.bucket();
+                robot.clawWrist.transfer();
+            }
 
+            // GAMEPAD 2
 
-            //Intake Arm Rotate
-            if(gamepad1.dpad_down)
+            // Perform arm / wrist transfer + intake movement
+            if(gamepad2.x)
                 robot.intakeArm.parallel();
-            else if(gamepad1.dpad_right) {
+            else if(gamepad2.y) {
                 robot.intakeArm.intake();
                 robot.intakeWrist.intake();}
-            else if(gamepad1.dpad_up){
+            else if(gamepad2.b){
                 robot.intakeArm.transfer();
                 robot.intakeWrist.transfer();
                 robot.outtakeClaw.open();
@@ -111,33 +120,20 @@ public class Main extends GreenLinearOpMode {
                 robot.clawWrist.intake();
             }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            /* OUTTAKE Gamepad 2 */
-
-
-            if(gamepad2.a) {
-                robot.outtakeClaw.close();
-            }
-
+            // Controlling slides
             if(gamepad2.right_bumper){
                 robot.vs.lowBucket();
-            }
-            if(gamepad2.right_trigger>.2){
+            } else if(gamepad2.right_trigger>.2){
                 robot.vs.high();
-            }
-            if(gamepad2.left_bumper){
+            } else if (gamepad2.left_bumper){
                 robot.vs.lower();
+                robot.clawArm.intake();
+                robot.clawWrist.intake();
             }
 
-            if(gamepad2.x) {
-                robot.outtakeClaw.open();
-            }
-            if(gamepad2.b) {
-                robot.clawArm.bucket();
-                robot.clawWrist.transfer();
-            }
-
+            // updating stuff
+            if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
+                spit(robot.color, robot.intake, alliance);
 
             robot.intakeArm.update();
 
