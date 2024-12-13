@@ -129,6 +129,14 @@ public class Main extends GreenLinearOpMode {
                 robot.vs.lower();
                 robot.clawArm.intake();
                 robot.clawWrist.intake();
+            } else if (gamepad2.left_trigger>.2){
+                float pow = gamepad2.left_trigger;
+                if(gamepad2.left_trigger> 0.75) {
+                   robot.vs.setVSrotatePow(.75);
+                }
+                else {
+                    robot.vs.setVSrotatePow(pow);
+                }
             }
 
             // updating stuff
