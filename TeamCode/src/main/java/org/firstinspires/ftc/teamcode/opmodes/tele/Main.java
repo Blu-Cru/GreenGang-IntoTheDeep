@@ -94,6 +94,24 @@ public class Main extends GreenLinearOpMode {
                 robot.intake.stop();
             }
 
+            // Intake spec from HP
+            if (gamepad1.dpad_down) {
+                robot.outtakeClaw.open();
+                robot.clawArm.bucket();}
+            else if(gamepad1.dpad_right)
+                robot.clawWrist.outSpec();
+            else if(gamepad1.dpad_up)
+                robot.outtakeClaw.close();
+            else if(gamepad1.dpad_left)
+                robot.vs.highSpec();
+
+
+            //Scoring spec
+            if(gamepad1.b) {
+                robot.vs.lowSpec();
+                robot.clawArm.bucket(); }
+
+
 
 
             // GAMEPAD 2

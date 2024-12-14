@@ -21,18 +21,19 @@ public class VertSlides implements Subsystem {
     public double motorPower;
 
     public static int
-            down = 0,
+            init = 0,
             highBucket = 2890,
             lowBucket = 1636,
             highSpec = 1107,
-            highSpecLow = 753;
+            lowSpec = 980;
 
     public enum STATE {
         INIT,
         LOW,
         DOWN,
         HIGH,
-        OUTSPEC;
+        HIGHSPEC,
+        LOWSPEC;
     }
 
     public STATE state;
@@ -112,7 +113,7 @@ public class VertSlides implements Subsystem {
     }
     public void lower(){
         state = STATE.DOWN;
-        targetHeight = down;
+        targetHeight = init;
         pidTo(targetHeight);
     }
 
@@ -121,15 +122,20 @@ public class VertSlides implements Subsystem {
         targetHeight = highBucket;
         pidTo(targetHeight);
     }
-//    public void outkSpec(){
-//        state = STATE.OUTSPEC;
-//        targetHeight = highSpec;
-//        pidTo(targetHeight);
-//    }
+    public void highSpec(){
+        state = STATE.HIGHSPEC;
+        targetHeight = highSpec;
+        pidTo(targetHeight);
+    }
 
     public void lowBucket() {
         state = STATE.LOW;
         targetHeight = lowBucket;
+        pidTo(targetHeight);
+    }
+    public void lowSpec() {
+        state = STATE.LOWSPEC;
+        targetHeight = lowSpec;
         pidTo(targetHeight);
     }
 

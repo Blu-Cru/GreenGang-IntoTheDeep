@@ -23,20 +23,20 @@ public class ClawArm implements Subsystem {
     }
 
     public void init() {
-        //claw.setPosition(1);
+        intake();
     }
 
     public void intake() {
-        clawArm.setPosition(0.52); //fix
+        clawArm.setPosition(0.53); //fix
         state = STATE.INIT; // double check
     }
     public void bucket() {
-        clawArm.setPosition(0.1); //fix
+        clawArm.setPosition(0.3); //fix
         state = STATE.BUCKET;
     }
 
     public void outSpec(){
-        clawArm.setPosition(0); // get num
+        clawArm.setPosition(0.51); // get num
         state = STATE.OUTSPEC;
     }
 
