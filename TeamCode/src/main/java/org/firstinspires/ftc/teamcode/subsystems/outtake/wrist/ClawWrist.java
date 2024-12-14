@@ -39,7 +39,7 @@ public class ClawWrist implements Subsystem {
         state = STATE.TRANSFER;
     }
     public void bucket (){
-        clawWrist.setPosition(1); // GET NUM
+        clawWrist.setPosition(1.0); // GET NUM
         state = STATE.BUCKET;
     }
     public void outSpec(){

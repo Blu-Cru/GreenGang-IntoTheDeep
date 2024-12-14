@@ -27,11 +27,11 @@ public class ClawArm implements Subsystem {
     }
 
     public void intake() {
-        clawArm.setPosition(0.1); //fix
+        clawArm.setPosition(0.52); //fix
         state = STATE.INIT; // double check
     }
     public void bucket() {
-        clawArm.setPosition(0); //fix
+        clawArm.setPosition(0.1); //fix
         state = STATE.BUCKET;
     }
 

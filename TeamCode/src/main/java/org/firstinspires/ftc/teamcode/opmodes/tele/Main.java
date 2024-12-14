@@ -99,8 +99,8 @@ public class Main extends GreenLinearOpMode {
                 robot.outtakeClaw.open();
             }else if(gamepad1.b) {
                 robot.outtakeClaw.close();
-                robot.clawArm.bucket();
-                robot.clawWrist.transfer();
+                robot.clawArm.intake();
+                robot.clawWrist.intake();
             }
 
             // GAMEPAD 2
@@ -122,8 +122,12 @@ public class Main extends GreenLinearOpMode {
             // Controlling slides
             if(gamepad2.right_bumper){
                 robot.vs.lowBucket();
+                robot.clawWrist.bucket();
+                robot.clawArm.bucket();
             } else if(gamepad2.right_trigger>.2){
                 robot.vs.high();
+                robot.clawArm.bucket();
+                robot.clawWrist.bucket();
             } else if (gamepad2.left_bumper){
                 robot.vs.lower();
                 robot.clawArm.intake();
