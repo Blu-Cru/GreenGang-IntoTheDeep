@@ -36,7 +36,7 @@ public class ClawArm implements Subsystem {
     }
 
     public void outSpec(){
-        clawArm.setPosition(0.51); // get num
+        clawArm.setPosition(0.4); // get num
         state = STATE.OUTSPEC;
     }
 

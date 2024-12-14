@@ -97,7 +97,7 @@ public class Main extends GreenLinearOpMode {
             // Intake spec from HP
             if (gamepad1.dpad_down) {
                 robot.outtakeClaw.open();
-                robot.clawArm.bucket();}
+                robot.clawArm.outSpec();}
             else if(gamepad1.dpad_right)
                 robot.clawWrist.outSpec();
             else if(gamepad1.dpad_up)
@@ -126,11 +126,12 @@ public class Main extends GreenLinearOpMode {
             }
 
             // Perform arm / wrist transfer + intake movement
-            if(gamepad2.x)
+            if(gamepad2.x) //square
                 robot.intakeArm.parallel();
             else if(gamepad2.y) {
                 robot.intakeArm.intake();
                 robot.intakeWrist.intake();}
+
             else if(gamepad2.b){
                 robot.intakeArm.transfer();
                 robot.intakeWrist.transfer();
