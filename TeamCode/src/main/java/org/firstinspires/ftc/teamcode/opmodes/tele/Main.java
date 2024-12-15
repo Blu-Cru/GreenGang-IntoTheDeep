@@ -112,8 +112,9 @@ public class Main extends GreenLinearOpMode {
             // GAMEPAD 2
 
             // Grab piece & put into bucket outtake position
-            if(gamepad2.dpad_up) {
+            if(gamepad1.b) { // gp1
                 robot.outtakeClaw.open();
+
             }else if(gamepad2.dpad_down) {
                 robot.outtakeClaw.close();
                 robot.clawArm.intake();
