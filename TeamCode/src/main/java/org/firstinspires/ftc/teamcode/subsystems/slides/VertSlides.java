@@ -24,8 +24,8 @@ public class VertSlides implements Subsystem {
             init = 0,
             highBucket = 2890,
             lowBucket = 1636,
-            highSpec = 1107,
-            lowSpec = 980;
+            highSpec = 1507,
+            lowSpec = 800;
 
     public enum STATE {
         INIT,
@@ -33,7 +33,8 @@ public class VertSlides implements Subsystem {
         DOWN,
         HIGH,
         HIGHSPEC,
-        LOWSPEC;
+        LOWSPEC,
+        MANUAL;
     }
 
     public STATE state;
@@ -110,6 +111,11 @@ public class VertSlides implements Subsystem {
     }
     public void updatePID() {
         pid.setPID(vsP, vsI, vsD);
+    }
+
+    public void manual(double num){
+        state = STATE.MANUAL;
+        setVSrotatePow(num);
     }
     public void lower(){
         state = STATE.DOWN;

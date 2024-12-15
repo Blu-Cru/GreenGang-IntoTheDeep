@@ -26,11 +26,11 @@ public class OuttakeClaw implements Subsystem {
     }
 
     public void close(){
-        outtakeClaw.setPosition(0.49);//fix
+        outtakeClaw.setPosition(0.44);//fix
         state = STATE.CLOSE;
     }
     public void open() {
-        outtakeClaw.setPosition(0.4);
+        outtakeClaw.setPosition(0.3);
         state = STATE.OPEN;
     }
     public void outtakeClawSetPos(double pos){

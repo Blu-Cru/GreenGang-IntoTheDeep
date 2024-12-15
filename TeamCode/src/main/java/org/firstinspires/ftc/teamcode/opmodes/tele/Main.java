@@ -105,14 +105,9 @@ public class Main extends GreenLinearOpMode {
             else if(gamepad1.dpad_left)
                 robot.vs.highSpec();
 
-
-            //Scoring spec
-            if(gamepad1.b) {
+            if(gamepad2.left_trigger > 0.2) {
                 robot.vs.lowSpec();
-                robot.clawArm.bucket(); }
-
-
-
+            }
 
             // GAMEPAD 2
 
@@ -153,14 +148,9 @@ public class Main extends GreenLinearOpMode {
                 robot.vs.lower();
                 robot.clawArm.intake();
                 robot.clawWrist.intake();
-            } else if (gamepad2.left_trigger>.2){
-                float pow = gamepad2.left_trigger;
-                if(gamepad2.left_trigger> 0.75) {
-                   robot.vs.setVSrotatePow(.75);
-                }
-                else {
-                    robot.vs.setVSrotatePow(pow);
-                }
+            } else if (Math.abs(gamepad2.left_stick_x) > 0.2){
+                double num = gamepad2.left_stick_x;
+                robot.vs.manual(num);
             }
 
             // updating stuff

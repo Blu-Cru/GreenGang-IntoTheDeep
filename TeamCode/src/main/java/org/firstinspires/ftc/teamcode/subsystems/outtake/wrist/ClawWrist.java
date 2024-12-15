@@ -26,24 +26,24 @@ public class ClawWrist implements Subsystem {
     }
 
     public void init() {
-        clawWrist.setPosition(0.448);
+        clawWrist.setPosition(0.143);
         state = STATE.INIT;
     }
 
     public void intake(){
-        clawWrist.setPosition(0.448);
+        clawWrist.setPosition(0.143);
         state = STATE.INTK;
     }
     public void transfer() {
-        clawWrist.setPosition(1);
+        clawWrist.setPosition(.65);
         state = STATE.TRANSFER;
     }
     public void bucket (){
-        clawWrist.setPosition(1.0); // GET NUM
+        clawWrist.setPosition(.65); // GET NUM
         state = STATE.BUCKET;
     }
     public void outSpec(){
-        clawWrist.setPosition(1);  // GET NUM
+        clawWrist.setPosition(.8);  // GET NUM
         state = STATE.OUTSPEC;
     }
 
