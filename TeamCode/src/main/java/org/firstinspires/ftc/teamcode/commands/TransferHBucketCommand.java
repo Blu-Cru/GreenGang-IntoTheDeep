@@ -11,25 +11,20 @@ public class TransferHBucketCommand extends SequentialCommandGroup {
     public TransferHBucketCommand(){
         super (
                 new SequentialCommandGroup(
-                        new IntakeWristTransferCommand(),
-                        new OuttakeClawOpenCommand(),
-                        new IntakeSpitCommand(),
+                        new TransferIntoClawCommand(),
                         new WaitCommand(200),
 
-                        new OuttakeClawCloseCommand(),
-                        new VertSlidesHighLiftCommand(),
+                        new CatchHighLiftCommand(),
                         new WaitCommand(200),
 
-                        new ClawArmBucketCommand(),
-                        new ClawWristBucketCommand(),
-                        new OuttakeClawOpenCommand(),
+                        new DepositHighBucketCommand(),
                         new WaitCommand(200),
 
-                        new OuttakeClawCloseCommand(),
-                        new VertSlidesLowerCommand(),
+                        new LowerCommand(),
                         new WaitCommand(200),
-                        new ClawWristIntakeCommand(),
-                        new ClawArmIntakeCommand()
+
+                        new ResetClawSubsCommand()
+
                 )
         );
 
