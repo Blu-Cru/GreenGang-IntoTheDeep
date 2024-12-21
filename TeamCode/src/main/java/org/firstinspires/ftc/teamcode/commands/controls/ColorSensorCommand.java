@@ -1,10 +1,7 @@
-package org.firstinspires.ftc.teamcode.commands;
-
-import android.graphics.Color;
+package org.firstinspires.ftc.teamcode.commands.controls;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 

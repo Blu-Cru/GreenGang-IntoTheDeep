@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class ClawArm implements Subsystem {
+public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo clawArm;
 
     public enum STATE {

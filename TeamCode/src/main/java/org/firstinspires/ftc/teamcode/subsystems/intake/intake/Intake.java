@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake.intake;
 
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class Intake implements Subsystem {
+public class Intake implements GreenSubsystem, Subsystem {
     CRServo intake, intake2;
 
     public enum STATE {

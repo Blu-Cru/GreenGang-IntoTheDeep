@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class IntakeWrist implements Subsystem {
+public class IntakeWrist implements GreenSubsystem {
 
     Servo wrist;
 

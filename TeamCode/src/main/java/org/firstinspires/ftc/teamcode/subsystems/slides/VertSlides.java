@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems.slides;
 
 //import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,11 +10,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 @Config
 
-public class VertSlides implements Subsystem {
+public class VertSlides implements GreenSubsystem, Subsystem {
     public DcMotor motorLeft, motorRight;
     private final PIDController pid;
     public double targetHeight;

@@ -1,14 +1,12 @@
-package org.firstinspires.ftc.teamcode.commands;
-
+package org.firstinspires.ftc.teamcode.commands.controls.clawArm;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
-
-public class ClawArmBucketCommand extends InstantCommand {
-    public ClawArmBucketCommand(){
-        super(
-                () -> Robot.getInstance().clawArm.bucket()
+public class ClawArmOutSpecCommand extends InstantCommand {
+    public ClawArmOutSpecCommand(){
+        super (
+                () -> Robot.getInstance().clawArm.outSpec()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }

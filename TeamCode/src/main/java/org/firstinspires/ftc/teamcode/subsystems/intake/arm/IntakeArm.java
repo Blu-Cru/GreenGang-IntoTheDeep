@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake.arm;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,10 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 @Config
-public class IntakeArm implements Subsystem {
+public class IntakeArm implements GreenSubsystem, Subsystem {
     public DcMotorEx armRotate;
     public static double armP = 0.015, armI = 0, armD = 0.0002; // tuned 0.0175
     private final PIDController armRotatePID;

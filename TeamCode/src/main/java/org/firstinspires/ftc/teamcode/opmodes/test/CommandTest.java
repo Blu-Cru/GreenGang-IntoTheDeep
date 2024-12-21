@@ -3,13 +3,10 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.commands.TransferIntoClawCommand;
+import org.firstinspires.ftc.teamcode.commands.DepositHighBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.GetSpecCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
-import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
 
 @TeleOp(name = "command test", group = "test")
 public class CommandTest extends GreenLinearOpMode {
@@ -19,6 +16,9 @@ public class CommandTest extends GreenLinearOpMode {
         robot = Robot.getInstance().create(hardwareMap);
 
         addIntake();
+        addOuttakeClaw();
+        addClawArm();
+        addClawWrist();
 
         robot.init();
 
@@ -26,8 +26,8 @@ public class CommandTest extends GreenLinearOpMode {
 
         while(opModeIsActive()) {
 
-            if (gamepad1.right_bumper)
-                new OuttakeClawCloseCommand().schedule();
+            if (gamepad1.a)
+                new GetSpecCommand().schedule();
 
             CommandScheduler.getInstance().run();
         }

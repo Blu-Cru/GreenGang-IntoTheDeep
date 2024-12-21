@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.subsystems.intake.intake;
 
 import android.graphics.Color;
 
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class IntakeColorSensor implements Subsystem {
+public class IntakeColorSensor implements GreenSubsystem, Subsystem {
 
     public enum SlotState {
         EMPTY,

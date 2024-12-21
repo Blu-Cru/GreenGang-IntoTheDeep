@@ -6,18 +6,16 @@ import com.acmerobotics.roadrunner.util.Angle;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.opmodes.drive.PDController;
-
 public class DrivePID {
     public static double
             kPX = 0, kIX = 0, kDX = 0,
             kPY = 0, kIY = 0, kDY = 0,
             kPHeading = 0, kIHeading = 0, kDHeading = 0;
 
-    public PDController headingController;
+    public PIDController headingController;
 
     public DrivePID() {
-        headingController = new PDController(kPHeading, kIHeading, kDHeading);
+        headingController = new PIDController(kPHeading, kIHeading, kDHeading);
     }
 
     public Pose2d calculate(Pose2d currentPose) {

@@ -29,7 +29,7 @@ public class Robot {
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
     public VertSlides vs;
-    ArrayList<Subsystem> subsystems;
+    ArrayList<GreenSubsystem> subsystems;
 
     public static Robot getInstance() {
         if(instance == null) {
@@ -49,19 +49,19 @@ public class Robot {
 
     // initializes subsystems
     public void init() {
-        for(Subsystem subsystem : subsystems) {
+        for(GreenSubsystem subsystem : subsystems) {
             subsystem.init();
         }
     }
 
     public void read() {
-        for(Subsystem subsystem : subsystems) {
+        for(GreenSubsystem subsystem : subsystems) {
             subsystem.read();
         }
     }
 
     public void write() {
-        for(Subsystem subsystem : subsystems) {
+        for(GreenSubsystem subsystem : subsystems) {
             subsystem.write();
         }
     }
@@ -121,7 +121,7 @@ public class Robot {
     }
 
     public void telemetry(Telemetry telemetry) {
-        for(Subsystem subsystem : subsystems) {
+        for(GreenSubsystem subsystem : subsystems) {
             subsystem.telemetry(telemetry);
         }
     }
