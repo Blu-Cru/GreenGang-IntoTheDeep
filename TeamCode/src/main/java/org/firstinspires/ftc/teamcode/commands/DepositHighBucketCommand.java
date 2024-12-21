@@ -8,8 +8,8 @@ public class DepositHighBucketCommand extends SequentialCommandGroup {
                 new SequentialCommandGroup(
 
                         new ClawArmBucketCommand(),
-                        new ClawWristBucketCommand(),
-                        new OuttakeClawOpenCommand()
+                        new ClawWristBucketCommand()
+//                        new OuttakeClawOpenCommand()
                 )
         );
     }
