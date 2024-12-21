@@ -105,6 +105,9 @@ public class Main extends GreenLinearOpMode {
             else if(gamepad1.dpad_left)
                 robot.vs.highSpec();
 
+            if(gamepad1.b)
+                robot.outtakeClaw.open();
+
             if(gamepad2.left_trigger > 0.2) {
                 robot.vs.lowSpec();
             }
@@ -112,9 +115,8 @@ public class Main extends GreenLinearOpMode {
             // GAMEPAD 2
 
             // Grab piece & put into bucket outtake position
-            if(gamepad2.dpad_up) {
-                robot.outtakeClaw.open();
-            }else if(gamepad2.dpad_down) {
+
+            if(gamepad2.dpad_down) {
                 robot.outtakeClaw.close();
                 robot.clawArm.intake();
                 robot.clawWrist.intake();
