@@ -232,9 +232,9 @@ public class Main extends GreenLinearOpMode {
         // slides to spec
         robot.outtakeClaw.open();
         // drop off piece wait 2 sec
-        robot.clawArm.intake();
+//        robot.clawArm.intake();
         robot.clawWrist.transfer();
-        robot.outtakeClaw.close();
+//        robot.outtakeClaw.close();
         // slides down
     }
 

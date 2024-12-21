@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
@@ -11,6 +12,8 @@ public class OuttakeClawOpenCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().outtakeClaw.open()
         );
+
+
 
         addRequirements((Subsystem) Robot.getInstance().outtakeClaw);
     }
