@@ -61,11 +61,9 @@ public class Main extends GreenLinearOpMode {
 
             if(stickyG1.x) {
                 alliance = alliance.flip();
-                gamepad1.rumble(150);
             }
             if (stickyG1.b){
                 drive = drive.flip();
-                gamepad1.rumble(150);
             }
 
             stickyG1.update();
@@ -116,8 +114,7 @@ public class Main extends GreenLinearOpMode {
             // Grab piece & put into bucket outtake position
             if(gamepad1.b) { // gp1
                 robot.outtakeClaw.open();
-            } else if (gamepad2.dpad_up){
-                robot.outtakeClaw.open();
+
             }else if(gamepad2.dpad_down) {
                 robot.outtakeClaw.close();
                 robot.clawArm.intake();
@@ -211,8 +208,6 @@ public class Main extends GreenLinearOpMode {
             Drivetrain.drivePower = 0.6;
         }
     }
-
-    // todo: turn into commands
 
     public void bucket (Robot robot, int h) {
         robot.intakeArm.transfer();
