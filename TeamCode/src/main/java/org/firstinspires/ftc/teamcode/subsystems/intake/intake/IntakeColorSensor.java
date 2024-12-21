@@ -37,9 +37,7 @@ public class IntakeColorSensor implements Subsystem {
     public IntakeColorSensor(HardwareMap hardwareMap) {
         sensor = hardwareMap.get(RevColorSensorV3.class, "color");
         slotState = SlotState.EMPTY;
-
         hsv = new float[3];
-
         reading = false;
     }
 

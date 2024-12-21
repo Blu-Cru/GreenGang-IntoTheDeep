@@ -37,6 +37,7 @@ public class FieldCentricDrive extends GreenLinearOpMode {
 
            if (gamepad1.options) {
                drivetrain.setExternalHeading(Math.toRadians(90));
+               gamepad1.rumble(150);
            }
 
            drivetrain.fieldCentricDrive(x, y, rx);
