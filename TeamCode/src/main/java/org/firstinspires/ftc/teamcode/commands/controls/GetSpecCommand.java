@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighLiftCom
 public class GetSpecCommand extends SequentialCommandGroup {
     public GetSpecCommand(){
         super (
-                new SequentialCommandGroup(
+                new SequentialCommandGroup( //Goes from intake position to spec pick-up position
                         new OuttakeClawCloseCommand(),
                         new ClawWristIntakeCommand(),
                         new ClawArmIntakeCommand(),
