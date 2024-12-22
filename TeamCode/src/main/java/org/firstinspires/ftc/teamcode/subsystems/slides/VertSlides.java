@@ -77,11 +77,6 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public void update() {
         double vsCurrPosLeft = this.getVScurrRightPos();
         motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 0.75);
-
-        /*double vsRotateError = this.getVScurrPos() - pid.getSetPoint();
-        if(Math.abs(vsRotateError) < 10 && this.getVScurrPos() < 15) {
-            stopVSrotate();
-        } else {*/
         setVSrotatePow(motorPower);
     }
 
@@ -118,6 +113,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         state = STATE.MANUAL;
         setVSrotatePow(num);
     }
+
     public void start(){
         state = STATE.START;
         targetHeight = init;

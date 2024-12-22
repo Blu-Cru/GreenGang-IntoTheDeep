@@ -25,9 +25,10 @@ public class ArmRotateTest extends GreenLinearOpMode {
                arm.armRotate.setPower(.2);
             } else if (gamepad2.b){
                 arm.intake();
-            } else {
-                arm.rest();
-            }
+           }
+//            else {
+//                arm.rest();
+//            }
             arm.update();
             arm.telemetry(telemetry);
         }

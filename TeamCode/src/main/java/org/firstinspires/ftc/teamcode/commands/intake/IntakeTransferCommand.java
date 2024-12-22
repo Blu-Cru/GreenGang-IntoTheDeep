@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.intake;
 
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -9,8 +9,14 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmTrans
 import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmVerticalCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.IntakeWristTransferCommand;
 
-public class Intake_TransferringCommand extends SequentialCommandGroup{
-    public Intake_TransferringCommand() {
+/*
+- Intake arm vertical
+- Intake arm to assist
+- Intake wrist to transfer
+- Intake arm to transfer
+ */
+public class IntakeTransferCommand extends SequentialCommandGroup{
+    public IntakeTransferCommand() {
         super(
                 new SequentialCommandGroup(
                         new IntakeArmVerticalCommand(),

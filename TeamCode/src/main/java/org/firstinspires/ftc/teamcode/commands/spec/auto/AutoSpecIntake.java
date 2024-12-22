@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.spec;
+package org.firstinspires.ftc.teamcode.commands.spec.auto;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -8,16 +8,24 @@ import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristOutSp
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 
-public class GetSpecCommand extends SequentialCommandGroup {
-    public GetSpecCommand(){
+/*
+- Slides lowered
+- Claw arm outwards
+- Claw wrist outwards
+- Opens claw
+ */
+public class AutoSpecIntake extends SequentialCommandGroup {
+    public AutoSpecIntake() {
         super (
-                new SequentialCommandGroup( //Goes from intake position to spec pick-up position
+                new SequentialCommandGroup(
                         new VertSlidesStartCommand(),
                         new ClawArmOutSpecCommand(),
                         new WaitCommand(300),
                         new ClawWristOutSpecCommand(),
-                        new OuttakeClawOpenCommand()
+                        new OuttakeClawOpenCommand(),
+                        new WaitCommand(2000)
                 )
         );
     }
+
 }

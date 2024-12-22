@@ -31,7 +31,6 @@ public class DrivePID {
     public double getRotate(double heading) {
         if(heading - headingController.getSetPoint() < -Math.PI) heading += 2*Math.PI;
         else if(heading - headingController.getSetPoint() > Math.PI) heading -= 2 * Math.PI;
-
         return Range.clip(headingController.calculate(heading), -1, 1);
     }
 
