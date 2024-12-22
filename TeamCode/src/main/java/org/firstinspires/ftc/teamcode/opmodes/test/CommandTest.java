@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.DepositHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.GetSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.GetSpecCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 

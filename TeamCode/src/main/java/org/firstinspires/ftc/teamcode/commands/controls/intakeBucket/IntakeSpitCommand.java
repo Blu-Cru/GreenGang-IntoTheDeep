@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.controls;
+package org.firstinspires.ftc.teamcode.commands.controls.intakeBucket;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;

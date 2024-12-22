@@ -21,10 +21,11 @@ public class IntakeArm implements GreenSubsystem, Subsystem {
     public double armRotatePower;
 
     public static double
-        VERTICAL_POS = 0.2484,
-        DOWN_POS = 0.96,
-        INTAKE_POS =2.5503,
-        INIT = 0;
+        INIT = 0,
+        ASSIST_POS = 0.25,
+        VERTICAL_POS = 1.2,
+        PARALLEL_POS = 2.2,
+        INTAKE_POS =2.5503;
 
 
     public IntakeArm(HardwareMap hardwareMap) {
@@ -42,18 +43,20 @@ public class IntakeArm implements GreenSubsystem, Subsystem {
         armRotate.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    public void transfer() {
+        pidTo(radToTick(INIT));
+    }
+    public void assist(){
+        pidTo(radToTick(ASSIST_POS));
+    }
+    public void vertical(){
+        pidTo(radToTick(VERTICAL_POS));
+    }
     public void parallel(){
-        pidTo(radToTick(DOWN_POS));
+        pidTo(radToTick(PARALLEL_POS));
     }
     public void intake(){
         pidTo(radToTick(INTAKE_POS));
-    }
-    public void rest() {
-        pidTo(radToTick(VERTICAL_POS));
-    }
-
-    public void transfer() {
-        pidTo(radToTick(INIT));
     }
 
     public double getAngle(double armPos) {

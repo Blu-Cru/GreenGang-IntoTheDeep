@@ -27,11 +27,11 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         intake();
     }
 
-    public void intake() {
+    public void intake() {//Transfer
         clawArm.setPosition(0.53); //fix
         state = STATE.INIT; // double check
     }
-    public void bucket() {
+    public void bucket() { //scoring
         clawArm.setPosition(0.3); //fix
         state = STATE.BUCKET;
     }

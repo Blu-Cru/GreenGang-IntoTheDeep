@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.commands.controls;
+package org.firstinspires.ftc.teamcode.commands.controls.intakeArm;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-public class IntakeInCommand extends InstantCommand{
-    public IntakeInCommand(){
+public class IntakeArmParallelCommand extends InstantCommand {
+    public IntakeArmParallelCommand(){
         super(
                 () -> {
-                    Robot.getInstance().intake.in();
+                    Robot.getInstance().intakeArm.parallel();
                 }
         );
 

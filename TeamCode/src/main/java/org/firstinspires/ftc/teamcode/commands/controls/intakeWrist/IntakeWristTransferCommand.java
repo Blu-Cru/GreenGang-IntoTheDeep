@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.controls;
+package org.firstinspires.ftc.teamcode.commands.controls.intakeWrist;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;

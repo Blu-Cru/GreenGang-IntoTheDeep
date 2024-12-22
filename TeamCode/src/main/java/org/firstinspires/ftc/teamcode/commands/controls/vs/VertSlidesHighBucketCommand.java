@@ -5,10 +5,10 @@ import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-public class VertSlidesLowerCommand extends InstantCommand {
-    public VertSlidesLowerCommand(){
+public class VertSlidesHighBucketCommand extends InstantCommand {
+    public VertSlidesHighBucketCommand(){
         super(
-                () -> Robot.getInstance().vs.lower()
+                () -> Robot.getInstance().vs.highBucket()
         );
         addRequirements((Subsystem) Robot.getInstance().vs);
     }

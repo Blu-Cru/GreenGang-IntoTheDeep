@@ -1,7 +1,21 @@
 package org.firstinspires.ftc.teamcode.opmodes.tele;
 
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.Intake_IntakingCommand;
+import org.firstinspires.ftc.teamcode.commands.Outtake_IntakingCommand;
+import org.firstinspires.ftc.teamcode.commands.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.TransferCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmIntakeCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmParallelCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.GetSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.OutSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.ScoringSpecCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
@@ -83,76 +97,55 @@ public class Main extends GreenLinearOpMode {
 
             /* INTAKE */
 
-            // GAMEPAD 1
+            /************** GAMEPAD 1 **************/
 
             // Intake Sample from field
-            if (gamepad1.left_bumper && !robot.color.isFull()) {
-                robot.intake.in();
-            } else if (gamepad1.right_bumper) {
-                robot.intake.spit();
+            if (gamepad1.left_trigger > 0.2 && !robot.color.isFull()) {
+                new IntakeInCommand().schedule();
+            } else if (gamepad1.right_trigger > 0.2) {
+                new IntakeSpitCommand().schedule();
             } else {
                 robot.intake.stop();
             }
 
-            // Intake spec from HP
-            if (gamepad1.dpad_down) {
-                robot.outtakeClaw.open();
-                robot.clawArm.outSpec();}
-            else if(gamepad1.dpad_right)
-                robot.clawWrist.outSpec();
-            else if(gamepad1.dpad_up)
-                robot.outtakeClaw.close();
-            else if(gamepad1.dpad_left)
-                robot.vs.highSpec();
+            //specimen
+            if (gamepad1.left_bumper)
+                new GetSpecCommand().schedule();
+            else if (gamepad1.right_bumper)
+                new OutSpecCommand().schedule();
 
-            if(gamepad2.left_trigger > 0.2) {
-                robot.vs.lowSpec();
-            }
+            //opens claw
+            if(gamepad1.a)
+                new OuttakeClawOpenCommand().schedule();
 
-            // GAMEPAD 2
+            /************** GAMEPAD 2 **************/
 
             // Grab piece & put into bucket outtake position
-            if(gamepad1.b) { // gp1
-                robot.outtakeClaw.open();
+            if (gamepad2.a) //
+                new TransferCommand().schedule();
+            else if (gamepad2.b)
+                new Intake_IntakingCommand().schedule();
+            else if (gamepad2.x)
+                new ScoringSpecCommand().schedule();
 
-            }else if(gamepad2.dpad_down) {
-                robot.outtakeClaw.close();
-                robot.clawArm.intake();
-                robot.clawWrist.intake();
+            //Intake Arm positions
+            if(gamepad2.left_trigger > 0.2) //low bucket score
+                new IntakeArmParallelCommand().schedule();
+             else if (gamepad2.right_trigger > 0.2) //transfer position for outtake
+                new IntakeArmIntakeCommand().schedule();
+
+            //slides and claws initial positions
+            if(gamepad2.dpad_down)
+                new Outtake_IntakingCommand().schedule();
+
+            // Low and High Buckets
+            if(gamepad2.left_bumper){ //low bucket score
+                new ScoringLowBucketCommand().schedule();
+            } else if (gamepad2.right_bumper){ //transfer position for outtake
+                new ScoringHighBucketCommand().schedule();
             }
 
-            // Perform arm / wrist transfer + intake movement
-            if(gamepad2.x) //square
-                robot.intakeArm.parallel();
-            else if(gamepad2.y) {
-                robot.intakeArm.intake();
-                robot.intakeWrist.intake();}
 
-            else if(gamepad2.b){
-                robot.intakeArm.transfer();
-                robot.intakeWrist.transfer();
-                robot.outtakeClaw.open();
-                robot.clawArm.intake();
-                robot.clawWrist.intake();
-            }
-
-            // Controlling slides
-            if(gamepad2.right_bumper){
-                robot.vs.lowBucket();
-                robot.clawWrist.bucket();
-                robot.clawArm.bucket();
-            } else if(gamepad2.right_trigger>.2){
-                robot.vs.high();
-                robot.clawArm.bucket();
-                robot.clawWrist.bucket();
-            } else if (gamepad2.left_bumper){
-                robot.vs.lower();
-                robot.clawArm.intake();
-                robot.clawWrist.intake();
-            } else if (Math.abs(gamepad2.left_stick_x) > 0.2){
-                double num = gamepad2.left_stick_x;
-                robot.vs.manual(num);
-            }
 
             // updating stuff
             if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW))
@@ -164,6 +157,7 @@ public class Main extends GreenLinearOpMode {
             telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));
             telemetry.update();
             vs.update();
+            CommandScheduler.getInstance().run();
         }
     }
 

@@ -31,7 +31,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         LOW,
-        DOWN,
+        START,
         HIGH,
         HIGHSPEC,
         LOWSPEC,
@@ -118,13 +118,13 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         state = STATE.MANUAL;
         setVSrotatePow(num);
     }
-    public void lower(){
-        state = STATE.DOWN;
+    public void start(){
+        state = STATE.START;
         targetHeight = init;
         pidTo(targetHeight);
     }
 
-    public void high(){
+    public void highBucket(){
         state = STATE.HIGH;
         targetHeight = highBucket;
         pidTo(targetHeight);
