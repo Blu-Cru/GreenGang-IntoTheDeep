@@ -1,9 +1,13 @@
-package org.firstinspires.ftc.teamcode.opmodes.trajectories;
+package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
+import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
+import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
@@ -23,31 +27,77 @@ public class bluSpec extends LinearOpMode {
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecOuttake().schedule();
+                })
 
                 // PRELOAD FROM HUMAN PLACEMENT
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecIntake().schedule();
+                })
+
                 .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecOuttake().schedule();
+                })
 
                 // SPEC 3 PLACEMENT
                 .splineToLinearHeading(new Pose2d(-48, 45, Math.toRadians(-90)), Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
-                .turn(Math.toRadians(180))
+
+                // Give sample to human player
+                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new SamplePassThroughCommand().schedule();
+                })
+
+                // intake sample from human player
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecIntake().schedule();
+                })
+
+                // outtake sample
                 .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecOuttake().schedule();
+                })
 
                 // SPEC 4 PLACEMENT
                 .splineToLinearHeading(new Pose2d(-58, 45, Math.toRadians(-90)), Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
-                .turn(Math.toRadians(180))
+
+                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new SamplePassThroughCommand().schedule();
+                })
+
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecIntake().schedule();
+                })
+
                 .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecOuttake().schedule();
+                })
 
                 // SPEC 5 PLACEMENT
                 .splineToLinearHeading(new Pose2d(-56, 41, Math.toRadians(-135)), Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(90)), Math.toRadians(0))
-                .turn(Math.toRadians(180))
+
+                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new SamplePassThroughCommand().schedule();
+                })
+
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecIntake().schedule();
+                })
+
                 .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .addDisplacementMarker(() -> {
+                    new AutoSpecOuttake().schedule();
+                })
 
                 .build();
 
@@ -56,6 +106,7 @@ public class bluSpec extends LinearOpMode {
         while(opModeIsActive()) {
             drive.followTrajectorySequenceAsync(farBlue);
             drive.updateTrajectory();
+            CommandScheduler.getInstance().run();
         }
     }
 }

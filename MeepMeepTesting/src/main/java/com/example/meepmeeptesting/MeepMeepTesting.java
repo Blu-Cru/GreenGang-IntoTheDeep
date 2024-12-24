@@ -20,8 +20,31 @@ public class MeepMeepTesting {
                         //.setTangent(-90)
 
                         // PRELOAD PLACEMENT
-                        .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
+                        // PRELOAD FROM HUMAN PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+
+
+
+                        // SPEC 3 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-48, 45, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+
+                        // SPEC 4 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-58, 45, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
+
+                        // SPEC 5 PLACEMENT
+                        .splineToLinearHeading(new Pose2d(-56, 41, Math.toRadians(-135)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(0, 42, Math.toRadians(90)), Math.toRadians(-90))
 
                         .build());
 
