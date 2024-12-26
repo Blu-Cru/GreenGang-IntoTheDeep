@@ -26,7 +26,7 @@ public class redSpec extends LinearOpMode {
         TrajectorySequence farRed = drive.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD PLACEMENT
-                .splineToLinearHeading(new Pose2d(0, -42, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-5, -42, Math.toRadians(-90)), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
@@ -37,7 +37,7 @@ public class redSpec extends LinearOpMode {
                     new AutoSpecIntake().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(0, -42, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-3, -42, Math.toRadians(-90)), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
@@ -55,7 +55,7 @@ public class redSpec extends LinearOpMode {
                     new AutoSpecIntake().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(0, -42, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-1, -42, Math.toRadians(-90)), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
@@ -73,7 +73,7 @@ public class redSpec extends LinearOpMode {
                     new AutoSpecIntake().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(0, -42, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(1, -42, Math.toRadians(-90)), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
@@ -92,7 +92,7 @@ public class redSpec extends LinearOpMode {
                     new AutoSpecIntake().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(0, -42, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(3, -42, Math.toRadians(-90)), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
