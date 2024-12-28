@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.DropDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.IntakeIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.outtake.OuttakeIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.TelePart1Command;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmParallelCommand;
@@ -20,7 +22,6 @@ import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawO
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
-import org.firstinspires.ftc.teamcode.commands.spec.OutSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.ScoringSpecCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
@@ -93,11 +94,14 @@ public class Main extends GreenLinearOpMode {
                 robot.intake.stop();
             }
 
-            // Specimen
+            // to be tested
+            // TODO: make sure specimen scoring works
             if (gamepad1.left_bumper) {
-                new AutoSpecIntake().schedule();
+                new TelePart1Command().schedule();
             } else if (gamepad1.right_bumper) {
-                new AutoSpecOuttake().schedule();
+                new VertSlidesHighSpecCommand().schedule();
+            } else if (gamepad1.b) {
+                new VertSlidesLowSpecCommand().schedule();
             }
 
             // Opens Claw
@@ -113,7 +117,6 @@ public class Main extends GreenLinearOpMode {
             } else if (gamepad2.b) {
                 new TransferCommand().schedule();
             } else if (gamepad2.y) {
-                // Manual claw close
                 new OuttakeClawCloseCommand().schedule();
             }
 

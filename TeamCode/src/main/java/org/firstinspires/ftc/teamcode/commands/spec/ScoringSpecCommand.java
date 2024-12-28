@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 

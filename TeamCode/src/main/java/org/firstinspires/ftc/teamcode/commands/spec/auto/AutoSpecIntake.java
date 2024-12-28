@@ -8,12 +8,14 @@ import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristOutSp
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 
 /*
 - Slides lowered
 - Claw arm outwards
 - Claw wrist outwards
 - Opens claw
+- lifts slides
  */
 public class AutoSpecIntake extends SequentialCommandGroup {
     public AutoSpecIntake() {
@@ -24,7 +26,9 @@ public class AutoSpecIntake extends SequentialCommandGroup {
                         new ClawWristOutSpecCommand(),
                         new OuttakeClawOpenCommand(),
                         new WaitCommand(1000),
-                        new OuttakeClawCloseCommand()
+                        new OuttakeClawCloseCommand(),
+                        new WaitCommand(1000),
+                        new SlidesLiftSlightlyCommand()
                 )
         );
     }

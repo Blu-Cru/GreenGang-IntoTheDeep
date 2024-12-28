@@ -21,12 +21,12 @@ public class AutoSpecOuttake extends SequentialCommandGroup {
         super (
                 new SequentialCommandGroup(
                         new VertSlidesHighSpecCommand(),
-                        new WaitCommand(2000),
+                        new WaitCommand(1000),
                         new VertSlidesLowSpecCommand(),
-                        new WaitCommand(3000),
                         new OuttakeClawOpenCommand(),
                         new WaitCommand(1000),
                         new ResetCommand()
+                        // bot drive away then reset
                 )
         );
     }

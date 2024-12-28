@@ -120,6 +120,11 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         pidTo(targetHeight);
     }
 
+    public void slightLift(){
+        targetHeight = 250;
+        pidTo(targetHeight);
+    }
+
     public void highBucket(){
         state = STATE.HIGH;
         targetHeight = highBucket;
