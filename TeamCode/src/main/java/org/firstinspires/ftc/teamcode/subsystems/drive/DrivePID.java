@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 
 public class DrivePID {
     public static double
-            kPX = 0, kIX = 0, kDX = 0,
-            kPY = 0, kIY = 0, kDY = 0,
+            kPX = 8, kIX = 0, kDX = 0,
+            kPY = 8, kIY = 0, kDY = 0,
             kPHeading = 0, kIHeading = 0, kDHeading = 0;
 
     public PIDController headingController;

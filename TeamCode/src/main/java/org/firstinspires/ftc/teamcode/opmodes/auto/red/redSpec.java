@@ -27,60 +27,60 @@ public class redSpec extends LinearOpMode {
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(-5, -42, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
                 // PRELOAD FROM HUMAN PLACEMENT
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-3, -42, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
                 // SPEC 3 PLACEMENT
                 .splineToLinearHeading(new Pose2d(48, -45, Math.toRadians(90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(48, -50, Math.toRadians(90)), Math.toRadians(180))
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-1, -42, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
                 // SPEC 4 PLACEMENT
                 .splineToLinearHeading(new Pose2d(58, -45, Math.toRadians(90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(48, -50, Math.toRadians(90)), Math.toRadians(180))
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(1, -42, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
                 // SPEC 5 PLACEMENT
                 .splineToLinearHeading(new Pose2d(56, -41, Math.toRadians(45)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
@@ -88,12 +88,12 @@ public class redSpec extends LinearOpMode {
 
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(3, -42, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 

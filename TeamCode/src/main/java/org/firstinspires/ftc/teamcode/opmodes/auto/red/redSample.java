@@ -27,39 +27,39 @@ public class redSample extends LinearOpMode {
 
                 // PRELOAD
                 .splineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(45)), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart2().schedule();
                 })
 
                 // SAMPLE 1
                 .splineToLinearHeading(new Pose2d(-47, -45, Math.toRadians(-90)), Math.toRadians(55))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(45)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart2().schedule();
                 })
 
                 // SAMPLE 2
                 .splineToLinearHeading(new Pose2d(-58,-45, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-50,-50, Math.toRadians(45)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart2().schedule();
                 })
 
                 // SAMPLE 3
                 .splineToLinearHeading(new Pose2d(-56,-42, Math.toRadians(-45)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
                 .splineToLinearHeading(new Pose2d(-50,-50, Math.toRadians(45)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSamplePart2().schedule();
                 })
 

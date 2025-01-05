@@ -27,18 +27,18 @@ public class bluSpec extends LinearOpMode {
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
                 // PRELOAD FROM HUMAN PLACEMENT
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-3, 42, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
@@ -47,19 +47,19 @@ public class bluSpec extends LinearOpMode {
 
                 // Give sample to human player
                 .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
                 // intake sample from human player
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 // outtake sample
                 .splineToLinearHeading(new Pose2d(-1, 42, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
@@ -67,17 +67,17 @@ public class bluSpec extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(-58, 45, Math.toRadians(-90)), Math.toRadians(180))
 
                 .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(1, 42, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
@@ -85,17 +85,17 @@ public class bluSpec extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(-56, 41, Math.toRadians(-135)), Math.toRadians(180))
 
                 .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new SamplePassThroughCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecIntake().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(3, 42, Math.toRadians(90)), Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     new AutoSpecOuttake().schedule();
                 })
 
