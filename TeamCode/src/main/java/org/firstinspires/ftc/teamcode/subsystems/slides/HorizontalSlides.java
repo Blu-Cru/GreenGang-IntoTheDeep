@@ -22,8 +22,8 @@ public class HorizontalSlides implements GreenSubsystem {
     double position, velocity;
     double manualPower;
 
-    public HorizontalSlides(HardwareMap HardwareMap){
-        motor = HardwareMap.get(DcMotorEx.class, "horiz slides");
+    public HorizontalSlides(HardwareMap hardwareMap){
+        motor = hardwareMap.get(DcMotorEx.class, "horiz slides");
         pid = new PIDController(kp, ki, kd);
     }
 
@@ -70,10 +70,15 @@ public class HorizontalSlides implements GreenSubsystem {
         pid.setPID(kp, ki, kd);
     }
 
-    public String telemetry(Telemetry tele){
+    @Override
+    public void telemetry(Telemetry tele){
         tele.addData("Horizontal state: ", state);
         tele.addData("Pos: ", position);
         tele.addData("Vel", velocity);
-        return null;
+    }
+
+    @Override
+    public void update() {
+
     }
 }
