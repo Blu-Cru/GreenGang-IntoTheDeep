@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Robot {
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
     public VertSlides vs;
+    public HorizontalSlides horizontalSlides;
     ArrayList<GreenSubsystem> subsystems;
 
     public static Robot getInstance() {
@@ -118,6 +120,13 @@ public class Robot {
         vs = new VertSlides(hardwareMap);
         subsystems.add(vs);
         return vs;
+    }
+
+
+    public HorizontalSlides addHorizontalSlides(){
+        horizontalSlides = new HorizontalSlides(hardwareMap);
+        subsystems.add(horizontalSlides);
+        return horizontalSlides;
     }
 
     public void telemetry(Telemetry telemetry) {

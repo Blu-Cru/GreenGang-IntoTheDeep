@@ -5,7 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class HorizontalSlides {
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
+
+public class HorizontalSlides implements GreenSubsystem {
     public static double kp = 0.0, ki = 0.0, kd = 0.0;
     enum STATE {
         MANUAL,
@@ -24,6 +27,10 @@ public class HorizontalSlides {
         pid = new PIDController(kp, ki, kd);
     }
 
+    @Override
+    public void init() {
+
+    }
 
     public void read(){
         position = motor.getCurrentPosition();
@@ -58,5 +65,15 @@ public class HorizontalSlides {
     public void setManualPower(double power){
         state = STATE.MANUAL;
         manualPower = power;
+    }
+    public void updatePID(){
+        pid.setPID(kp, ki, kd);
+    }
+
+    public String telemetry(Telemetry tele){
+        tele.addData("Horizontal state: ", state);
+        tele.addData("Pos: ", position);
+        tele.addData("Vel", velocity);
+        return null;
     }
 }
