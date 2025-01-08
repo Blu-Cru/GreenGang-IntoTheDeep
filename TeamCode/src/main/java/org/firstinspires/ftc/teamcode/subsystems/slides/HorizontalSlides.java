@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems.slides;
 
-import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class HorizontalSlides implements Subsystem, GreenSubsystem {
+public class HorizontalSlides implements GreenSubsystem {
     public static double kp = 0.0, ki = 0.0, kd = 0.0;
     enum STATE {
         MANUAL,
@@ -27,7 +26,6 @@ public class HorizontalSlides implements Subsystem, GreenSubsystem {
         motor = HardwareMap.get(DcMotorEx.class, "horiz slides");
         pid = new PIDController(kp, ki, kd);
     }
-
 
     @Override
     public void init() {
@@ -56,19 +54,6 @@ public class HorizontalSlides implements Subsystem, GreenSubsystem {
         }
     }
 
-    @Override
-    public void telemetry(Telemetry telemetry) {
-        telemetry.addData("horiz slides pos ", position);
-        telemetry.addData("horiz slides veloc ", velocity);
-        telemetry.addData("horiz slides state ", state);
-        telemetry.addData("horiz slides manual pow ", manualPower);
-    }
-
-    @Override
-    public void update() {
-
-    }
-
     public void pidTO(double ticks){
         state = STATE.PID;
         pid.setSetPoint(ticks);
@@ -80,5 +65,15 @@ public class HorizontalSlides implements Subsystem, GreenSubsystem {
     public void setManualPower(double power){
         state = STATE.MANUAL;
         manualPower = power;
+    }
+    public void updatePID(){
+        pid.setPID(kp, ki, kd);
+    }
+
+    public String telemetry(Telemetry tele){
+        tele.addData("Horizontal state: ", state);
+        tele.addData("Pos: ", position);
+        tele.addData("Vel", velocity);
+        return null;
     }
 }

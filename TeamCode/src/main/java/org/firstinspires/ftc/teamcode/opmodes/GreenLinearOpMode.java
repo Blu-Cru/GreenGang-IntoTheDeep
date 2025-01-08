@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
 public class GreenLinearOpMode extends LinearOpMode {
@@ -32,6 +33,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public IntakeColorSensor intakeColorSensor;
     public IntakeArm arm;
     public StickyGamepad stickyG1;
+    public HorizontalSlides horizontalSlides;
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;
@@ -121,6 +123,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}
     public void addIntakeArm() {arm = robot.addIntakeArm();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
+    public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
 
