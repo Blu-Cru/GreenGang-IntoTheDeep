@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems.drive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -58,8 +56,9 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
     }
 
-    public String telemetry(Telemetry tele) {
+    @Override
+    public void telemetry(Telemetry tele) {
         tele.addData("heading ", getExternalHeading());
-        return null;
+        tele.addData("drive train power", drivePower);
     }
 }

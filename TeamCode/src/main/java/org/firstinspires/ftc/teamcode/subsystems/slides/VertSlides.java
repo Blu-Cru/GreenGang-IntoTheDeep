@@ -147,7 +147,9 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         pidTo(targetHeight);
     }
 
-    public String telemetry(Telemetry telemetry) {
-        return null;
+    public void telemetry(Telemetry telemetry) {
+        telemetry.addData("vert slides pos ", getVScurrRightPos());
+        telemetry.addData("vert slides state ", state);
+        telemetry.addData("vert slides curr power ", motorPower);
     }
 }

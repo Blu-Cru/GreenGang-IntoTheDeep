@@ -50,10 +50,9 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         clawArm.setPosition(pos);
     }
 
-    public String telemetry(Telemetry telemetry) {
-        telemetry.addData("CLAW ARM POS: ", clawArm.getPosition());
-        telemetry.addData("CLAW ARM STATE: ", state);
-        return null;
+    public void telemetry(Telemetry telemetry) {
+        telemetry.addData("Claw arm pos ", clawArm.getPosition());
+        telemetry.addData("Claw arm state ", state);
     }
 
     @Override

@@ -49,10 +49,9 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
         state = STATE.INTK;
     }
 
-    public String telemetry(Telemetry telemetry){
-        telemetry.addData("INTK WRIST POS ", wrist.getPosition());
-        telemetry.addData("INTK WRIST STATE ", state);
-        return null;
+    public void telemetry(Telemetry telemetry){
+        telemetry.addData("Intake wrist pos ", wrist.getPosition());
+        telemetry.addData("Intake wrist state ", state);
     }
 
 }
