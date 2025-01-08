@@ -9,45 +9,30 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 
 @TeleOp(name = "intake test",group = "TeleOp")
 public class IntakeTest extends GreenLinearOpMode {
-    Intake intake;
-    IntakeWrist wrist;
 
+    public void initialize(){
+        addIntake();
+        addIntakeWrist();
+    }
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void periodic() {
 
-        //addIntake();
-        intake = new Intake(hardwareMap);
-        wrist = new IntakeWrist(hardwareMap);
-
-        intake.init();
-        wrist.init();
-
-        while(opModeInInit()) {
-            telemetry.update();
+        if(gamepad1.left_bumper) {
+            intake.in();
+        }
+        else if(gamepad1.right_bumper) {
+            intake.spit();
+        }
+        else{
+            intake.stop();
         }
 
-        waitForStart();
-
-        while(opModeIsActive()) {
-
-            if(gamepad1.left_bumper) {
-                intake.in();
-            }
-            else if(gamepad1.right_bumper) {
-                intake.spit();
-            }
-            else{
-                intake.stop();
-            }
-
-            if (gamepad2.left_bumper){
-                wrist.intake();
-            } else if (gamepad2.right_bumper){
-                wrist.transfer();
-            }
-
-            telemetry.update();
+        if (gamepad2.left_bumper){
+            intakeWrist.intake();
+        } else if (gamepad2.right_bumper){
+            intakeWrist.transfer();
         }
+
 
     }
 }

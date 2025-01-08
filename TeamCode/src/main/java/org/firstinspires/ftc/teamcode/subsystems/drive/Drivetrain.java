@@ -61,4 +61,9 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         tele.addData("heading ", getExternalHeading());
         tele.addData("drive train power", drivePower);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

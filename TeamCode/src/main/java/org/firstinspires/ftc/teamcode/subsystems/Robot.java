@@ -126,6 +126,12 @@ public class Robot {
         }
     }
 
+    public void update(){
+        for (GreenSubsystem subsystem : subsystems) {
+            subsystem.update();
+        }
+    }
+
     // call this after every op mode
     public static void kill() {
         instance = null;

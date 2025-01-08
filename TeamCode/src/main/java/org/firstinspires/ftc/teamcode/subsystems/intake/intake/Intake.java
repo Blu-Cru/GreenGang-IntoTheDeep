@@ -67,4 +67,9 @@ public class Intake implements GreenSubsystem, Subsystem {
         telemetry.addData("Intake state ", state);
     }
 
+    @Override
+    public void update() {
+
+    }
+
 }

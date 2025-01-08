@@ -6,19 +6,14 @@ import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 
 @TeleOp(name = "claw test",group = "test")
 public class TransferTest extends GreenLinearOpMode {
-    ClawArm claw;
-    public void runOpMode() throws InterruptedException {
 
-        claw = new ClawArm(hardwareMap);
+    @Override
+    public void initialize() {
+        addClawArm();
+    }
 
-        while(opModeInInit()) {
-            claw.init();
-        }
-
-        waitForStart();
-
-        while(opModeIsActive()) {
-
+    @Override
+    public void periodic()  {
             if (gamepad2.right_trigger >.2){
                 //.clawArmSetPos(1); //TODO: Test on FTC Dash to get correct num
             }
@@ -26,9 +21,7 @@ public class TransferTest extends GreenLinearOpMode {
                 //claw.clawArmSetPos(0); //TODO: Test on FTC Dash to get correct num
             }
 
-            claw.telemetry(telemetry);
-        }
-
+            transfer.telemetry(telemetry);
     }
 }
 

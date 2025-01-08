@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor
 public class ColorSensorTest extends GreenLinearOpMode {
     IntakeColorSensor color;
 
+    @Override
     public void periodic() {
         if(gamepad2.left_bumper) {
             if(color.isReading()) {
@@ -19,29 +20,13 @@ public class ColorSensorTest extends GreenLinearOpMode {
         }
     }
 
+    @Override
     public void initialize() {
-        color.startReading();
+        addIntakeColorSensor();
     }
 
     public void telemetry() {
         color.telemetry(telemetry);
     }
 
-    @Override
-    public void runOpMode() throws InterruptedException {
-        color = new IntakeColorSensor(hardwareMap);
-
-        while(opModeInInit()) {
-            initialize();
-        }
-
-        waitForStart();
-
-        while(opModeIsActive()) {
-            color.read();
-            color.telemetry(telemetry);
-            telemetry.update();
-        }
-
-    }
 }

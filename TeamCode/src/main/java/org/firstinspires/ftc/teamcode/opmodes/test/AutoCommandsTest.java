@@ -12,49 +12,43 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCom
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @TeleOp(name = "auto commands test", group = "test")
-public class AutoCommandsTest extends LinearOpMode {
-
-    Robot robot;
+public class AutoCommandsTest extends GreenLinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
-       robot = Robot.getInstance().create(hardwareMap);
+    public void initialize(){
+        addIntake();
+        addOuttakeClaw();
+        addDrivetrain();
+        addIntakeColorSensor();
+        addIntake();
+        addIntakeWrist();
+        addOuttakeClaw();
+        addClawWrist();
+        addIntakeArm();
+        addVertSlides();
+        addClawArm();
+    }
+    @Override
+    public void periodic() {
 
-        robot.addIntake();
-        robot.addOuttakeClaw();
-        robot.addDrivetrain();
-        robot.addIntakeColorSensor();
-        robot.addIntake();
-        robot.addIntakeWrist();
-        robot.addOuttakeClaw();
-        robot.addClawWrist();
-        robot.addIntakeArm();
-        robot.addVertSlides();
-        robot.addTransfer();
-        robot.init();
+        if (gamepad1.a)
+            new AutoSpecOuttake().schedule();
+        else if (gamepad1.b)
+            new AutoSpecIntake().schedule();
+        else if (gamepad1.x)
+            new SamplePassThroughCommand().schedule();
+        else if (gamepad1.y)
+            new AutoSamplePart1().schedule();
+        else if (gamepad1.right_bumper)
+            new VertSlidesHighBucketCommand().schedule();
+        else if (gamepad1.left_bumper)
+            new ResetCommand().schedule();
 
-        waitForStart();
-
-        while(opModeIsActive()) {
-
-            if (gamepad1.a)
-                new AutoSpecOuttake().schedule();
-            else if (gamepad1.b)
-                new AutoSpecIntake().schedule();
-            else if (gamepad1.x)
-                new SamplePassThroughCommand().schedule();
-            else if (gamepad1.y)
-                new AutoSamplePart1().schedule();
-            else if (gamepad1.right_bumper)
-                new VertSlidesHighBucketCommand().schedule();
-            else if (gamepad1.left_bumper)
-                new ResetCommand().schedule();
-
-            CommandScheduler.getInstance().run();
-        }
+        CommandScheduler.getInstance().run();
     }
 
 

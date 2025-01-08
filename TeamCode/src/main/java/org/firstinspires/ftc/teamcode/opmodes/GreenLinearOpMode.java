@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
@@ -26,36 +27,48 @@ public class GreenLinearOpMode extends LinearOpMode {
     public ClawArm transfer;
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
-
     public Intake intake;
     public IntakeWrist intakeWrist;
     public IntakeColorSensor intakeColorSensor;
     public IntakeArm arm;
     public StickyGamepad stickyG1;
     public StickyGamepad stickyG2;
+    public Alliance alliance;
+    public Drive drive;
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public final void runOpMode() throws InterruptedException {
+        CommandScheduler.getInstance().cancelAll();
 
         stickyG1 = new StickyGamepad(gamepad1);
         stickyG2 = new StickyGamepad(gamepad2);
-
+        alliance = Alliance.BLUE;
+        drive = Drive.FIELDCENTRIC;
         robot = Robot.getInstance();
         robot.create(hardwareMap);
-
-        initialize();
         robot.init();
 
-        while (opModeInInit()) {
+        while(opModeInInit()) {
+            if(stickyG1.x) {
+                alliance = alliance.flip();
+            }
+            if (stickyG1.b){
+                drive = drive.flip();
+            }
+
             stickyG1.update();
             stickyG2.update();
 
-            if (gamepad1.start || gamepad2.start) {
+            // safety for switching controllers
+            if(gamepad1.start || gamepad2.start) {
                 continue;
             }
 
-            initLoop();
-            telemetry();
+            CommandScheduler.getInstance().run();
+
+            // telemetry
+            telemetry.addData("ALLIANCE: ", alliance);
+            telemetry.addData("DRIVE: ", drive);
             telemetry.update();
         }
 
@@ -63,26 +76,26 @@ public class GreenLinearOpMode extends LinearOpMode {
         robot.read();
         onStart();
 
-        while (!isStopRequested() && opModeIsActive()) {
+        while (opModeIsActive()) {
             stickyG1.update();
             stickyG2.update();
 
-            robot.read();
-
-            if (gamepad1.start || gamepad2.start) {
-                continue;
+            // safety for switching controllers
+            if(!(gamepad1.start || gamepad2.start)) {
+                periodic();
             }
 
-            periodic();
+            CommandScheduler.getInstance().run();
+            robot.read();
             robot.write();
+            robot.update();
 
-            robot.telemetry(telemetry);
             telemetry();
+            robot.telemetry(telemetry);
             telemetry.update();
         }
 
         end();
-        Robot.kill();
 
     }
 
@@ -90,7 +103,7 @@ public class GreenLinearOpMode extends LinearOpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
-    // methods to be overriden
+    // methods to be over written
     public void initialize() {}
     public void initLoop() {}
     public void onStart() {}

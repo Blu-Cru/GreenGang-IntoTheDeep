@@ -9,9 +9,13 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
 @TeleOp(name = "arm rotation test", group = "test")
 public class ArmRotateTest extends GreenLinearOpMode {
 
-    IntakeArm arm;
+    @Override
+    public void initialize(){
+        addIntakeArm();
+    }
 
-    public void runOpMode() throws InterruptedException {
+    @Override
+    public void periodic() {
 
         arm = new IntakeArm(hardwareMap);
 
@@ -26,9 +30,7 @@ public class ArmRotateTest extends GreenLinearOpMode {
             } else if (gamepad2.b){
                 arm.intake();
            }
-//            else {
-//                arm.rest();
-//            }
+
             arm.update();
             arm.telemetry(telemetry);
         }

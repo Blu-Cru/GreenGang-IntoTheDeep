@@ -59,6 +59,11 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public void read() {
 
     }

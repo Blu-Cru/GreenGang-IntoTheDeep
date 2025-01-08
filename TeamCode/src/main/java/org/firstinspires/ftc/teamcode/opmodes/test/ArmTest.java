@@ -18,10 +18,9 @@ public class ArmTest extends GreenLinearOpMode {
     public static int position = 40;
     double power;
 
-    public void runOpMode() throws InterruptedException {
-
-        //arm = new IntakeArm(hardwareMap);
-
+    @Override
+    public void initialize() {
+        addClawArm();
         armRotate = hardwareMap.get(DcMotorEx.class, "armRotate");
         armRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         armRotate.setPower(0);
@@ -30,25 +29,18 @@ public class ArmTest extends GreenLinearOpMode {
         armRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRotate.setTargetPosition(0);
         armRotate.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        waitForStart();
+    }
 
+    @Override
+    public void periodic(){
+        power = -gamepad1.left_stick_y;
+        armRotate.setPower(power / 2);
+    }
 
-        while(opModeIsActive()) {
-/*
-            power = -gamepad2.left_trigger;
-            if (power > .75) { power = .75; }
-            arm.setVSrotatePow(power);
-            arm.telemetry(telemetry);
-*/
-            power = -gamepad1.left_stick_y;
-            armRotate.setPower(power / 2);
-
-            telemetry.addData("Rotation power:", power);
-            telemetry.addData("IntakeArm Position:", armRotate.getCurrentPosition());
-            telemetry.addData("gamepad1.b:", gamepad1.b);
-            telemetry.update();
-        }
-
+    @Override
+    public void telemetry(){
+        telemetry.addData("Rotation power:", power);
+        telemetry.addData("IntakeArm Position:", armRotate.getCurrentPosition());
     }
 
 }

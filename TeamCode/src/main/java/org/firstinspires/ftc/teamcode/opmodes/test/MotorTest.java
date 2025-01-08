@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 @Config
 @TeleOp(name = "motor test", group = "TeleOp")
 public class MotorTest extends LinearOpMode {
+
     public static String name = "leftFront";
 
     @Override

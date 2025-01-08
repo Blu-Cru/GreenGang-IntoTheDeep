@@ -6,47 +6,26 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+
 @TeleOp(name = "vs test", group = "test")
-public class VerticalSlidesTest extends LinearOpMode{
-    public static String name = "leftFront";
+public class VerticalSlidesTest extends GreenLinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException{
-        DcMotorEx motorL = hardwareMap.get(DcMotorEx.class, "slidesMotorRight");
-        DcMotorEx motorR = hardwareMap.get(DcMotorEx.class, "slidesMotorLeft");
-        motorL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    public void initialize() {
+        addVertSlides();
+    }
+
+    @Override
+    public void periodic() {
         double vert;
-        motorL.setPower(0);
+        vert = -gamepad2.left_stick_y;
 
-        motorR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorR.setPower(0);
-
-        waitForStart();
-
-        while(opModeIsActive()) {
-            motorR = hardwareMap.get(DcMotorEx.class, "slidesMotorRight");
-            motorL = hardwareMap.get(DcMotorEx.class, "slidesMotorLeft");
-
-            vert = -gamepad2.left_stick_y;
-
-            if(Math.abs(vert) > 0.1) {
-                motorR.setPower(vert);
-                motorL.setPower(vert);
-            } else {
-                motorR.setPower(vert);
-                motorL.setPower(vert);
-            }
-
-            if(gamepad2.a){
-
-            }
-//
-//            telemetry.addData("name", name);
-//            telemetry.addData("power", motorL.getPower());
-//            telemetry.addData("current position", motorL.getCurrentPosition());
-            telemetry.update();
+        if(Math.abs(vert) > 0.1) {
+            vs.manual(.1);
+        } else {
+            vs.manual(vert);
         }
+        telemetry.update();
     }
 }

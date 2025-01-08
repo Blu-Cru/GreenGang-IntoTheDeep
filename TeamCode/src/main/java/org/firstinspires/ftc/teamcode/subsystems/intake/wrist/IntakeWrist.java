@@ -54,4 +54,9 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
         telemetry.addData("Intake wrist state ", state);
     }
 
+    @Override
+    public void update() {
+
+    }
+
 }

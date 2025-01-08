@@ -39,9 +39,7 @@ public class Main extends GreenLinearOpMode {
     double y, x, rx;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        robot = Robot.getInstance().create(hardwareMap);
-
+    public void initialize() {
         addDrivetrain();
         addIntakeColorSensor();
         addIntake();
@@ -53,98 +51,68 @@ public class Main extends GreenLinearOpMode {
         addClawWrist();
         addIntakeArm();
         addVertSlides();
+    }
 
-        alliance = Alliance.BLUE;
-        drive = Drive.FIELDCENTRIC;
-        robot.init();
-        robot.color.startReading();
+    @Override
+    public void periodic()  {
 
-        while(opModeInInit()) {
+        robot.color.read();
+        driveControl();
+        drive(drive);
 
-            if(stickyG1.x) {
-                alliance = alliance.flip();
-            }
-            if (stickyG1.b){
-                drive = drive.flip();
-            }
+        /************** GAMEPAD 1 **************/
 
-            stickyG1.update();
-            stickyG2.update();
-            telemetry.addData("ALLIANCE: ", alliance);
-            telemetry.addData("DRIVE: ", drive);
-            telemetry.update();
+        // Intk Field Sample
+        if (gamepad1.left_trigger > 0.2 && !robot.color.isFull()) {
+            new IntakeInCommand().schedule();
+        } else if (gamepad1.right_trigger > 0.2) {
+            new IntakeSpitCommand().schedule();
+        } else {
+            robot.intake.stop();
         }
 
-        waitForStart();
+        // TODO: make sure specimen scoring works
+        if (gamepad1.left_bumper) {
+            new TelePart1Command().schedule();
+        } else if (gamepad1.right_bumper) {
+            new VertSlidesHighSpecCommand().schedule();
+        } else if (gamepad1.b) {
+            new VertSlidesLowSpecCommand().schedule();
+        }
 
-        while(opModeIsActive()) {
+        // Opens Claw
+        if(gamepad1.a) {
+            new OuttakeClawOpenCommand().schedule();
+        }
 
-            robot.color.read();
-            driveControl();
-            drive(drive);
+        /************** GAMEPAD 2 **************/
 
-            /************** GAMEPAD 1 **************/
+        // All subsystems Intake + Transfer
+        if (gamepad2.a) {
+            new IntakeIntakeCommand().schedule();
+        } else if (gamepad2.b) {
+            new TransferCommand().schedule();
+        } else if (gamepad2.y) {
+            new OuttakeClawCloseCommand().schedule();
+        }
 
-            // Intk Field Sample
-            if (gamepad1.left_trigger > 0.2 && !robot.color.isFull()) {
-                new IntakeInCommand().schedule();
-            } else if (gamepad1.right_trigger > 0.2) {
-                new IntakeSpitCommand().schedule();
-            } else {
-                robot.intake.stop();
-            }
+        // Low and High Buckets
+        if(gamepad2.left_bumper){
+            new ScoringLowBucketCommand().schedule();
+        } else if (gamepad2.right_bumper){
+            new ScoringHighBucketCommand().schedule();
+        }
 
-            // to be tested
-            // TODO: make sure specimen scoring works
-            if (gamepad1.left_bumper) {
-                new TelePart1Command().schedule();
-            } else if (gamepad1.right_bumper) {
-                new VertSlidesHighSpecCommand().schedule();
-            } else if (gamepad1.b) {
-                new VertSlidesLowSpecCommand().schedule();
-            }
+        // Resets bot + Deposits sample into bucket
+        if (gamepad2.left_trigger > 0.2){
+            new ResetCommand().schedule();
+        } else if (gamepad2.right_trigger > .2){
+            new DropDepositCommand().schedule();
+        }
 
-            // Opens Claw
-            if(gamepad1.a) {
-                new OuttakeClawOpenCommand().schedule();
-            }
-
-            /************** GAMEPAD 2 **************/
-
-            // All subsystems Intake + Transfer
-            if (gamepad2.a) {
-                new IntakeIntakeCommand().schedule();
-            } else if (gamepad2.b) {
-                new TransferCommand().schedule();
-            } else if (gamepad2.y) {
-                new OuttakeClawCloseCommand().schedule();
-            }
-
-            // Low and High Buckets
-            if(gamepad2.left_bumper){
-                new ScoringLowBucketCommand().schedule();
-            } else if (gamepad2.right_bumper){
-                new ScoringHighBucketCommand().schedule();
-            }
-
-            // Resets bot + Deposits sample into bucket
-            if (gamepad2.left_trigger > 0.2){
-                new ResetCommand().schedule();
-            } else if (gamepad2.right_trigger > .2){
-                new DropDepositCommand().schedule();
-            }
-
-            // updating stuff
-            if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
-                spit(robot.color, robot.intake, alliance);
-            }
-
-            robot.intakeArm.update();
-            vs.update();
-
-            telemetry.addData("IntakeArm Position", robot.intakeArm.telemetry(telemetry));
-            telemetry.update();
-            CommandScheduler.getInstance().run();
+        // updating stuff
+        if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
+            spit(robot.color, robot.intake, alliance);
         }
     }
 

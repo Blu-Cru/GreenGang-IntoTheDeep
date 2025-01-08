@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
 import com.arcrobotics.ftclib.command.Subsystem;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -53,6 +56,11 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("Claw arm pos ", clawArm.getPosition());
         telemetry.addData("Claw arm state ", state);
+    }
+
+    @Override
+    public void update() {
+
     }
 
     @Override

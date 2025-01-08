@@ -8,4 +8,5 @@ public interface GreenSubsystem {
     void read();
     void write();
     void telemetry(Telemetry telemetry);
+    void update();
 }
