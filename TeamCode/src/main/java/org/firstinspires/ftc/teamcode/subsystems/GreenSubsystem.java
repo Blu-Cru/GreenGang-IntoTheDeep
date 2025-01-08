@@ -7,5 +7,5 @@ public interface GreenSubsystem {
     void init();
     void read();
     void write();
-    String telemetry(Telemetry telemetry);
+    void telemetry(Telemetry telemetry);
 }

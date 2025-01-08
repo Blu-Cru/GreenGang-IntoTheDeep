@@ -107,10 +107,9 @@ public class IntakeArm implements GreenSubsystem, Subsystem {
         armRotatePID.setPID(armP, armI, armD);
     }
 
-    public String telemetry(Telemetry telemetry) {
-        telemetry.addData("ARM CURRENT POS: ", this.getArmRotatePosition());
-        telemetry.addData("ARM POWER: ", armRotatePower);
-        return null;
+    public void telemetry(Telemetry telemetry) {
+        telemetry.addData("Intake Arm current position ", this.getArmRotatePosition());
+        telemetry.addData("Intake arm power ", armRotatePower);
     }
 
     @Override

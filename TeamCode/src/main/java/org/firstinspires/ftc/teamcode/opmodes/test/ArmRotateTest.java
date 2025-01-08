@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
 public class ArmRotateTest extends GreenLinearOpMode {
 
     IntakeArm arm;
-    double power;
+
     public void runOpMode() throws InterruptedException {
 
         arm = new IntakeArm(hardwareMap);

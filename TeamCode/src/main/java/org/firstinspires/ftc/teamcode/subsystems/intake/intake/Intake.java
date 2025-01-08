@@ -62,10 +62,9 @@ public class Intake implements GreenSubsystem, Subsystem {
         state = STATE.SPIT;
     }
 
-    public String telemetry(Telemetry telemetry) {
-        telemetry.addData("INTK POW ", intake.getPower());
-        telemetry.addData("INTK STATE ", state);
-        return null;
+    public void telemetry(Telemetry telemetry) {
+        telemetry.addData("Intake power ", intake.getPower());
+        telemetry.addData("Intake state ", state);
     }
 
 }
