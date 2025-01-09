@@ -11,33 +11,27 @@ public class RobotCentricDrive extends GreenLinearOpMode {
     double y, x, rx, power;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
+    public void initialize() {
         addDrivetrain();
+    }
 
-        while(opModeInInit()) {
-            telemetry.update();
+    @Override
+    public void periodic() {
+
+        y = -gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
+        rx = -gamepad1.right_stick_x;
+
+        //Robot moves slower
+        if(gamepad1.right_trigger > 0.4) {
+            Drivetrain.drivePower = 0.3;
+        }
+        else {
+            Drivetrain.drivePower = 0.6;
         }
 
-        waitForStart();
+        drivetrain.drive(x, y, rx);
 
-        while(opModeIsActive()) {
-
-            y = -gamepad1.left_stick_y;
-            x = gamepad1.left_stick_x;
-            rx = -gamepad1.right_stick_x;
-
-            //Robot moves slower
-            if(gamepad1.right_trigger > 0.4) {
-                Drivetrain.drivePower = 0.3;
-            }
-            else {
-                Drivetrain.drivePower = 0.6;
-            }
-
-            drivetrain.drive(x, y, rx);
-
-        }
     }
 }
 

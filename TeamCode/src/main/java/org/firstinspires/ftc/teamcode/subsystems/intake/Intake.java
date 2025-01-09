@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems.intake.intake;
+package org.firstinspires.ftc.teamcode.subsystems.intake;
 
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.CRServo;

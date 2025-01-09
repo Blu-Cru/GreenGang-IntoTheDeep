@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
-import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
@@ -46,32 +46,34 @@ public class GreenLinearOpMode extends LinearOpMode {
         stickyG2 = new StickyGamepad(gamepad2);
         alliance = Alliance.BLUE;
         drive = Drive.FIELDCENTRIC;
+
         robot = Robot.getInstance();
         robot.create(hardwareMap);
+        initialize();
         robot.init();
 
         while(opModeInInit()) {
-            if(stickyG1.x) {
-                alliance = alliance.flip();
-            }
-            if (stickyG1.b){
-                drive = drive.flip();
-            }
-
+//            if(stickyG1.x) {
+//                alliance = alliance.flip();
+//            }
+//            if (stickyG1.b){
+//                drive = drive.flip();
+//            }
+//
             stickyG1.update();
             stickyG2.update();
-
-            // safety for switching controllers
-            if(gamepad1.start || gamepad2.start) {
-                continue;
-            }
-
-            CommandScheduler.getInstance().run();
-
-            // telemetry
-            telemetry.addData("ALLIANCE: ", alliance);
-            telemetry.addData("DRIVE: ", drive);
-            telemetry.update();
+//
+//            // safety for switching controllers
+//            if(gamepad1.start || gamepad2.start) {
+//                continue;
+//            }
+//
+//            CommandScheduler.getInstance().run();
+//
+//            // telemetry
+//            telemetry.addData("ALLIANCE: ", alliance);
+//            telemetry.addData("DRIVE: ", drive);
+//            telemetry.update();
         }
 
         waitForStart();

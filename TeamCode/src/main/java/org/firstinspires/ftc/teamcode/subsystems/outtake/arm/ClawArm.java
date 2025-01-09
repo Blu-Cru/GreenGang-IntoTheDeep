@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,12 +9,10 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo clawArm;
-
     public enum STATE {
         INIT,
-        BUCKET,
-        OUTSPEC,
-        INSPEC;
+        PERP,
+        OUTSPEC;
     }
 
     public STATE state;
@@ -30,25 +25,18 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         intake();
     }
 
-    public void intake() {//Transfer
-        clawArm.setPosition(0.53); //fix
-        state = STATE.INIT; // double check
+    public void intake() { // Transfer
+        clawArm.setPosition(0.9);
+        state = STATE.INIT;
     }
-    public void bucket() { //scoring
-        clawArm.setPosition(0.3); //fix
-        state = STATE.BUCKET;
+    public void perpendicular() { // scoring
+        clawArm.setPosition(0);
+        state = STATE.PERP;
     }
-
-    public void outSpec(){
-        clawArm.setPosition(0.5); // get num
+    public void vert(){
+        clawArm.setPosition(0.5);
         state = STATE.OUTSPEC;
     }
-
-    public void inSpec(){
-        // sum
-        state = STATE.INSPEC;
-    }
-
     private void clawWristSetPos(double pos){
         clawArm.setPosition(pos);
     }

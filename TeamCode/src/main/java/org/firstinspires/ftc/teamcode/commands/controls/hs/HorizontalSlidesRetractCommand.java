@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.commands.controls.intakeArm;
+package org.firstinspires.ftc.teamcode.commands.controls.hs;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-public class IntakeArmParallelCommand extends InstantCommand {
-    public IntakeArmParallelCommand(){
+public class HorizontalSlidesRetractCommand extends InstantCommand{
+    public HorizontalSlidesRetractCommand(){
         super(
                 () -> {
-                    Robot.getInstance().intakeArm.parallel();
+                    Robot.getInstance().horizontalSlides.retract();
                 }
         );
 

@@ -4,9 +4,9 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeArm.IntakeArmTransferCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.IntakeWristTransferCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 
 /*
@@ -16,11 +16,10 @@ public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
                 new SequentialCommandGroup(
+                        new HorizontalSlidesRetractCommand(),
                         new ClawArmIntakeCommand(),
                         new ClawWristIntakeCommand(),
-                        new IntakeArmTransferCommand(),
-                        new IntakeWristTransferCommand(),
-                        new OuttakeClawCloseCommand(),
+                        new OuttakeClawOpenCommand(),
                         new VertSlidesStartCommand()
                 )
         );

@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
-import org.firstinspires.ftc.teamcode.subsystems.intake.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
@@ -22,11 +20,9 @@ public class Robot {
 
     // all subsystems
     public Intake intake;
-    public IntakeWrist intakeWrist;
     public ClawArm clawArm;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
-    public IntakeArm intakeArm;
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
     public VertSlides vs;
@@ -85,13 +81,6 @@ public class Robot {
         subsystems.add(outtakeClaw);
         return outtakeClaw;
     }
-
-    public IntakeWrist addIntakeWrist()
-    {
-        intakeWrist =new IntakeWrist(hardwareMap);
-        subsystems.add(intakeWrist);
-        return intakeWrist;
-    }
     public IntakeColorSensor addIntakeColorSensor() {
         color = new IntakeColorSensor(hardwareMap);
         subsystems.add(color);
@@ -102,12 +91,6 @@ public class Robot {
         drivetrain = new Drivetrain(hardwareMap);
         subsystems.add(drivetrain);
         return drivetrain;
-    }
-
-    public IntakeArm addIntakeArm() {
-        intakeArm = new IntakeArm(hardwareMap);
-        subsystems.add(intakeArm);
-        return intakeArm;
     }
 
     public ClawArm addTransfer() {

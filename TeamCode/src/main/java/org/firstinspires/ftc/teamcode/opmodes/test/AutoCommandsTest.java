@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCommand;
@@ -41,8 +40,6 @@ public class AutoCommandsTest extends GreenLinearOpMode {
             new AutoSpecIntake().schedule();
         else if (gamepad1.x)
             new SamplePassThroughCommand().schedule();
-        else if (gamepad1.y)
-            new AutoSamplePart1().schedule();
         else if (gamepad1.right_bumper)
             new VertSlidesHighBucketCommand().schedule();
         else if (gamepad1.left_bumper)

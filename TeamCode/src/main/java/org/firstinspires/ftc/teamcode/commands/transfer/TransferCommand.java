@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.commands.transfer;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-import org.firstinspires.ftc.teamcode.commands.intake.IntakeTransferCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.outtake.OuttakeIntakeCommand;
 
 /*
@@ -13,7 +13,7 @@ public class TransferCommand extends SequentialCommandGroup {
     public TransferCommand(){
         super (
                 new SequentialCommandGroup(
-                        new IntakeTransferCommand(),
+                        new HorizontalSlidesRetractCommand(),
                         new OuttakeIntakeCommand()
                 )
         );

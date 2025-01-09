@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
@@ -33,9 +32,9 @@ public class bluSample extends LinearOpMode {
 
                 // SAMPLE 1
                 .splineToLinearHeading(new Pose2d(47, 45, Math.toRadians(90)), Math.toRadians(145))
-                .addTemporalMarker(() -> {
-                    new AutoSamplePart1().schedule();
-                })
+//                .addTemporalMarker(() -> {
+//                    new AutoSamplePart1().schedule();
+//                })
 
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
@@ -44,9 +43,9 @@ public class bluSample extends LinearOpMode {
 
                 // SAMPLE 2
                 .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(90)), Math.toRadians(180))
-                .addTemporalMarker(() -> {
-                    new AutoSamplePart1().schedule();
-                })
+//                .addTemporalMarker(() -> {
+//                    new AutoSamplePart1().schedule();
+//                })
 
                 .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
@@ -55,9 +54,9 @@ public class bluSample extends LinearOpMode {
 
                 // SAMPLE 3
                 .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(-225)), Math.toRadians(180))
-                .addTemporalMarker(() -> {
-                    new AutoSamplePart1().schedule();
-                })
+//                .addTemporalMarker(() -> {
+//                    new AutoSamplePart1().schedule();
+//                })
 
                 .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {

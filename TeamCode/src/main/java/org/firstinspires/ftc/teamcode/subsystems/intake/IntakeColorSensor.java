@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems.intake.intake;
+package org.firstinspires.ftc.teamcode.subsystems.intake;
 // package org.firstinspires.ftc.teamcode.blucru.common.subsystems.intake;
 
 import android.graphics.Color;

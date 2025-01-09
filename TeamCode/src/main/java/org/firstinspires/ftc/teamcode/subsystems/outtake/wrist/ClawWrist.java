@@ -13,10 +13,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         BUCKET,
-        INTK,
-        OUTSPEC,
-        INSPEC,
-        TRANSFER;
+        SPEC;
     }
 
     public STATE state;
@@ -26,31 +23,19 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
         state = STATE.INIT;
     }
 
+    @Override
     public void init() {
-        clawWrist.setPosition(0.143);
+        clawWrist.setPosition(0.87);
         state = STATE.INIT;
     }
 
-    public void intake(){
-        clawWrist.setPosition(0.143);
-        state = STATE.INTK;
-    }
-    public void transfer() {
-        clawWrist.setPosition(.65);
-        state = STATE.TRANSFER;
-    }
     public void bucket (){
-        clawWrist.setPosition(.65); // GET NUM
+        clawWrist.setPosition(0.5);
         state = STATE.BUCKET;
     }
-    public void outSpec(){
-        clawWrist.setPosition(.8);  // GET NUM
-        state = STATE.OUTSPEC;
-    }
-
-    public void inSpec(){
-        // get num
-        state = STATE.INSPEC;
+    public void Spec() {
+        clawWrist.setPosition(.95);
+        state = STATE.SPEC;
     }
 
     public void telemetry(Telemetry telemetry){

@@ -59,7 +59,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     @Override
     public void telemetry(Telemetry tele) {
         tele.addData("heading ", getExternalHeading());
-        tele.addData("drive train power", drivePower);
+        tele.addData("drive train power ", drivePower);
     }
 
     @Override

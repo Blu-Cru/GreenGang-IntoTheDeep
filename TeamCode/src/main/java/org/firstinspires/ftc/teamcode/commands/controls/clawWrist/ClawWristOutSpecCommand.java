@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 public class ClawWristOutSpecCommand extends InstantCommand {
     public ClawWristOutSpecCommand(){
         super(
-                () -> Robot.getInstance().clawWrist.outSpec()
+                () -> Robot.getInstance().clawWrist.Spec()
         );
 
         addRequirements((Subsystem) Robot.getInstance().clawWrist);
