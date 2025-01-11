@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.slides;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,38 +12,41 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class HorizontalSlides implements GreenSubsystem {
-    public static double hsP = 0.0, hsI = 0.0, hsD = 0.0;
+@Config
+public class HorizontalSlides implements GreenSubsystem, Subsystem {
+    public static double hsP = 0.003, hsI = 0.0, hsD = 0.00005;
+    int minpos = 0;
+    int maxpos = 22000;
     enum STATE {
-        MANUAL,
         IDLE,
-        PID;
+        PID,
+        MANUAL
     }
 
     public static double
-            instlower = 50, // TODO: to be determined
+            instlower = 1000, // TODO: to be determined
             retract = 0;
 
     STATE state;
-    public DcMotorEx motor;
+    DcMotorEx motor;
     PIDController pid;
     double position, velocity;
-    double motorPower;
+    double manualPower;
 
     public HorizontalSlides(HardwareMap hardwareMap){
         motor = hardwareMap.get(DcMotorEx.class, "horiz slides");
         pid = new PIDController(hsP, hsI, hsD);
         state = STATE.IDLE;
-        motorPower = 0;
     }
 
     @Override
     public void init() {
-        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motor.setPower(0);
         motor.setDirection(DcMotorSimple.Direction.REVERSE);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pidTo(0);
     }
 
     @Override
@@ -52,52 +57,55 @@ public class HorizontalSlides implements GreenSubsystem {
 
     @Override
     public void write(){
+
     }
 
     public void pidTo(double ticks){
         state = STATE.PID;
-        pid.setSetPoint(ticks);
-    }
-
-    public void setPower(double power){
-        motor.setPower(power);
-    }
-    public void setMotorPower(double power){
-        state = STATE.MANUAL;
-        motorPower = power;
+        pid.setSetPoint(Range.clip(ticks, 0, 2200));
     }
     public void updatePID(){
         pid.setPID(hsP, hsI, hsD);
     }
 
     public void autoLower() {
+        state = STATE.PID;
         pidTo(instlower);
     }
 
     public void retract() {
+        state  = STATE.PID;
         pidTo(retract);
     }
 
     public void stop () {
+        state = STATE.IDLE;
         motor.setPower(0);
+    }
+
+    public void manualSlide(double input) {
+        state = STATE.MANUAL;
+        pidTo(position + 300 * input);
     }
 
     @Override
     public void telemetry(Telemetry tele){
-        tele.addData("Horizontal state: ", state);
+        tele.addData("HS State", state);
+        tele.addData("HS PID SP", pid.getSetPoint());
         tele.addData("Vel", velocity);
-        tele.addData("power ", motorPower);
+        tele.addData("Pos ", position);
     }
 
-    @Override
     public void update() {
-        double pos = motor.getCurrentPosition();
-        motorPower = Range.clip(pid.calculate(pos), -0.6, 0.75);
-        setHSrotatePow(motorPower);
-    }
-
-    public void setHSrotatePow(double power){
-        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setPower(power);
+        switch (state) {
+            case IDLE:
+                motor.setPower(0);
+                break;
+            case PID:
+            case MANUAL:
+                double power = Range.clip(pid.calculate(position), -0.6, 0.75);
+                motor.setPower(power);
+                break;
+        }
     }
 }

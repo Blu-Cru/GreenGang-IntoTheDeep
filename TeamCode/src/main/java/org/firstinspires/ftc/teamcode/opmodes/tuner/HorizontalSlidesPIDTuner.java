@@ -21,7 +21,7 @@ public class HorizontalSlidesPIDTuner extends GreenLinearOpMode {
         if(!(gamepad1.right_trigger > 0.2)) {
             horizontalSlides.stop();
         } else {
-            horizontalSlides.update();
+//            horizontalSlides.update();
             if(gamepad1.a) {
                 horizontalSlides.pidTo(targetHeight);
             }
@@ -31,6 +31,5 @@ public class HorizontalSlidesPIDTuner extends GreenLinearOpMode {
     @Override
     public void telemetry() {
         telemetry.addData("Target TICKS ", targetHeight);
-        telemetry.addData("Horiz slides current pos ", horizontalSlides.motor.getCurrentPosition());
     }
 }

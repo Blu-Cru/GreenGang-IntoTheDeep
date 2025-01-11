@@ -8,12 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.intake.arm.IntakeArm;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.wrist.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
@@ -29,9 +27,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public ClawWrist clawWrist;
     public OuttakeClaw outtakeClaw;
     public Intake intake;
-    public IntakeWrist intakeWrist;
     public IntakeColorSensor intakeColorSensor;
-    public IntakeArm arm;
     public StickyGamepad stickyG1;
     public HorizontalSlides horizontalSlides;
     public StickyGamepad stickyG2;
@@ -53,27 +49,27 @@ public class GreenLinearOpMode extends LinearOpMode {
         robot.init();
 
         while(opModeInInit()) {
-//            if(stickyG1.x) {
-//                alliance = alliance.flip();
-//            }
-//            if (stickyG1.b){
-//                drive = drive.flip();
-//            }
-//
+            if(stickyG1.x) {
+                alliance = alliance.flip();
+            }
+            if (stickyG1.b){
+                drive = drive.flip();
+            }
+
             stickyG1.update();
             stickyG2.update();
-//
-//            // safety for switching controllers
-//            if(gamepad1.start || gamepad2.start) {
-//                continue;
-//            }
-//
-//            CommandScheduler.getInstance().run();
-//
-//            // telemetry
-//            telemetry.addData("ALLIANCE: ", alliance);
-//            telemetry.addData("DRIVE: ", drive);
-//            telemetry.update();
+
+            // safety for switching controllers
+            if(gamepad1.start || gamepad2.start) {
+                continue;
+            }
+
+            CommandScheduler.getInstance().run();
+
+            // telemetry
+            telemetry.addData("ALLIANCE: ", alliance);
+            telemetry.addData("DRIVE: ", drive);
+            telemetry.update();
         }
 
         waitForStart();
@@ -122,8 +118,8 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
-    public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}
-    public void addIntakeArm() {arm = robot.addIntakeArm();}
+//    public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}
+//    public void addIntakeArm() {arm = robot.addIntakeArm();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}

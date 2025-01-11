@@ -13,6 +13,6 @@ public class HorizontalSlidesExtendCommand extends InstantCommand {
                 }
         );
 
-        addRequirements((Subsystem) Robot.getInstance().intake);
+        addRequirements((Subsystem) Robot.getInstance().horizontalSlides);
     }
 }

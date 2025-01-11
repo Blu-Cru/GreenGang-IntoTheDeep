@@ -12,22 +12,21 @@ public class IntakeArmPIDTuner extends GreenLinearOpMode {
     @Override
     public void initialize() {
         enableFTCDashboard();
-        addIntakeArm();
     }
 
     @Override
     public void periodic() {
-        arm.updatePID();
-
-        if(!(gamepad1.right_trigger > 0.2)) {
-            arm.stopArmRotate();
-        } else {
-            arm.update();
-
-            if(gamepad1.a) {
-                arm.pidTo(radToTick(targetInches));
-            }
-        }
+//        arm.updatePID();
+//
+//        if(!(gamepad1.right_trigger > 0.2)) {
+//            arm.stopArmRotate();
+//        } else {
+//            arm.update();
+//
+//            if(gamepad1.a) {
+//                arm.pidTo(radToTick(targetInches));
+//            }
+//        }
     }
 
     public double radToTick(double target){
@@ -37,6 +36,6 @@ public class IntakeArmPIDTuner extends GreenLinearOpMode {
     @Override
     public void telemetry() {
         telemetry.addData("Target Inches", targetInches);
-        telemetry.addData("Arm current pos", arm.getArmRotatePosition());
+//        telemetry.addData("Arm current pos", arm.getArmRotatePosition());
     }
 }

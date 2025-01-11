@@ -24,10 +24,8 @@ public class AutoCommandsTest extends GreenLinearOpMode {
         addDrivetrain();
         addIntakeColorSensor();
         addIntake();
-        addIntakeWrist();
         addOuttakeClaw();
         addClawWrist();
-        addIntakeArm();
         addVertSlides();
         addClawArm();
     }

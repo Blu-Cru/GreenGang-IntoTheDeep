@@ -39,6 +39,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public STATE state;
+    public enum TYPE {
+        PID,
+        IDLE;
+    }
+
+    public TYPE type;
 
     public void init() {
         motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -52,7 +58,9 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         motorRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pidTo(0);
         state = STATE.INIT;
+        type = TYPE.IDLE;
     }
 
     @Override
@@ -75,9 +83,18 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public void update() {
-        double vsCurrPosLeft = this.getVScurrRightPos();
-        motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 0.75);
-        setVSrotatePow(motorPower);
+        switch (type) {
+            case PID:
+                double vsCurrPosLeft = this.getVScurrRightPos();
+                motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 0.75);
+                setVSrotatePow(motorPower);
+                break;
+            case IDLE:
+                motorLeft.setPower(0);
+                motorRight.setPower(0);
+                break;
+        }
+
     }
 
     public void stopVSrotate() {
@@ -87,14 +104,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRight.setPower(0);
     }
-    public double getVScurrLeftPos() {
-        return motorLeft.getCurrentPosition();
-    }
 
     public double getVScurrRightPos() {
         return motorRight.getCurrentPosition();
     }
     public void pidTo(double targetPos) {
+        type = TYPE.PID;
         pid.setSetPoint(targetPos);
     }
 
@@ -116,7 +131,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     public void start(){
         state = STATE.START;
-        targetHeight = init;
+        targetHeight = 0;
         pidTo(targetHeight);
     }
 
