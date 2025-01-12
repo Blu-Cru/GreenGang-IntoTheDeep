@@ -19,7 +19,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     private final PIDController pid;
     public double targetHeight;
     public static double vsP = 0.013, vsI = 0, vsD = 0.0001;
-    public double motorPower;
+    private double motorPower;
 
     public static int
             init = 0,
@@ -87,7 +87,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
             case PID:
                 double vsCurrPosLeft = this.getVScurrRightPos();
                 motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 0.75);
-                setVSrotatePow(motorPower);
+                setPow(motorPower);
                 break;
             case IDLE:
                 motorLeft.setPower(0);
@@ -113,11 +113,9 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         pid.setSetPoint(targetPos);
     }
 
-    public void setVSrotatePow(double power) {
+    public void setPow(double power) {
         motorPower = power;
-        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeft.setPower(power);
-        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRight.setPower(power);
     }
     public void updatePID() {
@@ -126,7 +124,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     public void manual(double num){
         state = STATE.MANUAL;
-        setVSrotatePow(num);
+        setPow(num);
     }
 
     public void start(){
