@@ -24,6 +24,8 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 
 
 @TeleOp(name="Main", group ="TeleOp")
@@ -137,19 +139,19 @@ public class Main extends GreenLinearOpMode {
     }
 
 
-//    public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
-//        switch(alliance) {
-//            case RED:
-//                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
-//                    robot.intake.spit();
-//                }
-//                break;
-//            case BLUE:
-//                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
-//                    robot.intake.spit();
-//                }
-//                break;
-//        }
-//    }
+    public void spit(IntakeColorSensor color, Intake intake, Alliance alliance){
+        switch(alliance) {
+            case RED:
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
+                    robot.intake.spit();
+                }
+                break;
+            case BLUE:
+                if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
+                    robot.intake.spit();
+                }
+                break;
+        }
+    }
 
 }
