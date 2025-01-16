@@ -96,6 +96,7 @@ public class GreenLinearOpMode extends LinearOpMode {
         }
 
         end();
+        Robot.kill();
 
     }
 

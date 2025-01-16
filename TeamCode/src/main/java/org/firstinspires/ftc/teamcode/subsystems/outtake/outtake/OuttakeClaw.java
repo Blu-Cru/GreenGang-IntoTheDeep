@@ -23,14 +23,15 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
     }
 
     public void close(){
-        outtakeClaw.setPosition(0.545);
+        outtakeClaw.setPosition(0.53);
         state = STATE.CLOSE;
     }
     public void open() {
-        outtakeClaw.setPosition(0.4);
+        outtakeClaw.setPosition(0.43);
         state = STATE.OPEN;
     }
 
+    @Override
     public void telemetry(Telemetry telemetry){
         telemetry.addData("Outk claw pos ", outtakeClaw.getPosition());
         telemetry.addData("Outk claw state ", state);
