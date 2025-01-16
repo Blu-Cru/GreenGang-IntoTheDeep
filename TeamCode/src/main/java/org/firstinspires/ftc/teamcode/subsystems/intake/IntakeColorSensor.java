@@ -132,6 +132,7 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
             return slotState != SlotState.EMPTY;
         }
 
+        @Override
         public void telemetry (Telemetry telemetry){
             telemetry.addData("Intake color sensor state ", slotState);
             telemetry.addData("Intake color sensor dist ", distance);

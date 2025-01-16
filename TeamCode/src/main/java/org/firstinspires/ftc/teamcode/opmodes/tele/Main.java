@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExten
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
@@ -60,31 +61,38 @@ public class Main extends GreenLinearOpMode {
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
         } else {
-            new IntakeStopCommand().schedule();
+            intake.stop();
         }
+        //else {
+//            new IntakeStopCommand().schedule();
+//        }
 
-        if (gamepad1.left_bumper) {
+        if (stickyG1.left_bumper) {
             new HighSpecCommand().schedule();
-        } else if (gamepad1.right_bumper) {
+        } else if (stickyG1.right_bumper) {
             new LowSpecCommand().schedule();
         }
 
         // Opens Claw
-        if(gamepad1.a) {
+        if(stickyG1.a) {
             new OuttakeClawOpenCommand().schedule();
         }
 
         /************** GAMEPAD 2 **************/
 
         // All subsystems Intake + Transfer
-        if (gamepad2.a) {
+        if (stickyG2.a) {
             new HorizontalSlidesExtendCommand().schedule();
-        } else if (gamepad2.b) {
+        } else if (stickyG2.b) {
             new TransferCommand().schedule();
-        } else if (gamepad2.y) {
+        } else if (stickyG2.dpad_down) {
             new OuttakeClawCloseCommand().schedule();
-        } else if (gamepad2.x) {
+        } else if (stickyG2.x) {
             new HorizontalSlidesRetractCommand().schedule();
+        } else if (stickyG2.dpad_up) {
+            new OuttakeClawOpenCommand().schedule();
+        } else if (stickyG2.dpad_left) {
+            new TelePart1Command().schedule();
         }
 
         hsPow = -gamepad2.left_stick_y;
@@ -92,9 +100,9 @@ public class Main extends GreenLinearOpMode {
             horizontalSlides.manualSlide(hsPow);
 
         // Low and High Buckets
-        if(gamepad2.left_bumper){
+        if(stickyG2.left_bumper){
             new ScoringLowBucketCommand().schedule();
-        } else if (gamepad2.right_bumper){
+        } else if (stickyG2.right_bumper){
             new ScoringHighBucketCommand().schedule();
         }
 
@@ -102,7 +110,7 @@ public class Main extends GreenLinearOpMode {
         if (gamepad2.left_trigger > 0.2){
             new ResetCommand().schedule();
         } else if (gamepad2.right_trigger > .2){
-            new VertSlidesStartCommand().schedule();
+            new SlidesLiftSlightlyCommand().schedule();
         }
 
         // updating stuff

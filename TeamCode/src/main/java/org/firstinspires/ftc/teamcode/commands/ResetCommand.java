@@ -17,7 +17,6 @@ public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
                 new SequentialCommandGroup(
-                        new VertSlidesLowSpecCommand(),
                         new HorizontalSlidesRetractCommand(),
                         new ClawWristIntakeCommand(),
                         new OuttakeClawOpenCommand(),

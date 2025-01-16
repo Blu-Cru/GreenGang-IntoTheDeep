@@ -26,7 +26,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void intake() { // Transfer
-        clawArm.setPosition(0.87);
+        clawArm.setPosition(0.89);
         state = STATE.INIT;
     }
     public void perpendicular() { // scoring
@@ -37,10 +37,8 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         clawArm.setPosition(0.5);
         state = STATE.OUTSPEC;
     }
-    private void clawWristSetPos(double pos){
-        clawArm.setPosition(pos);
-    }
 
+    @Override
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("Claw arm pos ", clawArm.getPosition());
         telemetry.addData("Claw arm state ", state);

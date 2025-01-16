@@ -85,7 +85,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     public void manualSlide(double input) {
         state = STATE.MANUAL;
-        pidTo(position + 300 * input);
+        pidTo(position + 300.0 * input);
     }
 
     @Override
