@@ -65,9 +65,6 @@ public class Main extends GreenLinearOpMode {
         } else {
             intake.stop();
         }
-        //else {
-//            new IntakeStopCommand().schedule();
-//        }
 
         if (stickyG1.left_bumper) {
             new HighSpecCommand().schedule();
