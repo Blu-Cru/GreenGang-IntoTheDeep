@@ -100,10 +100,10 @@ public class Main extends GreenLinearOpMode {
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);
 
-//        // Hang manual power
-//        hangPow = -gamepad2.right_stick_y;
-//        if (Math.abs(hangPow) > .1)
-//            hang.setHangPower(hangPow);
+        hangPow = -gamepad2.right_stick_y;
+        if(Math.abs(hangPow) > .1){
+            hang.setHangPower(hangPow);
+        }
 
         // Low and High Buckets
         if(stickyG2.left_bumper){
@@ -129,19 +129,20 @@ public class Main extends GreenLinearOpMode {
         switch(drive) {
             case FIELDCENTRIC:
                 if (gamepad1.options) {
-                    robot.drivetrain.setExternalHeading(Math.toRadians(90));
+                    gamepad1.rumble(200);
+                    drivetrain.setExternalHeading(Math.toRadians(90));
                 }
-                robot.drivetrain.fieldCentricDrive(x, y, rx);
+                drivetrain.fieldCentricDrive(x, y, rx);
                 break;
             case ROBOTCENTRIC:
-                robot.drivetrain.drive(x, y, rx);
+                drivetrain.drive(x, y, rx);
                 break;
         }
     }
 
     public void driveControl(){
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
+        y = gamepad1.left_stick_x;
+        x = -gamepad1.left_stick_y;
         rx = -gamepad1.right_stick_x;
 
         if(gamepad1.right_trigger > 0.4) {
