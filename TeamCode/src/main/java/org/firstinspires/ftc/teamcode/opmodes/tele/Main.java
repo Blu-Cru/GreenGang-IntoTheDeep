@@ -100,10 +100,10 @@ public class Main extends GreenLinearOpMode {
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);
 
-        // Hang manual power
-        hangPow = -gamepad2.right_stick_y;
-        if (Math.abs(hangPow) > .1)
-            hang.setHangPower(hangPow);
+//        // Hang manual power
+//        hangPow = -gamepad2.right_stick_y;
+//        if (Math.abs(hangPow) > .1)
+//            hang.setHangPower(hangPow);
 
         // Low and High Buckets
         if(stickyG2.left_bumper){
