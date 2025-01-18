@@ -2,11 +2,15 @@ package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
+import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
@@ -26,9 +30,16 @@ public class bluSample extends LinearOpMode {
                 .setTangent(-90)
 
                 // PRELOAD
-                .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(45))
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart2().schedule();
+                    new ScoringHighBucketCommand().schedule();
+                })
+                .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                .addTemporalMarker(() -> {
+                    new OuttakeClawOpenCommand().schedule();
+                    new WaitCommand(2000).schedule(); // to be changed?
+                })
+                .addTemporalMarker(() -> {
+                    new ResetCommand().schedule();
                 })
 
                 // SAMPLE 1
@@ -37,9 +48,16 @@ public class bluSample extends LinearOpMode {
                     new AutoSamplePart1().schedule();
                 })
 
+                .addTemporalMarker(() -> {
+                    new ScoringHighBucketCommand().schedule();
+                })
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart2().schedule();
+                    new OuttakeClawOpenCommand().schedule();
+                    new WaitCommand(2000).schedule(); // to be changed?
+                })
+                .addTemporalMarker(() -> {
+                    new ResetCommand().schedule();
                 })
 
                 // SAMPLE 2
@@ -48,9 +66,16 @@ public class bluSample extends LinearOpMode {
                     new AutoSamplePart1().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart2().schedule();
+                    new ScoringHighBucketCommand().schedule();
+                })
+                .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                .addTemporalMarker(() -> {
+                    new OuttakeClawOpenCommand().schedule();
+                    new WaitCommand(2000).schedule(); // to be changed?
+                })
+                .addTemporalMarker(() -> {
+                    new ResetCommand().schedule();
                 })
 
                 // SAMPLE 3
@@ -59,9 +84,16 @@ public class bluSample extends LinearOpMode {
                     new AutoSamplePart1().schedule();
                 })
 
-                .splineToLinearHeading(new Pose2d(50,50, Math.toRadians(225)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart2().schedule();
+                    new ScoringHighBucketCommand().schedule();
+                })
+                .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                .addTemporalMarker(() -> {
+                    new OuttakeClawOpenCommand().schedule();
+                    new WaitCommand(2000).schedule(); // to be changed?
+                })
+                .addTemporalMarker(() -> {
+                    new ResetCommand().schedule();
                 })
 
                 // PARK

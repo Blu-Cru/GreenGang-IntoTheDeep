@@ -12,6 +12,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         PERP,
+        INSPEC,
         OUTSPEC;
     }
 
@@ -36,6 +37,11 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     public void vert(){
         clawArm.setPosition(0.5);
         state = STATE.OUTSPEC;
+    }
+
+    public void inspec() {
+        clawArm.setPosition(.1);
+        state = STATE.INSPEC;
     }
 
     @Override
