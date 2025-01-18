@@ -47,6 +47,7 @@ public class Main extends GreenLinearOpMode {
         addHorizontalSlides();
         addClawWrist();
         addVertSlides();
+        addHang();
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Main extends GreenLinearOpMode {
         hangPow = -gamepad2.right_stick_y;
         if(Math.abs(hangPow) > .1){
             hang.setHangPower(hangPow);
-        }
+        } else hang.setHangPower(0);
 
         // Low and High Buckets
         if(stickyG2.left_bumper){

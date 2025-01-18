@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
@@ -27,6 +28,7 @@ public class Robot {
     public OuttakeClaw outtakeClaw;
     public VertSlides vs;
     public HorizontalSlides horizontalSlides;
+    public Hang hang;
     ArrayList<GreenSubsystem> subsystems;
 
     public static Robot getInstance() {
@@ -75,7 +77,11 @@ public class Robot {
         subsystems.add(clawWrist);
         return clawWrist;
     }
-
+    public Hang addHang(){
+        hang = new Hang(hardwareMap);
+        subsystems.add(hang);
+        return hang;
+    }
     public OuttakeClaw addOuttakeClaw(){
         outtakeClaw = new OuttakeClaw(hardwareMap);
         subsystems.add(outtakeClaw);

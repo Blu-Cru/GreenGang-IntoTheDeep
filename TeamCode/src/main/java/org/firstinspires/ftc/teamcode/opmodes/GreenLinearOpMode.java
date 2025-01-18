@@ -121,6 +121,8 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
+
+    public void addHang() {hang = robot.addHang();}
 //    public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}
 //    public void addIntakeArm() {arm = robot.addIntakeArm();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
