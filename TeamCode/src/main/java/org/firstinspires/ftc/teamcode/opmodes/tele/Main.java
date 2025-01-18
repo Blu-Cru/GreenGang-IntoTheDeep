@@ -33,6 +33,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 public class Main extends GreenLinearOpMode {
     double y, x, rx;
     double hsPow;
+    double hangPow;
 
 
     @Override
@@ -98,6 +99,11 @@ public class Main extends GreenLinearOpMode {
         hsPow = -gamepad2.left_stick_y;
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);
+
+        // Hang manual power
+        hangPow = -gamepad2.right_stick_y;
+        if (Math.abs(hangPow) > .1)
+            hang.setHangPower(hangPow);
 
         // Low and High Buckets
         if(stickyG2.left_bumper){

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
+import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
@@ -30,6 +31,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public IntakeColorSensor intakeColorSensor;
     public StickyGamepad stickyG1;
     public HorizontalSlides horizontalSlides;
+    public Hang hang;
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;

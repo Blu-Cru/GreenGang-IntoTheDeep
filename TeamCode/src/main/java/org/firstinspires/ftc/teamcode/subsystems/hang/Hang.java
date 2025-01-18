@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
-public class hang implements GreenSubsystem, Subsystem {
+public class Hang implements GreenSubsystem, Subsystem {
 
     DcMotor hangMotor;
     double manualPower;
 
-    public hang(HardwareMap hardwareMap){
-        hangMotor = hardwareMap.get(DcMotor.class, "");
+    public Hang(HardwareMap hardwareMap){
+        hangMotor = hardwareMap.get(DcMotor.class, "hang");
     }
 
                 @Override
@@ -40,8 +40,7 @@ public class hang implements GreenSubsystem, Subsystem {
     public void update() {
 
     }
-
-    public void setManualPower(double power){
-        manualPower = power;
+    public void setHangPower(double power){
+        hangMotor.setPower(power);
     }
 }
