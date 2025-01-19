@@ -35,6 +35,8 @@ public class Main extends GreenLinearOpMode {
     double hsPow;
     double hangPow;
 
+    boolean hanging;
+
 
     @Override
     public void initialize() {
@@ -101,7 +103,11 @@ public class Main extends GreenLinearOpMode {
         hangPow = -gamepad2.right_stick_y;
         if(Math.abs(hangPow) > .1){
             hang.setHangPower(hangPow);
-        } else hang.setHangPower(0);
+        } else if(!hanging) hang.setHangPower(0);
+
+        if (stickyG2.dpad_right) {
+            hanging = !hanging;
+        }
 
         // Low and High Buckets
         if(stickyG2.left_bumper){
