@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Subsystem {
 
-    public static double drivePower;
+    public double drivePower;
     public Drivetrain (HardwareMap hardwareMap) {
         super(hardwareMap);
     }
