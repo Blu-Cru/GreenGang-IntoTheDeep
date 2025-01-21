@@ -55,14 +55,4 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
 }

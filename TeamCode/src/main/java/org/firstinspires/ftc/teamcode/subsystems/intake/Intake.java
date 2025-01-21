@@ -34,16 +34,6 @@ public class Intake implements GreenSubsystem, Subsystem {
         state = STATE.REST;
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
     public void in(){
         intake.setPower(1);
         intake2.setPower(1);

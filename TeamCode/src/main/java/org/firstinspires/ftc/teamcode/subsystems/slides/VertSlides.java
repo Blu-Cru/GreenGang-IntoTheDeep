@@ -63,16 +63,6 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         type = TYPE.IDLE;
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
     public VertSlides(HardwareMap hardwareMap) {
         motorLeft = hardwareMap.get(DcMotor.class, "slidesMotorLeft");
         motorRight = hardwareMap.get(DcMotor.class, "slidesMotorRight");

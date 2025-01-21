@@ -47,15 +47,4 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
         open();
     }
 
-    @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
-
 }

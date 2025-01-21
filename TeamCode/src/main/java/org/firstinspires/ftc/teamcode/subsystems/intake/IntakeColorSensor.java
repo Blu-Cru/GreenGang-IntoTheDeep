@@ -62,33 +62,12 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
         Color.colorToHSV(colorInt, hsv);
         return hsv;
     }
-
-    public void write() {
-
-    }
-
     public boolean empty() {
         return slotState == SlotState.EMPTY;
     }
 
     public boolean hasOne() {
         return slotState != SlotState.EMPTY;
-    }
-
-    public void read() {
-        if (reading) {
-            distance = sensor.getDistance(DistanceUnit.INCH);
-
-            rgba = sensor.getNormalizedColors();
-
-            r = rgba.red;
-            g = rgba.green;
-            b = rgba.blue;
-            hsv = getHSV(rgba); // sets frontHSV
-            hue = hsv[0];
-
-            slotState = getSlotState();
-        }
     }
 
     public SlotState getSlotState() {
@@ -140,6 +119,19 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
 
     @Override
     public void update() {
+        if (reading) {
+            distance = sensor.getDistance(DistanceUnit.INCH);
+
+            rgba = sensor.getNormalizedColors();
+
+            r = rgba.red;
+            g = rgba.green;
+            b = rgba.blue;
+            hsv = getHSV(rgba); // sets frontHSV
+            hue = hsv[0];
+
+            slotState = getSlotState();
+        }
 
     }
 }

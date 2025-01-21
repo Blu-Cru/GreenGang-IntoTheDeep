@@ -22,16 +22,6 @@ public class Hang implements GreenSubsystem, Subsystem {
     }
 
     @Override
-    public void read() {
-
-    }
-
-    @Override
-    public void write() {
-
-    }
-
-    @Override
     public void telemetry(Telemetry telemetry) {
 
     }

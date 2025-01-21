@@ -49,17 +49,6 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         pidTo(0);
     }
 
-    @Override
-    public void read(){
-        position = motor.getCurrentPosition();
-        velocity = motor.getVelocity();
-    }
-
-    @Override
-    public void write(){
-
-    }
-
     public void pidTo(double ticks){
         state = STATE.PID;
         pid.setSetPoint(Range.clip(ticks, 0, 2200));
@@ -97,6 +86,8 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     }
 
     public void update() {
+        position = motor.getCurrentPosition();
+        velocity = motor.getVelocity();
         switch (state) {
             case IDLE:
                 motor.setPower(0);
