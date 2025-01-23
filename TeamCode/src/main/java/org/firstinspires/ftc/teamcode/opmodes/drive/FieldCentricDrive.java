@@ -24,10 +24,10 @@ public class FieldCentricDrive extends GreenLinearOpMode {
 
         //Robot moves slower
         if(gamepad1.right_trigger > 0.4) {
-            Drivetrain.drivePower = 0.3;
+            drivetrain.drivePower = 0.3;
         }
         else {
-            Drivetrain.drivePower = 0.6;
+            drivetrain.drivePower = 0.6;
         }
 
        if (gamepad1.options) {

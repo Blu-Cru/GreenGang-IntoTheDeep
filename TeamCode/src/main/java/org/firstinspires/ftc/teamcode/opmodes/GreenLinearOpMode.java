@@ -74,8 +74,8 @@ public class GreenLinearOpMode extends LinearOpMode {
             telemetry.update();
         }
 
+
         waitForStart();
-        robot.read();
         onStart();
 
         while (opModeIsActive()) {
@@ -88,8 +88,7 @@ public class GreenLinearOpMode extends LinearOpMode {
             }
 
             CommandScheduler.getInstance().run();
-            robot.read();
-            robot.write();
+
             robot.update();
 
             telemetry();

@@ -54,17 +54,17 @@ public class Robot {
         }
     }
 
-    public void read() {
-        for(GreenSubsystem subsystem : subsystems) {
-            subsystem.read();
-        }
-    }
-
-    public void write() {
-        for(GreenSubsystem subsystem : subsystems) {
-            subsystem.write();
-        }
-    }
+//    public void read() {
+//        for(GreenSubsystem subsystem : subsystems) {
+//            subsystem.read();
+//        }
+//    }
+//
+//    public void write() {
+//        for(GreenSubsystem subsystem : subsystems) {
+//            subsystem.write();
+//        }
+//    }
 
     public Intake addIntake() {
         intake = new Intake(hardwareMap);

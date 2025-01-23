@@ -7,15 +7,13 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 
 @TeleOp(name = "color sensor test", group = "test")
 public class ColorSensorTest extends GreenLinearOpMode {
-    IntakeColorSensor color;
-
     @Override
     public void periodic() {
         if(gamepad2.left_bumper) {
-            if(color.isReading()) {
-                color.stopReading();
+            if(intakeColorSensor.isReading()) {
+                intakeColorSensor.stopReading();
             } else {
-                color.startReading();
+                intakeColorSensor.startReading();
             }
         }
     }
@@ -26,7 +24,7 @@ public class ColorSensorTest extends GreenLinearOpMode {
     }
 
     public void telemetry() {
-        color.telemetry(telemetry);
+        intakeColorSensor.telemetry(telemetry);
     }
 
 }

@@ -50,6 +50,7 @@ public class Main extends GreenLinearOpMode {
         addClawWrist();
         addVertSlides();
         addHang();
+        addIntakeColorSensor();
     }
 
     @Override
@@ -124,9 +125,10 @@ public class Main extends GreenLinearOpMode {
         }
 
         // updating stuff
-//        if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
-//            spit(robot.color, robot.intake, alliance);
-//        }
+        intakeColorSensor.startReading();
+        if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
+            spit(robot.color, robot.intake, alliance);
+        }
     }
 
     public void drive(Drive drive){
@@ -150,10 +152,10 @@ public class Main extends GreenLinearOpMode {
         rx = -gamepad1.right_stick_x;
 
         if(gamepad1.right_trigger > 0.4) {
-            Drivetrain.drivePower = 0.3;
+            drivetrain.drivePower = 0.3;
         }
         else {
-            Drivetrain.drivePower = 0.6;
+            drivetrain.drivePower = 0.6;
         }
     }
 
