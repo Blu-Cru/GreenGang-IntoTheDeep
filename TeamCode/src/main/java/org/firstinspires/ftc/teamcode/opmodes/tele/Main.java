@@ -33,6 +33,7 @@ public class Main extends GreenLinearOpMode {
     boolean closed;
     boolean extended;
     boolean highspec;
+    boolean intakeIn;
 
 
     @Override
@@ -60,10 +61,13 @@ public class Main extends GreenLinearOpMode {
         // Intake Field Sample
         if (gamepad1.left_trigger > 0.2) {
             new IntakeInCommand().schedule();
+            intakeIn = true;
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
+            intakeIn = false;
         } else {
             intake.stop();
+            intakeIn = false;
         }
 
         if (stickyG1.left_bumper) {
@@ -135,9 +139,10 @@ public class Main extends GreenLinearOpMode {
 
         // updating stuff
         intakeColorSensor.startReading();
+        intakeColorSensor.update();
         if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
             spit(alliance);
-        } else if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
+        } else if (robot.color.isFull() && robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW) && intakeIn) {
             new RetractAutoCommand().schedule();
         }
     }
@@ -175,18 +180,22 @@ public class Main extends GreenLinearOpMode {
             case RED:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
                     robot.intake.spit();
-                } else {
+                } else if (intakeIn) {
                     new RetractAutoCommand().schedule();
                 }
                 break;
             case BLUE:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
                     robot.intake.spit();
-                } else {
+                } else if (intakeIn){
                     new RetractAutoCommand().schedule();
                 }
                 break;
         }
+    }
+
+    public bucketHeading() {
+
     }
 }
 

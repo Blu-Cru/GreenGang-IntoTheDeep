@@ -22,7 +22,7 @@ public class RetractAutoCommand extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                         new SlidesLiftSlightlyCommand(),
                         new HorizontalSlidesRetractCommand(),
-                        new WaitCommand(800),
+                        new WaitCommand(400),
                         new VertSlidesStartCommand()
                 )
         );

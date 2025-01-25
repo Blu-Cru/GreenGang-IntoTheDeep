@@ -24,7 +24,7 @@ public class ResetCommand extends SequentialCommandGroup {
                         new SlidesLiftSlightlyCommand(),
                         new HorizontalSlidesRetractCommand(),
                         new OuttakeIntakeCommand(),
-                        new WaitCommand(800),
+                        new WaitCommand(500),
                         new VertSlidesStartCommand()
                 )
         );
