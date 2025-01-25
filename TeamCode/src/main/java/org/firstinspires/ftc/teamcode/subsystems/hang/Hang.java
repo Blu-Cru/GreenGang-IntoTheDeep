@@ -16,7 +16,7 @@ public class Hang implements GreenSubsystem, Subsystem {
         hangMotor = hardwareMap.get(DcMotor.class, "hang");
     }
 
-                @Override
+    @Override
     public void init() {
 
     }

@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode.commands.outtake;
+package org.firstinspires.ftc.teamcode.commands.intake;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristIntakeCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 
 /*
@@ -13,13 +16,14 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartComman
 - Opens claw
 - Claw arm to transfer pos
  */
-public class OuttakeIntakeCommand extends SequentialCommandGroup {
-    public OuttakeIntakeCommand() {
+public class RetractAutoCommand extends SequentialCommandGroup {
+    public RetractAutoCommand() {
         super(
                 new SequentialCommandGroup(
-                        new ClawWristIntakeCommand(),
-                        new OuttakeClawOpenCommand(),
-                        new ClawArmIntakeCommand()
+                        new SlidesLiftSlightlyCommand(),
+                        new HorizontalSlidesRetractCommand(),
+                        new WaitCommand(800),
+                        new VertSlidesStartCommand()
                 )
         );
     }

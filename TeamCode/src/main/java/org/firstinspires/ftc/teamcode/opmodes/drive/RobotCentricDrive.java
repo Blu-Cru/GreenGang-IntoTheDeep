@@ -18,8 +18,8 @@ public class RobotCentricDrive extends GreenLinearOpMode {
     @Override
     public void periodic() {
 
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
+        y = gamepad1.left_stick_y;
+        x = -gamepad1.left_stick_x;
         rx = -gamepad1.right_stick_x;
 
         //Robot moves slower

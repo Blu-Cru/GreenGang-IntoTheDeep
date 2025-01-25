@@ -20,7 +20,7 @@ public class TelePart1Command extends SequentialCommandGroup {
                         new ClawArmInSpecCommand(),
                         new ClawWristInSpecCommand(),
                         new OuttakeClawOpenCommand(),
-                        new WaitCommand(1100),
+                        new WaitCommand(200),
                         new VertSlidesStartCommand()
                 )
         );

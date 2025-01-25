@@ -19,7 +19,7 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
 
     public OuttakeClaw(HardwareMap hardwareMap) {
         outtakeClaw = hardwareMap.get(Servo.class, "outtake claw");
-        state = STATE.CLOSE;
+        state = STATE.OPEN;
     }
 
     public void close(){

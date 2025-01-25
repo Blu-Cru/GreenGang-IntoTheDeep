@@ -23,15 +23,20 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         MANUAL
     }
 
+    public enum LOC {
+        RETRACTED,
+        EXTENDED
+    }
+
     public static double
             instlower = 1000, // TODO: to be determined
             retract = 0;
 
-    STATE state;
+    public STATE state;
+    public LOC loc;
     DcMotorEx motor;
     PIDController pid;
     double position, velocity;
-    double manualPower;
 
     public HorizontalSlides(HardwareMap hardwareMap){
         motor = hardwareMap.get(DcMotorEx.class, "horiz slides");
@@ -47,10 +52,12 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pidTo(0);
+        loc = LOC.RETRACTED;
     }
 
     public void pidTo(double ticks){
         state = STATE.PID;
+        loc = LOC.EXTENDED;
         pid.setSetPoint(Range.clip(ticks, 0, 2200));
     }
     public void updatePID(){
@@ -59,27 +66,32 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     public void autoLower() {
         state = STATE.PID;
+        loc = LOC.RETRACTED;
         pidTo(instlower);
     }
 
     public void retract() {
         state  = STATE.PID;
+        loc = LOC.RETRACTED;
         pidTo(retract);
     }
 
     public void stop () {
         state = STATE.IDLE;
+        loc = LOC.EXTENDED;
         motor.setPower(0);
     }
 
     public void manualSlide(double input) {
         state = STATE.MANUAL;
+        loc = LOC.EXTENDED;
         pidTo(position + 300.0 * input);
     }
 
     @Override
     public void telemetry(Telemetry tele){
         tele.addData("HS State", state);
+        tele.addData("HS State 2 ", loc);
         tele.addData("HS PID SP", pid.getSetPoint());
         tele.addData("Vel", velocity);
         tele.addData("Pos ", position);
@@ -97,6 +109,11 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
                 double power = Range.clip(pid.calculate(position), -0.6, 0.75);
                 motor.setPower(power);
                 break;
+        }
+        if (position < 10) {
+            loc = LOC.RETRACTED;
+        } else {
+            loc = LOC.EXTENDED;
         }
     }
 }
