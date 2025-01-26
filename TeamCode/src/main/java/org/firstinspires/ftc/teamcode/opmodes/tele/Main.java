@@ -56,7 +56,7 @@ public class Main extends GreenLinearOpMode {
         driveControl();
         drive(drive);
 
-        /************** GAMEPAD 1 **************/
+        /// GP1
 
         // Intake Field Sample
         if (gamepad1.left_trigger > 0.2) {
@@ -89,7 +89,7 @@ public class Main extends GreenLinearOpMode {
             closed = !closed;
         }
 
-        /************** GAMEPAD 2 **************/
+        /// GP2
 
         // All subsystems Intake + Transfer
         if (stickyG2.a) {
@@ -192,10 +192,6 @@ public class Main extends GreenLinearOpMode {
                 }
                 break;
         }
-    }
-
-    public bucketHeading() {
-
     }
 }
 

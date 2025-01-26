@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -12,6 +13,8 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Subsystem {
 
     public double drivePower;
+    public DrivePID pid;
+    boolean fieldCentric;
     public Drivetrain (HardwareMap hardwareMap) {
         super(hardwareMap);
     }
@@ -22,12 +25,13 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
         x = output.getX();
         y = output.getY();
+        fieldCentric = false;
 
         setWeightedDrivePower(new Pose2d(x * drivePower, y * drivePower, rotate * drivePower));
     }
 
     public void fieldCentricDrive(double x, double y, double rotate){
-
+        fieldCentric = true;
         double botHeading = getExternalHeading();
 
         Vector2d input = new Vector2d(x,y);
@@ -39,6 +43,19 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         y = output.getY();
 
         setWeightedDrivePower(new Pose2d(x * drivePower, y * drivePower, rotate * drivePower));
+    }
+
+    public void driveToHeading(double x, double y, double targetHeading) {
+        pid.setTargetHeading(targetHeading);
+        driveToHeading(x,y);
+    }
+
+    public void driveToHeading(double x, double y) {
+        if (fieldCentric) {
+            fieldCentricDrive(x,y, Range.clip(pid.getRotate(), -drivePower, drivePower));
+        } else {
+            drive(x,y, Range.clip(pid.getRotate(), -drivePower, drivePower));
+        }
     }
 
     @Override

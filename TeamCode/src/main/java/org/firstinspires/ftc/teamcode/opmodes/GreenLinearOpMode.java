@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.drive.DrivePID;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
@@ -23,6 +24,7 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     public Robot robot;
     public VertSlides vs;
+    public DrivePID dtPid;
     public Drivetrain drivetrain;
     public ClawArm transfer;
     public ClawWrist clawWrist;
@@ -120,6 +122,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
+    public void addDrivePID() {dtPid = robot.addDrivePID();}
 
     public void addHang() {hang = robot.addHang();}
 //    public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}

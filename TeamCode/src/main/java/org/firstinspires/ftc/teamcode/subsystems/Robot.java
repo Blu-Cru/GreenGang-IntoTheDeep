@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.subsystems.drive.DrivePID;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
@@ -22,6 +23,7 @@ public class Robot {
     // all subsystems
     public Intake intake;
     public ClawArm clawArm;
+    public DrivePID dtPid;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
     public ClawWrist clawWrist;
@@ -54,18 +56,11 @@ public class Robot {
         }
     }
 
-//    public void read() {
-//        for(GreenSubsystem subsystem : subsystems) {
-//            subsystem.read();
-//        }
-//    }
-//
-//    public void write() {
-//        for(GreenSubsystem subsystem : subsystems) {
-//            subsystem.write();
-//        }
-//    }
-
+    public DrivePID addDrivePID(){
+        dtPid = new DrivePID(hardwareMap);
+        subsystems.add(dtPid);
+        return dtPid;
+    }
     public Intake addIntake() {
         intake = new Intake(hardwareMap);
         subsystems.add(intake);
