@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmIntakeCom
 import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
@@ -23,6 +24,7 @@ public class ResetCommand extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                         new SlidesLiftSlightlyCommand(),
                         new HorizontalSlidesRetractCommand(),
+                        new WristParallelCommand(),
                         new OuttakeIntakeCommand(),
                         new WaitCommand(500),
                         new VertSlidesStartCommand()

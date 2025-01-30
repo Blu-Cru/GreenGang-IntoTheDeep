@@ -15,8 +15,12 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     public double drivePower;
     public DrivePID pid;
     boolean fieldCentric;
+    public double heading;
     public Drivetrain (HardwareMap hardwareMap) {
         super(hardwareMap);
+        pid = new DrivePID();
+        fieldCentric = true;
+        drivePower = .5;
     }
 
     public void drive(double x, double y, double rotate) {
@@ -49,27 +53,31 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         pid.setTargetHeading(targetHeading);
         driveToHeading(x,y);
     }
-
+    public void updatePID() {
+        pid.headingController.setPID(DrivePID.kPHeading, DrivePID.kIHeading, DrivePID.kDHeading);
+    }
     public void driveToHeading(double x, double y) {
         if (fieldCentric) {
-            fieldCentricDrive(x,y, Range.clip(pid.getRotate(), -drivePower, drivePower));
+            fieldCentricDrive(x,y, Range.clip(pid.getRotate(heading), -drivePower, drivePower));
         } else {
-            drive(x,y, Range.clip(pid.getRotate(), -drivePower, drivePower));
+            drive(x,y, Range.clip(pid.getRotate(heading), -drivePower, drivePower));
         }
     }
 
     @Override
     public void init() {
-
     }
+
     @Override
     public void telemetry(Telemetry tele) {
-        tele.addData("heading ", getExternalHeading());
+        tele.addData("heading current pos ", heading);
+        tele.addData("rotate pow ", pid.getRotate(heading));
         tele.addData("drive train power ", drivePower);
     }
 
     @Override
     public void update() {
-
+        updatePID();
+        heading = getRawExternalHeading();
     }
 }

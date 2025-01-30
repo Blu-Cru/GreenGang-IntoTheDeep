@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
@@ -12,7 +13,6 @@ import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.TelePart1Command;
-import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
@@ -20,9 +20,6 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
-import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
-
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
@@ -35,7 +32,6 @@ public class Main extends GreenLinearOpMode {
     boolean highspec;
     boolean intakeIn;
 
-
     @Override
     public void initialize() {
         addDrivetrain();
@@ -45,6 +41,7 @@ public class Main extends GreenLinearOpMode {
         addClawArm();
         addOuttakeClaw();
         addHorizontalSlides();
+//        addIntakeWrist();
         addClawWrist();
         addVertSlides();
         addHang();
@@ -55,6 +52,7 @@ public class Main extends GreenLinearOpMode {
     public void periodic() {
         driveControl();
         drive(drive);
+        intakeColorSensor.startReading();
 
         /// GP1
 
@@ -69,6 +67,12 @@ public class Main extends GreenLinearOpMode {
             intake.stop();
             intakeIn = false;
         }
+
+//        if (intakeIn) {
+//            new WristDownCommand().schedule();
+//        } else {
+//            wrist.parallel();
+//        }
 
         if (stickyG1.left_bumper) {
             if (highspec){
@@ -137,9 +141,10 @@ public class Main extends GreenLinearOpMode {
             new SlidesLiftSlightlyCommand().schedule();
         }
 
-        // updating stuff
-        intakeColorSensor.startReading();
-        intakeColorSensor.update();
+        colorSensorPeriodic();
+    }
+
+    public void colorSensorPeriodic(){
         if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
             spit(alliance);
         } else if (robot.color.isFull() && robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW) && intakeIn) {
@@ -150,7 +155,7 @@ public class Main extends GreenLinearOpMode {
     public void drive(Drive drive) {
         switch (drive) {
             case FIELDCENTRIC:
-                if (stickyG1.b) {
+                if (stickyG1.left_stick_button) {
                     gamepad1.rumble(200);
                     drivetrain.setExternalHeading(Math.toRadians(90));
                 }

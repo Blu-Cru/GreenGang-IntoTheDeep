@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake;
-// package org.firstinspires.ftc.teamcode.blucru.common.subsystems.intake;
 
 import android.graphics.Color;
 
@@ -32,7 +31,6 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
     double hue;
     double distance;
     double lightDetected;
-    double timeLastEmpty;
     boolean reading;
 
     public IntakeColorSensor(HardwareMap hardwareMap) {
@@ -87,37 +85,36 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
     }
 
 
-        // scales the front RGB values to be between 0 and 255
-        public void scaleFrontRGB () {
-            double max = Math.max(Math.max(r, b), g);
-            r = r / max;
-            g = g / max;
-            b = b / max;
-        }
+    // scales the front RGB values to be between 0 and 255
+    public void scaleFrontRGB () {
+        double max = Math.max(Math.max(r, b), g);
+        r = r / max;
+        g = g / max;
+        b = b / max;
+    }
 
-        public void startReading () {
-            reading = true;
-        }
+    public void startReading () {
+        reading = true;
+    }
 
-        public void stopReading () {
-            reading = false;
-        }
+    public void stopReading () {
+        reading = false;
+    }
 
-        public boolean isReading () {
-            return reading;
-        }
+    public boolean isReading () {
+        return reading;
+    }
 
-        public boolean isFull () {
-            return slotState != SlotState.EMPTY;
-        }
-
-        @Override
-        public void telemetry (Telemetry telemetry){
-            telemetry.addData("Intake color sensor state ", slotState);
-            telemetry.addData("Intake color sensor dist ", distance);
-        }
+    public boolean isFull () {
+        return slotState != SlotState.EMPTY;
+    }
 
     @Override
+    public void telemetry (Telemetry telemetry){
+        telemetry.addData("Intake color sensor state ", slotState);
+        telemetry.addData("Intake color sensor dist ", distance);
+    }
+
     public void update() {
         if (reading) {
             distance = sensor.getDistance(DistanceUnit.INCH);
@@ -132,7 +129,6 @@ public class IntakeColorSensor implements GreenSubsystem, Subsystem {
 
             slotState = getSlotState();
         }
-
     }
 }
 

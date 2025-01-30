@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketComm
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 /*
 - Lifts slides, deposits piece into low bucket
@@ -19,6 +20,7 @@ public class AutoSamplePart1 extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                         new HorizontalSlidesExtendCommand(),
+                        new WristDownCommand(),
                         new IntakeInCommand(),
                         new WaitCommand(2000), // change?
                         new IntakeStopCommand(),

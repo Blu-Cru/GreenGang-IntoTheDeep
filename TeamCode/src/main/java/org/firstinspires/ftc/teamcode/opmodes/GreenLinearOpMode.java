@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
@@ -24,10 +25,10 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     public Robot robot;
     public VertSlides vs;
-    public DrivePID dtPid;
     public Drivetrain drivetrain;
     public ClawArm transfer;
     public ClawWrist clawWrist;
+    public IntakeWrist wrist;
     public OuttakeClaw outtakeClaw;
     public Intake intake;
     public IntakeColorSensor intakeColorSensor;
@@ -116,17 +117,14 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void end() {}
 
     // subsystems
+    public void addIntakeWrist() {wrist = robot.addIntakeWrist();}
     public void addClawArm() {transfer = robot.addTransfer();}
     public void addVertSlides() {vs = robot.addVertSlides();}
     public void addClawWrist() {clawWrist = robot.addClawWrist();}
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
-    public void addDrivePID() {dtPid = robot.addDrivePID();}
-
     public void addHang() {hang = robot.addHang();}
-//    public void addIntakeWrist() { intakeWrist = robot.addIntakeWrist();}
-//    public void addIntakeArm() {arm = robot.addIntakeArm();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}

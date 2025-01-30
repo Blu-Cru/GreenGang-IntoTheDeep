@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
@@ -23,7 +24,6 @@ public class Robot {
     // all subsystems
     public Intake intake;
     public ClawArm clawArm;
-    public DrivePID dtPid;
     public Drivetrain drivetrain;
     public IntakeColorSensor color;
     public ClawWrist clawWrist;
@@ -31,6 +31,7 @@ public class Robot {
     public VertSlides vs;
     public HorizontalSlides horizontalSlides;
     public Hang hang;
+    public IntakeWrist wrist;
     ArrayList<GreenSubsystem> subsystems;
 
     public static Robot getInstance() {
@@ -54,12 +55,6 @@ public class Robot {
         for(GreenSubsystem subsystem : subsystems) {
             subsystem.init();
         }
-    }
-
-    public DrivePID addDrivePID(){
-        dtPid = new DrivePID(hardwareMap);
-        subsystems.add(dtPid);
-        return dtPid;
     }
     public Intake addIntake() {
         intake = new Intake(hardwareMap);
@@ -104,6 +99,12 @@ public class Robot {
         vs = new VertSlides(hardwareMap);
         subsystems.add(vs);
         return vs;
+    }
+
+    public IntakeWrist addIntakeWrist() {
+        wrist = new IntakeWrist(hardwareMap);
+        subsystems.add(wrist);
+        return wrist;
     }
 
 
