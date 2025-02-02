@@ -27,7 +27,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void intake() { // Transfer
-        clawArm.setPosition(0.89);
+        clawArm.setPosition(.5);
         state = STATE.INIT;
     }
     public void perpendicular() { // scoring
@@ -40,7 +40,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void inspec() {
-        clawArm.setPosition(.1);
+        clawArm.setPosition(.05);
         state = STATE.INSPEC;
     }
 

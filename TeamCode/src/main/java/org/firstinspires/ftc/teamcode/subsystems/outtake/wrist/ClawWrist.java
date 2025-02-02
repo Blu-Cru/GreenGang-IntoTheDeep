@@ -25,20 +25,20 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(0.3);
+        clawWrist.setPosition(0.75); // .7
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(0.4);
+        clawWrist.setPosition(0.9); // .6
         state = STATE.BUCKET;
     }
 
     public void inspec() {
-        clawWrist.setPosition(.45);
+        clawWrist.setPosition(.95); // .55
     }
     public void Spec() {
-        clawWrist.setPosition(.15);
+        clawWrist.setPosition(.7); // .85
         state = STATE.SPEC;
     }
 

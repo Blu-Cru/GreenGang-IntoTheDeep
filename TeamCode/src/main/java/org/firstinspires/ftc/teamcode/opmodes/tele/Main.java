@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.spec.TelePart1Command;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.turnCommand.TurnCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
@@ -37,11 +38,10 @@ public class Main extends GreenLinearOpMode {
         addDrivetrain();
         addIntake();
         addStickyG1();
-        addStickyG2();
         addClawArm();
         addOuttakeClaw();
         addHorizontalSlides();
-//        addIntakeWrist();
+        addIntakeWrist();
         addClawWrist();
         addVertSlides();
         addHang();
@@ -68,11 +68,11 @@ public class Main extends GreenLinearOpMode {
             intakeIn = false;
         }
 
-//        if (intakeIn) {
-//            new WristDownCommand().schedule();
-//        } else {
-//            wrist.parallel();
-//        }
+        if (intakeIn) {
+            new WristDownCommand().schedule();
+        } else {
+            wrist.parallel();
+        }
 
         if (stickyG1.left_bumper) {
             if (highspec){
