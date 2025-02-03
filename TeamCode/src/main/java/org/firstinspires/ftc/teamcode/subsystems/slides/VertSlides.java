@@ -18,7 +18,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public DcMotor motorLeft, motorRight;
     private final PIDController pid;
     public double targetHeight;
-    public static double vsP = 0.013, vsI = 0, vsD = 0.0001;
+    public static double vsP = 0.007, vsI = 0.01, vsD = 0.0001;
     private double motorPower;
 
     public static int
