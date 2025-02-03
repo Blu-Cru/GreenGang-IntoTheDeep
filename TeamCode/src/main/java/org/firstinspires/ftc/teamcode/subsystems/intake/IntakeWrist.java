@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems.intake;
 
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
-public class IntakeWrist implements GreenSubsystem {
+public class IntakeWrist implements GreenSubsystem, Subsystem {
 
     double wristPos;
     Servo wrist;
@@ -16,15 +17,15 @@ public class IntakeWrist implements GreenSubsystem {
     }
 
     public void init() {
-        wrist.setPosition(0); // todo: could be wrong
+        wrist.setPosition(0.8);
     }
 
     public void parallel() {
-        wrist.setPosition(0.8); // todo: test this
+        wrist.setPosition(0.8);
     }
 
     public void down(){
-        wrist.setPosition(0.45); // todo: test this
+        wrist.setPosition(0.5);
     }
 
     public void telemetry(Telemetry telemetry){
