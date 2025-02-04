@@ -93,6 +93,11 @@ public class Main extends GreenLinearOpMode {
             closed = !closed;
         }
 
+        // TO BE TESTED
+        if (stickyG1.b) {
+            drivetrain.driveToHeading(0,0, Math.PI/2);
+        }
+
         /// GP2
 
         // All subsystems Intake + Transfer
