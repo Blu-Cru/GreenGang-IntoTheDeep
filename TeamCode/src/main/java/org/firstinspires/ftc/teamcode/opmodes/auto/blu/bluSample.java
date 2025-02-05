@@ -112,7 +112,11 @@ public class bluSample extends GreenLinearOpMode {
             if (!drivetrain.isBusy()){
                 mecDrive.followTrajectorySequenceAsync(closeBlue);
             }
-            mecDrive.updateTrajectory();
+            try {
+                mecDrive.updateTrajectory();
+            } catch (Exception e){
+                requestOpModeStop();
+            }
             CommandScheduler.getInstance().run();
         }
     }
