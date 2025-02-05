@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class OuttakeClaw implements GreenSubsystem, Subsystem {
     Servo outtakeClaw;
-
     public enum STATE {
         OPEN,
         CLOSE;

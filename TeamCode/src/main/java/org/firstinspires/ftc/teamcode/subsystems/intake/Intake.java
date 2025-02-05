@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class Intake implements GreenSubsystem, Subsystem {
     CRServo intake, intake2;
-
     public enum STATE {
         IN,
         REST,

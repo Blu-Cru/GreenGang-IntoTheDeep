@@ -20,7 +20,10 @@ import org.firstinspires.ftc.teamcode.commands.turnCommand.TurnCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
@@ -28,10 +31,6 @@ public class Main extends GreenLinearOpMode {
     double hsPow;
     double hangPow;
     boolean hanging;
-    boolean closed;
-    boolean extended;
-    boolean highspec;
-    boolean intakeIn;
 
     @Override
     public void initialize() {
@@ -54,43 +53,38 @@ public class Main extends GreenLinearOpMode {
         drive(drive);
         intakeColorSensor.startReading();
 
-        /// GP1
+        /// GP1intakeIn = true;
 
         // Intake Field Sample
         if (gamepad1.left_trigger > 0.2) {
             new IntakeInCommand().schedule();
-            intakeIn = true;
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
-            intakeIn = false;
         } else {
             intake.stop();
-            intakeIn = false;
         }
 
-        if (intakeIn) {
+        if (intake.state == Intake.STATE.IN) {
             new WristDownCommand().schedule();
         } else {
             wrist.parallel();
         }
 
         if (stickyG1.left_bumper) {
-            if (highspec){
+            if (vs.highspec){
                 new LowSpecCommand().schedule();
             } else {
                 new HighSpecCommand().schedule();
             }
-            highspec = !highspec;
         }
 
         // Opens Claw
         if (stickyG1.a) {
-            if (!closed) {
+            if (outtakeClaw.state == OuttakeClaw.STATE.OPEN) {
                 new OuttakeClawCloseCommand().schedule();
             } else {
                 new OuttakeClawOpenCommand().schedule();
             }
-            closed = !closed;
         }
 
         // TO BE TESTED
@@ -102,19 +96,17 @@ public class Main extends GreenLinearOpMode {
 
         // All subsystems Intake + Transfer
         if (stickyG2.a) {
-            if (!closed) {
+            if (outtakeClaw.state == OuttakeClaw.STATE.OPEN) {
                 new OuttakeClawCloseCommand().schedule();
             } else {
                 new OuttakeClawOpenCommand().schedule();
             }
-            closed = !closed;
         } else if (stickyG2.dpad_down) {
-            if (!extended) {
+            if (horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED) {
                 new HorizontalSlidesExtendCommand().schedule();
             } else {
                 new RetractAutoCommand().schedule();
             }
-            extended = !extended;
         } else if (stickyG2.dpad_up) {
             new TelePart1Command().schedule();
         }
@@ -152,7 +144,7 @@ public class Main extends GreenLinearOpMode {
     public void colorSensorPeriodic(){
         if (robot.color.isFull() && !robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW)) {
             spit(alliance);
-        } else if (robot.color.isFull() && robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW) && intakeIn) {
+        } else if (robot.color.isFull() && robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW) && intake.state == Intake.STATE.IN) {
             new RetractAutoCommand().schedule();
         }
     }
@@ -190,14 +182,14 @@ public class Main extends GreenLinearOpMode {
             case RED:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.BLUE)) {
                     robot.intake.spit();
-                } else if (intakeIn) {
+                } else if (intake.state == Intake.STATE.IN) {
                     new RetractAutoCommand().schedule();
                 }
                 break;
             case BLUE:
                 if (robot.color.slotState.equals(IntakeColorSensor.SlotState.RED)) {
                     robot.intake.spit();
-                } else if (intakeIn){
+                } else if (intake.state == Intake.STATE.IN){
                     new RetractAutoCommand().schedule();
                 }
                 break;
