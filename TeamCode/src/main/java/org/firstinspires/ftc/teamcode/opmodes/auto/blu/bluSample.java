@@ -106,18 +106,14 @@ public class bluSample extends GreenLinearOpMode {
 
     @Override
     public void periodic() {
-        waitForStart();
-
-        while(opModeIsActive()) {
-            if (!drivetrain.isBusy()){
-                mecDrive.followTrajectorySequenceAsync(closeBlue);
-            }
-            try {
-                mecDrive.updateTrajectory();
-            } catch (Exception e){
-                requestOpModeStop();
-            }
-            CommandScheduler.getInstance().run();
+        if (!drivetrain.isBusy()){
+            mecDrive.followTrajectorySequenceAsync(closeBlue);
         }
+        try {
+            mecDrive.updateTrajectory();
+        } catch (Exception e){
+            requestOpModeStop();
+        }
+        CommandScheduler.getInstance().run();
     }
 }
