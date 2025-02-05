@@ -11,22 +11,24 @@ import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 
 @Autonomous(name = "close blue auto", group = "paths")
-public class bluSample extends LinearOpMode {
+public class bluSample extends GreenLinearOpMode {
+    TrajectorySequence closeBlue;
+    SampleMecanumDrive mecDrive;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
+    public void initialize() {
+        addDrivetrain();
+        SampleMecanumDrive mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(24, 64, Math.toRadians(90));
+        mecDrive.setPoseEstimate(startPose);
 
-        drive.setPoseEstimate(startPose);
-
-        TrajectorySequence closeBlue = drive.trajectorySequenceBuilder(startPose)
+        TrajectorySequence closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
                 .setTangent(-90)
 
                 // PRELOAD
@@ -100,11 +102,17 @@ public class bluSample extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(48,58, Math.toRadians(90)), Math.toRadians(45))
                 .build();
 
+    }
+
+    @Override
+    public void periodic() {
         waitForStart();
 
         while(opModeIsActive()) {
-            drive.followTrajectorySequenceAsync(closeBlue);
-            drive.updateTrajectory();
+            if (!drivetrain.isBusy()){
+                mecDrive.followTrajectorySequenceAsync(closeBlue);
+            }
+            mecDrive.updateTrajectory();
             CommandScheduler.getInstance().run();
         }
     }
