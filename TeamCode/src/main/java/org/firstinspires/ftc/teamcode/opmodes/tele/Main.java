@@ -85,7 +85,7 @@ public class Main extends GreenLinearOpMode {
 
         // Opens Claw
         if (stickyG1.a) {
-            if (closed) {
+            if (!closed) {
                 new OuttakeClawCloseCommand().schedule();
             } else {
                 new OuttakeClawOpenCommand().schedule();
@@ -102,7 +102,7 @@ public class Main extends GreenLinearOpMode {
 
         // All subsystems Intake + Transfer
         if (stickyG2.a) {
-            if (closed) {
+            if (!closed) {
                 new OuttakeClawCloseCommand().schedule();
             } else {
                 new OuttakeClawOpenCommand().schedule();
