@@ -28,7 +28,7 @@ public class bluSample extends GreenLinearOpMode {
         Pose2d startPose = new Pose2d(24, 64, Math.toRadians(90));
         mecDrive.setPoseEstimate(startPose);
 
-        TrajectorySequence closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
+        closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
                 .setTangent(-90)
 
                 // PRELOAD

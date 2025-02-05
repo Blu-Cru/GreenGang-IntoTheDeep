@@ -53,7 +53,7 @@ public class Main extends GreenLinearOpMode {
         drive(drive);
         intakeColorSensor.startReading();
 
-        /// GP1intakeIn = true;
+        /// GP1
 
         // Intake Field Sample
         if (gamepad1.left_trigger > 0.2) {
