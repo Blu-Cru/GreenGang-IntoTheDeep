@@ -16,19 +16,17 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 public class redSampPath extends GreenLinearOpMode {
 
     TrajectorySequence closeRed;
+    SampleMecanumDrive mecDrive;
 
     @Override
     public void initialize() {
 
         addDrivetrain();
-
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
+        mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-24, -64, Math.toRadians(90));
+        mecDrive.setPoseEstimate(startPose);
 
-        drive.setPoseEstimate(startPose);
-
-        TrajectorySequence closeRed = drive.trajectorySequenceBuilder(startPose)
+        closeRed = mecDrive.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD
                 .splineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(45)), Math.toRadians(180))
@@ -56,16 +54,17 @@ public class redSampPath extends GreenLinearOpMode {
     }
 
 
+    @Override
     public void periodic() {
-        drivetrain.followTrajectorySequenceAsync(closeRed);
+        if (!drivetrain.isBusy()){
+            this.mecDrive.followTrajectorySequenceAsync(closeRed);
+        }
+        try {
+            this.mecDrive.updateTrajectory();
+        } catch (Exception e){
+            requestOpModeStop();
+        }
         CommandScheduler.getInstance().run();
-        drivetrain.updateTrajectory();
-        drivetrain.updatePoseEstimate();
-        Pose2d poseEstimate = drivetrain.getPoseEstimate();
-        telemetry.addData("x", poseEstimate.getX());
-        telemetry.addData("y", poseEstimate.getY());
-        telemetry.addData("heading", poseEstimate.getHeading());
-        telemetry.update();
     }
 
 }

@@ -17,11 +17,11 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
     }
 
     public void init() {
-        wrist.setPosition(0.8);
+        wrist.setPosition(0.68);
     }
 
     public void parallel() {
-        wrist.setPosition(0.8);
+        wrist.setPosition(0.68);
     }
 
     public void down(){

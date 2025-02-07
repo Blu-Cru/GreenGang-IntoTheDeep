@@ -2,28 +2,31 @@ package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "blue spec auto", group = "paths")
-public class bluSpec extends LinearOpMode {
+public class bluSpec extends GreenLinearOpMode {
+
+    TrajectorySequence farBlue;
+    SampleMecanumDrive mecDrive;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
+    public void initialize() {
+        addDrivetrain();
+        SampleMecanumDrive mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-24, 64, Math.toRadians(-90));
+        mecDrive.setPoseEstimate(startPose);
 
-        drive.setPoseEstimate(startPose);
-
-        TrajectorySequence farBlue = drive.trajectorySequenceBuilder(startPose)
+        farBlue = mecDrive.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
@@ -101,12 +104,20 @@ public class bluSpec extends LinearOpMode {
 
                 .build();
 
-        waitForStart();
-
-        while(opModeIsActive()) {
-            drive.followTrajectorySequenceAsync(farBlue);
-            drive.updateTrajectory();
-            CommandScheduler.getInstance().run();
         }
+
+    @Override
+    public void periodic() {
+        if (!drivetrain.isBusy()){
+            this.mecDrive.followTrajectorySequenceAsync(farBlue);
+        }
+        try {
+            this.mecDrive.updateTrajectory();
+        } catch (Exception e){
+            requestOpModeStop();
+        }
+        CommandScheduler.getInstance().run();
     }
+
+
 }

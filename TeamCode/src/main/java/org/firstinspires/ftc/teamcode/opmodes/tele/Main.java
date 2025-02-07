@@ -79,12 +79,8 @@ public class Main extends GreenLinearOpMode {
         }
 
         // Opens Claw
-        if (stickyG1.a) {
-            if (outtakeClaw.state == OuttakeClaw.STATE.OPEN) {
-                new OuttakeClawCloseCommand().schedule();
-            } else {
-                new OuttakeClawOpenCommand().schedule();
-            }
+        if (stickyG1.x) {
+            outtakeClaw.toggle();
         }
 
         // TO BE TESTED

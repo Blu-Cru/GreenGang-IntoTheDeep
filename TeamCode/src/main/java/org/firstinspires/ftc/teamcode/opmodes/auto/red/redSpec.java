@@ -8,22 +8,23 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "red spec auto", group = "paths")
-public class redSpec extends LinearOpMode {
-
+public class redSpec extends GreenLinearOpMode {
+    SampleMecanumDrive mecDrive;
+    TrajectorySequence farRed;
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void initialize() {
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
+        addDrivetrain();
+        mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(24, -64, Math.toRadians(90));
+        mecDrive.setPoseEstimate(startPose);
 
-        drive.setPoseEstimate(startPose);
-
-        TrajectorySequence farRed = drive.trajectorySequenceBuilder(startPose)
+        farRed = mecDrive.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(-5, -42, Math.toRadians(-90)), Math.toRadians(90))
@@ -99,13 +100,18 @@ public class redSpec extends LinearOpMode {
 
                 .build();
 
+    }
 
-        waitForStart();
-
-        while(opModeIsActive()) {
-            drive.followTrajectorySequenceAsync(farRed);
-            drive.updateTrajectory();
-            CommandScheduler.getInstance().run();
+    @Override
+    public void periodic() {
+        if (!drivetrain.isBusy()){
+            this.mecDrive.followTrajectorySequenceAsync(farRed);
         }
+        try {
+            this.mecDrive.updateTrajectory();
+        } catch (Exception e){
+            requestOpModeStop();
+        }
+        CommandScheduler.getInstance().run();
     }
 }
