@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawC
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
@@ -53,6 +54,12 @@ public class Main extends GreenLinearOpMode {
         drive(drive);
         intakeColorSensor.startReading();
 
+        if (intake.state == Intake.STATE.IN) {
+            new WristDownCommand().schedule();
+        } else {
+            wrist.parallel();
+        }
+
         /// GP1
 
         // Intake Field Sample
@@ -62,12 +69,6 @@ public class Main extends GreenLinearOpMode {
             new IntakeSpitCommand().schedule();
         } else {
             intake.stop();
-        }
-
-        if (intake.state == Intake.STATE.IN) {
-            new WristDownCommand().schedule();
-        } else {
-            wrist.parallel();
         }
 
         if (stickyG1.left_bumper) {
@@ -81,11 +82,6 @@ public class Main extends GreenLinearOpMode {
         // Opens Claw
         if (stickyG1.x) {
             outtakeClaw.toggle();
-        }
-
-        // TO BE TESTED
-        if (stickyG1.b) {
-            drivetrain.driveToHeading(0,0, Math.PI/2);
         }
 
         /// GP2
@@ -132,6 +128,8 @@ public class Main extends GreenLinearOpMode {
             new ResetCommand().schedule();
         } else if (gamepad2.right_trigger > .2) {
             new SlidesLiftSlightlyCommand().schedule();
+        } else if (stickyG1.b) {
+            new VertSlidesStartCommand().schedule();
         }
 
         colorSensorPeriodic();

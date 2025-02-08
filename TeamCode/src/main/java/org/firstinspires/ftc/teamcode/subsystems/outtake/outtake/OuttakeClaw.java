@@ -26,7 +26,7 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
         state = STATE.CLOSE;
     }
     public void open() {
-        outtakeClaw.setPosition(0.48);
+        outtakeClaw.setPosition(.40);
         state = STATE.OPEN;
     }
     public void toggle(){
