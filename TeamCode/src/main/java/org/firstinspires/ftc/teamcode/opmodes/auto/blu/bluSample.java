@@ -144,7 +144,7 @@ public class bluSample extends GreenLinearOpMode {
                 .waitSeconds(4)
 
                 // SAMPLE 3
-                .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(135-180)), Math.toRadians(225))
+                .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(-45)), Math.toRadians(225))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
