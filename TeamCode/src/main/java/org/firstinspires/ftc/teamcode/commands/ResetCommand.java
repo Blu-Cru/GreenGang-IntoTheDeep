@@ -29,7 +29,7 @@ public class ResetCommand extends SequentialCommandGroup {
                 new WristParallelCommand(),
                 new WaitCommand(700),
                 new OuttakeClawOpenCommand(),
-                new VertSlidesStartCommand()
+                new VertSlidesStartCommand() //may need to swap
         );
     }
 }

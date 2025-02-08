@@ -25,7 +25,7 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
     }
 
     public void down(){
-        wrist.setPosition(0.5);
+        wrist.setPosition(0.47);
     }
 
     public void telemetry(Telemetry telemetry){

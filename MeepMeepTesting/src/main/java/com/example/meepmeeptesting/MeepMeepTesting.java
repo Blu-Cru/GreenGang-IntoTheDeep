@@ -20,21 +20,21 @@ public class MeepMeepTesting {
 
                 // PRELOAD
 
-                        .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
+                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 
 
                         // SAMPLE 1
                         .splineToLinearHeading(new Pose2d(47, 45, Math.toRadians(-90)), Math.toRadians(180))
 
 
-                        .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
 
 
 //                        // SAMPLE 2
                         .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-90)), Math.toRadians(180))
 
 
-                        .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
 
 //
 //                        // SAMPLE 3
@@ -42,7 +42,7 @@ public class MeepMeepTesting {
 
 
 
-                        .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
 
 //
 //                        // PARK
