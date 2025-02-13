@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 
 public class AutoSamplePart1 extends SequentialCommandGroup {
     public AutoSamplePart1(){
-        super(
+        super(x
                 new SequentialCommandGroup(
                         new HorizontalSlidesExtendCommand(),
                         new SlidesLiftSlightlyCommand(),

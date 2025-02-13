@@ -125,7 +125,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public void slightLift(){
-        targetHeight = 250;
+        targetHeight = 350;
         pidTo(targetHeight);
     }
 

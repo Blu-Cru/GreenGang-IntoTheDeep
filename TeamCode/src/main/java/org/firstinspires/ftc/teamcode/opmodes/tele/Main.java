@@ -32,6 +32,7 @@ public class Main extends GreenLinearOpMode {
     double hsPow;
     double hangPow;
     boolean hanging;
+    boolean upSlightly;
 
     @Override
     public void initialize() {
@@ -98,6 +99,7 @@ public class Main extends GreenLinearOpMode {
                 new HorizontalSlidesExtendCommand().schedule();
             } else {
                 new RetractAutoCommand().schedule();
+//                new SlidesLiftSlightlyCommand().schedule();
             }
         } else if (stickyG2.dpad_up) {
             new TelePart1Command().schedule();
@@ -128,6 +130,7 @@ public class Main extends GreenLinearOpMode {
             new ResetCommand().schedule();
         } else if (gamepad2.right_trigger > .2) {
             new SlidesLiftSlightlyCommand().schedule();
+//            upSlightly = !upSlightly;
         } else if (stickyG1.b) {
             new VertSlidesStartCommand().schedule();
         }
