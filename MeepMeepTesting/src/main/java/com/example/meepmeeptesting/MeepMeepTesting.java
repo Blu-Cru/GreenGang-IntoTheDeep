@@ -16,7 +16,7 @@ public class MeepMeepTesting {
 
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 16.5)
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(50,60,135))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(36,60,0))
 //                        .setTangent(90)
 
                 // PRELOAD
@@ -27,34 +27,34 @@ public class MeepMeepTesting {
 //                                .waitSeconds(1)
 //                                .waitSeconds(4)
 
-
-                        // SAMPLE 1
-                        .splineToLinearHeading(new Pose2d(47, 45, Math.toRadians(-90)), Math.toRadians(180))
-//                                .waitSeconds(1)
-
-                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
-//                                .waitSeconds(3)
-//                                .waitSeconds(5)
-
-//                        // SAMPLE 2
-                        .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-90)), Math.toRadians(180))
-//                                .waitSeconds(1)
-
-                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
-//                                .waitSeconds(3)
-//                                .waitSeconds(5)
 //
-//                        // SAMPLE 3
-                        .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(135-180)), Math.toRadians(225))
-//                                .waitSeconds(1)
-
-
-                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
-//                                .waitSeconds(3)
-//                                .waitSeconds(5)
+//                        // SAMPLE 1
+//                        .splineToLinearHeading(new Pose2d(47, 45, Math.toRadians(-90)), Math.toRadians(180))
+////                                .waitSeconds(1)
 //
-//                        // PARK
-                        .splineToLinearHeading(new Pose2d(48,58, Math.toRadians(200)), Math.toRadians(45))
+//                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
+////                                .waitSeconds(3)
+////                                .waitSeconds(5)
+//
+////                        // SAMPLE 2
+//                        .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-90)), Math.toRadians(180))
+////                                .waitSeconds(1)
+//
+//                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
+////                                .waitSeconds(3)
+////                                .waitSeconds(5)
+////
+////                        // SAMPLE 3
+//                        .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(135-180)), Math.toRadians(225))
+////                                .waitSeconds(1)
+//
+//
+//                        .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
+////                                .waitSeconds(3)
+////                                .waitSeconds(5)
+////
+////                        // PARK
+//                        .splineToLinearHeading(new Pose2d(48,58, Math.toRadians(200)), Math.toRadians(45))
                         .build());
 //                );
 

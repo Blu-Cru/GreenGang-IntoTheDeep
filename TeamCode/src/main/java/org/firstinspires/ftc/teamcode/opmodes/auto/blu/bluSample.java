@@ -38,7 +38,7 @@ public class bluSample extends GreenLinearOpMode {
 //        addHang();
 //        addIntakeColorSensor();
 
-        Pose2d startPose = new Pose2d(50, 60, Math.toRadians(135));
+        Pose2d startPose = new Pose2d(36, 60, Math.toRadians(0));
         mecDrive = new SampleMecanumDrive(hardwareMap);
         mecDrive.setPoseEstimate(startPose);
 
