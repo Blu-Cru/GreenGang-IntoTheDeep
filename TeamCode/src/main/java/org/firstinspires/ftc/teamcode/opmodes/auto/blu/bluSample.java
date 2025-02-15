@@ -21,27 +21,30 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 @Autonomous(name = "close blue auto", group = "paths")
 public class bluSample extends GreenLinearOpMode {
     TrajectorySequence closeBlue;
+    SampleMecanumDrive mecDrive;
     boolean done;
 
     @Override
     public void initialize() {
         addDrivetrain();
-        addIntake();
-        addStickyG1();
-        addClawArm();
-        addOuttakeClaw();
-        addHorizontalSlides();
-        addIntakeWrist();
-        addClawWrist();
-        addVertSlides();
-        addHang();
-        addIntakeColorSensor();
+//        addIntake();
+//        addStickyG1();
+//        addClawArm();
+//        addOuttakeClaw();
+//        addHorizontalSlides();
+//        addIntakeWrist();
+//        addClawWrist();
+//        addVertSlides();
+//        addHang();
+//        addIntakeColorSensor();
 
         Pose2d startPose = new Pose2d(50, 60, Math.toRadians(135));
-        drivetrain.setPoseEstimate(startPose);
+        mecDrive = new SampleMecanumDrive(hardwareMap);
+        mecDrive.setPoseEstimate(startPose);
 
-        closeBlue = drivetrain.trajectorySequenceBuilder(startPose)
-                .setTangent(-90)
+
+        closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
+//                .setTangent(-90)
 
                 .addTemporalMarker(() -> {
                     new OuttakeClawCloseCommand().schedule();
@@ -188,14 +191,14 @@ public class bluSample extends GreenLinearOpMode {
 
 
         if (!drivetrain.isBusy() && !done){
-            drivetrain.followTrajectorySequenceAsync(closeBlue);
+            mecDrive.followTrajectorySequenceAsync(closeBlue);
             done = true;
         }
         try {
-        drivetrain.updateTrajectory();
+            mecDrive.updateTrajectory();
         } catch (Exception e){
-            requestOpModeStop();
+//            requestOpModeStop();
         }
-        CommandScheduler.getInstance().run();
+//        CommandScheduler.getInstance().run();
     }
 }

@@ -86,9 +86,9 @@ public class GreenLinearOpMode extends LinearOpMode {
             stickyG2.update();
 
             // safety for switching controllers
-            if(!(gamepad1.start || gamepad2.start)) {
-                periodic();
-            }
+//            if(!(gamepad1.start || gamepad2.start)) {
+            periodic();
+//            }
 
             CommandScheduler.getInstance().run();
 
