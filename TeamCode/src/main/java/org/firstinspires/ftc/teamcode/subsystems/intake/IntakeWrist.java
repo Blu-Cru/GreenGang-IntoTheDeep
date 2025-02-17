@@ -11,21 +11,22 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
 
     double wristPos;
     Servo wrist;
+    private double parralelPos = 0.77; //value of the intake being parralel with horizontal slides
 
     public IntakeWrist(HardwareMap hardwareMap) {
         wrist = hardwareMap.get(Servo.class, "wrist");
     }
 
     public void init() {
-        wrist.setPosition(0.68);
+        wrist.setPosition(parralelPos);
     }
 
     public void parallel() {
-        wrist.setPosition(0.68);
+        wrist.setPosition(parralelPos);
     }
 
     public void down(){
-        wrist.setPosition(0.47);
+        wrist.setPosition(parralelPos - 0.25);
     }
 
     public void telemetry(Telemetry telemetry){

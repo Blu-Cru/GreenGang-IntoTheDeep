@@ -25,7 +25,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(0.8); // .74
+        clawWrist.setPosition(0.78); // .74
         state = STATE.INIT;
     }
 
