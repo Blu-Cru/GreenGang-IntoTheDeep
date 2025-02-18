@@ -81,104 +81,104 @@ public class bluSample extends GreenLinearOpMode {
 ////
 ////                // SAMPLE 1
                 .splineToLinearHeading(new Pose2d(47, 45, Math.toRadians(-90)), Math.toRadians(180))
-//                .addTemporalMarker(() -> {
-//                    new AutoSamplePart1().schedule();
-//                })
-//                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    new AutoSamplePart1().schedule();
+                })
+                .waitSeconds(1)
 
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 //
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new WaitCommand(200),
-//                            new ScoringHighBucketCommand(),
-//                            new WaitCommand(200)
-//                    ).schedule();
-//                })
-//                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new WaitCommand(200),
+                            new ScoringHighBucketCommand(),
+                            new WaitCommand(200)
+                    ).schedule();
+                })
+                .waitSeconds(3)
                 .splineToLinearHeading(new Pose2d(54, 54, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new OuttakeClawOpenCommand(),
-//                            new WaitCommand(200)
-//                    ).schedule();
-//                })
-//                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new OuttakeClawOpenCommand(),
+                            new WaitCommand(200)
+                    ).schedule();
+                })
+                .waitSeconds(1)
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new ResetCommand()
-//                    ).schedule();
-//                })
-//                .waitSeconds(4)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new ResetCommand()
+                    ).schedule();
+                })
+                .waitSeconds(4)
 
                 // SAMPLE 2
                 .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-90)), Math.toRadians(180))
-//                .addTemporalMarker(() -> {
-//                    new AutoSamplePart1().schedule();
-//                })
-//                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    new AutoSamplePart1().schedule();
+                })
+                .waitSeconds(2)
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 //
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new WaitCommand(200),
-//                            new ScoringHighBucketCommand(),
-//                            new WaitCommand(200)
-//                    ).schedule();
-//                })
-//                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new WaitCommand(200),
+                            new ScoringHighBucketCommand(),
+                            new WaitCommand(200)
+                    ).schedule();
+                })
+                .waitSeconds(3)
                 .splineToLinearHeading(new Pose2d(54, 54, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new OuttakeClawOpenCommand(),
-//                            new WaitCommand(2000)
-//                    ).schedule();
-//                })
-//                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new OuttakeClawOpenCommand(),
+                            new WaitCommand(2000)
+                    ).schedule();
+                })
+                .waitSeconds(1)
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new ResetCommand()
-//                    ).schedule();
-//                })
-//                .waitSeconds(4)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new ResetCommand()
+                    ).schedule();
+                })
+                .waitSeconds(4)
 
                 // SAMPLE 3
                 .splineToLinearHeading(new Pose2d(56,42, Math.toRadians(-45)), Math.toRadians(225))
-//                .addTemporalMarker(() -> {
-//                    new AutoSamplePart1().schedule();
-//                })
-//                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    new AutoSamplePart1().schedule();
+                })
+                .waitSeconds(2)
 
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new WaitCommand(200),
-//                            new ScoringHighBucketCommand(),
-//                            new WaitCommand(200)
-//                    ).schedule();
-//                })
-//                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new WaitCommand(200),
+                            new ScoringHighBucketCommand(),
+                            new WaitCommand(200)
+                    ).schedule();
+                })
+                .waitSeconds(3)
                 .splineToLinearHeading(new Pose2d(54, 54, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new OuttakeClawOpenCommand(),
-//                            new WaitCommand(2000)
-//                    ).schedule();
-//                })
-//                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new OuttakeClawOpenCommand(),
+                            new WaitCommand(2000)
+                    ).schedule();
+                })
+                .waitSeconds(1)
                 .splineToLinearHeading(new Pose2d(50, 50, Math.toRadians(225)), Math.toRadians(180)) // 225, 180 before
 
-//                .addTemporalMarker(() -> {
-//                    new SequentialCommandGroup(
-//                            new ResetCommand()
-//                    ).schedule();
-//                })
-//                .waitSeconds(4)
+                .addTemporalMarker(() -> {
+                    new SequentialCommandGroup(
+                            new ResetCommand()
+                    ).schedule();
+                })
+                .waitSeconds(4)
 ////
 //                // PARK
                 .splineToLinearHeading(new Pose2d(48,58, Math.toRadians(200)), Math.toRadians(45))
