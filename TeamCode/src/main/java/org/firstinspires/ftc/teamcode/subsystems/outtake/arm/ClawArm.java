@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo clawArm;
-    private double pos = 0.52; //value of the arm being parralel with vertical slides
+    private double pos = (0.52/300.0); //value of the arm being parralel with vertical slides
     public enum STATE {
         INIT,
         PERP,
