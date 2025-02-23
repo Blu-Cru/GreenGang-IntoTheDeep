@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;
+    double pos =0.5; // claw angle is parralel to arm
 
     public enum STATE {
         INIT,
@@ -25,20 +26,21 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(0.78); // .74
+        clawWrist.setPosition(pos - 0.14); // 0.36
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(0.9); // .6
+        clawWrist.setPosition(pos); // .5
         state = STATE.BUCKET;
     }
 
     public void inspec() {
-        clawWrist.setPosition(.95); // .55
+
+        clawWrist.setPosition(pos - 0.15); // .35
     }
     public void Spec() {
-        clawWrist.setPosition(.7); // .85
+        clawWrist.setPosition(pos - 0.23); // .27
         state = STATE.SPEC;
     }
 
