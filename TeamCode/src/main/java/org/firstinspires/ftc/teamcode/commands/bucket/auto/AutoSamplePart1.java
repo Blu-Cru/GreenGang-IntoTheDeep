@@ -24,7 +24,7 @@ public class AutoSamplePart1 extends SequentialCommandGroup {
                         new SlidesLiftSlightlyCommand(),
                         new WristDownCommand(),
                         new IntakeInCommand(),
-                        new WaitCommand(2000), // change?
+                        new WaitCommand(3000), // change?
                         new IntakeStopCommand(),
                         new TransferCommand()
                 )

@@ -34,12 +34,12 @@ public class DrivePID implements GreenSubsystem {
 
 //todo: fix
 
-    public Pose2d calculate(Pose2d currentPose) {
-        double xPower = xController.calculate(currentPose.getX());
-        double yPower = yController.calculate(currentPose.getY());
-        double headingPower = getRotate(currentPose.getHeading());
-        return new Pose2d(xPower, yPower);
-    }
+//    public Pose2d calculate(Pose2d currentPose) {
+//        double xPower = xController.calculate(currentPose.getX());
+//        double yPower = yController.calculate(currentPose.getY());
+//        double headingPower = getRotate(currentPose.getHeading());
+//        return new Pose2d(xPower, yPower);
+//    }
 
     public void setTargetPose(Vector2d targetPosition) {
         xController.setSetPoint(targetPosition.getX());
