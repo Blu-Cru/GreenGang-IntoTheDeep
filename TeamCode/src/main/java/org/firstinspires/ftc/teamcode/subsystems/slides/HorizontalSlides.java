@@ -106,7 +106,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
                 break;
             case PID:
             case MANUAL:
-                double power = Range.clip(pid.calculate(position), -0.6, 0.75);
+                double power = Range.clip(pid.calculate(position), -0.6, 1);
                 motor.setPower(power);
                 break;
         }
