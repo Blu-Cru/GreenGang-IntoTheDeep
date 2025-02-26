@@ -21,13 +21,13 @@ resets all subsystems to how they were in initialization state
 public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
-                new OuttakeClawCloseCommand(),
+//                new OuttakeClawCloseCommand(),
                 new ClawWristIntakeCommand(),
                 new ClawArmIntakeCommand(),
-                new SlidesLiftSlightlyCommand(),
+//                new SlidesLiftSlightlyCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new WristParallelCommand(),
-                new WaitCommand(700),
+                new WaitCommand(500), // 700 before
                 new OuttakeClawOpenCommand(),
                 new VertSlidesStartCommand() //may need to swap
         );

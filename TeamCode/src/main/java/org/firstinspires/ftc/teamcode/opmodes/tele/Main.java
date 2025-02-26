@@ -83,24 +83,16 @@ public class Main extends GreenLinearOpMode {
         // Opens Claw
         if (stickyG1.x) {
             outtakeClaw.toggle();
+        } else if (stickyG1.b){
+            new RetractAutoCommand().schedule();
+//                new SlidesLiftSlightlyCommand().schedule(); //todo: figure out if i need this 2/26
         }
 
         /// GP2
 
         // All subsystems Intake + Transfer
         if (stickyG2.a) {
-            if (outtakeClaw.state == OuttakeClaw.STATE.OPEN) {
-                new OuttakeClawCloseCommand().schedule();
-            } else {
-                new OuttakeClawOpenCommand().schedule();
-            }
-        } else if (stickyG2.dpad_down) {
-            if (horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED) {
-                new HorizontalSlidesExtendCommand().schedule();
-            } else {
-                new RetractAutoCommand().schedule();
-//                new SlidesLiftSlightlyCommand().schedule();
-            }
+            outtakeClaw.toggle();
         } else if (stickyG2.dpad_up) {
             new TelePart1Command().schedule();
         }
@@ -130,7 +122,6 @@ public class Main extends GreenLinearOpMode {
             new ResetCommand().schedule();
         } else if (gamepad2.right_trigger > .2) {
             new SlidesLiftSlightlyCommand().schedule();
-//            upSlightly = !upSlightly;
         } else if (stickyG1.b) {
             new VertSlidesStartCommand().schedule();
         }
@@ -198,3 +189,10 @@ public class Main extends GreenLinearOpMode {
     }
 }
 
+//        } else if (stickyG2.dpad_down) {
+//            if (horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED) {
+//                new HorizontalSlidesExtendCommand().schedule();
+//            } else {
+//                new RetractAutoCommand().schedule();
+////                new SlidesLiftSlightlyCommand().schedule();
+//            }
