@@ -135,10 +135,6 @@ public class Main extends GreenLinearOpMode {
         } else if (robot.color.isFull() && robot.color.slotState.equals(IntakeColorSensor.SlotState.YELLOW) && intake.state == Intake.STATE.IN) {
             new RetractAutoCommand().schedule();
         }
-        if(robot.color.isFull()){
-            gamepad1.rumble(150);
-            gamepad2.rumble(150);
-        }
     }
 
     public void drive(Drive drive) {
