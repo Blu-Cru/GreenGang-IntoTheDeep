@@ -81,7 +81,7 @@ public class Main extends GreenLinearOpMode {
         }
 
         // Opens Claw
-        if (stickyG1.x) {
+        if (stickyG1.a) {
             outtakeClaw.toggle();
         } else if (stickyG1.b){
             new RetractAutoCommand().schedule();

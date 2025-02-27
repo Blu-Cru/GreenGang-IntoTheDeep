@@ -53,7 +53,7 @@ public class bluSample extends GreenLinearOpMode {
                 // PRELOAD
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new WaitCommand(2000),
+                            new WaitCommand(1000),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
@@ -64,38 +64,40 @@ public class bluSample extends GreenLinearOpMode {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand()).schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(.7)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new ResetCommand()
                     ).schedule();
                 })
+
 //                SAMPLE 1
                 .splineToLinearHeading(new Pose2d(49, 43, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
                             new VertSlidesStartCommand(),
+                            new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(3000),
+                            new WaitCommand(500),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
-                .waitSeconds(1)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(400)
+                            new OuttakeClawOpenCommand()
                     ).schedule();
                 })
+                .waitSeconds(.7)
+
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -108,26 +110,27 @@ public class bluSample extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
                             new VertSlidesStartCommand(),
+                            new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(3000),
+                            new WaitCommand(500),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
-                .waitSeconds(1)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(400)
+                            new OuttakeClawOpenCommand()
                     ).schedule();
                 })
+                .waitSeconds(.7)
+
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -139,26 +142,27 @@ public class bluSample extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
                             new VertSlidesStartCommand(),
+                            new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(3000),
+                            new WaitCommand(500),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
-                .waitSeconds(1)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(400)
+                            new OuttakeClawOpenCommand()
                     ).schedule();
                 })
+                .waitSeconds(.7)
+
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(

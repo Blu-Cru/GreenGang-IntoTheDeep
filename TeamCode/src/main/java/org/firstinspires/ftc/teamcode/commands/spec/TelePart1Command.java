@@ -16,11 +16,11 @@ public class TelePart1Command extends SequentialCommandGroup {
     public TelePart1Command(){
         super(
                 new SequentialCommandGroup(
-//                        new SlidesLiftSlightlyCommand(),
+                        new SlidesLiftSlightlyCommand(),
                         new ClawArmInSpecCommand(),
                         new ClawWristInSpecCommand(),
                         new OuttakeClawOpenCommand(),
-//                        new WaitCommand(200),
+                        new WaitCommand(200),
                         new VertSlidesStartCommand()
                 )
         );

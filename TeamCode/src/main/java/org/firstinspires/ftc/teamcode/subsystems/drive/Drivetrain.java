@@ -20,7 +20,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         super(hardwareMap);
         pid = new DrivePID();
         fieldCentric = true;
-        drivePower = .75; // used to be .5
+        drivePower = 1; // used to be .5
     }
 
     public void drive(double x, double y, double rotate) {
