@@ -29,7 +29,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     }
 
     public static double
-            instlower = 1200, // TODO: to be determined
+            instlower = 1250, // TODO: to be determined
             retract = 0;
 
     public STATE state;

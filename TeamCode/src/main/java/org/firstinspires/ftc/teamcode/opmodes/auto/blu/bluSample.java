@@ -39,7 +39,7 @@ public class bluSample extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
 
-        Pose2d startPose = new Pose2d(24, 65, Math.toRadians(180));
+        Pose2d startPose = new Pose2d(39, 65, Math.toRadians(180));
         mecDrive = new SampleMecanumDrive(hardwareMap);
         mecDrive.setPoseEstimate(startPose);
 
@@ -59,14 +59,14 @@ public class bluSample extends GreenLinearOpMode {
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
-                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
+                .splineToLinearHeading(new Pose2d(57, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
                 .waitSeconds(1)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand()).schedule();
                 })
-                .waitSeconds(.7)
+                .waitSeconds(.2)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -79,13 +79,13 @@ public class bluSample extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
                             new VertSlidesStartCommand(),
-                            new WaitCommand(500),
+                            new WaitCommand(200),
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
                             new ScoringHighBucketCommand()
@@ -100,7 +100,7 @@ public class bluSample extends GreenLinearOpMode {
                             new OuttakeClawOpenCommand()
                     ).schedule();
                 })
-                .waitSeconds(.7)
+                .waitSeconds(.2)
 
 
                 .addTemporalMarker(() -> {
@@ -109,12 +109,12 @@ public class bluSample extends GreenLinearOpMode {
                     ).schedule();
                 })
 
-              //   SAMPLE 2
+                //   SAMPLE 2
                 .splineToLinearHeading(new Pose2d(57,44, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -135,7 +135,7 @@ public class bluSample extends GreenLinearOpMode {
                             new OuttakeClawOpenCommand()
                     ).schedule();
                 })
-                .waitSeconds(.7)
+                .waitSeconds(.2)
 
 
                 .addTemporalMarker(() -> {
@@ -148,7 +148,7 @@ public class bluSample extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(4.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -169,7 +169,7 @@ public class bluSample extends GreenLinearOpMode {
                             new OuttakeClawOpenCommand()
                     ).schedule();
                 })
-                .waitSeconds(.7)
+                .waitSeconds(.2)
 
 
                 .addTemporalMarker(() -> {
