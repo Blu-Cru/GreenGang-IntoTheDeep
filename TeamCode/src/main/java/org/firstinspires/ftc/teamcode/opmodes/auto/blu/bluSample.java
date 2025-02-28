@@ -46,6 +46,8 @@ public class bluSample extends GreenLinearOpMode {
 
         closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
 
+                .setTangent(Math.toRadians(-90))
+
                 .addTemporalMarker(() -> {
                     new OuttakeClawCloseCommand().schedule();
                 })
@@ -73,11 +75,11 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
 //                SAMPLE 1
-                .splineToLinearHeading(new Pose2d(49, 43, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
+                .splineToLinearHeading(new Pose2d(48, 44, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4)
+                .waitSeconds(3)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -85,10 +87,12 @@ public class bluSample extends GreenLinearOpMode {
                             new VertSlidesStartCommand(),
                             new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(500),
+                            new WaitCommand(200),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
+                .waitSeconds(3)
+
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
@@ -106,11 +110,11 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
               //   SAMPLE 2
-                .splineToLinearHeading(new Pose2d(58,43, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(57,44, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4)
+                .waitSeconds(3)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -118,10 +122,12 @@ public class bluSample extends GreenLinearOpMode {
                             new VertSlidesStartCommand(),
                             new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(500),
+                            new WaitCommand(200),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
+                .waitSeconds(3)
+
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
@@ -138,11 +144,11 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
                 // SAMPLE 3
-                .splineToLinearHeading(new Pose2d(58,35, Math.toRadians(-45)), Math.toRadians(225))
+                .splineToLinearHeading(new Pose2d(56,39, Math.toRadians(-45)), Math.toRadians(225))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4)
+                .waitSeconds(3)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -150,10 +156,12 @@ public class bluSample extends GreenLinearOpMode {
                             new VertSlidesStartCommand(),
                             new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
-                            new WaitCommand(500),
+                            new WaitCommand(200),
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
+                .waitSeconds(3)
+
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {

@@ -17,7 +17,7 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(225), Math.toRadians(225), 16.7)
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(40,60,Math.toRadians(180)))
-//                        .setTangent(90)
+                        .setTangent(Math.toRadians(-90))
 
                 // PRELOAD
 
@@ -30,6 +30,7 @@ public class MeepMeepTesting {
 //
 //                        // SAMPLE 1
                         .splineToLinearHeading(new Pose2d(47, 40, Math.toRadians(-90)), Math.toRadians(180))
+                        .setTangent(90)
 //                                .waitSeconds(1)
 
                         .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(225)), Math.toRadians(180))
