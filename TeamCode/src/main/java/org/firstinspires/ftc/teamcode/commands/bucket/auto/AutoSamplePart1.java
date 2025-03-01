@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendHalfwayCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
@@ -21,10 +22,13 @@ public class AutoSamplePart1 extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                         new SlidesLiftSlightlyCommand(),
-                        new WristDownCommand(),
                         new IntakeInCommand(),
+                        new HorizontalSlidesExtendHalfwayCommand(),
+                        new WristDownCommand(),
+
+                        new WaitCommand(300), // change?
                         new HorizontalSlidesExtendCommand(),
-                        new WaitCommand(3000), // change?
+                        new WaitCommand(3000),
                         new IntakeStopCommand(),
                         new TransferCommand()
                 )

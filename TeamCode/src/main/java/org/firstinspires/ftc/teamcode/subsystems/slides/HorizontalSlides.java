@@ -30,6 +30,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     public static double
             instlower = 1250, // TODO: to be determined
+            instHalfway = 600,
             retract = 0;
 
     public STATE state;
@@ -69,6 +70,12 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         loc = LOC.RETRACTED;
         pidTo(instlower);
     }
+    public void extendHalfway() {
+        state = STATE.PID;
+        loc = LOC.RETRACTED;
+        pidTo(instHalfway);
+    }
+
 
     public void retract() {
         state  = STATE.PID;
@@ -106,7 +113,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
                 break;
             case PID:
             case MANUAL:
-                double power = Range.clip(pid.calculate(position), -0.6, 1);
+                double power = Range.clip(pid.calculate(position), -1, 1);
                 motor.setPower(power);
                 break;
         }

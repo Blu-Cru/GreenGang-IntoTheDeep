@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
@@ -96,7 +97,9 @@ public class Main extends GreenLinearOpMode {
         } else if (stickyG2.dpad_up) {
             new TelePart1Command().schedule();
         }
-
+        if (stickyG2.dpad_down){
+            new HorizontalSlidesRetractCommand().schedule();
+        }
         hsPow = -gamepad2.left_stick_y;
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);

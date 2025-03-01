@@ -39,7 +39,7 @@ public class bluSample extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
 
-        Pose2d startPose = new Pose2d(39, 65, Math.toRadians(180));
+        Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
         mecDrive = new SampleMecanumDrive(hardwareMap);
         mecDrive.setPoseEstimate(startPose);
 
@@ -75,15 +75,16 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
 //                SAMPLE 1
-                .splineToLinearHeading(new Pose2d(48, 44, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
+                .splineToLinearHeading(new Pose2d(48, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4.5)
+                .waitSeconds(3.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
+                            new WaitCommand(200),
                             new VertSlidesStartCommand(),
                             new WaitCommand(200),
                             new OuttakeClawCloseCommand(),
@@ -91,7 +92,7 @@ public class bluSample extends GreenLinearOpMode {
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(.75)
 
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
@@ -110,15 +111,16 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
                 //   SAMPLE 2
-                .splineToLinearHeading(new Pose2d(57,44, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(57.8,45, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4.5)
+                .waitSeconds(3.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
+                            new WaitCommand(200),
                             new VertSlidesStartCommand(),
                             new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
@@ -126,7 +128,7 @@ public class bluSample extends GreenLinearOpMode {
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(0.75)
 
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
@@ -144,15 +146,16 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
                 // SAMPLE 3
-                .splineToLinearHeading(new Pose2d(56,39, Math.toRadians(-45)), Math.toRadians(225))
+                .splineToLinearHeading(new Pose2d(55,40, Math.toRadians(-45)), Math.toRadians(225))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
-                .waitSeconds(4.5)
+                .waitSeconds(3.5)
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new OuttakeClawOpenCommand(),
+                            new WaitCommand(200),
                             new VertSlidesStartCommand(),
                             new WaitCommand(500),
                             new OuttakeClawCloseCommand(),
@@ -160,12 +163,13 @@ public class bluSample extends GreenLinearOpMode {
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
-                .waitSeconds(3)
+                .waitSeconds(.75)
 
                 .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
+                            new WaitCommand(200),
                             new OuttakeClawOpenCommand()
                     ).schedule();
                 })
