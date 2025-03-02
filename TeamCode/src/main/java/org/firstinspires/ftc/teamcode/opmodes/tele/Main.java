@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.NicolasCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
@@ -56,7 +57,7 @@ public class Main extends GreenLinearOpMode {
         drive(drive);
         intakeColorSensor.startReading();
 
-        if (intake.state == Intake.STATE.IN) {
+        if (intake.state == Intake.STATE.IN || intake.state == Intake.STATE.NICOLAS) {
             new WristDownCommand().schedule();
         } else {
             wrist.parallel();
@@ -69,7 +70,10 @@ public class Main extends GreenLinearOpMode {
             new IntakeInCommand().schedule();
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
-        } else {
+        } else if (gamepad1.dpad_down){
+            new NicolasCommand().schedule();
+        }
+        else {
             intake.stop();
         }
 

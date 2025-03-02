@@ -9,15 +9,12 @@ public class NicolasCommand extends InstantCommand {
     public NicolasCommand(){
         super (
                 () -> {
-                    Robot.getInstance().wrist.down();
-                    Robot.getInstance().intake.spit();
+                    Robot.getInstance().intake.nicolasSpit();
                 }
 
 
         );
 
         addRequirements((Subsystem) Robot.getInstance().intake);
-        addRequirements((Subsystem) Robot.getInstance().wrist);
-
     }
 }
