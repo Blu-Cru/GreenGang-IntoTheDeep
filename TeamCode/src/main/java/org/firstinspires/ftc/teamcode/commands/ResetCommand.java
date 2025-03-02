@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -14,6 +15,8 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCom
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.outtake.OuttakeIntakeCommand;
+import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 
 /*
 resets all subsystems to how they were in initialization state
@@ -21,15 +24,26 @@ resets all subsystems to how they were in initialization state
 public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
-                new OuttakeClawCloseCommand(),
+
+//                new OuttakeClawCloseCommand(),
+                new OuttakeClawOpenCommand(),
                 new ClawWristIntakeCommand(),
                 new ClawArmIntakeCommand(),
                 new SlidesLiftSlightlyCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new WristParallelCommand(),
-                new WaitCommand(500), // 700 before
-                new OuttakeClawOpenCommand(),
+//                new WaitCommand(500), // 700 before
+//                new OuttakeClawOpenCommand(),
+                new ConditionalCommand(
+                        new WaitCommand(50),//previous 100
+
+                            // false;
+                        new WaitCommand(1000),
+
+                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC
+                ),
                 new VertSlidesStartCommand() //may need to swap
         );
     }
+
 }

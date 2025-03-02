@@ -40,80 +40,38 @@ public class bluSpec extends GreenLinearOpMode {
 
         farBlue = mecDrive.trajectorySequenceBuilder(startPose)
 
-                // PRELOAD PLACEMENT
-                .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
-                // PRELOAD FROM HUMAN PLACEMENT
-                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-                .splineToLinearHeading(new Pose2d(-3, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
                 // SPEC 3 PLACEMENT
-                .splineToLinearHeading(new Pose2d(-48, 45, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(-48, 13, Math.toRadians(-90)), Math.toRadians(180))
+                .waitSeconds(1)
+                .setTangent(90)
 
                 // Give sample to human player
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(-48, 55, Math.toRadians(-90)), Math.toRadians(90))
+                .setTangent(-90)
+                .waitSeconds(1)
+
 //                .addTemporalMarker(() -> {
 //                    new SamplePassThroughCommand().schedule();
 //                })
-
-                // intake sample from human player
-                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-                // outtake sample
-                .splineToLinearHeading(new Pose2d(-1, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
                 // SPEC 4 PLACEMENT
-                .splineToLinearHeading(new Pose2d(-58, 45, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(-58, 13, Math.toRadians(-90)), Math.toRadians(180))
+                .waitSeconds(1)
+                .setTangent(90)
 
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(-58, 55, Math.toRadians(-90)), Math.toRadians(90))
+                .setTangent(-90)
+                .waitSeconds(1)
+
 //                .addTemporalMarker(() -> {
 //                    new SamplePassThroughCommand().schedule();
 //                })
-
-                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-                .splineToLinearHeading(new Pose2d(1, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
                 // SPEC 5 PLACEMENT
-                .splineToLinearHeading(new Pose2d(-56, 41, Math.toRadians(-135)), Math.toRadians(180))
 
-                .splineToLinearHeading(new Pose2d(-48, 50, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new SamplePassThroughCommand().schedule();
-//                })
-
-                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-                .splineToLinearHeading(new Pose2d(3, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
+                .splineToLinearHeading(new Pose2d(-65, 13, Math.toRadians(-90)), Math.toRadians(180))
+                .waitSeconds(1)
+                .setTangent(90)
+                .splineToLinearHeading(new Pose2d(-65, 55, Math.toRadians(-90)), Math.toRadians(90))
+                .waitSeconds(1)
                 .build();
 
         }

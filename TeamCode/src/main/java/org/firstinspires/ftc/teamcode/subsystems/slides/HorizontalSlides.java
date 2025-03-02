@@ -30,8 +30,9 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     public static double
             instlower = 1250, // TODO: to be determined
-            instHalfway = 600,
-            retract = 0;
+            instHalfway = 500,
+            retract = 0,
+            maxPower = 0.0;
 
     public STATE state;
     public LOC loc;
@@ -57,6 +58,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     }
 
     public void pidTo(double ticks){
+        maxPower=1;
         state = STATE.PID;
         loc = LOC.EXTENDED;
         pid.setSetPoint(Range.clip(ticks, 0, 2200));
@@ -66,14 +68,18 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     }
 
     public void autoLower() {
+
         state = STATE.PID;
-        loc = LOC.RETRACTED;
+        loc = LOC.EXTENDED;
         pidTo(instlower);
+        maxPower = 0.5;
+
     }
     public void extendHalfway() {
         state = STATE.PID;
-        loc = LOC.RETRACTED;
+        loc = LOC.EXTENDED;
         pidTo(instHalfway);
+
     }
 
 
@@ -113,7 +119,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
                 break;
             case PID:
             case MANUAL:
-                double power = Range.clip(pid.calculate(position), -1, 1);
+                double power = Range.clip(pid.calculate(position), -maxPower, maxPower);
                 motor.setPower(power);
                 break;
         }
