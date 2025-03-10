@@ -16,17 +16,17 @@ public class MeepMeepTesting {
 
                 .setConstraints(60, 60, Math.toRadians(225), Math.toRadians(225), 16.7)
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24,64,Math.toRadians(-90)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24,64,Math.toRadians(90)))
                         .setTangent(Math.toRadians(-90))
                         // PRELOAD PLACEMENT
                         .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
 
 
-////                .addTemporalMarker(() -> {
-////                    new AutoSpecOuttake().schedule();
-////                })
+//                .addTemporalMarker(() -> {
+//                    new AutoSpecOuttake().schedule();
+//                })
                         .setTangent(180)
-                        .splineToLinearHeading(new Pose2d(-35, 35, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-35, 25, Math.toRadians(-90)), Math.toRadians(180))
                         .strafeTo(new Vector2d(-35,13))
 //
 ////                        // PRELOAD FROM HUMAN PLACEMENT
@@ -41,8 +41,9 @@ public class MeepMeepTesting {
 //////                })
 
                         // SPEC 3 PLACEMENT
-                        .splineToLinearHeading(new Pose2d(-45, 13, Math.toRadians(-90)), Math.toRadians(180))
-                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(-45,13))
+//                        .splineToLinearHeading(new Pose2d(-45, 13, Math.toRadians(-90)), Math.toRadians(180))
+                        .waitSeconds(0.5)
                         .setTangent(90)
 
                         // Give sample to human player
@@ -56,9 +57,10 @@ public class MeepMeepTesting {
 //                    new SamplePassThroughCommand().schedule();
 //                })
                         // SPEC 4 PLACEMENT
+                        .strafeTo(new Vector2d(-45,13))
+
                         .strafeTo(new Vector2d(-56,13))
-                        .splineToLinearHeading(new Pose2d(-56, 13, Math.toRadians(-90)), Math.toRadians(180))
-                        .waitSeconds(1)
+                        .waitSeconds(0.5)
                         .setTangent(90)
 
                         .strafeTo(new Vector2d(-56,55))
@@ -70,9 +72,11 @@ public class MeepMeepTesting {
 //                    new SamplePassThroughCommand().schedule();
 //                })
                         // SPEC 5 PLACEMENT
+                        .strafeTo(new Vector2d(-56,13))
 
-                        .splineToLinearHeading(new Pose2d(-65, 13, Math.toRadians(-90)), Math.toRadians(180))
-                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(-65,13))
+//                        .splineToLinearHeading(new Pose2d(-65, 13, Math.toRadians(-90)), Math.toRadians(180))
+                        .waitSeconds(0.5)
                         .setTangent(90)
                         .strafeTo(new Vector2d(-65,55))
 //                        .splineToLinearHeading(new Pose2d(-65, 55, Math.toRadians(-90)), Math.toRadians(90))

@@ -66,7 +66,7 @@ public class bluSample extends GreenLinearOpMode {
                             new ScoringHighBucketCommand()
                     ).schedule();
                 })
-                .splineToLinearHeading(new Pose2d(56, 55, Math.toRadians(225)), Math.toRadians(0)) // 57, 55 before
+                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 57, 55 before
                 .waitSeconds(0.2)//original 1
 
                 .addTemporalMarker(() -> {
@@ -82,7 +82,7 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
 //                SAMPLE 1
-                .splineToLinearHeading(new Pose2d(48.3, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
+                .splineToLinearHeading(new Pose2d(48, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
@@ -120,7 +120,7 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
                 //   SAMPLE 2
-                .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(57.8,45, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
@@ -144,13 +144,13 @@ public class bluSample extends GreenLinearOpMode {
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new WaitCommand(200),
+                            new WaitCommand(500),
                             new OuttakeClawOpenCommand(),
-                            new WaitCommand(400),
+                            new WaitCommand(600),
                             new ResetCommand()
                     ).schedule();
                 })
-
+                .waitSeconds(1)
 
 
 
@@ -197,7 +197,7 @@ public class bluSample extends GreenLinearOpMode {
 
                     ).schedule();
                 })
-                .waitSeconds(.2)
+                .waitSeconds(.5)
 
 
                 .addTemporalMarker(() -> {

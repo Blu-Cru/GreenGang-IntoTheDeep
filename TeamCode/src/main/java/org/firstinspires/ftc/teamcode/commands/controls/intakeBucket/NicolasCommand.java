@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 public class NicolasCommand extends InstantCommand {
+    // intake spits, intake wrist goes down
     public NicolasCommand(){
         super (
                 () -> {
