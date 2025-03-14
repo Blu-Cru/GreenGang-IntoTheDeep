@@ -19,60 +19,79 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24,64,Math.toRadians(90)))
                         .setTangent(Math.toRadians(-90))
                         // PRELOAD PLACEMENT
+//                        .addTemporalMarker(() -> {
+//                            new OuttakeClawCloseCommand().schedule();
+//                        })
                         .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
 
+//                        .addTemporalMarker(() -> {
+//                            new AutoSpecOuttake().schedule();
+//                        })
+//                        .waitSeconds(2.0)
 
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-                        .setTangent(180)
-                        .splineToLinearHeading(new Pose2d(-35, 25, Math.toRadians(-90)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .waitSeconds(1.0)
+//                        .addTemporalMarker(() -> {
+//                            new AutoSpecOuttake2().schedule();
+//                        })
+                        .waitSeconds(0.5)
+                        .splineToLinearHeading(new Pose2d(-5, 32, Math.toRadians(90)), Math.toRadians(-90))
+                        .waitSeconds(2.0)
+//                        .addTemporalMarker(() -> {
+//                            new ResetCommand().schedule();
+//                        })
+
+                        .setTangent(90)
+                        .splineToLinearHeading(new Pose2d(-35, 26, Math.toRadians(-90)), Math.toRadians(-90))
                         .strafeTo(new Vector2d(-35,13))
 //
-////                        // PRELOAD FROM HUMAN PLACEMENT
-//                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-//////                .addTemporalMarker(() -> {
-//////                    new AutoSpecIntake().schedule();
-//////                })
-////
-//                        .splineToLinearHeading(new Pose2d(-3, 42, Math.toRadians(90)), Math.toRadians(-90))
-//////                .addTemporalMarker(() -> {
-//////                    new AutoSpecOuttake().schedule();
-//////                })
 
-                        // SPEC 3 PLACEMENT
+
+
                         .strafeTo(new Vector2d(-45,13))
-//                        .splineToLinearHeading(new Pose2d(-45, 13, Math.toRadians(-90)), Math.toRadians(180))
                         .waitSeconds(0.5)
                         .setTangent(90)
 
-                        // Give sample to human player
                         .strafeTo(new Vector2d(-45,55))
+                        //pushed first sample to observation zone
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                        //going to intake block from human player
+//                        .addTemporalMarker(() -> {
+//                            new AutoSpecIntake().schedule();
+//                        })
+                        .waitSeconds(4.0)
 
-//                        .splineToLinearHeading(new Pose2d(-48, 55, Math.toRadians(-90)), Math.toRadians(90))
+                        .setTangent(0)
+                        .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
+                        //outtake
                         .setTangent(-90)
-                        .waitSeconds(1)
 
+                        .splineToLinearHeading(new Pose2d(-45, 13, Math.toRadians(-90)), Math.toRadians(-90))
 //                .addTemporalMarker(() -> {
 //                    new SamplePassThroughCommand().schedule();
 //                })
-                        // SPEC 4 PLACEMENT
-                        .strafeTo(new Vector2d(-45,13))
+//                        .strafeTo(new Vector2d(-45,13))
 
                         .strafeTo(new Vector2d(-56,13))
                         .waitSeconds(0.5)
                         .setTangent(90)
 
                         .strafeTo(new Vector2d(-56,55))
-//                        .splineToLinearHeading(new Pose2d(-58, 55, Math.toRadians(-90)), Math.toRadians(90))
-                        .setTangent(-90)
                         .waitSeconds(1)
+                        //pushed first sample to observation zone
+                        .setTangent(0)
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                        //going to intake block from human player
+                        .setTangent(0)
+                        .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
+                        //outtake
+                        .setTangent(-90)
+                        .splineToLinearHeading(new Pose2d(-56, 13, Math.toRadians(-90)), Math.toRadians(-90))
 
 //                .addTemporalMarker(() -> {
 //                    new SamplePassThroughCommand().schedule();
 //                })
                         // SPEC 5 PLACEMENT
-                        .strafeTo(new Vector2d(-56,13))
 
                         .strafeTo(new Vector2d(-65,13))
 //                        .splineToLinearHeading(new Pose2d(-65, 13, Math.toRadians(-90)), Math.toRadians(180))
@@ -81,6 +100,12 @@ public class MeepMeepTesting {
                         .strafeTo(new Vector2d(-65,55))
 //                        .splineToLinearHeading(new Pose2d(-65, 55, Math.toRadians(-90)), Math.toRadians(90))
                         .waitSeconds(1)
+                        .setTangent(0)
+                        .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
+                        //going to intake block from human player
+                        .setTangent(0)
+                        .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
+                        //outtake
 
 //                .addTemporalMarker(() -> {
 //                    new SamplePassThroughCommand().schedule();
@@ -125,6 +150,7 @@ public class MeepMeepTesting {
 
 
                         .build());
+
 //                );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
