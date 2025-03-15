@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecComm
 
 
 public class AutoSpecOuttake extends SequentialCommandGroup {
+    //first part of auto specimen outtake
     public AutoSpecOuttake() {
         super (
                 new SequentialCommandGroup(

@@ -3,11 +3,9 @@ package org.firstinspires.ftc.teamcode.opmodes.tele;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.NicolasCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
@@ -15,18 +13,14 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartComman
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.TelePart1Command;
+import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.commands.turnCommand.TurnCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
-import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
@@ -99,7 +93,7 @@ public class Main extends GreenLinearOpMode {
         if (stickyG2.a) {
             outtakeClaw.toggle();
         } else if (stickyG2.dpad_up) {
-            new TelePart1Command().schedule();
+            new SpecIntakeCommand().schedule();
         }
         if (stickyG2.dpad_down){
             new HorizontalSlidesRetractCommand().schedule();

@@ -3,9 +3,8 @@ package org.firstinspires.ftc.teamcode.opmodes.auto.red;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
+import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
@@ -35,7 +34,7 @@ public class redSpec extends GreenLinearOpMode {
                 // PRELOAD FROM HUMAN PLACEMENT
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(-90))
                 .addTemporalMarker(() -> {
-                    new AutoSpecIntake().schedule();
+                    new SpecIntakeCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-3, -42, Math.toRadians(-90)), Math.toRadians(90))
@@ -53,7 +52,7 @@ public class redSpec extends GreenLinearOpMode {
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSpecIntake().schedule();
+                    new SpecIntakeCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(-1, -42, Math.toRadians(-90)), Math.toRadians(90))
@@ -71,7 +70,7 @@ public class redSpec extends GreenLinearOpMode {
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSpecIntake().schedule();
+                    new SpecIntakeCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(1, -42, Math.toRadians(-90)), Math.toRadians(90))
@@ -90,7 +89,7 @@ public class redSpec extends GreenLinearOpMode {
 
                 .splineToLinearHeading(new Pose2d(48, -60, Math.toRadians(90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSpecIntake().schedule();
+                    new SpecIntakeCommand().schedule();
                 })
 
                 .splineToLinearHeading(new Pose2d(3, -42, Math.toRadians(-90)), Math.toRadians(90))

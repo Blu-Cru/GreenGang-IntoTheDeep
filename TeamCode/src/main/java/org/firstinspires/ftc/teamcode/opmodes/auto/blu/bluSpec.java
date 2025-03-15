@@ -2,24 +2,33 @@ package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.arcrobotics.ftclib.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecIntake;
+import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake2;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecDunk;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "blue spec auto", group = "paths")
 public class bluSpec extends GreenLinearOpMode {
+    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(46, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(20, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
+
+    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(42);
+    public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
+    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(25);
+
+    public static TrajectoryVelocityConstraint[] velos = {SLOW_VEL, NORMAL_VEL, FAST_VEL};
+    public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
 
     TrajectorySequence farBlue;
     SampleMecanumDrive mecDrive;
@@ -44,144 +53,130 @@ public class bluSpec extends GreenLinearOpMode {
         mecDrive.setPoseEstimate(startPose);
 
         farBlue = mecDrive.trajectorySequenceBuilder(startPose)
-    .setTangent(Math.toRadians(-90))
-    // PRELOAD PLACEMENT
-                .addTemporalMarker(() -> {
-                    new OuttakeClawCloseCommand().schedule();
-                })
-    .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
+                .setTangent(Math.toRadians(-90))
+                .setConstraints(FAST_VEL, FAST_ACCEL)
 
-                .addTemporalMarker(() -> {
-                    new AutoSpecOuttake().schedule();
-                })
-                .waitSeconds(2.0)
+                //PRELOAD SCORE
+                        .addTemporalMarker(() -> {
+                            new AutoSpecOuttake().schedule();
+                        })
 
-    .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
-                .waitSeconds(1.0)
-                .addTemporalMarker(() -> {
-                    new AutoSpecOuttake2().schedule();
-                })
-                .waitSeconds(0.5)
-    .splineToLinearHeading(new Pose2d(-5, 32, Math.toRadians(90)), Math.toRadians(-90))
-                .waitSeconds(2.0)
-
-
+                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(1000).schedule();
+                            new AutoSpecDunk().schedule();
+                        })
+                .waitSeconds(1)
                 .setTangent(90)
-                .addTemporalMarker(() -> {
-                    new WaitCommand(1000);
-                    new ResetCommand().schedule();
-                })
-    .splineToLinearHeading(new Pose2d(-35, 26, Math.toRadians(-90)), Math.toRadians(-90))
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(1000);
+                            new ResetCommand().schedule();
+                        })
 
-    .strafeTo(new Vector2d(-35,13))
-//
+                .splineToSplineHeading(new Pose2d(-35,26,Math.toRadians(-90)), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-35, 16), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-47, 15), Math.toRadians(90))
+                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+                .splineToConstantHeading(new Vector2d(-47, 55), Math.toRadians(90))
 
+                //FINISHED PUSHING FIRST SAMPLE TO OBSERVATION ZONE
 
+                .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-58, 55), Math.toRadians(90))
+                //FINISHED PUSHING SECOND SAMPLE TO OBSERVATION ZONE
+                .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-65, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-65, 55), Math.toRadians(90))
+                .setConstraints(FAST_VEL,FAST_ACCEL)
+                //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
+                //FIRST SPECIMEN INTAKE
+                        .addTemporalMarker(() -> {
+                            new SpecIntakeCommand().schedule();
+                        })
+                .splineToConstantHeading(new Vector2d(-48, 55), Math.toRadians(90))
+                        .addTemporalMarker(() -> {
+                            new OuttakeClawCloseCommand().schedule();
+                        })
+                .waitSeconds(2.0)
 
-    .strafeTo(new Vector2d(-45,13))
-    .waitSeconds(0.5)
-    .setTangent(90)
+                .setTangent(-45)
+                //FIRST SPECIMEN SCORE
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new AutoSpecOuttake().schedule();
+                        })
 
-    .strafeTo(new Vector2d(-45,55))
-    //pushed first sample to observation zone
-    .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-    //going to intake block from human player
-        .addTemporalMarker(() -> {
-            new AutoSpecIntake().schedule();
-        })
-                .waitSeconds(4.0)
+                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(1000).schedule();
+                            new AutoSpecDunk().schedule();
+                        })
 
-    .setTangent(0)
-    .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
-    //outtake
-    .setTangent(-90)
+                //SECOND SPECIMEN INTAKE
+                .waitSeconds(1)
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new SpecIntakeCommand().schedule();
+                        })
+                .setTangent(135)
+                .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
 
-    .splineToLinearHeading(new Pose2d(-45, 13, Math.toRadians(-90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new SamplePassThroughCommand().schedule();
-//                })
-//                        .strafeTo(new Vector2d(-45,13))
+                        .addTemporalMarker(() -> {
+                            new OuttakeClawCloseCommand().schedule();
+                        })
+                .waitSeconds(2.0)
 
-    .strafeTo(new Vector2d(-56,13))
-    .waitSeconds(0.5)
-    .setTangent(90)
+                .setTangent(-45)
+                //SECOND SPECIMEN SCORE
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new AutoSpecOuttake().schedule();
+                        })
 
-    .strafeTo(new Vector2d(-56,55))
-    .waitSeconds(1)
-    //pushed first sample to observation zone
-    .setTangent(0)
-    .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-    //going to intake block from human player
-    .setTangent(0)
-    .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
-    //outtake
-    .setTangent(-90)
-    .splineToLinearHeading(new Pose2d(-56, 13, Math.toRadians(-90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(1000).schedule();
+                            new AutoSpecDunk().schedule();
+                        })
 
-//                .addTemporalMarker(() -> {
-//                    new SamplePassThroughCommand().schedule();
-//                })
-    // SPEC 5 PLACEMENT
+                //THIRD SPECIMEN INTAKE
+                .waitSeconds(1)
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new SpecIntakeCommand().schedule();
+                        })
+                .setTangent(135)
+                .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
+                        .addTemporalMarker(() -> {
+                            new OuttakeClawCloseCommand().schedule();
+                        })
+                .waitSeconds(2.0)
 
-    .strafeTo(new Vector2d(-65,13))
-//                        .splineToLinearHeading(new Pose2d(-65, 13, Math.toRadians(-90)), Math.toRadians(180))
-    .waitSeconds(0.5)
-    .setTangent(90)
-    .strafeTo(new Vector2d(-65,55))
-//                        .splineToLinearHeading(new Pose2d(-65, 55, Math.toRadians(-90)), Math.toRadians(90))
-    .waitSeconds(1)
-    .setTangent(0)
-    .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(90))
-    //going to intake block from human player
-    .setTangent(0)
-    .splineToLinearHeading(new Pose2d(-5, 42, Math.toRadians(90)), Math.toRadians(-90))
-    //outtake
+                .setTangent(-45)
+                //THIRD SPECIMEN SCORE
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new AutoSpecOuttake().schedule();
+                        })
 
-//                .addTemporalMarker(() -> {
-//                    new SamplePassThroughCommand().schedule();
-//                })
-
-                        // intake sample from human player
-//                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-                        // outtake sample
-//                .splineToLinearHeading(new Pose2d(-1, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
-
-
-//                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-//                .splineToLinearHeading(new Pose2d(1, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
-
-
-
-//                .splineToLinearHeading(new Pose2d(-48, 60, Math.toRadians(-90)), Math.toRadians(0))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecIntake().schedule();
-//                })
-
-//                .splineToLinearHeading(new Pose2d(3, 42, Math.toRadians(90)), Math.toRadians(-90))
-//                .addTemporalMarker(() -> {
-//                    new AutoSpecOuttake().schedule();
-//                })
+                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(1000).schedule();
+                            new AutoSpecDunk().schedule();
+                        })
+                .waitSeconds(1)
+                        .addTemporalMarker(() -> {
+                            new WaitCommand(500).schedule();
+                            new ResetCommand().schedule();
+                        })
+                .setTangent(135)
+                .strafeTo(new Vector2d(-48,60))
 
 
+                .build();
 
-                        .build();
-
-
+        new OuttakeClawCloseCommand().schedule(); //closes claw upon init
     }
 
     @Override
