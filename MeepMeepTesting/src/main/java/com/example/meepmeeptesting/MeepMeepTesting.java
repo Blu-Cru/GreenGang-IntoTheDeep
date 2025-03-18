@@ -14,6 +14,7 @@ import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
 import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 import java.util.Arrays;
+import java.util.Vector;
 
 public class MeepMeepTesting {
     public static TrajectoryVelocityConstraint FAST_VEL = new MinVelocityConstraint(Arrays.asList(
@@ -44,125 +45,132 @@ public class MeepMeepTesting {
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24,64,Math.toRadians(90)))
                         .setTangent(Math.toRadians(-90))
-                        .setConstraints(FAST_VEL, FAST_ACCEL)
+                        .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
 
                         //PRELOAD SCORE
 //                        .addTemporalMarker(() -> {
+//                            new OuttakeClawCloseCommand();
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-5, 36.5, Math.toRadians(90)), Math.toRadians(-90))//prev y: 36.7
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(1000).schedule();
-//                            new AutoSpecOuttake2().schedule();
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(200),
+//                                    new AutoSpecDunk()
+//                            ).schedule();
 //                        })
                         .waitSeconds(1)
-
-//
                         .setTangent(90)
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(1000);
 //                            new ResetCommand().schedule();
 //                        })
-
-//
-//
-//
                         .splineToSplineHeading(new Pose2d(-35,26,Math.toRadians(-90)), Math.toRadians(-90))
-                        .splineToConstantHeading(new Vector2d(-35, 16), Math.toRadians(-90))
-                        .splineToConstantHeading(new Vector2d(-47, 15), Math.toRadians(90))
-                        .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+                        .setConstraints(SLOW_VEL,SLOW_ACCEL)
 
-                        .splineToConstantHeading(new Vector2d(-47, 55), Math.toRadians(90))
-                        //PUSHED FIRST SAMPLE TO OBSERVATION ZONE
+                        .splineToConstantHeading(new Vector2d(-35, 16), Math.toRadians(-90))
+
+                        .splineToConstantHeading(new Vector2d(-47, 15), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
+
+                        //FINISHED PUSHING FIRST SAMPLE TO OBSERVATION ZONE
+
                         .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(-90))
                         .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(90))
-                        .splineToConstantHeading(new Vector2d(-58, 55), Math.toRadians(90))
-                        //PUSHED SECOND SAMPLE TO OBSERVATION ZONE
-                        .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(-90))
-                        .splineToConstantHeading(new Vector2d(-65, 16), Math.toRadians(90))
-                        .splineToConstantHeading(new Vector2d(-65, 55), Math.toRadians(90))
-                        .setConstraints(FAST_VEL,FAST_ACCEL)
-                        //PUSHED THIRD SAMPLE TO OBSERVATION ZONE
-                        //FIRST SAMPLE INTAKE
 //                        .addTemporalMarker(() -> {
 //                            new SpecIntakeCommand().schedule();
 //                        })
-                        .splineToConstantHeading(new Vector2d(-48, 55), Math.toRadians(90))
-//                        .addTemporalMarker(() -> {
-//                            new OuttakeClawCloseCommand().schedule();
-//                        })
+                        .splineToConstantHeading(new Vector2d(-58, 51), Math.toRadians(90))
+                        .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+                        //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
+                        //FIRST SPECIMEN INTAKE
+                        .splineToConstantHeading(new Vector2d(-48,51), Math.toRadians(0))
+
+                        .splineToConstantHeading(new Vector2d(-48, 59), Math.toRadians(90))
                         .waitSeconds(2.0)
 
+                        .addTemporalMarker(() -> {
+//
+//                            new OuttakeClawCloseCommand().schedule();
+                        })
+                        .waitSeconds(0.5)
+
                         .setTangent(-45)
-                        //FIRST SAMPLE SCORE
+                        //FIRST SPECIMEN SCORE
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(1000).schedule();
-//                            new AutoSpecOuttake2().schedule();
+//                            new AutoSpecDunk().schedule();
 //                        })
 
-                        //SECOND SAMPLE INTAKE
-                        .waitSeconds(1)
+                        //SECOND SPECIMEN INTAKE
+                        .waitSeconds(0.5)
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
-//                            new SpecIntakeCommand().schedule();
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(800),
+//                                    new SpecIntakeCommand()
+//
+//                            ).schedule();
 //                        })
                         .setTangent(135)
-                        .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToSplineHeading(new Pose2d(-48,61,Math.toRadians(-90)), Math.toRadians(90))
 
+                        .waitSeconds(2.0)
 //                        .addTemporalMarker(() -> {
 //                            new OuttakeClawCloseCommand().schedule();
 //                        })
-                        .waitSeconds(2.0)
+                        .waitSeconds(0.5)
 
                         .setTangent(-45)
-                        //SECOND SAMPLE SCORE
+                        //SECOND SPECIMEN SCORE
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(1000).schedule();
-//                            new AutoSpecOuttake2().schedule();
+//                            new AutoSpecDunk().schedule();
 //                        })
 
-                        //THIRD SAMPLE INTAKE
-                        .waitSeconds(1)
+                        //THIRD SPECIMEN INTAKE
+                        .waitSeconds(0.5)
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
-//                            new SpecIntakeCommand().schedule();
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(500),
+//                                    new SpecIntakeCommand()
+//                            ).schedule();
+//
 //                        })
                         .setTangent(135)
-                        .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToSplineHeading(new Pose2d(-48,63,Math.toRadians(-90)), Math.toRadians(90))
+                        .waitSeconds(2.0)
+//
 //                        .addTemporalMarker(() -> {
 //                            new OuttakeClawCloseCommand().schedule();
 //                        })
-                        .waitSeconds(2.0)
+                        .waitSeconds(0.5)
+
 
                         .setTangent(-45)
-                        //THIRD SAMPLE SCORE
+                        //THIRD SPECIMEN SCORE
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-5, 41, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(1000).schedule();
-//                            new AutoSpecOuttake2().schedule();
+//                            new AutoSpecDunk().schedule();
 //                        })
-                        .waitSeconds(1)
+                        .waitSeconds(0.5)
 //                        .addTemporalMarker(() -> {
-//                            new WaitCommand(500).schedule();
-//                            new ResetCommand().schedule();
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(500),
+//                                    new ResetCommand()
+//                            ).schedule();
+//
 //                        })
                         .setTangent(135)
                         .strafeTo(new Vector2d(-48,60))

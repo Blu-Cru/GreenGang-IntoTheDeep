@@ -41,7 +41,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void inspec() {
-        clawArm.setPosition(pos+0.38); //0.83
+        clawArm.setPosition(pos+0.35); //pos + 0.38
         state = STATE.INSPEC;
     }
 
