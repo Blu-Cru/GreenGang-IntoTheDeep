@@ -51,7 +51,7 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        open();
+        close();
     }
 
 }

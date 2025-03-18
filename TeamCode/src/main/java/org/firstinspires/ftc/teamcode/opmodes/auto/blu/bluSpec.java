@@ -21,11 +21,11 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 public class bluSpec extends GreenLinearOpMode {
     public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(46, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
-    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(20, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(25, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
 
     public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(42);
     public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
-    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(25);
+    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(30);
 
     public static TrajectoryVelocityConstraint[] velos = {SLOW_VEL, NORMAL_VEL, FAST_VEL};
     public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
@@ -64,7 +64,7 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 36.7, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new WaitCommand(2000).schedule();
                             new AutoSpecDunk().schedule();
@@ -75,33 +75,34 @@ public class bluSpec extends GreenLinearOpMode {
                             new WaitCommand(1000);
                             new ResetCommand().schedule();
                         })
-                .setConstraints(SLOW_VEL,SLOW_ACCEL)
                 .splineToSplineHeading(new Pose2d(-35,26,Math.toRadians(-90)), Math.toRadians(-90))
+                .setConstraints(SLOW_VEL,SLOW_ACCEL)
+
                 .splineToConstantHeading(new Vector2d(-35, 16), Math.toRadians(-90))
 
                 .splineToConstantHeading(new Vector2d(-47, 15), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-47, 55), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-47, 53), Math.toRadians(90))
 
                 //FINISHED PUSHING FIRST SAMPLE TO OBSERVATION ZONE
 
                 .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-60, 16), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-60, 55), Math.toRadians(90))
-                //FINISHED PUSHING SECOND SAMPLE TO OBSERVATION ZONE
-                .splineToConstantHeading(new Vector2d(-60, 16), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-63, 16), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-63, 55), Math.toRadians(90))
-                .setConstraints(FAST_VEL,FAST_ACCEL)
+                .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(90))
+                .addTemporalMarker(() -> {
+                    new SpecIntakeCommand().schedule();
+                })
+                .splineToConstantHeading(new Vector2d(-58, 53), Math.toRadians(90))
+                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
                 //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                 //FIRST SPECIMEN INTAKE
-                        .addTemporalMarker(() -> {
-                            new SpecIntakeCommand().schedule();
-                        })
-                .splineToConstantHeading(new Vector2d(-48, 52), Math.toRadians(90))
-                        .addTemporalMarker(() -> {
+
+                .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
+                .waitSeconds(2.0)
+
+                .addTemporalMarker(() -> {
+
                             new OuttakeClawCloseCommand().schedule();
                         })
-                .waitSeconds(2.0)
+                .waitSeconds(0.5)
 
                 .setTangent(-45)
                 //FIRST SPECIMEN SCORE
@@ -110,51 +111,56 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 38, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new WaitCommand(2000).schedule();
                             new AutoSpecDunk().schedule();
                         })
 
                 //SECOND SPECIMEN INTAKE
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                         .addTemporalMarker(() -> {
-                            new WaitCommand(500).schedule();
+                            new WaitCommand(2000).schedule();
                             new SpecIntakeCommand().schedule();
                         })
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,52,Math.toRadians(-90)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-48,58,Math.toRadians(-90)), Math.toRadians(90))
 
-                        .addTemporalMarker(() -> {
+                .waitSeconds(2.0)
+                .addTemporalMarker(() -> {
                             new OuttakeClawCloseCommand().schedule();
                         })
-                .waitSeconds(2.0)
+                .waitSeconds(0.5)
 
                 .setTangent(-45)
                 //SECOND SPECIMEN SCORE
                         .addTemporalMarker(() -> {
-                            new WaitCommand(500).schedule();
+                            new WaitCommand(1000).schedule();
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 38, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new WaitCommand(2000).schedule();
                             new AutoSpecDunk().schedule();
                         })
 
                 //THIRD SPECIMEN INTAKE
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                         .addTemporalMarker(() -> {
-                            new WaitCommand(500).schedule();
+                            new WaitCommand(2000).schedule();
                             new SpecIntakeCommand().schedule();
                         })
+                .waitSeconds(0.5)
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,52,Math.toRadians(-90)), Math.toRadians(90))
-                        .addTemporalMarker(() -> {
+                .splineToSplineHeading(new Pose2d(-48,60,Math.toRadians(-90)), Math.toRadians(90))
+                .waitSeconds(2.0)
+
+                .addTemporalMarker(() -> {
                             new OuttakeClawCloseCommand().schedule();
                         })
-                .waitSeconds(2.0)
+                .waitSeconds(0.5)
+
 
                 .setTangent(-45)
                 //THIRD SPECIMEN SCORE
@@ -163,14 +169,14 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 37, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 38, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new WaitCommand(1000).schedule();
                             new AutoSpecDunk().schedule();
                         })
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                         .addTemporalMarker(() -> {
-                            new WaitCommand(500).schedule();
+                            new WaitCommand(1500).schedule();
                             new ResetCommand().schedule();
                         })
                 .setTangent(135)
@@ -179,6 +185,11 @@ public class bluSpec extends GreenLinearOpMode {
 
                 .build();
 
+//        outtakeClaw.close();
+    }
+
+    @Override
+    public void initLoop() {
         outtakeClaw.close();
     }
 
