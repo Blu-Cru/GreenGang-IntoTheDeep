@@ -95,10 +95,10 @@ public class bluSpec extends GreenLinearOpMode {
                 .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
                 //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                 //FIRST SPECIMEN INTAKE
-                .splineToConstantHeading(new Vector2d(-48,51), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(0))
 
 
-                .splineToConstantHeading(new Vector2d(-48, 59), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-48, 57.3), Math.toRadians(90))
                 .waitSeconds(2.0)
 
                 .addTemporalMarker(() -> {
@@ -113,13 +113,13 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 38, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
 
                 //SECOND SPECIMEN INTAKE
-//                .waitSeconds(0.5)
+                .waitSeconds(0.5)
                         .addTemporalMarker(() -> {
                             new SequentialCommandGroup(
                                     new WaitCommand(800),
@@ -128,7 +128,10 @@ public class bluSpec extends GreenLinearOpMode {
                             ).schedule();
                         })
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,61,Math.toRadians(-90)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
+                .
+                .strafeTo(new Vector2d(-48,61))
+
 
                 .waitSeconds(2.0)
                 .addTemporalMarker(() -> {
@@ -142,7 +145,7 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-5, 39, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
@@ -157,7 +160,9 @@ public class bluSpec extends GreenLinearOpMode {
 
                         })
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,62,Math.toRadians(-90)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-48,55,Math.toRadians(-90)), Math.toRadians(90))
+                .strafeTo(new Vector2d(-48,62.5))
+
                 .waitSeconds(2.0)
 
                 .addTemporalMarker(() -> {
@@ -185,7 +190,9 @@ public class bluSpec extends GreenLinearOpMode {
 
                         })
                 .setTangent(135)
-                .strafeTo(new Vector2d(-48,60))
+                //PARK
+                .splineToSplineHeading(new Pose2d(-48,60,Math.toRadians(-90)), Math.toRadians(90))
+
 
 
                 .build();

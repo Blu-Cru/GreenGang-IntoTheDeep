@@ -18,9 +18,11 @@ public class AutoSpecOuttake extends SequentialCommandGroup {
     public AutoSpecOuttake() {
         super (
                 new SequentialCommandGroup(
+
+                        new VertSlidesHighSpecCommand(),
+                        new WaitCommand(200),
                         new ClawWristOutSpecCommand(),
-                        new ClawArmOutSpecCommand(),
-                        new VertSlidesHighSpecCommand()
+                        new ClawArmOutSpecCommand()
                 )
         );
     }
