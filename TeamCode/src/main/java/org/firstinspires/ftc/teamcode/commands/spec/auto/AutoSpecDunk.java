@@ -10,7 +10,7 @@ public class AutoSpecDunk extends SequentialCommandGroup{
         super(
                 new SequentialCommandGroup(
                         new VertSlidesLowSpecCommand(),
-                        new WaitCommand(700),//previous 2000
+                        new WaitCommand(500),//previous 2000
                         new OuttakeClawOpenCommand()
                 )
 
