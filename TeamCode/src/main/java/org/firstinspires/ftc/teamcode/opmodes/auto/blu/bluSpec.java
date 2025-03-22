@@ -20,11 +20,11 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 
 @Autonomous(name = "blue spec auto", group = "paths")
 public class bluSpec extends GreenLinearOpMode {
-    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(46, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(48, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(25, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
 
-    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(42);
+    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(48);
     public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
     public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(30);
 
@@ -91,21 +91,21 @@ public class bluSpec extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new SpecIntakeCommand().schedule();
                 })
-                .splineToConstantHeading(new Vector2d(-58, 51), Math.toRadians(90))
-                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+                .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
+                .setConstraints(FAST_VEL,FAST_ACCEL)
                 //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                 //FIRST SPECIMEN INTAKE
-                .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(0))
-
-
-                .splineToConstantHeading(new Vector2d(-48, 57.3), Math.toRadians(90))
-                .waitSeconds(2.0)
+//                .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(0))
+//
+//
+//                .splineToConstantHeading(new Vector2d(-48, 57.3), Math.toRadians(90))
+                .waitSeconds(0.8)
 
                 .addTemporalMarker(() -> {
 
                             new OuttakeClawCloseCommand().schedule();
                         })
-                .waitSeconds(0.5)
+                .waitSeconds(0.3)
 
                 .setTangent(-45)
                 //FIRST SPECIMEN SCORE
@@ -129,11 +129,10 @@ public class bluSpec extends GreenLinearOpMode {
                         })
                 .setTangent(135)
                 .splineToSplineHeading(new Pose2d(-48,56,Math.toRadians(-90)), Math.toRadians(90))
-                .waitSeconds(0.3)
 
                 .splineToConstantHeading(new Vector2d(-48, 60.3), Math.toRadians(90))
 
-                .waitSeconds(2.0)
+                .waitSeconds(0.8)
                 .addTemporalMarker(() -> {
                             new OuttakeClawCloseCommand().schedule();
                         })
@@ -161,10 +160,9 @@ public class bluSpec extends GreenLinearOpMode {
                         })
                 .setTangent(135)
                 .splineToSplineHeading(new Pose2d(-48,57,Math.toRadians(-90)), Math.toRadians(90))
-                .waitSeconds(0.3)
                 .splineToConstantHeading(new Vector2d(-48, 62.5), Math.toRadians(90))
 
-                .waitSeconds(2.0)
+                .waitSeconds(0.8)
 
                 .addTemporalMarker(() -> {
                             new OuttakeClawCloseCommand().schedule();
@@ -192,7 +190,7 @@ public class bluSpec extends GreenLinearOpMode {
                         })
                 .setTangent(135)
                 //PARK
-                .splineToSplineHeading(new Pose2d(-48,60,Math.toRadians(-90)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-52,60,Math.toRadians(-90)), Math.toRadians(90))
 
 
 

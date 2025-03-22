@@ -60,7 +60,7 @@ public class MeepMeepTesting {
 //                                    new AutoSpecDunk()
 //                            ).schedule();
 //                        })
-                        .waitSeconds(1)
+                        .waitSeconds(0.5)
                         .setTangent(90)
 //                        .addTemporalMarker(() -> {
 //                            new ResetCommand().schedule();
@@ -68,32 +68,33 @@ public class MeepMeepTesting {
                         .splineToSplineHeading(new Pose2d(-35,26,Math.toRadians(-90)), Math.toRadians(-90))
                         .setConstraints(SLOW_VEL,SLOW_ACCEL)
 
-                        .splineToConstantHeading(new Vector2d(-35, 16), Math.toRadians(-90))
+                        .splineToConstantHeading(new Vector2d(-35, 19), Math.toRadians(-90))
 
-                        .splineToConstantHeading(new Vector2d(-47, 15), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
                         .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
 
                         //FINISHED PUSHING FIRST SAMPLE TO OBSERVATION ZONE
 
-                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(-90))
-                        .splineToConstantHeading(new Vector2d(-58, 16), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(-90))
+                        .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
 //                        .addTemporalMarker(() -> {
 //                            new SpecIntakeCommand().schedule();
 //                        })
-                        .splineToConstantHeading(new Vector2d(-58, 51), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
                         .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
                         //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                         //FIRST SPECIMEN INTAKE
-                        .splineToConstantHeading(new Vector2d(-48,51), Math.toRadians(0))
+//                .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(0))
+//
+//
+//                .splineToConstantHeading(new Vector2d(-48, 57.3), Math.toRadians(90))
+                        .waitSeconds(0.8)
 
-                        .splineToConstantHeading(new Vector2d(-48, 59), Math.toRadians(90))
-                        .waitSeconds(2.0)
-
-                        .addTemporalMarker(() -> {
+//                        .addTemporalMarker(() -> {
 //
 //                            new OuttakeClawCloseCommand().schedule();
-                        })
-                        .waitSeconds(0.5)
+//                        })
+                        .waitSeconds(0.3)
 
                         .setTangent(-45)
                         //FIRST SPECIMEN SCORE
@@ -101,7 +102,7 @@ public class MeepMeepTesting {
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-6, 38, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
 //                            new AutoSpecDunk().schedule();
 //                        })
@@ -110,19 +111,21 @@ public class MeepMeepTesting {
                         .waitSeconds(0.5)
 //                        .addTemporalMarker(() -> {
 //                            new SequentialCommandGroup(
-//                                    new WaitCommand(800),
+//                                    new WaitCommand(1000),
 //                                    new SpecIntakeCommand()
 //
 //                            ).schedule();
 //                        })
                         .setTangent(135)
-                        .splineToSplineHeading(new Pose2d(-48,61,Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToSplineHeading(new Pose2d(-48,50,Math.toRadians(-90)), Math.toRadians(90))
 
-                        .waitSeconds(2.0)
+                        .splineToConstantHeading(new Vector2d(-48, 60.3), Math.toRadians(90))
+
+                        .waitSeconds(0.8)
 //                        .addTemporalMarker(() -> {
 //                            new OuttakeClawCloseCommand().schedule();
 //                        })
-                        .waitSeconds(0.5)
+                        .waitSeconds(0.3)
 
                         .setTangent(-45)
                         //SECOND SPECIMEN SCORE
@@ -130,28 +133,31 @@ public class MeepMeepTesting {
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 40, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-7, 38.5, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
 //                            new AutoSpecDunk().schedule();
 //                        })
 
                         //THIRD SPECIMEN INTAKE
-                        .waitSeconds(0.5)
+                        .waitSeconds(0.3)
 //                        .addTemporalMarker(() -> {
 //                            new SequentialCommandGroup(
-//                                    new WaitCommand(500),
+//                                    new WaitCommand(1000),
 //                                    new SpecIntakeCommand()
 //                            ).schedule();
 //
 //                        })
                         .setTangent(135)
-                        .splineToSplineHeading(new Pose2d(-48,63,Math.toRadians(-90)), Math.toRadians(90))
-                        .waitSeconds(2.0)
-//
+                        .splineToSplineHeading(new Pose2d(-48,57,Math.toRadians(-90)), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-48, 62.5), Math.toRadians(90))
+
+                        .waitSeconds(0.8)
+
+
 //                        .addTemporalMarker(() -> {
 //                            new OuttakeClawCloseCommand().schedule();
 //                        })
-                        .waitSeconds(0.5)
+                        .waitSeconds(0.3)
 
 
                         .setTangent(-45)
@@ -160,20 +166,22 @@ public class MeepMeepTesting {
 //                            new AutoSpecOuttake().schedule();
 //                        })
 
-                        .splineToLinearHeading(new Pose2d(-5, 41, Math.toRadians(90)), Math.toRadians(-90))
+                        .splineToLinearHeading(new Pose2d(-8, 40, Math.toRadians(90)), Math.toRadians(-90))
 //                        .addTemporalMarker(() -> {
 //                            new AutoSpecDunk().schedule();
 //                        })
-                        .waitSeconds(0.5)
+                        .waitSeconds(0.3)
 //                        .addTemporalMarker(() -> {
 //                            new SequentialCommandGroup(
-//                                    new WaitCommand(500),
+//                                    new WaitCommand(600),
 //                                    new ResetCommand()
 //                            ).schedule();
 //
 //                        })
                         .setTangent(135)
-                        .strafeTo(new Vector2d(-48,60))
+                        //PARK
+                        .splineToSplineHeading(new Pose2d(-52,60,Math.toRadians(-90)), Math.toRadians(90))
+
 
 
                         .build());
