@@ -15,6 +15,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     public double drivePower;
     public DrivePID pid;
     boolean fieldCentric;
+
     public double heading;
     public Drivetrain (HardwareMap hardwareMap) {
         super(hardwareMap);
@@ -79,5 +80,6 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     public void update() {
         updatePID();
         heading = getRawExternalHeading();
+        updatePPL();
     }
 }

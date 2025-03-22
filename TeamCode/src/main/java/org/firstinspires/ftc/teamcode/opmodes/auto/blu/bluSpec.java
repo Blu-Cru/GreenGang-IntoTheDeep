@@ -199,6 +199,13 @@ public class bluSpec extends GreenLinearOpMode {
     }
 
     @Override
+    public void onStart() {
+        Pose2d startPose = new Pose2d(-24, 64, Math.toRadians(90));
+        drivetrain.setPoseEstimate(startPose);
+
+    }
+
+    @Override
     public void initLoop() {
         outtakeClaw.close();
     }
