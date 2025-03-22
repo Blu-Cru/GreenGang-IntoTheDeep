@@ -32,6 +32,8 @@ public class Robot {
     public HorizontalSlides horizontalSlides;
     public Hang hang;
     public IntakeWrist wrist;
+    public PinPointLocalizer ppl;
+
     ArrayList<GreenSubsystem> subsystems;
 
     public static Robot getInstance() {
@@ -60,6 +62,12 @@ public class Robot {
         intake = new Intake(hardwareMap);
         subsystems.add(intake);
         return intake;
+    }
+
+    public PinPointLocalizer getPpl() {
+        ppl = new PinPointLocalizer(hardwareMap);
+        subsystems.add(ppl);
+        return ppl;
     }
 
     public ClawWrist addClawWrist(){
