@@ -212,7 +212,12 @@ public class bluSample extends GreenLinearOpMode {
                 .build();
 
     }
+    @Override
+    public void onStart() {
+        Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
+        drivetrain.setPoseEstimate(startPose);
 
+    }
     @Override
     public void periodic() {
 

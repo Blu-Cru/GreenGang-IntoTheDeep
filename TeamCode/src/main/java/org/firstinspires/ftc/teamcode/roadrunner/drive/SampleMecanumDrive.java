@@ -61,7 +61,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     PinpointLocalizer ppl;
 
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0.5);
 
     public static double LATERAL_MULTIPLIER = 1.8367;
 
@@ -220,6 +220,14 @@ public class SampleMecanumDrive extends MecanumDrive {
         updatePoseEstimate();
         DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
         if (signal != null) setDriveSignal(signal);
+    }
+
+    public void updateTrajectory(boolean updateLocalizer) {
+        if(updateLocalizer) updateTrajectory();
+        else {
+            DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
+            if (signal != null) setDriveSignal(signal);
+        }
     }
 //
     public void waitForIdle() {

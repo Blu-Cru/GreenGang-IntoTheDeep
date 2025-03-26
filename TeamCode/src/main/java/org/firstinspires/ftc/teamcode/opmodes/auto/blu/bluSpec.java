@@ -56,7 +56,7 @@ public class bluSpec extends GreenLinearOpMode {
         farBlue = mecDrive.trajectorySequenceBuilder(startPose)
 
                 .setTangent(Math.toRadians(-90))
-                .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
+                .setConstraints(FAST_VEL, FAST_ACCEL)
 
                 //PRELOAD SCORE
                         .addTemporalMarker(() -> {
@@ -82,7 +82,7 @@ public class bluSpec extends GreenLinearOpMode {
                 .splineToConstantHeading(new Vector2d(-35, 19), Math.toRadians(-90))
 
                 .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-47, 47), Math.toRadians(90))
 
                 //FINISHED PUSHING FIRST SAMPLE TO OBSERVATION ZONE
 
@@ -91,14 +91,11 @@ public class bluSpec extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new SpecIntakeCommand().schedule();
                 })
-                .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-58, 57.8), Math.toRadians(90))
                 .setConstraints(FAST_VEL,FAST_ACCEL)
                 //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                 //FIRST SPECIMEN INTAKE
-//                .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(0))
-//
-//
-//                .splineToConstantHeading(new Vector2d(-48, 57.3), Math.toRadians(90))
+
                 .waitSeconds(0.8)
 
                 .addTemporalMarker(() -> {
@@ -113,7 +110,7 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-6, 38, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-6.5, 36.5, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
@@ -128,9 +125,10 @@ public class bluSpec extends GreenLinearOpMode {
                             ).schedule();
                         })
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,56,Math.toRadians(-90)), Math.toRadians(90))
-
-                .splineToConstantHeading(new Vector2d(-48, 60.3), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-48,50,Math.toRadians(-90)), Math.toRadians(90))
+                .setConstraints(SLOW_VEL,SLOW_ACCEL)
+                .splineToConstantHeading(new Vector2d(-48, 57.4), Math.toRadians(90))
+                .setConstraints(FAST_VEL,FAST_ACCEL)
 
                 .waitSeconds(0.8)
                 .addTemporalMarker(() -> {
@@ -143,8 +141,7 @@ public class bluSpec extends GreenLinearOpMode {
                         .addTemporalMarker(() -> {
                             new AutoSpecOuttake().schedule();
                         })
-
-                .splineToLinearHeading(new Pose2d(-7, 38.5, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-8, 36.5, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
@@ -159,8 +156,11 @@ public class bluSpec extends GreenLinearOpMode {
 
                         })
                 .setTangent(135)
-                .splineToSplineHeading(new Pose2d(-48,57,Math.toRadians(-90)), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-48, 62.5), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-48,50,Math.toRadians(-90)), Math.toRadians(90))
+                .setConstraints(SLOW_VEL,SLOW_ACCEL)
+
+                .splineToConstantHeading(new Vector2d(-48, 57), Math.toRadians(90))
+                .setConstraints(FAST_VEL,FAST_ACCEL)
 
                 .waitSeconds(0.8)
 
@@ -176,7 +176,7 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-8, 40, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-9.5, 36.5, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
@@ -219,7 +219,7 @@ public class bluSpec extends GreenLinearOpMode {
             done = true;
         }
         try {
-            mecDrive.updateTrajectory();
+            mecDrive.updateTrajectory(false);
         } catch (Exception e){
 //            requestOpModeStop();
         }

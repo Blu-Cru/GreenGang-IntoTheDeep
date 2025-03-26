@@ -19,7 +19,7 @@ public class PinpointLocalizer implements Localizer {
         pinpoint.setEncoderDirections(
                 GoBildaPinpointDriver.EncoderDirection.REVERSED,
                 GoBildaPinpointDriver.EncoderDirection.REVERSED);
-        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
         pinpoint.setOffsets(xOffset, yOffset);
 
         pinpoint.resetPosAndIMU();
