@@ -9,14 +9,18 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristSpecInitCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmSpecInitCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecDunk;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 
 @Autonomous(name = "blue spec auto", group = "paths")
 public class bluSpec extends GreenLinearOpMode {
@@ -50,7 +54,7 @@ public class bluSpec extends GreenLinearOpMode {
         addIntakeColorSensor();
 
         mecDrive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-24, 64, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(-12, 64, Math.toRadians(90));
         mecDrive.setPoseEstimate(startPose);
 
         farBlue = mecDrive.trajectorySequenceBuilder(startPose)
@@ -91,7 +95,7 @@ public class bluSpec extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new SpecIntakeCommand().schedule();
                 })
-                .splineToConstantHeading(new Vector2d(-58, 57.8), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-58, 61), Math.toRadians(90))
                 .setConstraints(FAST_VEL,FAST_ACCEL)
                 //FINISHED PUSHING THIRD SAMPLE TO OBSERVATION ZONE
                 //FIRST SPECIMEN INTAKE
@@ -110,7 +114,7 @@ public class bluSpec extends GreenLinearOpMode {
                             new AutoSpecOuttake().schedule();
                         })
 
-                .splineToLinearHeading(new Pose2d(-6.5, 36.5, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-6.5, 36, Math.toRadians(90)), Math.toRadians(-90))
                         .addTemporalMarker(() -> {
                             new AutoSpecDunk().schedule();
                         })
@@ -200,14 +204,20 @@ public class bluSpec extends GreenLinearOpMode {
 
     @Override
     public void onStart() {
-        Pose2d startPose = new Pose2d(-24, 64, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(-12, 64, Math.toRadians(90));
         drivetrain.setPoseEstimate(startPose);
 
     }
 
-    @Override
     public void initLoop() {
+
         outtakeClaw.close();
+        if(stickyG1.a){
+            new SequentialCommandGroup(
+                    new ClawArmSpecInitCommand(),
+                    new ClawWristSpecInitCommand()
+            ).schedule();
+        }
     }
 
     @Override

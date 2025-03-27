@@ -70,6 +70,7 @@ public class GreenLinearOpMode extends LinearOpMode {
                 continue;
             }
 
+            initLoop();
             CommandScheduler.getInstance().run();
 
             // telemetry
@@ -111,7 +112,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     // methods to be over written
     public void initialize() {}
-    public void initLoop() {}
+    public void initLoop() {
+    }
     public void onStart() {}
     public void periodic() {}
     public void telemetry() {}

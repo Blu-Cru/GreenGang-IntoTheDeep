@@ -14,6 +14,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         BUCKET,
+        SPECINIT,
         SPEC;
     }
 
@@ -34,13 +35,17 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
         clawWrist.setPosition(pos); // .5
         state = STATE.BUCKET;
     }
+    public void specInit(){
+        clawWrist.setPosition(0);
+        state = STATE.SPECINIT;
+    }
 
     public void inspec() {
 
-        clawWrist.setPosition(0.4); // .35
+        clawWrist.setPosition(0.35); // .35
     }
     public void Spec() {
-        clawWrist.setPosition(0.29); // .27
+        clawWrist.setPosition(0.33); // .27
         state = STATE.SPEC;
     }
 
