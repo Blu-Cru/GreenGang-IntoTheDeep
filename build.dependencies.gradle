@@ -1,10 +1,13 @@
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
     google() // Needed for androidx
     maven { url = 'https://maven.brott.dev/' }
 }
 
 dependencies {
+    implementation 'com.github.StateFactory-Dev:StateFactory:0.3.8'
+
     implementation 'org.firstinspires.ftc:Inspection:10.2.0'
     implementation 'org.firstinspires.ftc:Blocks:10.2.0'
     implementation 'org.firstinspires.ftc:RobotCore:10.2.0'

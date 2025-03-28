@@ -64,7 +64,7 @@ public class bluSpec extends GreenLinearOpMode {
 
                 //PRELOAD SCORE
                         .addTemporalMarker(() -> {
-                            new OuttakeClawCloseCommand();
+                            new OuttakeClawCloseCommand().schedule();
                             new AutoSpecOuttake().schedule();
                         })
 
