@@ -27,8 +27,8 @@ public class VertSlides implements GreenSubsystem, Subsystem {
             highBucket = 2800,
             lowBucket = 1636,
             highSpec = 1850,
-            hangAbove = 1400,
-            hangDunk=800,
+            hangAbove = 2000,
+            hangDunk=700,
 
             highSpecDunk = 950;//1000 prev
 

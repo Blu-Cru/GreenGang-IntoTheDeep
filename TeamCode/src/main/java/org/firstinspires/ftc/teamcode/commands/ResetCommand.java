@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartComman
 import org.firstinspires.ftc.teamcode.commands.outtake.OuttakeIntakeCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 
 /*
 resets all subsystems to how they were in initialization state
@@ -35,12 +36,12 @@ public class ResetCommand extends SequentialCommandGroup {
 //                new WaitCommand(500), // 700 before
 //                new OuttakeClawOpenCommand(),
                 new ConditionalCommand(
-                        new WaitCommand(50),//previous 100
+                        new WaitCommand(500),//previous 100
 
                             // false;
-                        new WaitCommand(1000),
+                        new WaitCommand(50),
 
-                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC || Robot.getInstance().clawArm.state == ClawArm.STATE.PARK
+                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC || Robot.getInstance().clawArm.state == ClawArm.STATE.PARK || Robot.getInstance().horizontalSlides.loc == HorizontalSlides.LOC.EXTENDED
                 ),
                 new VertSlidesStartCommand() //may need to swap
         );

@@ -3,16 +3,12 @@ package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
-import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmParkCommand;
@@ -21,11 +17,9 @@ import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristIntak
 import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristSpecInitCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendHalfwayCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
@@ -36,12 +30,9 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 
-@Autonomous(name = "close blue auto", group = "paths")
-public class bluSample extends GreenLinearOpMode {
+@Autonomous(name = "close blue auto park", group = "paths")
+public class bluSampleParkObservatory extends GreenLinearOpMode {
     public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(48, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(25, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
@@ -104,7 +95,7 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
 //                SAMPLE 1
-                .splineToLinearHeading(new Pose2d(48.8, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
+                .splineToLinearHeading(new Pose2d(49.2, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
@@ -142,8 +133,8 @@ public class bluSample extends GreenLinearOpMode {
                 })
 
                 //   SAMPLE 2
-                .setTangent(-45)
-                .splineToLinearHeading(new Pose2d(57.8,45, Math.toRadians(-90)), Math.toRadians(180))
+                .setTangent(Math.toRadians(-45))
+                .splineToLinearHeading(new Pose2d(58.8,45, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     new AutoSamplePart1().schedule();
                 })
@@ -178,7 +169,7 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 // SAMPLE 3
-                .setTangent(-45)
+                .setTangent(Math.toRadians(-45))
                 .splineToLinearHeading(new Pose2d(63,42, Math.toRadians(-60)), Math.toRadians(225)) //old: 55,39.6,-70,225
                 //made sample 3 intaking time longer
                 .addTemporalMarker(() -> {
@@ -225,18 +216,13 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 .addTemporalMarker(() -> {
-                    new SequentialCommandGroup(
-                            new ClawWristIntakeCommand(),
-                            new ClawArmIntakeCommand(),
-                            new VertSlidesStartCommand(),
-                            new ClawArmParkCommand(),
-                            new ClawWristSpecInitCommand()
-                    ).schedule();
+
+                    new ResetCommand().schedule();
                 })
                 .setConstraints(FAST_VEL,FAST_ACCEL)
                 // PARK
-                .setTangent(-90)
-                .splineToLinearHeading(new Pose2d(19, 8, Math.toRadians(0)), Math.toRadians(180))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(-48, 55, Math.toRadians(-90)), Math.toRadians(180))
                 .build();
 
     }
