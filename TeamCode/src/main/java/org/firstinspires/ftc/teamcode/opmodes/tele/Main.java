@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCom
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHangAboveCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHangDunkCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
@@ -26,6 +28,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 public class Main extends GreenLinearOpMode {
     double y, x, rx;
     double hsPow;
+    double vsPow;
     double hangPow;
     boolean hanging;
     boolean upSlightly;
@@ -64,7 +67,7 @@ public class Main extends GreenLinearOpMode {
             new IntakeInCommand().schedule();
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
-        } else if (gamepad1.dpad_down){
+        } else if (gamepad1.dpad_right){
             new NicolasCommand().schedule();
         }
         else {
@@ -79,12 +82,20 @@ public class Main extends GreenLinearOpMode {
             }
         }
 
+
         // Opens Claw
         if (stickyG1.a) {
             outtakeClaw.toggle();
         } else if (stickyG1.b){
             new RetractAutoCommand().schedule();
 //                new SlidesLiftSlightlyCommand().schedule(); //todo: figure out if i need this 2/26
+        }
+        //Level 3 hang
+        if(gamepad1.dpad_up){
+            new VertSlidesHangAboveCommand().schedule();
+        }
+        if(gamepad1.dpad_down){
+            new VertSlidesHangDunkCommand().schedule();
         }
 
         /// GP2

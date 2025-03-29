@@ -40,7 +40,7 @@ public class ResetCommand extends SequentialCommandGroup {
                             // false;
                         new WaitCommand(1000),
 
-                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC
+                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC || Robot.getInstance().clawArm.state == ClawArm.STATE.PARK
                 ),
                 new VertSlidesStartCommand() //may need to swap
         );
