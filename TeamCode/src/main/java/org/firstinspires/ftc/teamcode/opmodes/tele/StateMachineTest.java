@@ -7,6 +7,9 @@ import com.sfdev.assembly.state.StateMachineBuilder;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
@@ -68,46 +71,48 @@ StateMachine sm;
                     new ResetCommand().schedule();
 
                 })
-                .transition(() -> stickyG2.a, State.CLAW_OPEN, () ->{
-                    new OuttakeClawOpenCommand().schedule();
-                })
-                .transition(() -> stickyG2.a, State.CLAW_CLOSED, () ->{
-                    new OuttakeClawCloseCommand().schedule();
-                })
+
+//                .transition(() -> stickyG2.a, State.CLAW_OPEN, () ->{
+//                    new OuttakeClawOpenCommand().schedule();
+//                })
+//                .transition(() -> stickyG2.a, State.CLAW_CLOSED, () ->{
+//                    new OuttakeClawCloseCommand().schedule();
+//                })
+
 
                 .transition(()-> Math.abs(-gamepad2.right_stick_y) > 0.1, State.HORIZ_EXTENDED)
 
-                .transition(()-> gamepad1.left_bumper, State.ABOVE_SPEC,()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
+                    new SpecIntakeCommand().schedule();
+                })
+                .transition(()-> stickyG1.left_bumper, State.ABOVE_SPEC,()->{
                     new HighSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_bumper, State.HIGH_BUCKET,()->{
+                .transition(()-> gamepad2.right_bumper, State.HIGH_BUCKET,()->{
                     new ScoringHighBucketCommand().schedule();
                 })
 
-                .transition(()-> gamepad1.right_bumper, State.LOW_BUCKET,()->{
+                .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
                     new ScoringLowBucketCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.right_bumper, State.SLIDES_LIFTED_SLIGHTLY,()->{
+                .transition(()-> gamepad2.right_trigger>0.2, State.SLIDES_LIFTED_SLIGHTLY,()->{
                     new SlidesLiftSlightlyCommand().schedule();
                 })
 
-                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
-                    new IntakeInCommand().schedule();
-                })
-                .transition(()-> gamepad1.right_trigger > 0.2, State.SPITTING,()-> {
-                    new IntakeSpitCommand().schedule();
-                })
+//                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
+//                    new IntakeInCommand().schedule();
+//                })
+//                .transition(()-> gamepad1.right_trigger > 0.2, State.SPITTING,()-> {
+//                    new IntakeSpitCommand().schedule();
+//                })
 
                 //LOW BUCKET
                 .state(State.LOW_BUCKET)
 
-                .onEnter(() ->{
-                    new ScoringLowBucketCommand().schedule();
-                })
 
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -118,43 +123,34 @@ StateMachine sm;
                 //HIGH BUCKET
                 .state(State.HIGH_BUCKET)
 
-                .onEnter(() ->{
-                    new ScoringHighBucketCommand().schedule();
-                })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger > 0.2, State.LOW_BUCKET,()->{
+                .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
                     new ScoringLowBucketCommand().schedule();
                 })
 
                 //HIGH SPECIMEN
                 .state(State.ABOVE_SPEC)
 
-                .onEnter(() -> {
-                    new HighSpecCommand().schedule();
-                })
 
                 .transition(() -> gamepad1.left_bumper, State.SPEC_DUNK,() ->{
                     new LowSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>-0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
                 //SPECIMEN DUNK
                 .state(State.SPEC_DUNK)
 
-                .onEnter(()->{
-                    new LowSpecCommand().schedule();
-                })
 
                 .transition(()-> gamepad1.left_bumper, State.ABOVE_SPEC,()->{
                     new HighSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -162,13 +158,10 @@ StateMachine sm;
 
                 .state(State.SPEC_INTAKE)
 
-                .onEnter(()->{
-                    new SpecIntakeCommand().schedule();
-                })
                 .transition(()-> gamepad1.right_bumper, State.SPEC_DUNK,()->{
                     new HighSpecCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger >0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -182,69 +175,59 @@ StateMachine sm;
                 .transition(()-> gamepad2.dpad_down, State.HORIZ_RETRACTED,()->{
                     new HorizontalSlidesRetractCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger > 0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
-                .transition(() -> gamepad1.left_trigger, State.SPITTING, ()->{
+                .transition(() -> gamepad1.right_trigger > 0.2, State.SPITTING, ()->{
                     new IntakeSpitCommand().schedule();
                 })
-                .transition(() -> gamepad1.left_trigger, State.INTAKING, ()->{
+                .transition(() -> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
                     new IntakeInCommand().schedule();
+                    new WristDownCommand().schedule();
                 })
-
-                // INTAKING
+                .transition(()-> gamepad1.right_trigger <=0.2, State.HORIZ_EXTENDED,()->{
+                    new IntakeStopCommand().schedule();
+                })
+                .transition(()-> gamepad1.left_trigger <=0.2, State.HORIZ_EXTENDED,()->{
+                    new IntakeStopCommand().schedule();
+                })
+                //INTAKING
 
                 .state(State.INTAKING)
-
-                .onEnter(()->{
-                    new IntakeInCommand().schedule();
-                })
-                .transition(()-> gamepad2.dpad_down, State.HORIZ_RETRACTED,()->{
-                    new HorizontalSlidesRetractCommand().schedule();
-                })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
-                    new ResetCommand().schedule();
+                .transition(()-> gamepad1.left_trigger <=0.2, State.HORIZ_EXTENDED, ()->{
+                    new IntakeStopCommand().schedule();
+                    new WristParallelCommand().schedule();
                 })
 
-                .transition(() -> gamepad1.left_trigger, State.SPITTING, ()->{
-                    new IntakeSpitCommand().schedule();
-                })
-
-                //OUTTAKING
-
+                //SPITTING
                 .state(State.SPITTING)
-                .onEnter(()->{
-                    new IntakeInCommand().schedule();
-                })
-                .transition(()-> gamepad2.dpad_down, State.HORIZ_RETRACTED,()->{
-                    new HorizontalSlidesRetractCommand().schedule();
-                })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
-                    new ResetCommand().schedule();
+                .transition(()-> gamepad1.right_trigger <=0.2, State.HORIZ_EXTENDED, ()->{
+                    new IntakeStopCommand().schedule();
+                    new WristParallelCommand().schedule();
                 })
 
-                .transition(() -> gamepad1.left_trigger, State.SPITTING, ()->{
-                    new IntakeSpitCommand().schedule();
-                })
 
-                // HANGING
-                .state(State.HANG_EXTENDED)
-                .onEnter(()->{
-                    new VertSlidesHangAboveCommand().schedule();
-                })
-                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
-                    new VertSlidesHangDunkCommand().schedule();
-                })
 
-                // RETRACTED HANG
-                .state(State.HANG_EXTENDED)
-                .onEnter(()->{
-                    new VertSlidesHangDunkCommand().schedule();
-                })
-                .transition(() -> gamepad1.dpad_up, State.HANG_RETRACTED, ()->{
-                    new VertSlidesHangAboveCommand().schedule();
-                })
+
+
+//                // HANGING
+//                .state(State.HANG_EXTENDED)
+//                .onEnter(()->{
+//                    new VertSlidesHangAboveCommand().schedule();
+//                })
+//                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
+//                    new VertSlidesHangDunkCommand().schedule();
+//                })
+//
+//                // RETRACTED HANG
+//                .state(State.HANG_EXTENDED)
+//                .onEnter(()->{
+//                    new VertSlidesHangDunkCommand().schedule();
+//                })
+//                .transition(() -> gamepad1.dpad_up, State.HANG_RETRACTED, ()->{
+//                    new VertSlidesHangAboveCommand().schedule();
+//                })
 
                 //SLIDES LIFTED SLIGHTLY
 
@@ -252,12 +235,14 @@ StateMachine sm;
                 .onEnter(()->{
                     new SlidesLiftSlightlyCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_bumper, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger >0.2, State.HORIZ_RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
                 .transition(()-> gamepad1.b, State.HORIZ_RETRACTED,()->{
                     new RetractAutoCommand().schedule();
                 })
+
+
 
 //            .transition(()-> gamepad2.right_stick_y, State.HORIZ_EXTENDED{
 //                if (Math.abs(hsPow) > .1)
