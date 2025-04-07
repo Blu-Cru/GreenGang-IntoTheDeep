@@ -13,6 +13,5 @@ public class HorizontalSlidesRetractCommand extends InstantCommand{
                 }
         );
 
-        addRequirements((Subsystem) Robot.getInstance().intake);
     }
 }

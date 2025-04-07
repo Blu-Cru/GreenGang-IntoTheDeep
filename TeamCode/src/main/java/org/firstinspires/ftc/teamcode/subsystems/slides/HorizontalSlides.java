@@ -56,7 +56,9 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         pidTo(0);
         loc = LOC.RETRACTED;
     }
-
+    public int getTicks(){
+        return motor.getCurrentPosition();
+    }
     public void pidTo(double ticks){
         maxPower=1;
         state = STATE.PID;
@@ -98,7 +100,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public void manualSlide(double input) {
         state = STATE.MANUAL;
         loc = LOC.EXTENDED;
-        pidTo(Range.clip(position + 300.0 * input, 0,2200));
+        pidTo(Range.clip(position + 300.0 * input, 0,1670));
     }
 
     @Override

@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems.drive;
 
-public enum Drive {
+public enum DriveMode {
     FIELDCENTRIC,
     ROBOTCENTRIC;
-    public Drive flip() {
+    public DriveMode flip() {
         if(this == FIELDCENTRIC) {
             return ROBOTCENTRIC;
         } else {

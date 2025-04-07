@@ -4,27 +4,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHangAboveCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHangDunkCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeInCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.drive.DriveMode;
 
 @TeleOp(name="StateMachineTest", group ="TeleOp")
 
@@ -34,7 +32,7 @@ public class StateMachineTest extends GreenLinearOpMode {
     double hangPow;
     boolean hanging;
     enum State{
-        HORIZ_RETRACTED,
+        RETRACTED,
         LOW_BUCKET,
         HIGH_BUCKET,
         ABOVE_SPEC,
@@ -65,12 +63,12 @@ StateMachine sm;
         sm = new StateMachineBuilder()
 
                 // RETRACTED
-                .state(State.HORIZ_RETRACTED)
+                .state(State.RETRACTED)
 
-                .onEnter(() -> {
-                    new ResetCommand().schedule();
-
-                })
+//                .onEnter(() -> {
+//                    new ResetCommand().schedule();
+//
+//                })
 
 //                .transition(() -> stickyG2.a, State.CLAW_OPEN, () ->{
 //                    new OuttakeClawOpenCommand().schedule();
@@ -80,7 +78,7 @@ StateMachine sm;
 //                })
 
 
-                .transition(()-> Math.abs(-gamepad2.right_stick_y) > 0.1, State.HORIZ_EXTENDED)
+                .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
 
                 .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
                     new SpecIntakeCommand().schedule();
@@ -100,6 +98,12 @@ StateMachine sm;
                 .transition(()-> gamepad2.right_trigger>0.2, State.SLIDES_LIFTED_SLIGHTLY,()->{
                     new SlidesLiftSlightlyCommand().schedule();
                 })
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
+
+                })
 
 //                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
 //                    new IntakeInCommand().schedule();
@@ -112,24 +116,39 @@ StateMachine sm;
                 .state(State.LOW_BUCKET)
 
 
-                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.right_trigger > 0.2, State.HIGH_BUCKET,()->{
+                .transition(()-> gamepad2.right_bumper, State.HIGH_BUCKET,()->{
                     new ScoringHighBucketCommand().schedule();
                 })
 
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
+
+
+                    hsPow = -gamepad2.left_stick_y;
+                    if (Math.abs(hsPow) > .1){
+                        horizontalSlides.manualSlide(hsPow);}
+                })
                 //HIGH BUCKET
                 .state(State.HIGH_BUCKET)
 
-                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
                 .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
                     new ScoringLowBucketCommand().schedule();
                 })
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
 
+                })
                 //HIGH SPECIMEN
                 .state(State.ABOVE_SPEC)
 
@@ -138,7 +157,7 @@ StateMachine sm;
                     new LowSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_trigger>-0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>-0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -150,10 +169,14 @@ StateMachine sm;
                     new HighSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_trigger>0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
-
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
+                })
                 //SPECIMEN INTAKE
 
                 .state(State.SPEC_INTAKE)
@@ -161,21 +184,24 @@ StateMachine sm;
                 .transition(()-> gamepad1.right_bumper, State.SPEC_DUNK,()->{
                     new HighSpecCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger >0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger >0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
                 //INTAKE EXTENDED
 
                 .state(State.HORIZ_EXTENDED)
-                .onEnter(()->{
-                    new HorizontalSlidesExtendCommand().schedule();
-                })
 
-                .transition(()-> gamepad2.dpad_down, State.HORIZ_RETRACTED,()->{
+                .loop(()->{
+                    hsPow = -gamepad2.left_stick_y;
+                    if (Math.abs(hsPow) > .1){
+                        horizontalSlides.manualSlide(hsPow);}
+
+                })
+                .transition(()-> gamepad2.dpad_down, State.RETRACTED,()->{
                     new HorizontalSlidesRetractCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger > 0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger > 0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -235,10 +261,10 @@ StateMachine sm;
                 .onEnter(()->{
                     new SlidesLiftSlightlyCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger >0.2, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad2.left_trigger >0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> gamepad1.b, State.HORIZ_RETRACTED,()->{
+                .transition(()-> gamepad1.b, State.RETRACTED,()->{
                     new RetractAutoCommand().schedule();
                 })
 
@@ -250,13 +276,18 @@ StateMachine sm;
 //            })
 
                 .build();
-        sm.setState(State.HORIZ_RETRACTED);
+        sm.setState(State.RETRACTED);
         sm.start();
     }
+
+    public void telemetry(Telemetry telemetry){
+        telemetry.addData("Robot State: ", sm.getState());
+    }
+
     @Override
     public void periodic(){
         driveControl();
-        drive(drive);
+        drive(driveMode);
         y = gamepad1.left_stick_y;
         x = -gamepad1.left_stick_x;
         rx = -gamepad1.right_stick_x;
@@ -269,13 +300,11 @@ StateMachine sm;
             drivetrain.drivePower = 0.6;
         }
 
-        drivetrain.drive(x, y, rx);
-
         sm.update();
-
+        telemetry.update();
     }
-    public void drive(Drive drive) {
-        switch (drive) {
+    public void drive(DriveMode driveMode) {
+        switch (driveMode) {
             case FIELDCENTRIC:
                 if (stickyG1.left_stick_button) {
                     gamepad1.rumble(200);

@@ -6,8 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Alliance;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
-import org.firstinspires.ftc.teamcode.subsystems.drive.DrivePID;
+import org.firstinspires.ftc.teamcode.subsystems.drive.DriveMode;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
@@ -37,7 +36,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Hang hang;
     public StickyGamepad stickyG2;
     public Alliance alliance;
-    public Drive drive;
+    public DriveMode driveMode;
 
 
     @Override
@@ -47,7 +46,7 @@ public class GreenLinearOpMode extends LinearOpMode {
         stickyG1 = new StickyGamepad(gamepad1);
         stickyG2 = new StickyGamepad(gamepad2);
         alliance = Alliance.BLUE;
-        drive = Drive.FIELDCENTRIC;
+        driveMode = DriveMode.FIELDCENTRIC;
 
         robot = Robot.getInstance();
         robot.create(hardwareMap);
@@ -59,7 +58,7 @@ public class GreenLinearOpMode extends LinearOpMode {
                 alliance = alliance.flip();
             }
             if (stickyG1.b){
-                drive = drive.flip();
+                driveMode = driveMode.flip();
             }
 
             stickyG1.update();
@@ -75,7 +74,7 @@ public class GreenLinearOpMode extends LinearOpMode {
 
             // telemetry
             telemetry.addData("ALLIANCE: ", alliance);
-            telemetry.addData("DRIVE: ", drive);
+            telemetry.addData("DRIVE: ", driveMode);
             telemetry.update();
         }
 
