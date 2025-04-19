@@ -8,19 +8,17 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristSpecInitCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmSpecInitCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecDunk;
+import org.firstinspires.ftc.teamcode.common.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.clawWrist.ClawWristSpecInitCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.clawArm.ClawArmSpecInitCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.auto.AutoSpecOuttake;
+import org.firstinspires.ftc.teamcode.common.commands.spec.auto.AutoSpecDunk;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 
 @Autonomous(name = "blue spec auto", group = "paths")
 public class bluSpec extends GreenLinearOpMode {

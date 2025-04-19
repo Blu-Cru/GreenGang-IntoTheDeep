@@ -4,9 +4,9 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.auto.AutoSpecOuttake;
+import org.firstinspires.ftc.teamcode.common.commands.spec.auto.SamplePassThroughCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;

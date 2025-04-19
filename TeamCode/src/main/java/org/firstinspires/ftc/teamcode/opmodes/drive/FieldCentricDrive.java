@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.drive;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.Drivetrain;
 
 @TeleOp(name = "Field centric test",group = "TeleOp")
 public class FieldCentricDrive extends GreenLinearOpMode {

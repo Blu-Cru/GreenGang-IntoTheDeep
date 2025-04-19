@@ -1,0 +1,16 @@
+package org.firstinspires.ftc.teamcode.common.commands.controls.clawWrist;
+import com.arcrobotics.ftclib.command.InstantCommand;
+
+import com.arcrobotics.ftclib.command.Subsystem;
+
+import org.firstinspires.ftc.teamcode.common.subsystems.Robot;
+
+public class ClawWristOutSpecCommand extends InstantCommand {
+    public ClawWristOutSpecCommand(){
+        super(
+                () -> Robot.getInstance().clawWrist.Spec()
+        );
+
+        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+    }
+}

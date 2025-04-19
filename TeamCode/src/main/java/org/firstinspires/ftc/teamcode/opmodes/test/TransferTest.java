@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 
 @TeleOp(name = "claw test",group = "test")
 public class TransferTest extends GreenLinearOpMode {

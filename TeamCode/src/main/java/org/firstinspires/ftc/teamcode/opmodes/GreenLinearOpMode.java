@@ -5,20 +5,20 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Alliance;
-import org.firstinspires.ftc.teamcode.subsystems.drive.DriveMode;
-import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
-import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
-import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
+import org.firstinspires.ftc.teamcode.common.subsystems.Alliance;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
+import org.firstinspires.ftc.teamcode.common.subsystems.gamepad.StickyGamepad;
+import org.firstinspires.ftc.teamcode.common.subsystems.hang.Hang;
+import org.firstinspires.ftc.teamcode.common.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.common.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.common.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.common.subsystems.intake.IntakeWrist;
+import org.firstinspires.ftc.teamcode.common.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.common.subsystems.outtake.wrist.ClawWrist;
+import org.firstinspires.ftc.teamcode.common.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.common.subsystems.slides.HorizontalSlides;
+import org.firstinspires.ftc.teamcode.common.subsystems.slides.VertSlides;
 
 public class GreenLinearOpMode extends LinearOpMode {
 

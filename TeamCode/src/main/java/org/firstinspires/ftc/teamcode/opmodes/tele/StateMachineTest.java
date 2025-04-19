@@ -5,24 +5,23 @@ import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeStopCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawToggleCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
-import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeInCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intake.IntakeSpitCommand;
+import org.firstinspires.ftc.teamcode.common.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.intake.IntakeStopCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.intakeWrist.WristDownCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.intakeWrist.WristParallelCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawToggleCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.vs.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.common.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.common.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.HighSpecCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.LowSpecCommand;
+import org.firstinspires.ftc.teamcode.common.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.intake.IntakeInCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.intake.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.drive.DriveMode;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
 
 @TeleOp(name="StateMachineTest", group ="TeleOp")
 

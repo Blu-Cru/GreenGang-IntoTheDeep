@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.drive;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.Drivetrain;
 
 @TeleOp(name = "Robot centric drive",group = "TeleOp")
 public class RobotCentricDrive extends GreenLinearOpMode {
