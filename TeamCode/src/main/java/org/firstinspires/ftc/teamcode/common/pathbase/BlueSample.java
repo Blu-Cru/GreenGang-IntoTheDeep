@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
-public class blueSample extends GreenLinearOpMode {
+public class BlueSample extends GreenLinearOpMode implements SamplePath{
     Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
     Pose2d highBucket = new Pose2d(53, 55, Math.toRadians(225));
     Pose2d retractPose = new Pose2d(-54, -54, Math.toRadians(-225));
@@ -16,29 +16,50 @@ public class blueSample extends GreenLinearOpMode {
     double[] headings = {-90, -90, -60};
 
     // Start -> High bucket (Preload Score)
-    TrajectorySequence toHighBucketPath = drivetrain.trajectorySequenceBuilder(startPose)
+    public TrajectorySequence toHighBucketPath = drivetrain.trajectorySequenceBuilder(startPose)
             .setTangent(-90)
             .splineToLinearHeading(highBucket, Math.toRadians(-180))
             .build();
 
     // High bucket -> Retract
-    TrajectorySequence retractFromHighBucket = drivetrain.trajectorySequenceBuilder(toHighBucketPath.end())
+    public TrajectorySequence retractFromHighBucket = drivetrain.trajectorySequenceBuilder(toHighBucketPath.end())
             .splineToLinearHeading(retractPose, Math.toRadians(-180))
             .build();
 
+    @Override
+    public Pose2d getStartPose() {
+        return startPose;
+    }
+
+    @Override
+    public TrajectorySequence getToHighBucket() {
+        return toHighBucketPath;
+    }
+
+    @Override
+    public TrajectorySequence getRetractFromHighBucket() {
+        return retractFromHighBucket;
+    }
+
     // Retract -> Sample
-    Pose2d getSamplePose(int i) {
+    @Override
+    public Pose2d getSamplePose(int i) {
         return new Pose2d(xOffsets[i], yOffsets[i], Math.toRadians(headings[i]));
     }
 
-    TrajectorySequence getToSample(Pose2d fromPose, int i) {
+    public TrajectorySequence getToSample(Pose2d fromPose, int i) {
         return drivetrain.trajectorySequenceBuilder(fromPose)
                 .splineToLinearHeading(getSamplePose(i), Math.toRadians(-180))
                 .build();
     }
 
+    @Override
+    public TrajectorySequence getToPark() {
+        return toPark;
+    }
+
     // Final park
-    TrajectorySequence toPark = drivetrain.trajectorySequenceBuilder(highBucket)
+   public  TrajectorySequence toPark = drivetrain.trajectorySequenceBuilder(highBucket)
             .splineToLinearHeading(parkPose, Math.toRadians(-45))
             .build();
 }

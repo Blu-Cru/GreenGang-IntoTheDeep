@@ -7,28 +7,36 @@ import com.sfdev.assembly.state.StateMachineBuilder;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.common.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.common.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
-import org.firstinspires.ftc.teamcode.common.commands.spec.auto.AutoSpecDunk;
 import org.firstinspires.ftc.teamcode.common.commands.transfer.TransferCommand;
+import org.firstinspires.ftc.teamcode.common.pathbase.BlueSample;
+import org.firstinspires.ftc.teamcode.common.pathbase.RedSample;
+import org.firstinspires.ftc.teamcode.common.pathbase.SamplePath;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
 
-//todo: add path implementation
-@TeleOp(name="AutoStateMachineTest", group ="TeleOp")
+@TeleOp(name="sample auto fsm test", group ="TeleOp")
 
-public class AutoStateMachineTest extends GreenLinearOpMode{
-
+public class SampleAutoFSMTest extends GreenLinearOpMode{
+    enum Type {
+        BLUE_SAMPLE,
+        RED_SAMPLE
+    }
     double y, x, rx;
     enum State{
         INTAKING_SAMPLE,
         HIGH_BUCKET,
-        ABOVE_SPEC,
-        SPEC_DUNK,
         TRANSFER,
-        SCORED
+        SCORED,
+        DONE
     }
     StateMachine sm;
+    Type type;
+    int sampleNum=0;
+
     public void initialize(){
 
         addDrivetrain();
@@ -43,37 +51,61 @@ public class AutoStateMachineTest extends GreenLinearOpMode{
         addHang();
         addIntakeColorSensor();
 
+        if (gamepad1.left_bumper) {
+            type = Type.BLUE_SAMPLE;
+        } else if (gamepad1.right_bumper) {
+            type = Type.RED_SAMPLE;
+        }
+
+        SamplePath sp;
+        if (type.equals(Type.BLUE_SAMPLE)) {
+            sp = new BlueSample();
+        } else {
+            sp = new RedSample();
+        }
+
         sm = new StateMachineBuilder()
 
-                // Sample auto; Intaking a sample
-                // TODO: add a timer so it auto retracts after ~4sec if empty & goes to sample 2 loc
-                .state(AutoStateMachineTest.State.INTAKING_SAMPLE)
+                .state(State.INTAKING_SAMPLE)
+                .onEnter(()-> {
+                    sp.getToSample(drivetrain.getPoseEstimate(), sampleNum).start();
+                    new AutoSamplePart1().schedule();
+                    sampleNum++;
+                })
                 .transition(()-> robot.color.isFull(), State.HIGH_BUCKET, ()-> {
                     new RetractAutoCommand().schedule();
                 })
 
                 // Sample auto; scoring high bucket
+                // todo: confirm u can run traj this way + make more efficient
                 .state(State.HIGH_BUCKET)
                 .onEnter(()-> {
-                    new ScoringHighBucketCommand().schedule();
+                        sp.getRetractFromHighBucket().start();
+                        new WaitCommand(300);
+                        new ScoringHighBucketCommand().schedule();
+                        new WaitCommand(100);
+                        sp.getToHighBucket().start();
+                        new WaitCommand(100);
+                        new OuttakeClawOpenCommand().schedule();
                 })
                 .transition(()-> robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
-                    new WaitCommand(100).schedule();
-                    new ResetCommand().schedule();
                 })
 
-                .state(State.SPEC_DUNK)
-                .onEnter(()-> {
-                    new AutoSpecDunk().schedule();
-                })
-                .transition(()-> !robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
-                    new WaitCommand(100).schedule();
-                    new ResetCommand().schedule();
-                })
-
+                // todo: how do u leave ts state
                 .state(State.TRANSFER)
                 .onEnter(()-> {
                     new TransferCommand().schedule();
+                })
+
+                .state(State.SCORED)
+                .onEnter(()-> {
+                    new ResetCommand().schedule();
+                })
+                .transition(()-> sampleNum>2, State.DONE, ()-> {
+                    sp.getToPark().start();
+                })
+                .transition(()-> sampleNum<3, State.INTAKING_SAMPLE, ()-> {
+//                    sp.getToSample(drivetrain.getPoseEstimate(), sampleNum);
                 })
 
                 .build();
