@@ -11,10 +11,11 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
     Pose2d retractPose = new Pose2d(-54, -54, Math.toRadians(-225));
     Pose2d parkPose = new Pose2d(-48, -58, Math.toRadians(-90));
 
-    double[] xOffsets = {48.8, 57.8, 63};
-    double[] yOffsets = {45, 45, 42};
-    double[] headings = {-90, -90, -60};
-
+    Pose2d[] positions = {
+            new Pose2d(48.8, 45, Math.toRadians(-90)),
+            new Pose2d(57.8, 45, Math.toRadians(-90)),
+            new Pose2d(63, 42, Math.toRadians(-60))
+    };
     // Start -> High bucket (Preload Score)
     public TrajectorySequence toHighBucketPath = drivetrain.trajectorySequenceBuilder(startPose)
             .setTangent(-90)
@@ -44,7 +45,7 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
     // Retract -> Sample
     @Override
     public Pose2d getSamplePose(int i) {
-        return new Pose2d(xOffsets[i], yOffsets[i], Math.toRadians(headings[i]));
+        return positions[i];
     }
 
     public TrajectorySequence getToSample(Pose2d fromPose, int i) {
@@ -62,4 +63,5 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
    public  TrajectorySequence toPark = drivetrain.trajectorySequenceBuilder(highBucket)
             .splineToLinearHeading(parkPose, Math.toRadians(-45))
             .build();
+
 }
