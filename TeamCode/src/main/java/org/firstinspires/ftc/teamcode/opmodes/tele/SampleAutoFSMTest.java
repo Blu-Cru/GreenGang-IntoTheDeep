@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.tele;
 
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
 
@@ -12,11 +13,10 @@ import org.firstinspires.ftc.teamcode.common.commands.bucket.high.ScoringHighBuc
 import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.common.commands.transfer.TransferCommand;
-import org.firstinspires.ftc.teamcode.common.pathbase.BlueSample;
-import org.firstinspires.ftc.teamcode.common.pathbase.RedSample;
-import org.firstinspires.ftc.teamcode.common.pathbase.SamplePath;
+import org.firstinspires.ftc.teamcode.common.pathbase.BlueSampleTrajetories;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
 @TeleOp(name="sample auto fsm test", group ="TeleOp")
 
@@ -34,6 +34,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
         DONE
     }
     StateMachine sm;
+    SampleMecanumDrive mecDrive;
     Type type;
     int sampleNum=0;
 
@@ -51,24 +52,25 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
         addHang();
         addIntakeColorSensor();
 
-        if (gamepad1.left_bumper) {
-            type = Type.BLUE_SAMPLE;
-        } else if (gamepad1.right_bumper) {
-            type = Type.RED_SAMPLE;
-        }
-
-        SamplePath sp;
-        if (type.equals(Type.BLUE_SAMPLE)) {
-            sp = new BlueSample();
-        } else {
-            sp = new RedSample();
-        }
+        type = Type.BLUE_SAMPLE;
+//        if (gamepad1.left_bumper) {
+//            type = Type.BLUE_SAMPLE;
+//        } else if (gamepad1.right_bumper) {
+//            type = Type.RED_SAMPLE;
+//        }
+        mecDrive = new SampleMecanumDrive(hardwareMap);
+        BlueSampleTrajetories  sp = new BlueSampleTrajetories(mecDrive);
+//        if (type.equals(Type.BLUE_SAMPLE)) {
+//            sp = new BlueSample();
+//        } else {
+//            sp = new RedSample();
+//        }
 
         sm = new StateMachineBuilder()
 
                 .state(State.INTAKING_SAMPLE)
                 .onEnter(()-> {
-                    sp.getToSample(drivetrain.getPoseEstimate(), sampleNum).start();
+                    sp.getToSample(mecDrive.getPoseEstimate(), sampleNum).start();
                     new AutoSamplePart1().schedule();
                     sampleNum++;
                 })

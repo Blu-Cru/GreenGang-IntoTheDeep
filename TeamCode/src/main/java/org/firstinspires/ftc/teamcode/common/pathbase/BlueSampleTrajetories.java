@@ -2,10 +2,15 @@ package org.firstinspires.ftc.teamcode.common.pathbase;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.common.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
-public class BlueSample extends GreenLinearOpMode implements SamplePath{
+public class BlueSampleTrajetories implements SamplePath{
+    SampleMecanumDrive mecDrive;
+    public BlueSampleTrajetories(SampleMecanumDrive sampleMecanumDrive) {
+        this.mecDrive = sampleMecanumDrive;
+    }
     Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
     Pose2d highBucket = new Pose2d(53, 55, Math.toRadians(225));
     Pose2d retractPose = new Pose2d(-54, -54, Math.toRadians(-225));
@@ -17,13 +22,13 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
             new Pose2d(63, 42, Math.toRadians(-60))
     };
     // Start -> High bucket (Preload Score)
-    public TrajectorySequence toHighBucketPath = drivetrain.trajectorySequenceBuilder(startPose)
+    public TrajectorySequence toHighBucketPath = mecDrive.trajectorySequenceBuilder(startPose)
             .setTangent(-90)
             .splineToLinearHeading(highBucket, Math.toRadians(-180))
             .build();
 
     // High bucket -> Retract
-    public TrajectorySequence retractFromHighBucket = drivetrain.trajectorySequenceBuilder(toHighBucketPath.end())
+    public TrajectorySequence retractFromHighBucket = mecDrive.trajectorySequenceBuilder(toHighBucketPath.end())
             .splineToLinearHeading(retractPose, Math.toRadians(-180))
             .build();
 
@@ -49,7 +54,7 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
     }
 
     public TrajectorySequence getToSample(Pose2d fromPose, int i) {
-        return drivetrain.trajectorySequenceBuilder(fromPose)
+        return mecDrive.trajectorySequenceBuilder(fromPose)
                 .splineToLinearHeading(getSamplePose(i), Math.toRadians(-180))
                 .build();
     }
@@ -60,7 +65,7 @@ public class BlueSample extends GreenLinearOpMode implements SamplePath{
     }
 
     // Final park
-   public  TrajectorySequence toPark = drivetrain.trajectorySequenceBuilder(highBucket)
+   public  TrajectorySequence toPark = mecDrive.trajectorySequenceBuilder(highBucket)
             .splineToLinearHeading(parkPose, Math.toRadians(-45))
             .build();
 
