@@ -8,9 +8,6 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 
 public class BlueSampleTrajetories implements SamplePath{
     SampleMecanumDrive mecDrive;
-    public BlueSampleTrajetories(SampleMecanumDrive sampleMecanumDrive) {
-        this.mecDrive = sampleMecanumDrive;
-    }
     Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
     Pose2d highBucket = new Pose2d(53, 55, Math.toRadians(225));
     Pose2d retractPose = new Pose2d(-54, -54, Math.toRadians(-225));
@@ -22,15 +19,21 @@ public class BlueSampleTrajetories implements SamplePath{
             new Pose2d(63, 42, Math.toRadians(-60))
     };
     // Start -> High bucket (Preload Score)
-    public TrajectorySequence toHighBucketPath = mecDrive.trajectorySequenceBuilder(startPose)
-            .setTangent(-90)
-            .splineToLinearHeading(highBucket, Math.toRadians(-180))
-            .build();
+    public TrajectorySequence toHighBucketPath;
 
     // High bucket -> Retract
-    public TrajectorySequence retractFromHighBucket = mecDrive.trajectorySequenceBuilder(toHighBucketPath.end())
-            .splineToLinearHeading(retractPose, Math.toRadians(-180))
-            .build();
+    public TrajectorySequence retractFromHighBucket;
+
+    public BlueSampleTrajetories(SampleMecanumDrive sampleMecanumDrive) {
+        this.mecDrive = sampleMecanumDrive;
+        toHighBucketPath = mecDrive.trajectorySequenceBuilder(startPose)
+                .setTangent(-90)
+                .splineToLinearHeading(highBucket, Math.toRadians(-180))
+                .build();
+        retractFromHighBucket = mecDrive.trajectorySequenceBuilder(toHighBucketPath.end())
+                .splineToLinearHeading(retractPose, Math.toRadians(-180))
+                .build();
+    }
 
     @Override
     public Pose2d getStartPose() {

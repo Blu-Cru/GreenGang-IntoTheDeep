@@ -39,7 +39,6 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
     int sampleNum=0;
 
     public void initialize(){
-
         addDrivetrain();
         addIntake();
         addStickyG1();
