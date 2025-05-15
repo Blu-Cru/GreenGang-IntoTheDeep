@@ -19,10 +19,9 @@ public class BlueSampleTrajetories implements SamplePath{
             new Pose2d(63, 42, Math.toRadians(-60))
     };
     // Start -> High bucket (Preload Score)
-    public TrajectorySequence toHighBucketPath;
+    public TrajectorySequence toHighBucketPath, retractFromHighBucket, toPark;
 
     // High bucket -> Retract
-    public TrajectorySequence retractFromHighBucket;
 
     public BlueSampleTrajetories(SampleMecanumDrive sampleMecanumDrive) {
         this.mecDrive = sampleMecanumDrive;
@@ -33,6 +32,10 @@ public class BlueSampleTrajetories implements SamplePath{
         retractFromHighBucket = mecDrive.trajectorySequenceBuilder(toHighBucketPath.end())
                 .splineToLinearHeading(retractPose, Math.toRadians(-180))
                 .build();
+        toPark= mecDrive.trajectorySequenceBuilder(highBucket)
+                .splineToLinearHeading(parkPose, Math.toRadians(-45))
+                .build();
+
     }
 
     @Override
@@ -66,10 +69,5 @@ public class BlueSampleTrajetories implements SamplePath{
     public TrajectorySequence getToPark() {
         return toPark;
     }
-
-    // Final park
-   public  TrajectorySequence toPark = mecDrive.trajectorySequenceBuilder(highBucket)
-            .splineToLinearHeading(parkPose, Math.toRadians(-45))
-            .build();
 
 }

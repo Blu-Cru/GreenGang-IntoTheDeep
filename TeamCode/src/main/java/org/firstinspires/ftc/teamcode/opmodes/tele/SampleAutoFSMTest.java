@@ -10,7 +10,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.common.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.common.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.vs.VertSlidesHighBucketCommand;
+import org.firstinspires.ftc.teamcode.common.commands.controls.vs.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.common.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.common.pathbase.BlueSampleTrajetories;
@@ -66,31 +69,36 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 //        }
 
         sm = new StateMachineBuilder()
+                // Sample auto; scoring high bucket
+                // todo: confirm u can run traj this way + make more efficient
+                .state(State.HIGH_BUCKET)
+                .onEnter(()-> {
+                    new OuttakeClawCloseCommand().schedule();
+                    sp.getRetractFromHighBucket().start();
+                    new WaitCommand(300);
+                    new ScoringHighBucketCommand().schedule();
+                    new WaitCommand(100);
+                    sp.getToHighBucket().start();
+                    new WaitCommand(100);
+                    new OuttakeClawOpenCommand().schedule();
+                })
+                .transition(()-> robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
+                })
 
                 .state(State.INTAKING_SAMPLE)
                 .onEnter(()-> {
+                    sp.getRetractFromHighBucket().start();
                     sp.getToSample(mecDrive.getPoseEstimate(), sampleNum).start();
                     new AutoSamplePart1().schedule();
                     sampleNum++;
                 })
                 .transition(()-> robot.color.isFull(), State.HIGH_BUCKET, ()-> {
-                    new RetractAutoCommand().schedule();
+                    new TransferCommand().schedule();
+                    new WaitCommand(1000).schedule();
+                    new OuttakeClawCloseCommand().schedule();
                 })
 
-                // Sample auto; scoring high bucket
-                // todo: confirm u can run traj this way + make more efficient
-                .state(State.HIGH_BUCKET)
-                .onEnter(()-> {
-                        sp.getRetractFromHighBucket().start();
-                        new WaitCommand(300);
-                        new ScoringHighBucketCommand().schedule();
-                        new WaitCommand(100);
-                        sp.getToHighBucket().start();
-                        new WaitCommand(100);
-                        new OuttakeClawOpenCommand().schedule();
-                })
-                .transition(()-> robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
-                })
+
 
                 // todo: how do u leave ts state
                 .state(State.TRANSFER)
@@ -100,6 +108,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 
                 .state(State.SCORED)
                 .onEnter(()-> {
+                    new WaitCommand(500).schedule();
                     new ResetCommand().schedule();
                 })
                 .transition(()-> sampleNum>2, State.DONE, ()-> {
@@ -108,7 +117,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
                 .transition(()-> sampleNum<3, State.INTAKING_SAMPLE, ()-> {
 //                    sp.getToSample(drivetrain.getPoseEstimate(), sampleNum);
                 })
-
+                .state(State.DONE)
                 .build();
         sm.setState(State.HIGH_BUCKET);
         sm.start();
@@ -120,6 +129,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 
     @Override
     public void periodic(){
+        intakeColorSensor.startReading();
         driveControl();
         drive(driveMode);
         y = gamepad1.left_stick_y;
