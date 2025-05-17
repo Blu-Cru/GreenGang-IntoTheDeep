@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.tele;
 
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.common.commands.controls.vs.VertSlidesStar
 import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.common.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.common.pathbase.BlueSampleTrajetories;
+import org.firstinspires.ftc.teamcode.common.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -30,6 +32,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
     }
     double y, x, rx;
     enum State{
+        INIT,
         INTAKING_SAMPLE,
         HIGH_BUCKET,
         TRANSFER,
@@ -53,7 +56,7 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
         addVertSlides();
         addHang();
         addIntakeColorSensor();
-
+        outtakeClaw.close();
         type = Type.BLUE_SAMPLE;
 //        if (gamepad1.left_bumper) {
 //            type = Type.BLUE_SAMPLE;
@@ -69,31 +72,41 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 //        }
 
         sm = new StateMachineBuilder()
+                .state(State.INIT)
+                .transition(() -> this.opModeIsActive(), State.HIGH_BUCKET)
                 // Sample auto; scoring high bucket
                 // todo: confirm u can run traj this way + make more efficient
                 .state(State.HIGH_BUCKET)
                 .onEnter(()-> {
-                    new OuttakeClawCloseCommand().schedule();
-                    sp.getRetractFromHighBucket().start();
-                    new WaitCommand(300);
-                    new ScoringHighBucketCommand().schedule();
-                    new WaitCommand(100);
-                    sp.getToHighBucket().start();
-                    new WaitCommand(100);
-                    new OuttakeClawOpenCommand().schedule();
+//                    drivetrain.followTrajectorySequenceAsync(sp.getRetractFromHighBucket()); no need for two paths
+
+                    drivetrain.followTrajectorySequenceAsync(sp.getToHighBucket());
+
+                    new SequentialCommandGroup(
+                        new OuttakeClawCloseCommand(),
+                        new WaitCommand(300),
+                        new ScoringHighBucketCommand(),
+                        new WaitCommand(3000),
+                        new OuttakeClawOpenCommand()
+                    ).schedule();
                 })
                 .transition(()-> robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
+                    sampleNum++;
                 })
 
                 .state(State.INTAKING_SAMPLE)
                 .onEnter(()-> {
-                    sp.getRetractFromHighBucket().start();
+                    drivetrain.followTrajectorySequenceAsync(sp.getRetractFromHighBucket());
                     sp.getToSample(mecDrive.getPoseEstimate(), sampleNum).start();
                     new AutoSamplePart1().schedule();
-                    sampleNum++;
                 })
                 .transition(()-> robot.color.isFull(), State.HIGH_BUCKET, ()-> {
-                    new TransferCommand().schedule();
+                    new ResetCommand().schedule();
+                    new WaitCommand(1000).schedule();
+                    new OuttakeClawCloseCommand().schedule();
+                })
+                .transition(()-> !drivetrain.isBusy(), State.HIGH_BUCKET, ()-> {
+                    new ResetCommand().schedule();
                     new WaitCommand(1000).schedule();
                     new OuttakeClawCloseCommand().schedule();
                 })
@@ -111,15 +124,15 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
                     new WaitCommand(500).schedule();
                     new ResetCommand().schedule();
                 })
-                .transition(()-> sampleNum>2, State.DONE, ()-> {
-                    sp.getToPark().start();
+                .transition(()-> sampleNum>3, State.DONE, ()-> {
+                    drivetrain.followTrajectorySequenceAsync(sp.getToPark());
                 })
-                .transition(()-> sampleNum<3, State.INTAKING_SAMPLE, ()-> {
+                .transition(()-> sampleNum<4, State.INTAKING_SAMPLE, ()-> {
 //                    sp.getToSample(drivetrain.getPoseEstimate(), sampleNum);
                 })
                 .state(State.DONE)
                 .build();
-        sm.setState(State.HIGH_BUCKET);
+        sm.setState(State.INIT);
         sm.start();
     }
 

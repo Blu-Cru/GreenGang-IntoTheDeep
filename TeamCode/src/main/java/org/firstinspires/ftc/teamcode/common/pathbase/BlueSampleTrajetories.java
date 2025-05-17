@@ -10,7 +10,7 @@ public class BlueSampleTrajetories implements SamplePath{
     SampleMecanumDrive mecDrive;
     Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
     Pose2d highBucket = new Pose2d(53, 55, Math.toRadians(225));
-    Pose2d retractPose = new Pose2d(-54, -54, Math.toRadians(-225));
+    Pose2d retractPose = new Pose2d(54, 54, Math.toRadians(-225));
     Pose2d parkPose = new Pose2d(-48, -58, Math.toRadians(-90));
 
     Pose2d[] positions = {
