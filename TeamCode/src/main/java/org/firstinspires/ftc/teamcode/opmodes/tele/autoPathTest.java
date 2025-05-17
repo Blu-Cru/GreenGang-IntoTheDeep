@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes.tele;
 
+import android.util.Log;
+
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
 
@@ -15,19 +16,14 @@ import org.firstinspires.ftc.teamcode.common.commands.controls.intake.IntakeInCo
 import org.firstinspires.ftc.teamcode.common.commands.controls.intake.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.common.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.common.commands.controls.vs.VertSlidesHighBucketCommand;
-import org.firstinspires.ftc.teamcode.common.commands.controls.vs.VertSlidesStartCommand;
-import org.firstinspires.ftc.teamcode.common.commands.intake.RetractAutoCommand;
-import org.firstinspires.ftc.teamcode.common.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.common.pathbase.BlueSampleTrajetories;
-import org.firstinspires.ftc.teamcode.common.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.common.subsystems.drive.DriveMode;
+import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
-@TeleOp(name="sample auto fsm test", group ="TeleOp")
+@TeleOp(name="auto path test", group ="TeleOp")
 
-public class SampleAutoFSMTest extends GreenLinearOpMode{
+public class autoPathTest extends GreenLinearOpMode{
     enum Type {
         BLUE_SAMPLE,
         RED_SAMPLE
@@ -37,7 +33,6 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
         INIT,
         INTAKING_SAMPLE,
         HIGH_BUCKET,
-        TRANSFER,
         SCORED,
         DONE
     }
@@ -45,8 +40,11 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
     SampleMecanumDrive mecDrive;
     Type type;
     int sampleNum=0;
+    BlueSampleTrajetories  sp;
 
     public void initialize(){
+        Log.d("autoPathTest", "1");
+
         addDrivetrain();
         addIntake();
         addStickyG1();
@@ -65,8 +63,11 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 //        } else if (gamepad1.right_bumper) {
 //            type = Type.RED_SAMPLE;
 //        }
+
+        Log.d("autoPathTest", "2");
+
         mecDrive = new SampleMecanumDrive(hardwareMap);
-        BlueSampleTrajetories  sp = new BlueSampleTrajetories(mecDrive);
+        sp = new BlueSampleTrajetories(mecDrive);
 //        if (type.equals(Type.BLUE_SAMPLE)) {
 //            sp = new BlueSample();
 //        } else {
@@ -74,63 +75,51 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 //        }
 
         sm = new StateMachineBuilder()
+
                 .state(State.INIT)
-                .transition(() -> this.opModeIsActive(), State.HIGH_BUCKET)
+                .transition(this::opModeIsActive, State.HIGH_BUCKET)
+
                 // Sample auto; scoring high bucket
                 // todo: confirm u can run traj this way + make more efficient
                 .state(State.HIGH_BUCKET)
                 .onEnter(()-> {
-//                    drivetrain.followTrajectorySequenceAsync(sp.getRetractFromHighBucket()); no need for two paths
-
                     mecDrive.followTrajectorySequenceAsync(sp.getToHighBucket());
+                    mecDrive.updateTrajectory();
+                })
 
-                    new SequentialCommandGroup(
-                        new OuttakeClawCloseCommand(),
-                        new WaitCommand(300),
-                        new ScoringHighBucketCommand(),
-                        new WaitCommand(3000),
-                        new OuttakeClawOpenCommand()
-                    ).schedule();
-                })
-                .transition(()-> robot.outtakeClaw.isOpen(), State.SCORED, ()-> {
+                .transition(()-> !drivetrain.isBusy(), State.INTAKING_SAMPLE, ()-> {
                     sampleNum++;
+                    mecDrive.updateTrajectory();
                 })
+
 
                 .state(State.INTAKING_SAMPLE)
                 .onEnter(()-> {
-//                    mecDrive.followTrajectorySequenceAsync(sp.getRetractFromHighBucket());
                     mecDrive.followTrajectorySequenceAsync(sp.getToSample(mecDrive.getPoseEstimate(), sampleNum));
-                    new AutoSamplePart1().schedule();
+                    mecDrive.updateTrajectory();
                 })
-                .transition(()-> robot.color.isFull(), State.HIGH_BUCKET, ()-> {
-                    new ResetCommand().schedule();
-                    new IntakeInCommand().schedule();
-                    new WaitCommand(300).schedule();
-                    new IntakeStopCommand().schedule();
-                    new OuttakeClawCloseCommand().schedule();
-                })
-                .transition(()-> !drivetrain.isBusy(), State.HIGH_BUCKET, ()-> {
-                    new ResetCommand().schedule();
-                    new WaitCommand(1000).schedule();
-                    new OuttakeClawCloseCommand().schedule();
-                })
-
 
                 .state(State.SCORED)
                 .onEnter(()-> {
-                    new WaitCommand(500).schedule();
-                    new ResetCommand().schedule();
+
                 })
                 .transition(()-> sampleNum>3, State.DONE, ()-> {
                     mecDrive.followTrajectorySequenceAsync(sp.getToPark());
+                    mecDrive.updateTrajectory();
+
                 })
                 .transition(()-> sampleNum<4, State.INTAKING_SAMPLE, ()-> {
-                    mecDrive.followTrajectorySequenceAsync(sp.getToSample(drivetrain.getPoseEstimate(), sampleNum));
+                    mecDrive.updateTrajectory();
                 })
                 .state(State.DONE)
+
                 .build();
+
+        Log.d("autoPathTest", "3");
         sm.setState(State.INIT);
         sm.start();
+        Log.d("autoPathTest", "4");
+
     }
 
     public void telemetry(Telemetry telemetry){
@@ -140,23 +129,17 @@ public class SampleAutoFSMTest extends GreenLinearOpMode{
 
     @Override
     public void periodic(){
-        intakeColorSensor.startReading();
-        driveControl();
-        drive(driveMode);
-        y = gamepad1.left_stick_y;
-        x = -gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
 
-        //Robot moves slower
-        if(gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        }
-        else {
-            drivetrain.drivePower = 0.6;
-        }
+        Log.d("autoPathTest", ""+ sm.getState());
 
+//        drivetrain.followTrajectorySequenceAsync(sp.getToHighBucket());
         sm.update();
+
+        telemetry.addData("Robot State: ", sm.getState());
+        telemetry.addData("Sample Num:" , sampleNum);
         telemetry.update();
+        Log.d("autoPathTest", ""+sampleNum);
+
     }
     public void drive(DriveMode driveMode) {
         switch (driveMode) {

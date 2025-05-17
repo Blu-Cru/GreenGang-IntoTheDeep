@@ -38,6 +38,9 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Alliance alliance;
     public DriveMode driveMode;
 
+    double lastTime, loopTimeSum, loopTimeAvg = 0;
+    int loopTimeCount;
+
 
     @Override
     public final void runOpMode() throws InterruptedException {
@@ -100,6 +103,7 @@ public class GreenLinearOpMode extends LinearOpMode {
             telemetry.update();
         }
 
+
         end();
         Robot.kill();
 
@@ -131,5 +135,18 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
+//    private double calculateAvgLoopTime() {
+//        loopTimeSum += drivetrain.runtime.milliseconds() - lastTime;
+//        lastTime = drivetrain.runtime.milliseconds();
+//        loopTimeCount++;
+//
+//        if(loopTimeCount > 5) {
+//            loopTimeAvg = loopTimeSum / loopTimeCount;
+//            loopTimeSum = 0;
+//            loopTimeCount = 0;
+//        }
+//
+//        return loopTimeAvg;
+//    }
 
 }
