@@ -105,11 +105,11 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry tele){
-        tele.addData("HS State", state);
-        tele.addData("HS State 2 ", loc);
-        tele.addData("HS PID SP", pid.getSetPoint());
-        tele.addData("Vel", velocity);
-        tele.addData("Pos ", position);
+//        tele.addData("HS State", state);
+//        tele.addData("HS State 2 ", loc);
+//        tele.addData("HS PID SP", pid.getSetPoint());
+//        tele.addData("Vel", velocity);
+//        tele.addData("Pos ", position);
     }
 
     public void update() {

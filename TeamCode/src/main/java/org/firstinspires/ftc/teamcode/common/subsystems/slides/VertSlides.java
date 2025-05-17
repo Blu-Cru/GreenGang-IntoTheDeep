@@ -172,8 +172,8 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("vert slides pos ", getVScurrRightPos());
-        telemetry.addData("vert slides state ", state);
-        telemetry.addData("vert slides curr power ", motorPower);
+//        telemetry.addData("vert slides pos ", getVScurrRightPos());
+//        telemetry.addData("vert slides state ", state);
+//        telemetry.addData("vert slides curr power ", motorPower);
     }
 }

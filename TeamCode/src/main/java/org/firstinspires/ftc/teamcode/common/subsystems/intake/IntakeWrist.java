@@ -29,7 +29,7 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
     }
 
     public void telemetry(Telemetry telemetry){
-        telemetry.addData("intake wrist pos ", wristPos);
+//        telemetry.addData("intake wrist pos ", wristPos);
     }
 
     public void update() {
