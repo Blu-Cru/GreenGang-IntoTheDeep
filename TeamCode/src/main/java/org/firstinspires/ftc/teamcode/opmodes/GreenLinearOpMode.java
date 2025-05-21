@@ -38,7 +38,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;
-    public PinPointLocalizer ppl;
+//    public PinPointLocalizer ppl;
 
     @Override
     public final void runOpMode() throws InterruptedException {
