@@ -130,6 +130,6 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
-    public void addPinPointLocalizer() {ppl = new PinPointLocalizer(ppl);}
+//    public void addPinPointLocalizer() { ppl = new PinPointLocalizer(ppl);}
 
 }
