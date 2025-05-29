@@ -212,4 +212,7 @@ public class MotionProfile {
         telemetry.addData("max velocity", vMax);
         telemetry.addData("max acceleration", aMax);
     }
+    public double duration() {
+        return t0 + t1 + t2 + t3;
+    }
 }
