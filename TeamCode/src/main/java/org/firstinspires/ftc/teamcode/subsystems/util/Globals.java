@@ -20,6 +20,8 @@ public class Globals {
     public static Alliance alliance = Alliance.RED;
     public static ElapsedTime runtime;
 
+    public static boolean fieldCentric = true;
+
     public static double voltage = 13.0;
 
     public static void setAlliance(Alliance alliance) {

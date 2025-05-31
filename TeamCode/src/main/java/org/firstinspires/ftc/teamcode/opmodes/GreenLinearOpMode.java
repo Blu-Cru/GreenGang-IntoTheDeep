@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
@@ -47,8 +48,6 @@ public class GreenLinearOpMode extends LinearOpMode {
 
         stickyG1 = new StickyGamepad(gamepad1);
         stickyG2 = new StickyGamepad(gamepad2);
-        alliance = Alliance.BLUE;
-        drive = Drive.FIELDCENTRIC;
 
         robot = Robot.getInstance();
         robot.create(hardwareMap);
@@ -57,10 +56,10 @@ public class GreenLinearOpMode extends LinearOpMode {
 
         while(opModeInInit()) {
             if(stickyG1.x) {
-                alliance = alliance.flip();
+                Globals.alliance = Globals.alliance.flip();
             }
             if (stickyG1.b){
-                drive = drive.flip();
+                Globals.fieldCentric = !Globals.fieldCentric;
             }
 
             stickyG1.update();
@@ -74,8 +73,8 @@ public class GreenLinearOpMode extends LinearOpMode {
             CommandScheduler.getInstance().run();
 
             // telemetry
-            telemetry.addData("ALLIANCE: ", alliance);
-            telemetry.addData("DRIVE: ", drive);
+            telemetry.addData("ALLIANCE: ", Globals.alliance);
+            telemetry.addData("FIELD CENTRIC MODE: ", Globals.fieldCentric);
             telemetry.update();
         }
 
