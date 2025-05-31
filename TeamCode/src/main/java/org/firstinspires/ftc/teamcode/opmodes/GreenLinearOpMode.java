@@ -5,13 +5,13 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Alliance;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSensor;
+import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
-import org.firstinspires.ftc.teamcode.subsystems.drive.DrivePID;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
@@ -38,6 +38,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;
+    public ClawDistanceSensor distanceSensor;
 //    public PinPointLocalizer ppl;
 
     @Override
@@ -128,6 +129,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addHang() {hang = robot.addHang();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
+    public void addClawDistance() {distanceSensor = robot.addClawDistanceSensor();}
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
 //    public void addPinPointLocalizer() { ppl = new PinPointLocalizer(ppl);}

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.Alliance;
+import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;

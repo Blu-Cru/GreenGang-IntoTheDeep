@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class IntakeColorSensor implements GreenSubsystem, Subsystem {
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class Hang implements GreenSubsystem, Subsystem {
 

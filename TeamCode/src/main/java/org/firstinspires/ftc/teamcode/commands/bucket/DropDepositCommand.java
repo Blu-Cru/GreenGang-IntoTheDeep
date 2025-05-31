@@ -18,7 +18,6 @@ public class DropDepositCommand extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                         new OuttakeClawOpenCommand(),
-                        new WaitCommand(2000), // less?
                         new ResetCommand()
                 )
         );

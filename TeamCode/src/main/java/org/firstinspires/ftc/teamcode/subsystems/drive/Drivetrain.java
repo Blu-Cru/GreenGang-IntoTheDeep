@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Subsystem {
 

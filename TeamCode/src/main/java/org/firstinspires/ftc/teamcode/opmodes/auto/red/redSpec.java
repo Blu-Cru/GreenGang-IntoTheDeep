@@ -13,17 +13,15 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 
 @Autonomous(name = "red spec auto", group = "paths")
 public class redSpec extends GreenLinearOpMode {
-    SampleMecanumDrive mecDrive;
     TrajectorySequence farRed;
     @Override
     public void initialize() {
 
         addDrivetrain();
-        mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(24, -64, Math.toRadians(90));
-        mecDrive.setPoseEstimate(startPose);
+        drivetrain.setPoseEstimate(startPose);
 
-        farRed = mecDrive.trajectorySequenceBuilder(startPose)
+        farRed = drivetrain.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD PLACEMENT
                 .splineToLinearHeading(new Pose2d(-5, -42, Math.toRadians(-90)), Math.toRadians(90))
@@ -104,10 +102,10 @@ public class redSpec extends GreenLinearOpMode {
     @Override
     public void periodic() {
         if (!drivetrain.isBusy()){
-            this.mecDrive.followTrajectorySequenceAsync(farRed);
+            drivetrain.followTrajectorySequenceAsync(farRed);
         }
         try {
-            this.mecDrive.updateTrajectory();
+            drivetrain.updateTrajectory();
         } catch (Exception e){
             requestOpModeStop();
         }

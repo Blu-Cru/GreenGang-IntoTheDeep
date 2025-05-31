@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems.util;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.drive.DrivePID;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSensor;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
 import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
@@ -32,6 +32,7 @@ public class Robot {
     public HorizontalSlides horizontalSlides;
     public Hang hang;
     public IntakeWrist wrist;
+    public ClawDistanceSensor distanceSensor;
 //    public PinPointLocalizer ppl;
 
     ArrayList<GreenSubsystem> subsystems;
@@ -113,6 +114,12 @@ public class Robot {
         wrist = new IntakeWrist(hardwareMap);
         subsystems.add(wrist);
         return wrist;
+    }
+
+    public ClawDistanceSensor addClawDistanceSensor() {
+        distanceSensor = new ClawDistanceSensor(hardwareMap);
+        subsystems.add(distanceSensor);
+        return distanceSensor;
     }
 
 

@@ -32,7 +32,6 @@ public class bluSpec extends GreenLinearOpMode {
     public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
 
     TrajectorySequence farBlue;
-    SampleMecanumDrive mecDrive;
     boolean done;
 
     @Override
@@ -49,11 +48,10 @@ public class bluSpec extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
 
-        mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-24, 64, Math.toRadians(90));
-        mecDrive.setPoseEstimate(startPose);
+        drivetrain.setPoseEstimate(startPose);
 
-        farBlue = mecDrive.trajectorySequenceBuilder(startPose)
+        farBlue = drivetrain.trajectorySequenceBuilder(startPose)
 
                 .setTangent(Math.toRadians(-90))
                 .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
@@ -208,11 +206,11 @@ public class bluSpec extends GreenLinearOpMode {
 
 
         if (!drivetrain.isBusy() && !done){
-            mecDrive.followTrajectorySequenceAsync(farBlue);
+            drivetrain.followTrajectorySequenceAsync(farBlue);
             done = true;
         }
         try {
-            mecDrive.updateTrajectory();
+            drivetrain.updateTrajectory();
         } catch (Exception e){
 //            requestOpModeStop();
         }

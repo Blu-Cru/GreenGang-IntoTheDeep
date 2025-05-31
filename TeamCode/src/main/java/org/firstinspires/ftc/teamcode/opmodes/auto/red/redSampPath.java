@@ -10,23 +10,22 @@ import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 
 @Autonomous(name = "red sample path only", group = "paths")
 
 public class redSampPath extends GreenLinearOpMode {
 
     TrajectorySequence closeRed;
-    SampleMecanumDrive mecDrive;
 
     @Override
     public void initialize() {
 
         addDrivetrain();
-        mecDrive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-24, -64, Math.toRadians(90));
-        mecDrive.setPoseEstimate(startPose);
+        drivetrain.setPoseEstimate(startPose);
 
-        closeRed = mecDrive.trajectorySequenceBuilder(startPose)
+        closeRed = drivetrain.trajectorySequenceBuilder(startPose)
 
                 // PRELOAD
                 .splineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(45)), Math.toRadians(180))
@@ -57,10 +56,10 @@ public class redSampPath extends GreenLinearOpMode {
     @Override
     public void periodic() {
         if (!drivetrain.isBusy()){
-            this.mecDrive.followTrajectorySequenceAsync(closeRed);
+            drivetrain.followTrajectorySequenceAsync(closeRed);
         }
         try {
-            this.mecDrive.updateTrajectory();
+            drivetrain.updateTrajectory();
         } catch (Exception e){
             requestOpModeStop();
         }

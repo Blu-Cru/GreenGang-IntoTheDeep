@@ -29,7 +29,6 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 @Autonomous(name = "close blue auto", group = "paths")
 public class bluSample extends GreenLinearOpMode {
     TrajectorySequence closeBlue;
-    SampleMecanumDrive mecDrive;
     boolean done;
 
     @Override
@@ -47,11 +46,10 @@ public class bluSample extends GreenLinearOpMode {
         addIntakeColorSensor();
 
         Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
-        mecDrive = new SampleMecanumDrive(hardwareMap);
-        mecDrive.setPoseEstimate(startPose);
+        drivetrain.setPoseEstimate(startPose);
 
 
-        closeBlue = mecDrive.trajectorySequenceBuilder(startPose)
+        closeBlue = drivetrain.trajectorySequenceBuilder(startPose)
 
                 .setTangent(Math.toRadians(-90))
 
@@ -218,11 +216,11 @@ public class bluSample extends GreenLinearOpMode {
 
 
         if (!drivetrain.isBusy() && !done){
-            mecDrive.followTrajectorySequenceAsync(closeBlue);
+            drivetrain.followTrajectorySequenceAsync(closeBlue);
             done = true;
         }
         try {
-            mecDrive.updateTrajectory();
+            drivetrain.updateTrajectory();
         } catch (Exception e){
 //            requestOpModeStop();
         }

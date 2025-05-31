@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo clawArm;
