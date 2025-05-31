@@ -16,23 +16,25 @@ import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 public class WristRotationTest extends LinearOpMode {
     public static double position = 0.3;
     public static String name = "claw wrist";
-    WristRotationServo wristRotservo = new WristRotationServo();
+    WristRotationServo wristRotServo;
     double manualPower;
     @Override
     public void runOpMode() throws InterruptedException {
-        wristRotservo.init();
+        wristRotServo = new WristRotationServo();
+
+        wristRotServo.init();
         waitForStart();
 
         while(opModeIsActive()) {
             if(gamepad1.a) { //X button
-                wristRotservo.flip();
+                wristRotServo.flip();
             }
             manualPower = -gamepad1.left_stick_y;
             if(Math.abs(manualPower) > 0.1) {
-                wristRotservo.manualRotate(manualPower);
+                wristRotServo.manualRotate(manualPower);
             }
 
-            wristRotservo.telemetry(telemetry);
+            wristRotServo.telemetry(telemetry);
             telemetry.update();
         }
     }
