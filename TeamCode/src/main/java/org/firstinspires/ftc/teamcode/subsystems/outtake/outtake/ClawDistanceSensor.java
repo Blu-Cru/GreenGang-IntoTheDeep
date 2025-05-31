@@ -11,7 +11,12 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
 
     Rev2mDistanceSensor distanceSensor;
+    double distance;
+    boolean reading;
 
+    public ClawDistanceSensor(HardwareMap hardwareMap) {
+        distanceSensor = hardwareMap.get(Rev2mDistanceSensor.class, "distance");
+    }
     @Override
     public void init() {
         distanceSensor.initialize();
@@ -24,7 +29,7 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
 
     @Override
     public void update() {
-
+            distance = distanceSensor.getDistance(DistanceUnit.INCH);
     }
 
     public enum SlotState {
@@ -32,9 +37,7 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
         EMPTY;
     }
 
-    public ClawDistanceSensor(HardwareMap hardwareMap) {
-        distanceSensor = hardwareMap.get(Rev2mDistanceSensor.class, "distance");
-    }
+
 
     public SlotState getSlotState() {
         if (distanceSensor.getDistance(DistanceUnit.INCH) >= 1.5) {

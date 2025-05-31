@@ -28,7 +28,8 @@ public class MotionProfileTest extends LinearOpMode {
     public enum State {
         NORMAL,
         SPIKE,
-        RESET
+        RESET,
+        SMOOTHSERVO
     }
     private State currentState = State.NORMAL;
     private ElapsedTime profileTimer = new ElapsedTime();
@@ -44,12 +45,12 @@ public class MotionProfileTest extends LinearOpMode {
         mp = new MotionProfile(0,0,0,0);
 
         waitForStart();
-
+        profileTimer.reset();
         while(opModeIsActive()) {
             if (currentState == State.NORMAL) {
                 // Start normal profile if just entered state
-                if (profileTimer.seconds() == 0) {
-                    mp = new MotionProfile(0.5, test.getPosition(), vMax, aMax).start();
+                if (profileTimer.seconds() < 0.5) {
+                    mp = new MotionProfile(0.8, test.getPosition(), vMax*4, aMax*4).start();
                 }
                 // Wait for profile to finish
                 if (mp.done()) {
@@ -57,23 +58,35 @@ public class MotionProfileTest extends LinearOpMode {
                     profileTimer.reset();
                 }
 
-            } else if (currentState == State.SPIKE) {
+            }
+            else if (currentState == State.SPIKE) {
 
-                if (profileTimer.seconds() == 0) {
-                    mp = new MotionProfile(xF, test.getPosition(), vMax/3, aMax/3).start();
+                if (profileTimer.seconds() < 0.5) {
+                    mp = new MotionProfile(xF, test.getPosition(), vMax/2, aMax/2).start();
                 }
 
                 if (mp.done()) {
-                    currentState = State.NORMAL;
+                    currentState = State.RESET;
                     profileTimer.reset();
                 }
             }
+            else if(currentState == State.RESET){
+                if(profileTimer.seconds() < 0.5) {
+                    mp = new MotionProfile(0, test.getPosition(), vMax, aMax).start();
+                }
+                if (mp.done()) {
+                    currentState = State.SMOOTHSERVO;
+                    profileTimer.reset();
+                }
 
-            if(gamepad1.dpad_down){
-                mp = new MotionProfile(0, test.getPosition(), vMax, aMax).start();
-                currentState = State.NORMAL;
-                profileTimer.reset();
             }
+            else if(currentState == State.SMOOTHSERVO){
+                if(profileTimer.seconds() < 0.5) {
+
+                }
+
+            }
+
 
             TelemetryPacket packet = new TelemetryPacket();
             packet.put("ServoPosition", test.getPosition());

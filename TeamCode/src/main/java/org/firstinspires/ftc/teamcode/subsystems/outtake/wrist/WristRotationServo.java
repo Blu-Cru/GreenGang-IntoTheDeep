@@ -8,27 +8,26 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 
-public class WristRotationServo implements GreenSubsystem, Subsystem {
-
+public class WristRotationServo extends SmoothServo implements GreenSubsystem, Subsystem  {
     double pos=0;
-    Servo wristRotservo;
-    public WristRotationServo(HardwareMap hardwareMap) {
-        wristRotservo = new SmoothServo("claw wrist", false);
+
+    public WristRotationServo() {
+        super("claw wrist", false);
     }
 
     public void flip(){
-        wristRotservo.setPosition(.5);
+        setPosition(.5);
     }
 
     public void manualRotate(double incrementation) {
-        wristRotservo.setPosition(pos+incrementation);
+        setPosition(pos+incrementation);
         pos += incrementation;
     }
 
 
     @Override
     public void init() {
-        wristRotservo.setPosition(0);
+        setPosition(0);
     }
 
     @Override
