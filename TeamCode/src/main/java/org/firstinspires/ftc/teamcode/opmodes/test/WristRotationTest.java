@@ -20,7 +20,7 @@ public class WristRotationTest extends LinearOpMode {
     double manualPower;
     @Override
     public void runOpMode() throws InterruptedException {
-        wristRotServo = new WristRotationServo();
+        wristRotServo = new WristRotationServo(hardwareMap);
 
         wristRotServo.init();
         waitForStart();
@@ -29,12 +29,16 @@ public class WristRotationTest extends LinearOpMode {
             if(gamepad1.a) { //X button
                 wristRotServo.flip();
             }
+            if(gamepad1.b){
+                wristRotServo.turn90();
+            }
             manualPower = -gamepad1.left_stick_y;
             if(Math.abs(manualPower) > 0.1) {
-                wristRotServo.manualRotate(manualPower);
+                wristRotServo.manualRotate(manualPower/500);
             }
 
             wristRotServo.telemetry(telemetry);
+            wristRotServo.update();
             telemetry.update();
         }
     }
