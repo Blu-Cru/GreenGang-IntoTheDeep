@@ -13,7 +13,11 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
     Rev2mDistanceSensor distanceSensor;
     double distance;
     boolean reading;
-
+    public enum SlotState {
+        FULL,
+        EMPTY;
+    }
+    SlotState state;
     public ClawDistanceSensor(HardwareMap hardwareMap) {
         distanceSensor = hardwareMap.get(Rev2mDistanceSensor.class, "distance");
     }
@@ -25,25 +29,19 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
     @Override
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("distance: ", distanceSensor.getDistance(DistanceUnit.INCH));
+        telemetry.addData("state: ", state);
     }
 
     @Override
     public void update() {
-            distance = distanceSensor.getDistance(DistanceUnit.INCH);
-    }
-
-    public enum SlotState {
-        FULL,
-        EMPTY;
-    }
-
-
-
-    public SlotState getSlotState() {
-        if (distanceSensor.getDistance(DistanceUnit.INCH) >= 1.5) {
-            return SlotState.EMPTY;
+        distance = distanceSensor.getDistance(DistanceUnit.INCH);
+        if(distance < 1.5){
+            state=SlotState.FULL;
         } else {
-            return SlotState.FULL;
+            state=SlotState.EMPTY;
         }
+    }
+    public boolean isFull() {
+       return state == SlotState.FULL;
     }
 }

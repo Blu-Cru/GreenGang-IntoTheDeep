@@ -6,21 +6,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;
-    double pos =0.5; // claw angle is parralel to arm
+    double pos =0.5; // claw angle is parallel to arm
 
     public enum STATE {
         INIT,
         BUCKET,
-        SPEC;
+        SPEC
     }
 
     public STATE state;
 
     public ClawWrist(HardwareMap hardwareMap) {
-        clawWrist = hardwareMap.get(Servo.class, "claw wrist");
+        clawWrist =  hardwareMap.get(Servo.class, "claw wrist");;
         state = STATE.INIT;
     }
 
@@ -36,9 +37,9 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     }
 
     public void inspec() {
-
         clawWrist.setPosition(0.4); // .35
     }
+
     public void Spec() {
         clawWrist.setPosition(0.29); // .27
         state = STATE.SPEC;

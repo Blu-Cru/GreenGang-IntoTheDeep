@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands.bucket;
 
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketComm
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
+import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
 /*
 - opens claw (deposits sample)
@@ -18,7 +20,11 @@ public class DropDepositCommand extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                         new OuttakeClawOpenCommand(),
-                        new ResetCommand()
+                        new ConditionalCommand(
+                                new ResetCommand(),
+                                new WaitCommand(0),
+                                () -> !Robot.getInstance().distanceSensor.isFull()
+                        )
                 )
         );
     }

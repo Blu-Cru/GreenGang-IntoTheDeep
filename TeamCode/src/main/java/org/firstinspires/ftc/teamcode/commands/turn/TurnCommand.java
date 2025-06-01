@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.turnCommand;
+package org.firstinspires.ftc.teamcode.commands.turn;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 

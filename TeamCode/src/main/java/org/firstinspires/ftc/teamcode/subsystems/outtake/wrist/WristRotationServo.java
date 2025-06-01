@@ -7,58 +7,52 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
+import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 public class WristRotationServo implements GreenSubsystem, Subsystem  {
-    double pos=0;
-    Servo WristRotServo;
-
+    double pos=0.3;
+    Servo wristRotServo;
+    MotionProfile mp;
     STATE state;
-    boolean isDone = false;
-
     enum STATE {
         NINETY,
         FLIPPED,
         INIT
     }
     public WristRotationServo(HardwareMap hardwareMap) {
-        WristRotServo = hardwareMap.get(Servo.class, "claw wrist");
+        wristRotServo = hardwareMap.get(Servo.class, "claw wrist");
         state = STATE.INIT;
+        mp = new MotionProfile(0,0,0,0);
     }
 
     public void flip(){
-        if(state == STATE.INIT) {
-            WristRotServo.setPosition(0.85);
-            if(WristRotServo.getPosition() ==0.85){
-                state = STATE.FLIPPED;
-            }
-
+        if(state != STATE.FLIPPED){
+            wristRotServo.setPosition(0.85);
+            state = STATE.FLIPPED;
         } else {
-            WristRotServo.setPosition(0.3);
-            if(WristRotServo.getPosition() == 0.3){
-                state = STATE.INIT;
-            }
+            wristRotServo.setPosition(0.3);
+            state = STATE.INIT;
+        }
+    }
 
+    public void turn90(){
+        if (state != STATE.NINETY){
+            wristRotServo.setPosition(0.55);
+            state = STATE.NINETY;
+        } else {
+            wristRotServo.setPosition(0.3);
+            state = STATE.INIT;
         }
     }
 
     public void manualRotate(double incrementation) {
-        WristRotServo.setPosition(Range.clip(pos + incrementation, 0, 1));
-    }
-    public void turn90(){
-        if (state == STATE.NINETY){
-            WristRotServo.setPosition(.3);
-            state = STATE.INIT;
-        } else {
-            WristRotServo.setPosition(0.55);
-            state = STATE.NINETY;
-        }
+        wristRotServo.setPosition(Range.clip(pos + incrementation, 0, 1));
     }
 
 
     @Override
     public void init() {
-        WristRotServo.setPosition(0.3);
+        wristRotServo.setPosition(0.3);
     }
 
     @Override
@@ -69,6 +63,14 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
 
     @Override
     public void update() {
-        pos = WristRotServo.getPosition();
+        pos = wristRotServo.getPosition();
+        if (mp != null && !mp.done()) {
+            double target = mp.getInstantTargetPosition();
+            wristRotServo.setPosition(target);
+        }
+    }
+
+    public void setPosition(double pos){
+        mp = new MotionProfile(this.pos, pos, 4, 4).start();
     }
 }

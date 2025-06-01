@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
@@ -48,7 +49,7 @@ public class Main extends GreenLinearOpMode {
     @Override
     public void periodic() {
         driveControl();
-        drive(drive);
+        drive();
         intakeColorSensor.startReading();
 
         if (intake.state == Intake.STATE.IN || intake.state == Intake.STATE.NICOLAS) {
@@ -138,18 +139,15 @@ public class Main extends GreenLinearOpMode {
         }
     }
 
-    public void drive(Drive drive) {
-        switch (drive) {
-            case FIELDCENTRIC:
-                if (stickyG1.left_stick_button) {
-                    gamepad1.rumble(200);
-                    drivetrain.setExternalHeading(Math.toRadians(90));
-                }
-                drivetrain.fieldCentricDrive(x, y, rx);
-                break;
-            case ROBOTCENTRIC:
-                drivetrain.drive(x, y, rx);
-                break;
+    public void drive() {
+        if(Globals.fieldCentric) {
+            if (stickyG1.left_stick_button) {
+                gamepad1.rumble(200);
+                drivetrain.setExternalHeading(Math.toRadians(90));
+            }
+            drivetrain.fieldCentricDrive(x, y, rx);
+        } else {
+            drivetrain.drive(x, y, rx);
         }
     }
 

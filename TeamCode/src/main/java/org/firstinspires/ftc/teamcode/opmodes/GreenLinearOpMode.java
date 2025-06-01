@@ -86,11 +86,7 @@ public class GreenLinearOpMode extends LinearOpMode {
             stickyG1.update();
             stickyG2.update();
 
-            // safety for switching controllers
-//            if(!(gamepad1.start || gamepad2.start)) {
             periodic();
-//            }
-
             CommandScheduler.getInstance().run();
 
             robot.update();
