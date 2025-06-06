@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems.outtake.wrist;
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -11,9 +12,12 @@ import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 public class WristRotationServo implements GreenSubsystem, Subsystem  {
     double pos=0.3;
+    public static double vMax = 2, aMax = 2, xI = 0, xF = 1;
     Servo wristRotServo;
-    MotionProfile mp;
+    public MotionProfile mp;
     STATE state;
+    private ElapsedTime profileTimer = new ElapsedTime();
+
     enum STATE {
         NINETY,
         FLIPPED,
@@ -26,22 +30,37 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
     }
 
     public void flip(){
+        profileTimer.reset();
         if(state != STATE.FLIPPED){
             wristRotServo.setPosition(0.85);
-            state = STATE.FLIPPED;
+//            mp = new MotionProfile(0.85, wristRotServo.getPosition(), vMax, aMax).start();
+            if(profileTimer.seconds() > 1) {
+                state = STATE.FLIPPED;
+            }
         } else {
             wristRotServo.setPosition(0.3);
-            state = STATE.INIT;
+//            mp = new MotionProfile(0.3, wristRotServo.getPosition(), vMax, aMax).start();
+            if(profileTimer.seconds()>1) {
+                state = STATE.INIT;
+            }
         }
     }
 
     public void turn90(){
+        profileTimer.reset();
         if (state != STATE.NINETY){
             wristRotServo.setPosition(0.55);
-            state = STATE.NINETY;
-        } else {
+//            mp = new MotionProfile(0.55, wristRotServo.getPosition(), vMax, aMax).start();
+            if(profileTimer.seconds()>1) {
+                state = STATE.NINETY;
+            }
+        }
+        else {
             wristRotServo.setPosition(0.3);
-            state = STATE.INIT;
+//            mp = new MotionProfile(0.3, wristRotServo.getPosition(), vMax,aMax).start();
+            if(profileTimer.seconds()>1) {
+                state = STATE.INIT;
+            }
         }
     }
 
@@ -58,6 +77,7 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
     @Override
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("wrist rot pos:", pos);
+        telemetry.addData("state", state);
     }
 
 
