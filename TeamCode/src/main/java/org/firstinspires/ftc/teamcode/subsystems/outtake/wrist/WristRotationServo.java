@@ -31,7 +31,7 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
 
     public void flip(){
         profileTimer.reset();
-        if(state != STATE.FLIPPED){
+        if(state == STATE.INIT){
             wristRotServo.setPosition(0.85);
 //            mp = new MotionProfile(0.85, wristRotServo.getPosition(), vMax, aMax).start();
             if(profileTimer.seconds() > 1) {
@@ -44,6 +44,8 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
                 state = STATE.INIT;
             }
         }
+
+
     }
 
     public void turn90(){
@@ -78,19 +80,21 @@ public class WristRotationServo implements GreenSubsystem, Subsystem  {
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("wrist rot pos:", pos);
         telemetry.addData("state", state);
+        telemetry.addData("timer", profileTimer.seconds());
     }
 
 
     @Override
     public void update() {
         pos = wristRotServo.getPosition();
-        if (mp != null && !mp.done()) {
-            double target = mp.getInstantTargetPosition();
-            wristRotServo.setPosition(target);
-        }
+
+//        if (mp != null && !mp.done()) {
+//            double target = mp.getInstantTargetPosition();
+//            wristRotServo.setPosition(target);
+//        }
     }
 
-    public void setPosition(double pos){
-        mp = new MotionProfile(this.pos, pos, 4, 4).start();
-    }
+//    public void setPosition(double pos){
+//        mp = new MotionProfile(this.pos, pos, 4, 4).start();
+//    }
 }
