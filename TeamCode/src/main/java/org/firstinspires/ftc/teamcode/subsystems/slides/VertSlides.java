@@ -65,8 +65,8 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public VertSlides(HardwareMap hardwareMap) {
-        motorLeft = hardwareMap.get(DcMotor.class, "slidesMotorLeft");
-        motorRight = hardwareMap.get(DcMotor.class, "slidesMotorRight");
+        motorLeft = hardwareMap.get(DcMotor.class, "vs le                                                                                                                                                                       ft");
+        motorRight = hardwareMap.get(DcMotor.class, "vs right");
         pid = new PIDController(vsP, vsI, vsD);
         state = STATE.INIT;
         targetHeight = 0;
