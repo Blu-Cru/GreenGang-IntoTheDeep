@@ -30,7 +30,6 @@ public class SmoothServo extends GreenServo {
             currentPosition = motionProfile.getInstantTargetPosition();
             super.setPosition(currentPosition);
         } catch (Exception e) {
-
         }
         super.write();
     }
