@@ -101,11 +101,11 @@ public class Main extends GreenLinearOpMode {
         hsPow = -gamepad2.left_stick_y;
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);
-
-        hangPow = -gamepad2.right_stick_y;
-        if (Math.abs(hangPow) > .1) {
-            PTO.setHangPower(hangPow);
-        } else if (!hanging) PTO.setHangPower(0);
+//
+//        hangPow = -gamepad2.right_stick_y;
+//        if (Math.abs(hangPow) > .1) {
+//            PTO.setHangPower(hangPow);
+//        } else if (!hanging) PTO.setHangPower(0);
 
         if (stickyG2.dpad_right) {
             hanging = !hanging;
