@@ -51,7 +51,7 @@ public class Main extends GreenLinearOpMode {
         drive();
         intakeColorSensor.startReading();
 
-        if (intake.state == Intake.STATE.IN || intake.state == Intake.STATE.NICOLAS) {
+        if (intake.state == Intake.STATE.IN) {
             new WristDownCommand().schedule();
         } else {
             wrist.parallel();
