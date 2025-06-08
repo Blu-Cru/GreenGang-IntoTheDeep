@@ -18,7 +18,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public DcMotor motorLeft, motorRight;
     private final PIDController pid;
     public double targetHeight;
-    public static double vsP = 0.007, vsI = 0.01, vsD = 0.0001;
+    public static double vsP = 0.0085, vsI = 0.00001, vsD = 0.00001;
     private double motorPower;
     public boolean highspec;
 
@@ -52,20 +52,23 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         motorLeft.setPower(0); // check what power it should be
         motorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRight.setPower(0); // check what power it should be
         motorRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+//        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pidTo(0);
         state = STATE.INIT;
         type = TYPE.IDLE;
     }
 
     public VertSlides(HardwareMap hardwareMap) {
-        motorLeft = hardwareMap.get(DcMotor.class, "vs le                                                                                                                                                                       ft");
+        motorLeft = hardwareMap.get(DcMotor.class, "vs left");
         motorRight = hardwareMap.get(DcMotor.class, "vs right");
         pid = new PIDController(vsP, vsI, vsD);
         state = STATE.INIT;
@@ -97,7 +100,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public double getVScurrRightPos() {
-        return motorRight.getCurrentPosition();
+        return -motorRight.getCurrentPosition();
     }
     public void pidTo(double targetPos) {
         type = TYPE.PID;

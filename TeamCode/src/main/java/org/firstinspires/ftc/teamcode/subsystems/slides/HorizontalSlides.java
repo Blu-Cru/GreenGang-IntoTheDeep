@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 @Config
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
-    public static double hsP = 0.003, hsI = 0.0, hsD = 0.00005;
+    public static double hsP = 0.003, hsI = 0.0004, hsD = 0.00005;
     int minpos = 0;
     int maxpos = 22000;
     enum STATE {
@@ -41,7 +41,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     double position, velocity;
 
     public HorizontalSlides(HardwareMap hardwareMap){
-        motor = hardwareMap.get(DcMotorEx.class, "horiz slides");
+        motor = hardwareMap.get(DcMotorEx.class, "hs motor");
         pid = new PIDController(hsP, hsI, hsD);
         state = STATE.IDLE;
     }
@@ -50,9 +50,9 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public void init() {
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motor.setPower(0);
-        motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pidTo(0);
         loc = LOC.RETRACTED;
     }
