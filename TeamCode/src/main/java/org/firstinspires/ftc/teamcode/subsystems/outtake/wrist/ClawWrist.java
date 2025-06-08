@@ -10,8 +10,6 @@ import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;
-    double pos =0.5; // claw angle is parallel to arm
-
     public enum STATE {
         INIT,
         BUCKET,
@@ -27,21 +25,21 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(0.31); // 0.36
+        clawWrist.setPosition(.7);
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(pos); // .5
+        clawWrist.setPosition(.42);
         state = STATE.BUCKET;
     }
 
     public void inspec() {
-        clawWrist.setPosition(0.4); // .35
+        clawWrist.setPosition(0.45);
     }
 
     public void Spec() {
-        clawWrist.setPosition(0.29); // .27
+        clawWrist.setPosition(0.29);
         state = STATE.SPEC;
     }
 

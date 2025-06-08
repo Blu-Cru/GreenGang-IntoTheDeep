@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSen
 import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
+import org.firstinspires.ftc.teamcode.subsystems.hang.PTO;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
@@ -35,7 +35,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public IntakeColorSensor intakeColorSensor;
     public StickyGamepad stickyG1;
     public HorizontalSlides horizontalSlides;
-    public Hang hang;
+    public PTO PTO;
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;
@@ -121,7 +121,8 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
-    public void addHang() {hang = robot.addHang();}
+    public void addHang() {
+        PTO = robot.addHang();}
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addClawDistance() {distanceSensor = robot.addClawDistanceSensor();}

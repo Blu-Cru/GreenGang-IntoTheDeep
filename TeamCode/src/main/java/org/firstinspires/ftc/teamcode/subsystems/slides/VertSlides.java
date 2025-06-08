@@ -21,6 +21,8 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public static double vsP = 0.007, vsI = 0.01, vsD = 0.0001;
     private double motorPower;
     public boolean highspec;
+    double lowBar=0;
+    double highBar=0;
 
     public static int
             init = 0,
@@ -151,6 +153,15 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         targetHeight = highSpecDunk;
         pidTo(targetHeight);
         highspec =!highspec;
+    }
+
+
+    public void lowBar(){
+        pidTo(lowBar);
+    }
+
+    public void highBar(){
+        pidTo(highBar);
     }
 
     @Override

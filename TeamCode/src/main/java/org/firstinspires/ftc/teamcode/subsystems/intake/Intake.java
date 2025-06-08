@@ -13,7 +13,6 @@ public class Intake implements GreenSubsystem, Subsystem {
     public enum STATE {
         IN,
         REST,
-        NICOLAS,
         SPIT;
     }
 
@@ -44,11 +43,6 @@ public class Intake implements GreenSubsystem, Subsystem {
         intake.setPower(0);
         intake2.setPower(0);
         state = STATE.REST;
-    }
-    public void nicolasSpit(){
-        intake.setPower(-1);
-        intake2.setPower(-1);
-        state = STATE.NICOLAS;
     }
     public void spit(){
         intake.setPower(-1);

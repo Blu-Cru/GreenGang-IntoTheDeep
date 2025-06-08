@@ -12,7 +12,6 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
 
     Rev2mDistanceSensor distanceSensor;
     double distance;
-    boolean reading;
     public enum SlotState {
         FULL,
         EMPTY;

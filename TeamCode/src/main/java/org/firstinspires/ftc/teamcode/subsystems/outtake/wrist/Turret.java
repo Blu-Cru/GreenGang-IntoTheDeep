@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
-public class WristRotationServo implements GreenSubsystem, Subsystem {
-    private Servo wristRotServo;
+public class Turret implements GreenSubsystem, Subsystem {
+    private Servo turret;
     private double pos = 0.3;
 
     private enum STATE {
@@ -20,9 +20,9 @@ public class WristRotationServo implements GreenSubsystem, Subsystem {
     private STATE currentState = STATE.INIT;
     private STATE targetState = STATE.INIT;
 
-    public WristRotationServo(HardwareMap hardwareMap) {
-        wristRotServo = hardwareMap.get(Servo.class, "claw wrist");
-        wristRotServo.setPosition(pos);
+    public Turret(HardwareMap hardwareMap) {
+        turret = hardwareMap.get(Servo.class, "claw wrist");
+        turret.setPosition(pos);
     }
 
     public void flip() {
@@ -48,14 +48,14 @@ public class WristRotationServo implements GreenSubsystem, Subsystem {
 
     public void manualRotate(double increment) {
         pos = Range.clip(pos + increment, 0.0, 1.0);
-        wristRotServo.setPosition(pos);
+        turret.setPosition(pos);
         targetState = null;
         currentState = null;
     }
 
     @Override
     public void init() {
-        wristRotServo.setPosition(0.3);
+        turret.setPosition(0.3);
         currentState = STATE.INIT;
         targetState = STATE.INIT;
     }
@@ -65,19 +65,19 @@ public class WristRotationServo implements GreenSubsystem, Subsystem {
         if (targetState != null && currentState != targetState) {
             switch (targetState) {
                 case INIT:
-                    wristRotServo.setPosition(0.3);
+                    turret.setPosition(0.3);
                     break;
                 case FLIPPED:
-                    wristRotServo.setPosition(0.85);
+                    turret.setPosition(0.85);
                     break;
                 case NINETY:
-                    wristRotServo.setPosition(0.55);
+                    turret.setPosition(0.55);
                     break;
             }
             currentState = targetState;
         }
 
-        pos = wristRotServo.getPosition();
+        pos = turret.getPosition();
     }
 
     @Override

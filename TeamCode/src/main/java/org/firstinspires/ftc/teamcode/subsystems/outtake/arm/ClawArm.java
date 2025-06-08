@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo clawArm;
-    private double pos = 0.45; //value of the arm being parallel with vertical slides
     public enum STATE {
         INIT,
         PERP,
@@ -28,20 +27,20 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void intake() { // Transfer
-        clawArm.setPosition(pos - 0.37); //0.08
+        clawArm.setPosition(.9); //0.08
         state = STATE.INIT;
     }
     public void perpendicular() { // scoring samples
-        clawArm.setPosition(pos + 0.2);
+        clawArm.setPosition(.4);
         state = STATE.PERP;
     }
     public void vert(){ //scoring specimen
-        clawArm.setPosition(pos + 0.48);
+        clawArm.setPosition(.4);
         state = STATE.OUTSPEC;
     }
 
     public void inspec() {
-        clawArm.setPosition(pos+0.35); //pos + 0.38
+        clawArm.setPosition(.85); //pos + 0.38
         state = STATE.INSPEC;
     }
 
