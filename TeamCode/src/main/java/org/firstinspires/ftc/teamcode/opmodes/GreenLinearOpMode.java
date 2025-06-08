@@ -35,7 +35,6 @@ public class GreenLinearOpMode extends LinearOpMode {
     public IntakeColorSensor intakeColorSensor;
     public StickyGamepad stickyG1;
     public HorizontalSlides horizontalSlides;
-    public PTO PTO;
     public StickyGamepad stickyG2;
     public Alliance alliance;
     public Drive drive;
@@ -122,7 +121,8 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addDrivetrain() {drivetrain = robot.addDrivetrain();}
     public void addIntake() {intake = robot.addIntake();}
     public void addHang() {
-        PTO = robot.addHang();}
+//        PTO = robot.addHang();
+        }
     public void addIntakeColorSensor() {intakeColorSensor = robot.addIntakeColorSensor();}
     public void addHorizontalSlides() {horizontalSlides = robot.addHorizontalSlides();}
     public void addClawDistance() {distanceSensor = robot.addClawDistanceSensor();}
