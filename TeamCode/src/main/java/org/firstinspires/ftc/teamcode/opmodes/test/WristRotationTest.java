@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.WristRotationServo;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.Turret;
 
 @Config
 @TeleOp(name = "WristRotationTest", group = "test")
@@ -13,7 +13,7 @@ public class WristRotationTest extends LinearOpMode {
     public static double position = 0.3;
     public static String name = "claw wrist";
 
-    private WristRotationServo wristRotServo;
+    private Turret wristRotServo;
     private double manualPower;
 
     private boolean lastA = false;
@@ -21,7 +21,7 @@ public class WristRotationTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        wristRotServo = new WristRotationServo(hardwareMap);
+        wristRotServo = new Turret(hardwareMap);
         wristRotServo.init();
 
         waitForStart();

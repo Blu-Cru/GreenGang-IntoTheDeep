@@ -18,7 +18,6 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCom
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
@@ -105,8 +104,8 @@ public class Main extends GreenLinearOpMode {
 
         hangPow = -gamepad2.right_stick_y;
         if (Math.abs(hangPow) > .1) {
-            hang.setHangPower(hangPow);
-        } else if (!hanging) hang.setHangPower(0);
+            PTO.setHangPower(hangPow);
+        } else if (!hanging) PTO.setHangPower(0);
 
         if (stickyG2.dpad_right) {
             hanging = !hanging;

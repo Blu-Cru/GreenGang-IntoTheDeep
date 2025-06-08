@@ -61,7 +61,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         maxPower=1;
         state = STATE.PID;
         loc = LOC.EXTENDED;
-        pid.setSetPoint(Range.clip(ticks, 0, 2200));
+        pid.setSetPoint(Range.clip(ticks, minpos, maxpos));
     }
     public void updatePID(){
         pid.setPID(hsP, hsI, hsD);
@@ -98,15 +98,14 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public void manualSlide(double input) {
         state = STATE.MANUAL;
         loc = LOC.EXTENDED;
-        pidTo(Range.clip(position + 300.0 * input, 0,2200));
+        pidTo(Range.clip(position + 300.0 * input, minpos,maxpos));
     }
 
     @Override
     public void telemetry(Telemetry tele){
         tele.addData("HS State", state);
-        tele.addData("HS State 2 ", loc);
-        tele.addData("HS PID SP", pid.getSetPoint());
-        tele.addData("Vel", velocity);
+        tele.addData("HS State (extend/retract) ", loc);
+        tele.addData("HS PID Setpoint", pid.getSetPoint());
         tele.addData("Pos ", position);
     }
 
