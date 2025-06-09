@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.NicolasCommand;
+//import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.NicolasCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
@@ -51,7 +51,7 @@ public class Main extends GreenLinearOpMode {
         drive();
         intakeColorSensor.startReading();
 
-        if (intake.state == Intake.STATE.IN || intake.state == Intake.STATE.NICOLAS) {
+        if (intake.state == Intake.STATE.IN) {
             new WristDownCommand().schedule();
         } else {
             wrist.parallel();
@@ -64,8 +64,8 @@ public class Main extends GreenLinearOpMode {
             new IntakeInCommand().schedule();
         } else if (gamepad1.right_trigger > 0.2) {
             new IntakeSpitCommand().schedule();
-        } else if (gamepad1.dpad_down){
-            new NicolasCommand().schedule();
+//        } else if (gamepad1.dpad_down){
+//            new NicolasCommand().schedule();
         }
         else {
             intake.stop();
@@ -102,10 +102,10 @@ public class Main extends GreenLinearOpMode {
         if (Math.abs(hsPow) > .1)
             horizontalSlides.manualSlide(hsPow);
 
-        hangPow = -gamepad2.right_stick_y;
-        if (Math.abs(hangPow) > .1) {
-            PTO.setHangPower(hangPow);
-        } else if (!hanging) PTO.setHangPower(0);
+//        hangPow = -gamepad2.right_stick_y;
+//        if (Math.abs(hangPow) > .1) {
+//            PTO.setHangPower(hangPow);
+//        } else if (!hanging) PTO.setHangPower(0);
 
         if (stickyG2.dpad_right) {
             hanging = !hanging;

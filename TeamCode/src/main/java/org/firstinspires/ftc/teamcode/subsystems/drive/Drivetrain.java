@@ -55,7 +55,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     }
     public void driveToHeading(double x, double y) {
         if (Globals.fieldCentric) {
-            fieldCentricDrive(x,y, Range.clip(pid.getRotate(heading), -drivePower, drivePower));
+            setWeightedDrivePower(new Pose2d(x * pid.calculate(new Vector2d(x,y)).component1(), y * pid.calculate(new Vector2d(x,y)).component2(),  pid.getRotate(heading)));
         } else {
             drive(x,y, Range.clip(pid.getRotate(heading), -drivePower, drivePower));
         }

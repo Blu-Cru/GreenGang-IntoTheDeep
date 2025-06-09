@@ -14,7 +14,7 @@ public class DrivePID implements GreenSubsystem {
     public static double
             kPX = 8, kIX = 0, kDX = 0, // todo: implement this & kY
             kPY = 8, kIY = 0, kDY = 0,
-            kPHeading = 1, kIHeading = 0, kDHeading = 0.16; // tuned
+            kPHeading = 1, kIHeading = 0.09, kDHeading = 0.16; // tuned
 
     public PIDController xController, yController, headingController;
     public DrivePID() {

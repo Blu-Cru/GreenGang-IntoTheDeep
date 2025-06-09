@@ -30,7 +30,7 @@ public class HeadingPIDTuner extends GreenLinearOpMode {
 
         if(gamepad1.right_trigger > 0.2) {
             if(gamepad1.a) {
-                drivetrain.driveToHeading(targetX,targetY,targetHeading);
+                drivetrain.driveToHeading(drivetrain.getPoseEstimate().getX(),drivetrain.getPoseEstimate().getY(),targetHeading);
             }
         } else {
             drivetrain.drive(0,0,0);
