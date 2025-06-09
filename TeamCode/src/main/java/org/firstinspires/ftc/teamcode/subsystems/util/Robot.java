@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.hang.PTO;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
@@ -30,7 +31,7 @@ public class Robot {
     public OuttakeClaw outtakeClaw;
     public VertSlides vs;
     public HorizontalSlides horizontalSlides;
-    public PTO hang;
+    public Hang hang;
     public IntakeWrist wrist;
     public ClawDistanceSensor distanceSensor;
 //    public PinPointLocalizer ppl;
@@ -76,11 +77,6 @@ public class Robot {
         subsystems.add(clawWrist);
         return clawWrist;
     }
-    public PTO addHang(){
-        hang = new PTO(hardwareMap);
-        subsystems.add(hang);
-        return hang;
-    }
     public OuttakeClaw addOuttakeClaw(){
         outtakeClaw = new OuttakeClaw(hardwareMap);
         subsystems.add(outtakeClaw);
@@ -108,6 +104,12 @@ public class Robot {
         vs = new VertSlides(hardwareMap);
         subsystems.add(vs);
         return vs;
+    }
+
+    public Hang addHang() {
+        hang = new Hang(hardwareMap);
+        subsystems.add(hang);
+        return hang;
     }
 
     public IntakeWrist addIntakeWrist() {

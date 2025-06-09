@@ -236,14 +236,17 @@ public class MainFSM extends GreenLinearOpMode {
 
 
 
-//                // HANGING
-//                .state(State.HANG_EXTENDED)
-//                .onEnter(()->{
+                // HANGING
+                .state(State.HANG_EXTENDED)
+                .onEnter(()->{
 //                    new VertSlidesHangAboveCommand().schedule();
-//                })
-//                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
+                })
+                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
 //                    new VertSlidesHangDunkCommand().schedule();
-//                })
+                })
+//                .transition(() -> gamepad1.dpad_up, State.HANG_EXTENDED, ()->{
+//
+//                }
 //
 //                // RETRACTED HANG
 //                .state(State.HANG_EXTENDED)
