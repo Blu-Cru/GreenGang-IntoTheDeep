@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.commands.controls.vs;
+package org.firstinspires.ftc.teamcode.commands.controls.vertSlides;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
-public class VertSlidesHighSpecCommand extends InstantCommand {
-    public VertSlidesHighSpecCommand(){
+public class VertSlidesHighBucketCommand extends InstantCommand {
+    public VertSlidesHighBucketCommand(){
         super(
-                () -> Robot.getInstance().vs.highSpec()
+                () -> Robot.getInstance().vs.highBucket()
         );
         addRequirements((Subsystem) Robot.getInstance().vs);
     }
