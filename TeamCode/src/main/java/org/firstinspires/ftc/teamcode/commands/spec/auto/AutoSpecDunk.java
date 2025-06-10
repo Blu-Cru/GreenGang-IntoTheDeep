@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.commands.spec.auto;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesLowSpecCommand;
 public class AutoSpecDunk extends SequentialCommandGroup{
     //second part of auto speicmen outtake
     public AutoSpecDunk(){

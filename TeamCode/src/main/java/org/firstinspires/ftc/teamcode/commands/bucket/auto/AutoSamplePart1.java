@@ -3,14 +3,12 @@ package org.firstinspires.ftc.teamcode.commands.bucket.auto;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendHalfwayCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesExtendHalfwayCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 /*
 - Lifts slides, deposits piece into low bucket

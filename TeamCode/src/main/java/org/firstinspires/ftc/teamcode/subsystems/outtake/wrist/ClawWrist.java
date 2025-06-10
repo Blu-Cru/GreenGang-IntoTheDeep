@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;

@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;

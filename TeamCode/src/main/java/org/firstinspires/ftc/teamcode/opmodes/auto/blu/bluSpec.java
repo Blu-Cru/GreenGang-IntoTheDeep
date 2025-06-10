@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecDunk;
