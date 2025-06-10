@@ -1,16 +1,21 @@
 package org.firstinspires.ftc.teamcode.subsystems.drive;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.util.Angle;
+import com.arcrobotics.ftclib.controller.PDController;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.arcrobotics.ftclib.geometry.Pose2d;
+//import com.arcrobotics.ftclib.geometry.Pose2d;
+
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 @Config
-public class DrivePID implements GreenSubsystem {
+public class DrivePID {
     public static double
             kPX = 8, kIX = 0, kDX = 0, // todo: implement this & kY
             kPY = 8, kIY = 0, kDY = 0,
@@ -29,19 +34,25 @@ public class DrivePID implements GreenSubsystem {
         return new Vector2d(xPower, yPower);
     }
 
-//todo: fix
-
-//    public Pose2d calculate(Pose2d currentPose) {
-//        double xPower = xController.calculate(currentPose.getX());
-//        double yPower = yController.calculate(currentPose.getY());
-//        double headingPower = getRotate(currentPose.getHeading());
-//        return new Pose2d(xPower, yPower);
-//    }
-
-    public void setTargetPose(Vector2d targetPosition) {
-        xController.setSetPoint(targetPosition.getX());
-        yController.setSetPoint(targetPosition.getY());
+    public Pose2d calculate(Drivetrain dt) {
+        double xPower = xController.calculate(dt.xState.getX());
+        double yPower = yController.calculate(dt.yState.getY());
+        double headingPower = getRotate(dt.heading);
+        return new Pose2d(xPower, yPower, headingPower);
     }
+
+    public double calcX(Vector2d xState) {
+        return xController.calculate(xState.getX());
+    }
+
+    public double calcY(Vector2d yState) {
+        return yController.calculate(yState.getY());
+    }
+
+//    public void setTargetPose(Vector2d targetPosition) {
+//        xController.setSetPoint(targetPosition.getX());
+//        yController.setSetPoint(targetPosition.getY());
+//    }
     public void setTargetPose(Pose2d targetPose) {
         xController.setSetPoint(targetPose.getX());
         yController.setSetPoint(targetPose.getY());
@@ -60,16 +71,23 @@ public class DrivePID implements GreenSubsystem {
         headingController.setSetPoint(targetHeading);
     }
 
-    public void init() {
+    public double getRotate(Drivetrain dt) {
+        return getRotate(dt.headingState);
+    }
+    public double getRotate(Vector2d pv) {
+        return getRotate(pv, new Vector2d(headingController.getSetPoint(), 0));
+    }
+    public double getRotate(Vector2d pv, Vector2d sp) {
+        pv = new Vector2d(Angle.normDelta(pv.getX() - sp.getX()) + sp.getX(), pv.getY());
+        return headingController.calculate(pv.getX(), sp.getX());
     }
 
-    @Override
-    public void telemetry(Telemetry telemetry) {
+
+    public double getRotate(double heading) {
+        if (heading - headingController.getSetPoint() < -Math.PI) heading += 2 * Math.PI;
+        else if (heading - headingController.getSetPoint() > Math.PI) heading -= 2 * Math.PI;
+
+        return Range.clip(headingController.calculate(heading), -1, 1);
     }
 
-    public double getRotate(double currHeading){
-        if (currHeading - headingController.getSetPoint() < -Math.PI) currHeading += 2*Math.PI;
-        else if(currHeading - headingController.getSetPoint() > Math.PI) currHeading -= 2* Math.PI;
-        return Range.clip(headingController.calculate(currHeading), -1,1);
-    }
 }

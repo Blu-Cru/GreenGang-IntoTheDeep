@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCom
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.hang.TiltCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
@@ -176,8 +177,8 @@ public class MainFSM extends GreenLinearOpMode {
                         new OuttakeClawToggleCommand().schedule();
                     }
                 })
-                //SPECIMEN INTAKE
 
+                //SPECIMEN INTAKE
                 .state(State.SPEC_INTAKE)
 
                 .transition(()-> gamepad1.right_bumper, State.SPEC_DUNK,()->{
@@ -195,7 +196,6 @@ public class MainFSM extends GreenLinearOpMode {
                     hsPow = -gamepad2.left_stick_y;
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
-
                 })
                 .transition(()-> gamepad2.dpad_down, State.RETRACTED,()->{
                     new HorizontalSlidesRetractCommand().schedule();
@@ -233,17 +233,15 @@ public class MainFSM extends GreenLinearOpMode {
                 })
 
 
-
-
-
                 // HANGING
                 .state(State.HANG_EXTENDED)
                 .onEnter(()->{
 //                    new VertSlidesHangAboveCommand().schedule();
+                    new TiltCommand().schedule();
                 })
-                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
+//                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
 //                    new VertSlidesHangDunkCommand().schedule();
-                })
+//                })
 //                .transition(() -> gamepad1.dpad_up, State.HANG_EXTENDED, ()->{
 //
 //                }
@@ -269,8 +267,6 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad1.b, State.RETRACTED,()->{
                     new RetractAutoCommand().schedule();
                 })
-
-
 
 //            .transition(()-> gamepad2.right_stick_y, State.HORIZ_EXTENDED{
 //                if (Math.abs(hsPow) > .1)
