@@ -284,44 +284,9 @@ public class MainFSM extends GreenLinearOpMode {
 
     @Override
     public void periodic(){
-        driveControl();
-        drive();
-        y = gamepad1.left_stick_y;
-        x = -gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        //Robot moves slower
-        if(gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        }
-        else {
-            drivetrain.drivePower = 0.6;
-        }
-
+        drivetrain.teleOpDrive(gamepad1);
         sm.update();
         telemetry.update();
     }
-    public void drive() {
-        if (Globals.fieldCentric){
-            if (stickyG1.left_stick_button) {
-                gamepad1.rumble(200);
-                drivetrain.setExternalHeading(Math.toRadians(90));
-            }
-        drivetrain.fieldCentricDrive(x, y, rx);
-        } else {
-                drivetrain.drive(x, y, rx);
-        }
-    }
 
-    public void driveControl() {
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        if (gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        } else {
-            drivetrain.drivePower = 0.6;
-        }
-    }
 }

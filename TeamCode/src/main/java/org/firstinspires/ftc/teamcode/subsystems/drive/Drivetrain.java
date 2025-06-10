@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems.drive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.Subsystem;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -18,6 +19,8 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     State state;
     public Pose2d pose, vel;
     public Vector2d xState, yState, headingState;
+    boolean lastTurning, lastTranslating;
+
 
     enum State {
         IDLE,
@@ -32,6 +35,8 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         xState = new Vector2d();
         yState = new Vector2d();
         headingState = new Vector2d();
+        lastTranslating=false;
+        lastTurning=false;
     }
 
     public void setDrivePower(double drivePower) {
@@ -58,6 +63,43 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
     public void fieldCentricDrive(Pose2d drivePose){
         fieldCentricDrive(drivePose.getX(), drivePose.getY(), drivePose.getHeading());
+    }
+    public void fieldCentricDrive(Vector2d translation, double rotation) {
+        fieldCentricDrive(new Pose2d(translation, rotation));
+    }
+
+    public void teleOpDrive(Gamepad g1) {
+        state = State.IDLE;
+
+        double vert = -g1.left_stick_y;
+        double horiz = g1.left_stick_x;
+        double rotate = -g1.right_stick_x * 0.8;
+
+        boolean translating = Math.abs(vert) > 0.05 || Math.abs(horiz) > 0.05;
+        boolean turning = Math.abs(rotate) > 0.05;
+
+        if(turning) {
+            // drive normally
+            fieldCentricDrive(new Vector2d(horiz, vert).times(drivePower), rotate * drivePower);
+        } else if(lastTurning) {
+            // if just turning, turn to new heading
+            pid.headingController.reset();
+            driveToHeading(horiz, vert);
+        } else if(translating && !lastTranslating) {
+            // if just started translating, drive to current heading
+            driveToHeading(horiz, vert, heading);
+        } else if(!translating) {
+            pid.headingController.reset();
+            pid.setTargetHeading(heading);
+            // if not translating, drive 0,0,0
+            drive(0,0,0);
+        } else {
+            // if translating and not turning, drive to target heading
+            driveToHeading(horiz, vert);
+        }
+
+        lastTurning = turning;
+        lastTranslating = translating;
     }
 
     public void fieldCentricDrive(double x, double y, double rotate){
