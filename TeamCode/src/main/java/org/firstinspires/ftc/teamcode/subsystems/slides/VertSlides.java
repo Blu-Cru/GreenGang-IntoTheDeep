@@ -26,10 +26,10 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     public static int
             init = 0,
-            highBucket = 2800,
-            lowBucket = 1636,
-            highSpec = 1750,
-            highSpecDunk = 950;//1000 prev
+            highBucket = 2010,
+            lowBucket = 1070,
+            highSpec = 465,
+            highSpecDunk = 430;//1000 prev
 
     public enum STATE {
         INIT,

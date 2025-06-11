@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
-    public Servo clawArm;
+    public Servo leftArm, rightArm;
     public enum STATE {
         INIT,
         PERP,
@@ -18,7 +18,9 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public STATE state;
     public ClawArm(HardwareMap hardwareMap) {
-        clawArm = hardwareMap.get(Servo.class, "claw arm");
+        leftArm = hardwareMap.get(Servo.class, "arm left");
+        rightArm = hardwareMap.get(Servo.class, "arm right");
+
         state = STATE.INIT;
     }
 
@@ -27,26 +29,30 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void intake() { // Transfer
-        clawArm.setPosition(.9); //0.08
+        leftArm.setPosition(.9); //0.08
+        rightArm.setPosition(.9);
         state = STATE.INIT;
     }
     public void perpendicular() { // scoring samples
-        clawArm.setPosition(.4);
+        leftArm.setPosition(.7);
+        rightArm.setPosition(.7);
         state = STATE.PERP;
     }
     public void vert(){ //scoring specimen
-        clawArm.setPosition(.4);
+        leftArm.setPosition(.4);
+        rightArm.setPosition(.4);
         state = STATE.OUTSPEC;
     }
 
     public void inspec() {
-        clawArm.setPosition(.85); //pos + 0.38
+        leftArm.setPosition(.85); //pos + 0.38
+        rightArm.setPosition(.85);
         state = STATE.INSPEC;
     }
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("Claw arm pos ", clawArm.getPosition());
+        telemetry.addData("Claw arm pos ", leftArm.getPosition());
         telemetry.addData("Claw arm state ", state);
     }
 

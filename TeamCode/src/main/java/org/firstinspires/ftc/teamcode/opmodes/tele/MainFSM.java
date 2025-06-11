@@ -49,16 +49,16 @@ public class MainFSM extends GreenLinearOpMode {
     StateMachine sm;
     public void initialize(){
         addDrivetrain();
-        addIntake();
+//        addIntake();
         addStickyG1();
         addClawArm();
         addOuttakeClaw();
-        addHorizontalSlides();
-        addIntakeWrist();
+//        addHorizontalSlides();
+//        addIntakeWrist();
         addClawWrist();
         addVertSlides();
         addHang();
-        addIntakeColorSensor();
+//        addIntakeColorSensor();
         sm = new StateMachineBuilder()
 
                 // RETRACTED

@@ -13,7 +13,7 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
     private double parallelPos = 0.35; //value of the intake being parallel with horizontal slides
 
     public IntakeWrist(HardwareMap hardwareMap) {
-        wrist = hardwareMap.get(Servo.class, "wrist");
+        wrist = hardwareMap.get(Servo.class, "intake wrist");
     }
 
     public void init() {

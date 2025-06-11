@@ -19,7 +19,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     public STATE state;
 
     public ClawWrist(HardwareMap hardwareMap) {
-        clawWrist =  hardwareMap.get(Servo.class, "claw wrist");;
+        clawWrist =  hardwareMap.get(Servo.class, "outtake wrist");;
         state = STATE.INIT;
     }
 
