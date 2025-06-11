@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class PTO implements GreenSubsystem, Subsystem {
 
-    Servo pto;
+    Servo pto, pto2;
     State state;
 
     public enum State {
@@ -18,7 +18,8 @@ public class PTO implements GreenSubsystem, Subsystem {
     }
 
     public PTO(HardwareMap hardwareMap){
-        pto = hardwareMap.get(Servo.class, "pto");
+        pto = hardwareMap.get(Servo.class, "pto left");
+        pto2 = hardwareMap.get(Servo.class, "pto right");
         state = State.DISENGAGED;
     }
 
@@ -38,12 +39,14 @@ public class PTO implements GreenSubsystem, Subsystem {
     }
 
     public void engagePTO(){
-        pto.setPosition(1); // may not be 1 double check
+        pto.setPosition(.43); // may not be 1 double check
+        pto2.setPosition(0.527);
         state = State.ENGAGED;
     }
 
     public void disengagePTO(){
-        pto.setPosition(0); // may not be 0 double check
+        pto.setPosition(1); // may not be 0 double check
+        pto2.setPosition(0);
         state = State.DISENGAGED;
     }
 

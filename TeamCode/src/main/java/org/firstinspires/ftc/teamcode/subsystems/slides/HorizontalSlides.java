@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public static double hsP = 0.003, hsI = 0.0004, hsD = 0.00005;
     int minpos = 0;
-    int maxpos = 22000;
+    int maxpos = 575;
     enum STATE {
         IDLE,
         PID,
@@ -58,7 +58,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     }
 
     public void pidTo(double ticks){
-        maxPower=1;
+        maxPower=0.6;
         state = STATE.PID;
         loc = LOC.EXTENDED;
         pid.setSetPoint(Range.clip(ticks, minpos, maxpos));

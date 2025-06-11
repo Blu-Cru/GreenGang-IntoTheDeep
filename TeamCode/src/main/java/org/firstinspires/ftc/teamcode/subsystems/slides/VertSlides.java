@@ -28,8 +28,10 @@ public class VertSlides implements GreenSubsystem, Subsystem {
             init = 0,
             highBucket = 2010,
             lowBucket = 1070,
+            ascent2 = 976,
             highSpec = 465,
             highSpecDunk = 430;//1000 prev
+
 
     public enum STATE {
         INIT,
@@ -38,6 +40,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         HIGH,
         HIGHSPEC,
         LOWSPEC,
+        ASCENT2,
         MANUAL;
     }
 
@@ -156,6 +159,11 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         targetHeight = highSpecDunk;
         pidTo(targetHeight);
         highspec =!highspec;
+    }
+    public void ascent2(){
+        state = STATE.ASCENT2;
+        targetHeight = ascent2;
+        pidTo(targetHeight);
     }
 
 

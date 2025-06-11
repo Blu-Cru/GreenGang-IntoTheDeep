@@ -19,8 +19,8 @@ public class Intake implements GreenSubsystem, Subsystem {
     public STATE state;
 
     public Intake(HardwareMap hardwareMap) {
-        intake = hardwareMap.get(CRServo.class, "leftServo");
-        intake2 = hardwareMap.get(CRServo.class, "rightServo");
+        intake = hardwareMap.get(CRServo.class, "intakeL");
+        intake2 = hardwareMap.get(CRServo.class, "intakeR");
 
         intake.setDirection(Direction.REVERSE);
         intake2.setDirection(Direction.FORWARD);
