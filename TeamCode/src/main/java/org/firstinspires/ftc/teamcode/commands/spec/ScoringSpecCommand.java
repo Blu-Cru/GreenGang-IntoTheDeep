@@ -4,11 +4,9 @@ import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesHighSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesLowSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesLowSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
 /*

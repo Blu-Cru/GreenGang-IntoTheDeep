@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.subsystems.drive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.Subsystem;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -15,11 +15,40 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
     public double drivePower;
     public DrivePID pid;
-    public double heading;
+    public double heading, headingVel;
+    State state;
+    public Pose2d pose, vel;
+    public Vector2d xState, yState, headingState;
+    boolean lastTurning, lastTranslating;
+
+
+    enum State {
+        IDLE,
+        PID
+    }
     public Drivetrain (HardwareMap hardwareMap) {
         super(hardwareMap);
         pid = new DrivePID();
-        drivePower = 0.5; // used to be .5
+        drivePower = 1; // used to be .5
+        state = State.IDLE;
+
+        xState = new Vector2d();
+        yState = new Vector2d();
+        headingState = new Vector2d();
+        lastTranslating=false;
+        lastTurning=false;
+    }
+
+    public void setDrivePower(double drivePower) {
+        drivePower = Globals.correctPower(drivePower);
+    }
+
+    public void updatePID() {
+        pid.updatePID();
+    }
+    public void pidTo(Pose2d targetPose) {
+        state = State.PID;
+        pid.setTargetPose(targetPose);
     }
 
     public void drive(double x, double y, double rotate) {
@@ -30,6 +59,47 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         y = output.getY();
 
         setWeightedDrivePower(new Pose2d(x * drivePower, y * drivePower, rotate * drivePower));
+    }
+
+    public void fieldCentricDrive(Pose2d drivePose){
+        fieldCentricDrive(drivePose.getX(), drivePose.getY(), drivePose.getHeading());
+    }
+    public void fieldCentricDrive(Vector2d translation, double rotation) {
+        fieldCentricDrive(new Pose2d(translation, rotation));
+    }
+
+    public void teleOpDrive(Gamepad g1) {
+        state = State.IDLE;
+
+        double vert = -g1.left_stick_y;
+        double horiz = g1.left_stick_x;
+        double rotate = -g1.right_stick_x * 0.8;
+
+        boolean translating = Math.abs(vert) > 0.05 || Math.abs(horiz) > 0.05;
+        boolean turning = Math.abs(rotate) > 0.05;
+
+        if(turning) {
+            // drive normally
+            fieldCentricDrive(new Vector2d(horiz, vert).times(drivePower), rotate * drivePower);
+        } else if(lastTurning) {
+            // if just turning, turn to new heading
+            pid.headingController.reset();
+            driveToHeading(horiz, vert);
+        } else if(translating && !lastTranslating) {
+            // if just started translating, drive to current heading
+            driveToHeading(horiz, vert, heading);
+        } else if(!translating) {
+            pid.headingController.reset();
+            pid.setTargetHeading(heading);
+            // if not translating, drive 0,0,0
+            drive(0,0,0);
+        } else {
+            // if translating and not turning, drive to target heading
+            driveToHeading(horiz, vert);
+        }
+
+        lastTurning = turning;
+        lastTranslating = translating;
     }
 
     public void fieldCentricDrive(double x, double y, double rotate){
@@ -50,31 +120,42 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         pid.setTargetHeading(targetHeading);
         driveToHeading(x,y);
     }
-    public void updatePID() {
-        pid.headingController.setPID(DrivePID.kPHeading, DrivePID.kIHeading, DrivePID.kDHeading);
-    }
+
     public void driveToHeading(double x, double y) {
-        if (Globals.fieldCentric) {
-            setWeightedDrivePower(new Pose2d(x * pid.calculate(new Vector2d(x,y)).component1(), y * pid.calculate(new Vector2d(x,y)).component2(),  pid.getRotate(heading)));
-        } else {
-            drive(x,y, Range.clip(pid.getRotate(heading), -drivePower, drivePower));
+        if(Globals.fieldCentric) {
+            fieldCentricDrive(x*drivePower, y*drivePower, pid.getRotate(this));
+        }else {
+            drive(x*drivePower, y*drivePower, heading*drivePower);
         }
+    }
+
+    public void setHeading(double heading){
+        this.heading = heading;
     }
 
     @Override
     public void init() {
+
     }
 
-    @Override
     public void telemetry(Telemetry tele) {
         tele.addData("heading current pos ", heading);
         tele.addData("rotate pow ", pid.getRotate(heading));
         tele.addData("drive train power ", drivePower);
     }
 
+    public void idle() {
+        state = State.IDLE;
+        fieldCentricDrive(0,0,0);
+    }
+
     @Override
     public void update() {
         updatePID();
         heading = getRawExternalHeading();
+        pose = getPoseEstimate();
+        xState = new Vector2d(pose.getX(), vel.getX());
+        yState = new Vector2d(pose.getY(), vel.getY());
+        headingState = new Vector2d(heading, headingVel);
     }
 }

@@ -1,30 +1,25 @@
 package org.firstinspires.ftc.teamcode.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart1;
-import org.firstinspires.ftc.teamcode.commands.bucket.auto.AutoSamplePart2;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesExtendHalfwayCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesExtendHalfwayCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 
 @Autonomous(name = "close blue auto", group = "paths")
 public class bluSample extends GreenLinearOpMode {

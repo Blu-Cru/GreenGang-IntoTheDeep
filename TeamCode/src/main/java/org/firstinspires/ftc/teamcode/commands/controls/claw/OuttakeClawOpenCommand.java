@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw;
+package org.firstinspires.ftc.teamcode.commands.controls.claw;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;

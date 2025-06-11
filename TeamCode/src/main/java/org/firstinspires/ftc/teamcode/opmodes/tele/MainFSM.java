@@ -8,20 +8,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawToggleCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawToggleCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.hang.TiltCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 
 @TeleOp(name="Main FSM", group ="TeleOp")
 
@@ -176,8 +176,8 @@ public class MainFSM extends GreenLinearOpMode {
                         new OuttakeClawToggleCommand().schedule();
                     }
                 })
-                //SPECIMEN INTAKE
 
+                //SPECIMEN INTAKE
                 .state(State.SPEC_INTAKE)
 
                 .transition(()-> gamepad1.right_bumper, State.SPEC_DUNK,()->{
@@ -195,7 +195,6 @@ public class MainFSM extends GreenLinearOpMode {
                     hsPow = -gamepad2.left_stick_y;
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
-
                 })
                 .transition(()-> gamepad2.dpad_down, State.RETRACTED,()->{
                     new HorizontalSlidesRetractCommand().schedule();
@@ -233,17 +232,15 @@ public class MainFSM extends GreenLinearOpMode {
                 })
 
 
-
-
-
                 // HANGING
                 .state(State.HANG_EXTENDED)
                 .onEnter(()->{
 //                    new VertSlidesHangAboveCommand().schedule();
+                    new TiltCommand().schedule();
                 })
-                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
+//                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
 //                    new VertSlidesHangDunkCommand().schedule();
-                })
+//                })
 //                .transition(() -> gamepad1.dpad_up, State.HANG_EXTENDED, ()->{
 //
 //                }
@@ -270,8 +267,6 @@ public class MainFSM extends GreenLinearOpMode {
                     new RetractAutoCommand().schedule();
                 })
 
-
-
 //            .transition(()-> gamepad2.right_stick_y, State.HORIZ_EXTENDED{
 //                if (Math.abs(hsPow) > .1)
 //                    horizontalSlides.manualSlide(hsPow);
@@ -288,44 +283,9 @@ public class MainFSM extends GreenLinearOpMode {
 
     @Override
     public void periodic(){
-        driveControl();
-        drive();
-        y = gamepad1.left_stick_y;
-        x = -gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        //Robot moves slower
-        if(gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        }
-        else {
-            drivetrain.drivePower = 0.6;
-        }
-
+        drivetrain.teleOpDrive(gamepad1);
         sm.update();
         telemetry.update();
     }
-    public void drive() {
-        if (Globals.fieldCentric){
-            if (stickyG1.left_stick_button) {
-                gamepad1.rumble(200);
-                drivetrain.setExternalHeading(Math.toRadians(90));
-            }
-        drivetrain.fieldCentricDrive(x, y, rx);
-        } else {
-                drivetrain.drive(x, y, rx);
-        }
-    }
 
-    public void driveControl() {
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        if (gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        } else {
-            drivetrain.drivePower = 0.6;
-        }
-    }
 }

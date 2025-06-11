@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode.opmodes.tele;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.hs.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 //import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.NicolasCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 
 @TeleOp(name="Main", group ="TeleOp")
 public class Main extends GreenLinearOpMode {
@@ -47,8 +46,7 @@ public class Main extends GreenLinearOpMode {
 
     @Override
     public void periodic() {
-        driveControl();
-        drive();
+        drivetrain.teleOpDrive(gamepad1);
         intakeColorSensor.startReading();
 
         if (intake.state == Intake.STATE.IN) {
@@ -138,31 +136,6 @@ public class Main extends GreenLinearOpMode {
         }
     }
 
-    public void drive() {
-        if(Globals.fieldCentric) {
-            if (stickyG1.left_stick_button) {
-                gamepad1.rumble(200);
-                drivetrain.setExternalHeading(Math.toRadians(90));
-            }
-            drivetrain.fieldCentricDrive(x, y, rx);
-        } else {
-            drivetrain.drive(x, y, rx);
-        }
-    }
-
-    public void driveControl() {
-        y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
-
-        if (gamepad1.right_trigger > 0.4) {
-            drivetrain.drivePower = 0.3;
-        } else {
-            drivetrain.drivePower = 0.6;
-        }
-    }
-
-
     public void spit(Alliance alliance) {
         switch (alliance) {
             case RED:
@@ -182,11 +155,3 @@ public class Main extends GreenLinearOpMode {
         }
     }
 }
-
-//        } else if (stickyG2.dpad_down) {
-//            if (horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED) {
-//                new HorizontalSlidesExtendCommand().schedule();
-//            } else {
-//                new RetractAutoCommand().schedule();
-////                new SlidesLiftSlightlyCommand().schedule();
-//            }

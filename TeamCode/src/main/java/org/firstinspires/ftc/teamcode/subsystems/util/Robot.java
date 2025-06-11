@@ -34,7 +34,6 @@ public class Robot {
     public Hang hang;
     public IntakeWrist wrist;
     public ClawDistanceSensor distanceSensor;
-//    public PinPointLocalizer ppl;
 
     ArrayList<GreenSubsystem> subsystems;
 

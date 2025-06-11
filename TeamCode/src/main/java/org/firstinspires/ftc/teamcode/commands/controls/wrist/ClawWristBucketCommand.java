@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.commands.controls.clawWrist;
+package org.firstinspires.ftc.teamcode.commands.controls.wrist;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
-public class ClawWristIntakeCommand extends InstantCommand {
-    public ClawWristIntakeCommand(){
+public class ClawWristBucketCommand extends InstantCommand {
+    public ClawWristBucketCommand(){
         super(
-                () -> Robot.getInstance().clawWrist.init()
+                () -> Robot.getInstance().clawWrist.bucket()
         );
-
         addRequirements((Subsystem) Robot.getInstance().clawWrist);
     }
 }

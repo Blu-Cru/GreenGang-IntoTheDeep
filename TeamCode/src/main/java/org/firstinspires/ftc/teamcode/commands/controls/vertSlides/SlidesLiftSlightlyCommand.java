@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.controls.vs;
+package org.firstinspires.ftc.teamcode.commands.controls.vertSlides;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;

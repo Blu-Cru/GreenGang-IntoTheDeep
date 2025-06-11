@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw;
+package org.firstinspires.ftc.teamcode.commands.controls.claw;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
-public class OuttakeClawToggleCommand extends InstantCommand {
-    public OuttakeClawToggleCommand() {
+public class OuttakeClawCloseCommand extends InstantCommand {
+    public OuttakeClawCloseCommand() {
         super (
                 () -> {
-                    Robot.getInstance().outtakeClaw.toggle();
+                    Robot.getInstance().outtakeClaw.close();
                 }
         );
         addRequirements((Subsystem) Robot.getInstance().outtakeClaw);

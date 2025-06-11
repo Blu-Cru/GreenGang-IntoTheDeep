@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.controls.hs;
+package org.firstinspires.ftc.teamcode.commands.controls.horizSlides;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.Subsystem;

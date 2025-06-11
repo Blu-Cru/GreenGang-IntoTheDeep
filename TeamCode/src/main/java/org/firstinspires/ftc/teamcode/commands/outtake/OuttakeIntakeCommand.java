@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode.commands.outtake;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-import org.firstinspires.ftc.teamcode.commands.controls.clawArm.ClawArmIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.outtakeClaw.OuttakeClawOpenCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vs.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmIntakeCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.wrist.ClawWristIntakeCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawOpenCommand;
 
 /*
 - Claw wrist to transfer pos

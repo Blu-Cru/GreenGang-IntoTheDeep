@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 
 @Config
 @TeleOp(name = "vs PID Tuner", group = "test")
-public class vsPIDtuner extends GreenLinearOpMode {
+public class VertSlidePIDTuner extends GreenLinearOpMode {
     public static double targetHeight;
 
     @Override
