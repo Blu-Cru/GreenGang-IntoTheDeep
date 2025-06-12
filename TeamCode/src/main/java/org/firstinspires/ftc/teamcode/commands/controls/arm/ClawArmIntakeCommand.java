@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 public class ClawArmIntakeCommand extends InstantCommand {
     public ClawArmIntakeCommand(){
         super (
-                () -> Robot.getInstance().clawArm.intake()
+                () -> Robot.getInstance().clawArm.init()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }
