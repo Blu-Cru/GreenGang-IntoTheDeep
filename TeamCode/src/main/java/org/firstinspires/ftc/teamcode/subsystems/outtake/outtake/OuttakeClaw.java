@@ -17,16 +17,16 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
     public STATE state;
 
     public OuttakeClaw(HardwareMap hardwareMap) {
-        outtakeClaw = hardwareMap.get(Servo.class, "outtake claw");
+        outtakeClaw = hardwareMap.get(Servo.class, "claw");
         state = STATE.OPEN;
     }
 
     public void close(){
-        outtakeClaw.setPosition(0.56);
+        outtakeClaw.setPosition(0.5);
         state = STATE.CLOSE;
     }
     public void open() {
-        outtakeClaw.setPosition(.44);
+        outtakeClaw.setPosition(.3);
         state = STATE.OPEN;
     }
     public void toggle(){

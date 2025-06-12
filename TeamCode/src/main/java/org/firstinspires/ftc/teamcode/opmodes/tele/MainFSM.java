@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.tele;
 
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
@@ -8,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
@@ -15,7 +18,9 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeStopC
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawToggleCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.Level2HangCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.hang.TiltCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
@@ -38,6 +43,7 @@ public class MainFSM extends GreenLinearOpMode {
         SPEC_DUNK,
         HORIZ_EXTENDED,
         HANG_EXTENDED,
+        HANGING,
         HANG_RETRACTED,
         SPEC_INTAKE,
         CLAW_OPEN,
@@ -103,6 +109,7 @@ public class MainFSM extends GreenLinearOpMode {
                     }
 
                 })
+                .transition(()-> gamepad1.dpad_down, State.HANG_EXTENDED)
 
 //                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
 //                    new IntakeInCommand().schedule();
@@ -234,10 +241,24 @@ public class MainFSM extends GreenLinearOpMode {
 
                 // HANGING
                 .state(State.HANG_EXTENDED)
+
                 .onEnter(()->{
-//                    new VertSlidesHangAboveCommand().schedule();
-                    new TiltCommand().schedule();
+                    new SequentialCommandGroup(
+                    new Level2HangCommand(),
+                    new TiltCommand()
+                    ).schedule();
                 })
+                .transition(()-> gamepad1.dpad_up, State.HANGING, ()->{
+                })
+                .state(State.HANGING)
+                .onEnter(()->{
+                    new SequentialCommandGroup(
+                        new WaitCommand(1000),
+                        new HorizontalSlidesExtendCommand(),
+                        new VertSlidesStartCommand()
+                    ).schedule();
+                })
+
 //                .transition(() -> gamepad1.dpad_down, State.HANG_RETRACTED, ()->{
 //                    new VertSlidesHangDunkCommand().schedule();
 //                })

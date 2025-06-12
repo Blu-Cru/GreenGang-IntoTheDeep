@@ -21,7 +21,7 @@ public class Turret implements GreenSubsystem, Subsystem {
     private STATE targetState = STATE.INIT;
 
     public Turret(HardwareMap hardwareMap) {
-        turret = hardwareMap.get(Servo.class, "claw wrist");
+        turret = hardwareMap.get(Servo.class, "turret");
         turret.setPosition(pos);
     }
 

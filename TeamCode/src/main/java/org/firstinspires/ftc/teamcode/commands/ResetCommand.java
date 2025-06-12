@@ -25,19 +25,17 @@ public class ResetCommand extends SequentialCommandGroup {
                 new OuttakeClawOpenCommand(),
                 new ClawWristIntakeCommand(),
                 new ClawArmIntakeCommand(),
-                new SlidesLiftSlightlyCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new WristParallelCommand(),
-//                new WaitCommand(500), // 700 before
 //                new OuttakeClawOpenCommand(),
-                new ConditionalCommand(
-                        new WaitCommand(50),//previous 100
-
-                            // false;
-                        new WaitCommand(1000),
-
-                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC
-                ),
+//                new ConditionalCommand(
+//                        new WaitCommand(50),//previous 100
+//
+//                            // false;
+//                        new WaitCommand(1000),
+//
+//                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC
+//                ),
                 new VertSlidesStartCommand() //may need to swap
         );
     }

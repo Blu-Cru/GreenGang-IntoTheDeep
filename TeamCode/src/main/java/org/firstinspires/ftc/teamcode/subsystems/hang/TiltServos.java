@@ -15,15 +15,15 @@ public class TiltServos implements GreenSubsystem, Subsystem {
         rightTilt = hardwareMap.get(Servo.class, "right tilt");
         leftTilt = hardwareMap.get(Servo.class, "left tilt");
     }
-
+    // SERVOS HAVE DIFFERENT POSITIONS, THEYRE FLIPPED
     public void tilt() {
         leftTilt.setPosition(1);
-        rightTilt.setPosition(1);
+        rightTilt.setPosition(0);
     }
 
     public void untilt() {
         leftTilt.setPosition(0);
-        rightTilt.setPosition(0);
+        rightTilt.setPosition(1);
     }
 
     @Override

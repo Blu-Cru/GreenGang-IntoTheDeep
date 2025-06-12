@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
-import static org.firstinspires.ftc.teamcode.opmodes.test.MotionProfileTest.aMax;
-import static org.firstinspires.ftc.teamcode.opmodes.test.MotionProfileTest.vMax;
-
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,9 +9,11 @@ import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 public class ClawArm implements GreenSubsystem, Subsystem {
-    public Servo clawArm;
-    MotionProfile mp;
-
+    public Servo leftArm, rightArm;
+    MotionProfile mp,mp2;
+    double vertPos = 0.45;
+    double aMax = 0.2, vMax = 0.2;
+    double targetPos;
     public enum STATE {
         INIT,
         PERP,
@@ -24,7 +23,9 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public STATE state;
     public ClawArm(HardwareMap hardwareMap) {
-        clawArm = hardwareMap.get(Servo.class, "claw arm");
+        leftArm = hardwareMap.get(Servo.class, "arm left");
+        rightArm = hardwareMap.get(Servo.class, "arm right");
+
         state = STATE.INIT;
     }
 
@@ -33,28 +34,38 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void intake() { // Transfer
-        mp = new MotionProfile(.9, clawArm.getPosition(), vMax*4, aMax*4).start();
+        targetPos = vertPos +0.4;
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+
         state = STATE.INIT;
     }
     public void perpendicular() { // scoring samples
-        mp = new MotionProfile(.4, clawArm.getPosition(), vMax*4, aMax*4).start();
+        targetPos = vertPos +0.15;
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+
         state = STATE.PERP;
     }
     public void vert(){ //scoring specimen
+        targetPos = vertPos -0.25;
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
 
-        mp = new MotionProfile(.4, clawArm.getPosition(), vMax*4, aMax*4).start();
-        clawArm.setPosition(.4);
         state = STATE.OUTSPEC;
     }
 
     public void inspec() {
-        mp = new MotionProfile(.85, clawArm.getPosition(), vMax*4, aMax*4).start();
+        targetPos = vertPos +0.35;
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+
         state = STATE.INSPEC;
     }
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("Claw arm pos ", clawArm.getPosition());
+        telemetry.addData("Claw arm pos ", leftArm.getPosition());
         telemetry.addData("Claw arm state ", state);
     }
 
