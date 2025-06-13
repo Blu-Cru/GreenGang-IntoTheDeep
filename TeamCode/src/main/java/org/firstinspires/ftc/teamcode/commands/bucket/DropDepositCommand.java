@@ -17,11 +17,12 @@ public class DropDepositCommand extends SequentialCommandGroup {
         super(
                 new SequentialCommandGroup(
                         new OuttakeClawOpenCommand(),
-                        new ConditionalCommand(
-                                new ResetCommand(),
-                                new WaitCommand(0),
-                                () -> !Robot.getInstance().distanceSensor.isFull()
-                        )
+                        new ResetCommand()
+//                        new ConditionalCommand(
+//                                new ResetCommand(),
+//                                new WaitCommand(0),
+//                                () -> !Robot.getInstance().distanceSensor.isFull()
+//                        )
                 )
         );
     }

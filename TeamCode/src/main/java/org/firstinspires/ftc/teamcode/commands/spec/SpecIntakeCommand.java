@@ -15,15 +15,15 @@ public class SpecIntakeCommand extends SequentialCommandGroup {
     public SpecIntakeCommand(){
         super(
                 new SequentialCommandGroup(
-                        new SlidesLiftSlightlyCommand(),
                         new ClawArmInSpecCommand(),
                         new ClawWristInSpecCommand(),
                         new OuttakeClawOpenCommand(),
-                        new ConditionalCommand(
-                                new VertSlidesStartCommand(),
-                                new WaitCommand(0),
-                                () -> Robot.getInstance().distanceSensor.isFull()
-                        )
+                        new VertSlidesStartCommand()
+//                        new ConditionalCommand(
+//                                new VertSlidesStartCommand(),
+//                                new WaitCommand(0),
+//                                () -> Robot.getInstance().distanceSensor.isFull()
+//                        )
                 )
         );
     }
