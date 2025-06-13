@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
@@ -31,7 +32,7 @@ public class AutoCommandsTest extends GreenLinearOpMode {
         if (gamepad1.a)
             new AutoSpecOuttake().schedule();
         else if (gamepad1.b)
-            new SpecIntakeCommand().schedule();
+            new ScoringHighBucketCommand().schedule();
         else if (gamepad1.x)
             new SamplePassThroughCommand().schedule();
         else if (gamepad1.right_bumper)

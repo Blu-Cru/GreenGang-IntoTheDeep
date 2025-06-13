@@ -21,11 +21,12 @@ public class ScoringSpecCommand extends SequentialCommandGroup {
                         new VertSlidesLowSpecCommand(),
                         new WaitCommand(300),
                         new OuttakeClawOpenCommand(),
-                        new ConditionalCommand(
-                                new VertSlidesStartCommand(),
-                                new WaitCommand(0),
-                                () -> !Robot.getInstance().distanceSensor.isFull()
-                        )
+                        new VertSlidesStartCommand()
+//                        new ConditionalCommand(
+//                                new VertSlidesStartCommand(),
+//                                new WaitCommand(0),
+//                                () -> !Robot.getInstance().distanceSensor.isFull()
+//                        )
                 )
         );
     }
