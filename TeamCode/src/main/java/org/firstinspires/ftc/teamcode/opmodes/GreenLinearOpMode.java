@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSen
 import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
-import org.firstinspires.ftc.teamcode.subsystems.hang.PTO;
 import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
 import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
@@ -28,7 +27,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Robot robot;
     public VertSlides vs;
     public Drivetrain drivetrain;
-    public ClawArm transfer;
+    public ClawArm clawArm;
     public ClawWrist clawWrist;
     public IntakeWrist wrist;
     public OuttakeClaw outtakeClaw;
@@ -116,7 +115,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     // subsystems
     public void addIntakeWrist() {wrist = robot.addIntakeWrist();}
-    public void addClawArm() {transfer = robot.addTransfer();}
+    public void addClawArm() {
+        clawArm = robot.addTransfer();}
     public void addVertSlides() {vs = robot.addVertSlides();}
     public void addClawWrist() {clawWrist = robot.addClawWrist();}
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
