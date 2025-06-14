@@ -34,7 +34,7 @@ public class ClawDistanceSensor implements GreenSubsystem, Subsystem {
     @Override
     public void update() {
         distance = distanceSensor.getDistance(DistanceUnit.INCH);
-        if(distance < 1.5){
+        if(distance < 2){
             state=SlotState.FULL;
         } else {
             state=SlotState.EMPTY;
