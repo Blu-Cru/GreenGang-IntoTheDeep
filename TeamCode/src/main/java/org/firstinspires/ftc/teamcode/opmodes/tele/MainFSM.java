@@ -19,11 +19,12 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCom
 import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.Level2HangCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.turret.TurretFlipCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.turret.TurretTurn90Command;
 import org.firstinspires.ftc.teamcode.commands.hang.TiltCommand;
-import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
+//import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
@@ -32,15 +33,15 @@ import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 
 public class MainFSM extends GreenLinearOpMode {
     double y, x, rx;
-    double hsPow;
+    double hsPow, wristRotationPow;
     double hangPow;
     boolean hanging;
     enum State{
         RETRACTED,
         LOW_BUCKET,
         HIGH_BUCKET,
-        ABOVE_SPEC,
-        SPEC_DUNK,
+        HIGH_SPEC,
+
         HORIZ_EXTENDED,
         HANG_EXTENDED,
         HANGING,
@@ -49,7 +50,8 @@ public class MainFSM extends GreenLinearOpMode {
         CLAW_OPEN,
         CLAW_CLOSED,
         INTAKING,
-        SPITTING
+        SPITTING,
+        LOW_SPEC
     }
     StateMachine sm;
     public void initialize(){
@@ -64,6 +66,7 @@ public class MainFSM extends GreenLinearOpMode {
         addVertSlides();
         addHang();
         addIntakeColorSensor();
+        addTurret();
         sm = new StateMachineBuilder()
 
                 // RETRACTED
@@ -71,7 +74,6 @@ public class MainFSM extends GreenLinearOpMode {
 
 //                .onEnter(() -> {
 //                    new ResetCommand().schedule();
-//
 //                })
 
                 .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
@@ -79,16 +81,19 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
                     new SpecIntakeCommand().schedule();
                 })
-                .transition(()-> stickyG1.left_bumper, State.ABOVE_SPEC,()->{
-                    new HighSpecCommand().schedule();
+                .transition(()-> stickyG1.left_bumper, State.HIGH_SPEC,()->{
+                    new LowSpecCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.right_bumper, State.HIGH_BUCKET,()->{
+                .transition(()-> stickyG2.right_bumper, State.HIGH_BUCKET,()->{
                     new ScoringHighBucketCommand().schedule();
                 })
 
-                .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
+                .transition(()-> stickyG2.left_bumper, State.LOW_BUCKET,()->{
                     new ScoringLowBucketCommand().schedule();
+                })
+                .transition(()-> stickyG1.right_bumper, State.LOW_BUCKET,()->{
+                    new HighSpecCommand().schedule();
                 })
 //
 //                .transition(()-> gamepad2.right_trigger>0.2, State.SLIDES_LIFTED_SLIGHTLY,()->{
@@ -105,12 +110,12 @@ public class MainFSM extends GreenLinearOpMode {
                 })
                 .transition(()-> gamepad1.dpad_down, State.HANG_EXTENDED)
 
-//                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
-//                    new IntakeInCommand().schedule();
-//                })
-//                .transition(()-> gamepad1.right_trigger > 0.2, State.SPITTING,()-> {
-//                    new IntakeSpitCommand().schedule();
-//                })
+                .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
+                    new IntakeInCommand().schedule();
+                })
+                .transition(()-> gamepad1.right_trigger > 0.2, State.SPITTING,()-> {
+                    new IntakeSpitCommand().schedule();
+                })
 
                 //LOW BUCKET
                 .state(State.LOW_BUCKET)
@@ -125,6 +130,16 @@ public class MainFSM extends GreenLinearOpMode {
                 .loop(()->{
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
+                    }
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
+                        new TurretTurn90Command().schedule();
+                    }
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
+                        new TurretFlipCommand().schedule();
+                    }
+                    wristRotationPow = -gamepad1.left_stick_y;
+                    if (Math.abs(wristRotationPow) > 0.1) {
+                        robot.turret.manualRotate(wristRotationPow / 500);
                     }
                 })
 
@@ -141,22 +156,37 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
                     }
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
+                        new TurretTurn90Command().schedule();
+                    }
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
+                        new TurretFlipCommand().schedule();
+                    }
+
                 })
 
                 //HIGH SPECIMEN
-                .state(State.ABOVE_SPEC)
-                .transition(() -> gamepad1.left_bumper, State.SPEC_DUNK,() ->{
-                    new LowSpecCommand().schedule();
-                })
-                .transition(()-> gamepad2.left_trigger>-0.2, State.RETRACTED,()->{
+                .state(State.HIGH_SPEC)
+                .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
-
-                //SPECIMEN DUNK
-                .state(State.SPEC_DUNK)
-                .transition(()-> gamepad1.left_bumper, State.ABOVE_SPEC,()->{
-                    new HighSpecCommand().schedule();
+                .transition(()-> gamepad1.dpad_up, State.SPEC_INTAKE, ()->{
+                    new SpecIntakeCommand().schedule();
                 })
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
+                        new TurretTurn90Command().schedule();
+                    }
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
+                        new TurretFlipCommand().schedule();
+                    }
+
+                })
+
+                .state(State.LOW_SPEC)
                 .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
@@ -164,16 +194,43 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
                     }
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
+                        new TurretTurn90Command().schedule();
+                    }
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
+                        new TurretFlipCommand().schedule();
+                    }
+
                 })
+                .transition(()-> gamepad1.dpad_up, State.SPEC_INTAKE, ()->{
+                    new SpecIntakeCommand().schedule();
+                })
+
 
                 //SPECIMEN INTAKE
                 .state(State.SPEC_INTAKE)
-                .transition(()-> gamepad1.right_bumper, State.SPEC_DUNK,()->{
+                .transition(()-> stickyG1.left_bumper, State.LOW_SPEC, ()->{
+                    new LowSpecCommand().schedule();
+                })
+                .transition(()-> gamepad1.right_bumper, State.HIGH_SPEC,()->{
                     new HighSpecCommand().schedule();
                 })
                 .transition(()-> gamepad2.left_trigger >0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
+                        new TurretTurn90Command().schedule();
+                    }
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
+                        new TurretFlipCommand().schedule();
+                    }
+
+                })
+
 
                 //INTAKE EXTENDED
                 .state(State.HORIZ_EXTENDED)

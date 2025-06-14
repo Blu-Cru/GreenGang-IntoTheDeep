@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSensor;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.Turret;
 import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
 import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
@@ -33,6 +34,7 @@ public class Robot {
     public HorizontalSlides horizontalSlides;
     public Hang hang;
     public IntakeWrist wrist;
+    public Turret turret;
     public ClawDistanceSensor distanceSensor;
 
     ArrayList<GreenSubsystem> subsystems;
@@ -97,6 +99,11 @@ public class Robot {
         clawArm = new ClawArm(hardwareMap);
         subsystems.add(clawArm);
         return clawArm;
+    }
+    public Turret addTurret(){
+        turret = new Turret(hardwareMap);
+        subsystems.add(turret);
+        return turret;
     }
 
     public VertSlides addVertSlides() {

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems.outtake.arm;
 
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -9,24 +8,29 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
+
 public class ClawArm implements GreenSubsystem, Subsystem {
     public Servo leftArm, rightArm;
     MotionProfile mp,mp2;
+
+
+
     double vertPos = 0.47;
-    double aMax = 2, vMax = 4;
-    double targetPos, middlePos, firstPos;
+    double aMax = 2, vMax = 2;
     public enum STATE {
         INIT,
         OUTSAMPLE,
         INSPEC,
-        OUTSPEC;
+        OUTSPEC,
+        INSPEC_TRANSFER;
     }
 
     public STATE state;
     public ClawArm(HardwareMap hardwareMap) {
         leftArm = hardwareMap.get(Servo.class, "arm left");
         rightArm = hardwareMap.get(Servo.class, "arm right");
-
+        leftArm.setDirection(Servo.Direction.FORWARD);
+        rightArm.setDirection(Servo.Direction.REVERSE);
         state = STATE.INIT;
     }
 
@@ -35,30 +39,31 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void transfer() { // Transfer
-        targetPos = vertPos +0.4;
+        double targetPos = vertPos +0.4;
         mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
         mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
 
         state = STATE.INIT;
     }
-    public void sampleOuttake() { // scoring samples
-        firstPos = vertPos-0.15;
-        middlePos = vertPos;
-        targetPos = vertPos -0.15;
+    public void outSample() { // scoring samples
+        double firstPos = vertPos-0.15;
+        double middlePos = vertPos;
+        double targetPos = vertPos -0.15;
+////        ServoControllerEx controller = (ServoControllerEx) leftArm.getController();
+//        ServoControllerEx controller2 = (ServoControllerEx) rightArm.getController();
+////        controller.setServoPwmEnable(leftArm.getPortNumber());
+//        controller2.setServoPwmEnable(rightArm.getPortNumber());
 //        leftArm.setPosition(targetPos);
-        rightArm.setPosition(firstPos);
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
 
-        rightArm.setPosition(middlePos);
-        rightArm.setPosition(targetPos);
-//        mp = new MotionProfile(vertPos, leftArm.getPosition(), vMax, aMax).start();
-//        mp2 = new MotionProfile(vertPos, rightArm.getPosition(), vMax, aMax).start();
-//        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
-//        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+
+
 
         state = STATE.OUTSAMPLE;
     }
-    public void specOuttake(){ //scoring specimen
-        targetPos = vertPos -0.25;
+    public void outSpec(){ //scoring specimen
+        double targetPos = vertPos -0.24;
         mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
         mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
 
@@ -66,17 +71,26 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
 
     public void inspec() {
-        targetPos = vertPos +0.35;
+        double targetPos = vertPos +0.35;
         mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
         mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
 
         state = STATE.INSPEC;
     }
 
+    public void inspecTransfer(){
+        double targetPos = vertPos+.27;
+        mp = new MotionProfile(targetPos, leftArm.getPosition(), vMax, aMax).start();
+        mp2 = new MotionProfile(targetPos, rightArm.getPosition(), vMax, aMax).start();
+        state=STATE.INSPEC_TRANSFER;
+    }
+
     @Override
     public void telemetry(Telemetry telemetry) {
         telemetry.addData("Claw arm pos ", leftArm.getPosition());
         telemetry.addData("Claw arm state ", state);
+        telemetry.addData("left arm position : ", leftArm.getPosition());
+        telemetry.addData("right arm position:", rightArm.getPosition());
     }
 
     @Override

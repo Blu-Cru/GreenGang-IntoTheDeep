@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSensor;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.Turret;
 import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
@@ -34,6 +35,7 @@ public class GreenLinearOpMode extends LinearOpMode {
     public OuttakeClaw outtakeClaw;
     public Intake intake;
     public Hang hang;
+    public Turret turret;
     public IntakeColorSensor intakeColorSensor;
     public StickyGamepad stickyG1;
     public HorizontalSlides horizontalSlides;
@@ -128,4 +130,5 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addStickyG1() {stickyG1 = new StickyGamepad(gamepad1);}
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
     public void addHang() {hang = robot.addHang();}
+    public void addTurret(){turret = robot.addTurret();}
 }

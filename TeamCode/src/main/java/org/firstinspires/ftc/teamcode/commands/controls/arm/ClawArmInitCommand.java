@@ -5,8 +5,8 @@ import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
-public class ClawArmIntakeCommand extends InstantCommand {
-    public ClawArmIntakeCommand(){
+public class ClawArmInitCommand extends InstantCommand {
+    public ClawArmInitCommand(){
         super (
                 () -> Robot.getInstance().clawArm.init()
         );

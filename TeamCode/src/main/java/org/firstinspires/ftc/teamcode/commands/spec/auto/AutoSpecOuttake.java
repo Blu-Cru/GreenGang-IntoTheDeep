@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmOutSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.wrist.ClawWristOutSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristLowOutSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesHighSpecCommand;
 
 
@@ -16,7 +16,7 @@ public class AutoSpecOuttake extends SequentialCommandGroup {
 
                         new VertSlidesHighSpecCommand(),
                         new WaitCommand(200),
-                        new ClawWristOutSpecCommand(),
+                        new ClawWristLowOutSpecCommand(),
                         new ClawArmOutSpecCommand()
                 )
         );

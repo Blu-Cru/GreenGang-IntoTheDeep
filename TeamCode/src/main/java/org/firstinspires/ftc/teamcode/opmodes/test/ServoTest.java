@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.ServoControllerEx;
 @TeleOp(name = "servo test", group = "test")
 public class ServoTest extends LinearOpMode {
     public static double position = 0.3;
-    public static String name = "wrist";
+    public static String name = "arm left";
     @Override
     public void runOpMode() throws InterruptedException {
         Servo test = hardwareMap.get(Servo.class, name);

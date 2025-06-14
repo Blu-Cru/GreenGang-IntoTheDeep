@@ -12,9 +12,13 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         BUCKET,
-        SPEC
-    }
+        LOWOUTSPEC,
+        HIGHOUTSPEC,
+        INSPECTRANSFER,
+        INSPEC,
 
+    }
+    double amt = 0.20;
     public STATE state;
 
     public ClawWrist(HardwareMap hardwareMap) {
@@ -24,22 +28,31 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(.7);
+        clawWrist.setPosition(.7-amt);
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(.42);
+        clawWrist.setPosition(.42-amt);
         state = STATE.BUCKET;
     }
-
+    public void inspecTransfer(){
+        clawWrist.setPosition(0.85-amt);
+        state = STATE.INSPECTRANSFER;
+    }
     public void inspec() {
-        clawWrist.setPosition(0.45);
+
+        clawWrist.setPosition(0.43- amt);
+        state = STATE.INSPEC;
     }
 
-    public void Spec() {
-        clawWrist.setPosition(0.29);
-        state = STATE.SPEC;
+    public void lowOutspec() {
+        clawWrist.setPosition(0.29-amt);
+        state = STATE.LOWOUTSPEC;
+    }
+    public void highOutSpec(){
+        clawWrist.setPosition(0.39+amt);//0.52
+        state = STATE.HIGHOUTSPEC;
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.wrist.ClawWristBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.clawWrist.ClawWristBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesHighBucketCommand;
 /*
