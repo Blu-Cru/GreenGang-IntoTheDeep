@@ -16,16 +16,12 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
     public double drivePower;
     PinpointLocalizer ppl;
-
-
     public DrivePID pid;
     public double heading, headingVel;
     State state;
     public Pose2d pose, vel;
     public Vector2d xState, yState, headingState;
     boolean lastTurning, lastTranslating;
-
-
     enum State {
         IDLE,
         PID
@@ -42,7 +38,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         lastTranslating=false;
         lastTurning=false;
         ppl = new PinpointLocalizer(hardwareMap);
-         setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
+        setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
         setLocalizer(ppl);
     }
 
