@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.subsystems.util.SmoothServo;
 
 @Config
 public abstract class ArmServo extends SmoothServo {
-    public static double aMax = 2.0, vMax=3.0;
+    public static double aMax = 5.0, vMax=4.0;
     public ArmServo(String name) {super(name, vMax, aMax );}
 
     void setAngle(double deg) {
