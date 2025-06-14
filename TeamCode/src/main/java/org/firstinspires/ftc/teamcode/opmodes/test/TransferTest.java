@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
 
+@Disabled
 @TeleOp(name = "claw test",group = "test")
 public class TransferTest extends GreenLinearOpMode {
 
@@ -21,7 +22,7 @@ public class TransferTest extends GreenLinearOpMode {
                 //claw.clawArmSetPos(0); //TODO: Test on FTC Dash to get correct num
             }
 
-            transfer.telemetry(telemetry);
+            clawArm.telemetry(telemetry);
     }
 }
 
