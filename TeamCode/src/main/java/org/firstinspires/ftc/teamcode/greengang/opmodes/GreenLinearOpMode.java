@@ -1,34 +1,34 @@
-package org.firstinspires.ftc.teamcode.greengang.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.hang.Hang;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.outtake.ClawDistanceSensor;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.wrist.Turret;
-import org.firstinspires.ftc.teamcode.greengang.common.util.Alliance;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.drive.Drive;
-import org.firstinspires.ftc.teamcode.greengang.common.util.StickyGamepad;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.IntakeColorSensor;
-import org.firstinspires.ftc.teamcode.greengang.common.util.Globals;
-import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.IntakeWrist;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.arm.ClawArm;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.wrist.ClawWrist;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.outtake.OuttakeClaw;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.slides.HorizontalSlides;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.slides.VertSlides;
+import org.firstinspires.ftc.teamcode.subsystems.hang.Hang;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.ClawDistanceSensor;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.Turret;
+import org.firstinspires.ftc.teamcode.subsystems.util.Alliance;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.gamepad.StickyGamepad;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeColorSensor;
+import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
+import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.intake.IntakeWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.wrist.ClawWrist;
+import org.firstinspires.ftc.teamcode.subsystems.outtake.outtake.OuttakeClaw;
+import org.firstinspires.ftc.teamcode.subsystems.slides.HorizontalSlides;
+import org.firstinspires.ftc.teamcode.subsystems.slides.VertSlides;
 
 public class GreenLinearOpMode extends LinearOpMode {
 
     public Robot robot;
     public VertSlides vs;
     public Drivetrain drivetrain;
-    public ClawArm transfer;
+    public ClawArm clawArm;
     public ClawWrist clawWrist;
     public IntakeWrist wrist;
     public OuttakeClaw outtakeClaw;
@@ -46,6 +46,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     @Override
     public final void runOpMode() throws InterruptedException {
+        Globals.hwMap = hardwareMap;
+        Globals.tele = telemetry;
         CommandScheduler.getInstance().cancelAll();
 
         stickyG1 = new StickyGamepad(gamepad1);
@@ -117,7 +119,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     // subsystems
     public void addIntakeWrist() {wrist = robot.addIntakeWrist();}
-    public void addClawArm() {transfer = robot.addTransfer();}
+    public void addClawArm() {
+        clawArm = robot.addTransfer();}
     public void addVertSlides() {vs = robot.addVertSlides();}
     public void addClawWrist() {clawWrist = robot.addClawWrist();}
     public void addOuttakeClaw() {outtakeClaw = robot.addOuttakeClaw();}
