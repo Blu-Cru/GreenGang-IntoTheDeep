@@ -8,12 +8,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.TwoWheelTrackingLocalizer;
 import org.firstinspires.ftc.teamcode.subsystems.util.Globals;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
 
 public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Subsystem {
 
     public double drivePower;
+    PinpointLocalizer ppl;
+
+
     public DrivePID pid;
     public double heading, headingVel;
     State state;
@@ -37,6 +41,9 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         headingState = new Vector2d();
         lastTranslating=false;
         lastTurning=false;
+        ppl = new PinpointLocalizer(hardwareMap);
+         setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
+        setLocalizer(ppl);
     }
 
     public void setDrivePower(double drivePower) {
@@ -167,5 +174,6 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
             yState = new Vector2d(0,0);
         }
         headingState = new Vector2d(heading, headingVel);
+        ppl.update();
     }
 }
