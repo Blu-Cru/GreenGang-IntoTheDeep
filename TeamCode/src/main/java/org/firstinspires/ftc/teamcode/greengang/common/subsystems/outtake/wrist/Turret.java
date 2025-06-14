@@ -48,7 +48,7 @@ public class Turret implements GreenSubsystem, Subsystem {
     }
 
     public void manualRotate(double increment) {
-        pos = Range.clip(pos + increment, 0.0, 1.0);
+        pos = Range.clip(pos + increment, 0.3, 0.85);
         turret.setPosition(pos);
         targetState = null;
         currentState = null;

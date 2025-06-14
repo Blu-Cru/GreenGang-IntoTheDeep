@@ -29,6 +29,12 @@ public class SmoothServo extends GreenServo {
 
     public void init() {
         super.init();
+        // Initialize currentPosition to the actual servo position at startup
+        try {
+            currentPosition = super.getPosition();
+        } catch (Exception e) {
+            currentPosition = 0.0;
+        }
     }
 
     public void read() {

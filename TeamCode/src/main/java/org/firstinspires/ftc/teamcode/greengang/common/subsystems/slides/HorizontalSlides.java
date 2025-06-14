@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.GreenSubsystem;
 
 @Config
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
-    public static double hsP = 0.003, hsI = 0.0004, hsD = 0.00005;
+    public static double hsP = 0.005, hsI = 0, hsD = 0.0001;
     int minpos = 0;
     int maxpos = 575;
     enum STATE {
@@ -99,7 +99,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public void manualSlide(double input) {
         state = STATE.MANUAL;
         loc = LOC.EXTENDED;
-        pidTo(Range.clip(position + 300.0 * input, minpos,maxpos));
+        pidTo(Range.clip(position + 100 * input, minpos,maxpos));
     }
 
     @Override
