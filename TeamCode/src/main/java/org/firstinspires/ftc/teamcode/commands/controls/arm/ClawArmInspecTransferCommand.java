@@ -5,10 +5,10 @@ import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.subsystems.util.Robot;
 
-public class ClawArmBucketCommand extends InstantCommand {
-    public ClawArmBucketCommand(){
+public class ClawArmInspecTransferCommand extends InstantCommand {
+    public ClawArmInspecTransferCommand(){
         super(
-                () -> Robot.getInstance().clawArm.outSample()
+                () -> Robot.getInstance().clawArm.inspecTransfer()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }

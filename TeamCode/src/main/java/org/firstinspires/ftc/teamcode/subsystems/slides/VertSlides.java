@@ -18,7 +18,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public DcMotor motorLeft, motorRight;
     private final PIDController pid;
     public double targetHeight;
-    public static double vsP = 0.0085, vsI = 0.00001, vsD = 0.00001;
+    public static double vsP = 0.0088, vsI = 0.00004, vsD = 0.00001;
     private double motorPower;
     public boolean highspec;
     double lowBar=0;
@@ -26,11 +26,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     public static int
             init = 0,
-            highBucket = 2010,
+            highBucket = 2120,
             lowBucket = 1070,
             ascent2 = 976,
-            highSpec = 465,
-            highSpecDunk = 430;//1000 prev
+
+            lowSpec = 465,
+            highSpec = 470; //todo: change
 
 
     public enum STATE {
@@ -156,7 +157,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
     public void lowSpec() {
         state = STATE.LOWSPEC;
-        targetHeight = highSpecDunk;
+        targetHeight = lowSpec;
         pidTo(targetHeight);
         highspec =!highspec;
     }

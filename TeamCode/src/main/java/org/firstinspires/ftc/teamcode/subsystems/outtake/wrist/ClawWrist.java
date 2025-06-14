@@ -6,20 +6,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;
-    double aMax = 2, vMax = 4;
-
     public enum STATE {
         INIT,
         BUCKET,
-        SPEC
-    }
+        LOWOUTSPEC,
+        HIGHOUTSPEC,
+        INSPECTRANSFER,
+        INSPEC,
 
+    }
+    double amt = 0.20;
     public STATE state;
-    MotionProfile mp;
 
     public ClawWrist(HardwareMap hardwareMap) {
         clawWrist =  hardwareMap.get(Servo.class, "outtake wrist");;
@@ -28,22 +28,31 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        mp = new MotionProfile(0.7, clawWrist.getPosition(),vMax,aMax ).start();
+        clawWrist.setPosition(.7-amt);
         state = STATE.INIT;
     }
 
     public void bucket (){
-        mp = new MotionProfile(0.42, clawWrist.getPosition(),vMax,aMax ).start();
+        clawWrist.setPosition(.42-amt);
         state = STATE.BUCKET;
     }
-
+    public void inspecTransfer(){
+        clawWrist.setPosition(0.85-amt);
+        state = STATE.INSPECTRANSFER;
+    }
     public void inspec() {
-        clawWrist.setPosition(0.45);
+
+        clawWrist.setPosition(0.43- amt);
+        state = STATE.INSPEC;
     }
 
-    public void Spec() {
-        mp = new MotionProfile(0.29, clawWrist.getPosition(),vMax,aMax ).start();
-        state = STATE.SPEC;
+    public void lowOutspec() {
+        clawWrist.setPosition(0.29-amt);
+        state = STATE.LOWOUTSPEC;
+    }
+    public void highOutSpec(){
+        clawWrist.setPosition(0.39+amt);//0.52
+        state = STATE.HIGHOUTSPEC;
     }
 
     @Override

@@ -9,10 +9,11 @@ import org.firstinspires.ftc.teamcode.commands.controls.intakeWrist.WristDownCom
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesLowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.commands.intake.RetractAutoCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.HighSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
+//import org.firstinspires.ftc.teamcode.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.controls.intakeBucket.IntakeSpitCommand;
@@ -71,7 +72,7 @@ public class Main extends GreenLinearOpMode {
 
         if (stickyG1.left_bumper) {
             if (vs.highspec){
-                new LowSpecCommand().schedule();
+                new VertSlidesLowSpecCommand().schedule();
             } else {
                 new HighSpecCommand().schedule();
             }
