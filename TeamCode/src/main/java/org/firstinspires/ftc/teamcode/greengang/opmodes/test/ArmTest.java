@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.greengang.opmodes.test;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmInSpecCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmInitCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmOutSpecCommand;
-import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInSpecCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInitCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmOutSpecCommand;
+import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;

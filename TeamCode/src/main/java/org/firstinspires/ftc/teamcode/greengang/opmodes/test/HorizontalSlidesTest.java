@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.greengang.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 
 @TeleOp(name = "hs test", group = "test")
 public class HorizontalSlidesTest extends GreenLinearOpMode {
