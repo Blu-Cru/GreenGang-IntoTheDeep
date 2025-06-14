@@ -14,6 +14,6 @@ public class LeftArmServo extends ArmServo {
     @Override
     double getTicksPerDeg() {
         // TODO: find tick delta for 90 degrees REMEMBER THIS IS +/-   ticks of 90 degrees - ticks of 0 degrees / 90 degrees
-        return -0.28 / 90.0;
+        return -0.275 / 90.0;
     }
 }

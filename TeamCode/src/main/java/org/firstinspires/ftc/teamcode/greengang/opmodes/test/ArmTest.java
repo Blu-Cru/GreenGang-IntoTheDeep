@@ -23,13 +23,13 @@ public class ArmTest extends GreenLinearOpMode {
             clawArm.transfer();
         }
         else if(stickyG1.b){
-            clawArm.outSample();
+            clawArm.sampleOuttake();
         }
         else if(stickyG1.x){
-            clawArm.outSpec();
+            clawArm.specOuttake();
         }
         else if(stickyG1.y) {
-            clawArm.inspec();
+            clawArm.inSpec();
         }
 
 

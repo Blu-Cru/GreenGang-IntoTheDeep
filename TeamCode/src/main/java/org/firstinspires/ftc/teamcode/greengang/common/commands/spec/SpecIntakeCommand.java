@@ -26,8 +26,14 @@ public class SpecIntakeCommand extends SequentialCommandGroup {
                         new ClawWristInSpecCommand(),
                         new ClawArmInSpecCommand(),
                         new TurretInitCommand(),
-                        new OuttakeClawOpenCommand()
-//                        new VertSlidesStartCommand()
+                        new OuttakeClawOpenCommand(),
+                        new ConditionalCommand(
+                                new SequentialCommandGroup(
+                                        new OuttakeClawLooseCloseCommand()
+                                ),
+                                new WaitCommand(0),
+                                ()-> Robot.getInstance().distanceSensor.isFull()
+                        )
                 )
         );
     }

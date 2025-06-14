@@ -66,13 +66,16 @@ public class Turret implements GreenSubsystem, Subsystem {
         if (targetState != null && currentState != targetState) {
             switch (targetState) {
                 case INIT:
-                    mp = new MotionProfile(0.3, pos, vMax, aMax).start();
+                    turret.setPosition(0.3);
+//                    mp = new MotionProfile(0.3, pos, vMax, aMax).start();
                     break;
                 case FLIPPED:
-                    mp = new MotionProfile(.85, pos,vMax,aMax).start();
+                    turret.setPosition(.85);
+//                    mp = new MotionProfile(.85, pos,vMax,aMax).start();
                     break;
                 case NINETY:
-                    mp = new MotionProfile(.55, pos, vMax,aMax).start();
+                    turret.setPosition(.55);
+//                    mp = new MotionProfile(.55, pos, vMax,aMax).start();
                     break;
             }
             currentState = targetState;

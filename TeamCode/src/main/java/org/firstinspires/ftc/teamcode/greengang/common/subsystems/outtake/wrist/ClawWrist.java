@@ -20,7 +20,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
         INSPEC,
 
     }
-    double parallel = .3;
+    double parallel = .42;
     public STATE state;
     double vMax,aMax=4;
 
@@ -31,29 +31,35 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        mp=new MotionProfile(parallel+.2, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel + 0.25);
+//        mp=new MotionProfile(parallel+.2, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INIT;
     }
 
     public void bucket (){
-        mp=new MotionProfile(parallel-.1, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel - 0.1);
+//        mp=new MotionProfile(parallel-.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.BUCKET;
     }
     public void inspecTransfer(){
-        mp=new MotionProfile(parallel+.4, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel + 0.4);
+//        mp=new MotionProfile(parallel+.4, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INSPECTRANSFER;
     }
     public void inspec() {
-        mp=new MotionProfile(parallel-.03, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel-0.03);
+//        mp=new MotionProfile(parallel-.03, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INSPEC;
     }
 
     public void lowOutspec() {
-        mp=new MotionProfile(.29- parallel, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel); // not tuned
+//        mp=new MotionProfile(.29- parallel, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.LOWOUTSPEC;
     }
     public void highOutSpec(){
-        mp=new MotionProfile(parallel+.1, clawWrist.getPosition(), vMax,aMax).start();
+        clawWrist.setPosition(parallel+0.2);
+//        mp=new MotionProfile(parallel+.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.HIGHOUTSPEC;
     }
 

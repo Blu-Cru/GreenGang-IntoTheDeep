@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.greengang.common.commands.spec;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmOutSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
@@ -11,13 +12,12 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class HighSpecCommand extends SequentialCommandGroup {
     public HighSpecCommand(){
         super (
-                new SequentialCommandGroup(
-                        new VertSlidesHighSpecCommand(),
-                        new OuttakeClawCloseCommand(),
-                        new ClawWristHighOutSpecCommand(),
-                        new ClawArmOutSpecCommand(),
-                        new TurretFlipCommand()
-                )
+                new VertSlidesHighSpecCommand(),
+                new WaitCommand(300),
+                new ClawWristHighOutSpecCommand(),
+                new ClawArmOutSpecCommand(),
+                new OuttakeClawCloseCommand(),
+                new TurretFlipCommand()
         );
     }
 }

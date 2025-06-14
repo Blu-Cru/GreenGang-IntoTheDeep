@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 public class ClawArmBucketCommand extends InstantCommand {
     public ClawArmBucketCommand(){
         super(
-                () -> Robot.getInstance().clawArm.outSample()
+                () -> Robot.getInstance().clawArm.sampleOuttake()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }

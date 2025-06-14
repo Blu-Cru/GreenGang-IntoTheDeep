@@ -51,14 +51,15 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motor.setPower(0);
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pidTo(0);
         loc = LOC.RETRACTED;
     }
 
     public void pidTo(double ticks){
-        maxPower=0.6;
+        maxPower=0.4;
         state = STATE.PID;
         loc = LOC.EXTENDED;
         pid.setSetPoint(Range.clip(ticks, minpos, maxpos));

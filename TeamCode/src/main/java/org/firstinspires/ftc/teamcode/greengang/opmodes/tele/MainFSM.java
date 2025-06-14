@@ -197,13 +197,13 @@ public class MainFSM extends GreenLinearOpMode {
 
                 //SPECIMEN INTAKE
                 .state(State.SPEC_INTAKE)
-                .transition(()-> distanceSensor.isFull(), State.HIGH_SPEC, ()->{
-                    new SequentialCommandGroup(
-                            new OuttakeClawLooseCloseCommand(),
-                            new WaitCommand(100),
-                            new HighSpecCommand()
-                    ).schedule();
-                })
+//                .transition(()-> distanceSensor.isFull(), State.HIGH_SPEC, ()->{
+//                    new SequentialCommandGroup(
+//                            new OuttakeClawLooseCloseCommand(),
+//                            new WaitCommand(100),
+//                            new HighSpecCommand()
+//                    ).schedule();
+//                })
 
                 .transition(()-> stickyG1.left_bumper, State.LOW_SPEC, ()->{
                     new LowSpecCommand().schedule();
