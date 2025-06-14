@@ -9,16 +9,16 @@ import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 public class ClawDistanceSensorTest extends GreenLinearOpMode {
     @Override
     public void periodic() {
-//        ClawDistanceSensor.
+
     }
 
     @Override
     public void initialize() {
-        addIntakeColorSensor();
+        addClawDistanceSensor();
     }
 
     public void telemetry() {
-        intakeColorSensor.telemetry(telemetry);
+        distanceSensor.telemetry(telemetry);
     }
 
 }

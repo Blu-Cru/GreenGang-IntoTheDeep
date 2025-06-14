@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 public class ClawArmInspecTransferCommand extends InstantCommand {
     public ClawArmInspecTransferCommand(){
         super(
-                () -> Robot.getInstance().clawArm.inSpecTransfer()
+                () -> Robot.getInstance().clawArm.inspecTransfer()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }

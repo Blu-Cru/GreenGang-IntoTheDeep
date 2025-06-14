@@ -11,6 +11,7 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
     Servo outtakeClaw;
     public enum STATE {
         OPEN,
+        LOOSE_CLOSE,
         CLOSE;
     }
 
@@ -28,6 +29,18 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
     public void open() {
         outtakeClaw.setPosition(.3);
         state = STATE.OPEN;
+    }
+
+    public void looseClose(){
+        outtakeClaw.setPosition(.45);
+        state = STATE.LOOSE_CLOSE;
+    }
+    public void toggleLoose() {
+        if (state == STATE.LOOSE_CLOSE) {
+            open();
+        } else if (state == STATE.OPEN) {
+            looseClose();
+        }
     }
     public void toggle(){
         if(state == STATE.OPEN){

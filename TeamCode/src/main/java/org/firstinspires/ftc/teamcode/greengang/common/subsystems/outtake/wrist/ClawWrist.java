@@ -20,7 +20,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
         INSPEC,
 
     }
-    double amt = 0.20;
+    double parallel = .3;
     public STATE state;
     double vMax,aMax=4;
 
@@ -31,29 +31,29 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        mp=new MotionProfile(.7-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(parallel+.2, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INIT;
     }
 
     public void bucket (){
-        mp=new MotionProfile(.42-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(parallel-.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.BUCKET;
     }
     public void inspecTransfer(){
-        mp=new MotionProfile(.85-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(parallel+.4, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INSPECTRANSFER;
     }
     public void inspec() {
-        mp=new MotionProfile(.43-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(parallel-.03, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INSPEC;
     }
 
     public void lowOutspec() {
-        mp=new MotionProfile(.29-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(.29- parallel, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.LOWOUTSPEC;
     }
     public void highOutSpec(){
-        mp=new MotionProfile(.39-amt, clawWrist.getPosition(), vMax,aMax).start();
+        mp=new MotionProfile(parallel+.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.HIGHOUTSPEC;
     }
 

@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInspecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
@@ -25,18 +26,8 @@ public class SpecIntakeCommand extends SequentialCommandGroup {
                         new ClawWristInSpecCommand(),
                         new ClawArmInSpecCommand(),
                         new TurretInitCommand(),
-                        new OuttakeClawOpenCommand(),
-                        new VertSlidesStartCommand(),
-
-                        new ConditionalCommand(
-                                new SequentialCommandGroup(
-                                        new OuttakeClawCloseCommand(),
-                                        new VertSlidesStartCommand(),
-                                        new HighSpecCommand()
-                                ),//true
-                                new WaitCommand(0),//false
-                                () -> Robot.getInstance().distanceSensor.isFull()
-                        )
+                        new OuttakeClawOpenCommand()
+//                        new VertSlidesStartCommand()
                 )
         );
     }

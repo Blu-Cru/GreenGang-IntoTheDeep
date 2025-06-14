@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode.greengang.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.ResetCommand;
-import org.firstinspires.ftc.teamcode.commands.bucket.high.ScoringHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.controls.vertSlides.VertSlidesHighBucketCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.SpecIntakeCommand;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.AutoSpecOuttake;
-import org.firstinspires.ftc.teamcode.commands.spec.auto.SamplePassThroughCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesHighBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.auto.AutoSpecOuttake;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.auto.SamplePassThroughCommand;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 
 @TeleOp(name = "auto commands test", group = "test")

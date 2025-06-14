@@ -29,7 +29,6 @@ public class VertSlides implements GreenSubsystem, Subsystem {
             highBucket = 2120,
             lowBucket = 1070,
             ascent2 = 976,
-
             lowSpec = 465,
             highSpec = 470; //todo: change
 
@@ -58,14 +57,14 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         motorLeft.setPower(0); // check what power it should be
         motorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRight.setPower(0); // check what power it should be
         motorRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 //        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pidTo(0);
@@ -85,13 +84,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public void update() {
         switch (type) {
             case PID:
-                double vsCurrPosLeft = this.getVScurrRightPos();
+                double vsCurrPosLeft = this.getVScurrLeftPos();
                 motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 1);
                 setPow(motorPower);
                 break;
             case IDLE:
-                motorLeft.setPower(0);
-                motorRight.setPower(0);
+                setPow(0);
                 break;
         }
 
@@ -99,14 +97,15 @@ public class VertSlides implements GreenSubsystem, Subsystem {
 
     public void stopVSrotate() {
         motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeft.setPower(0);
-
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRight.setPower(0);
+        setPow(0);
     }
 
     public double getVScurrRightPos() {
         return -motorRight.getCurrentPosition();
+    }
+    public double getVScurrLeftPos() {
+        return motorLeft.getCurrentPosition();
     }
     public void pidTo(double targetPos) {
         type = TYPE.PID;
@@ -166,7 +165,6 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         targetHeight = ascent2;
         pidTo(targetHeight);
     }
-
 
     public void lowBar(){
         pidTo(lowBar);

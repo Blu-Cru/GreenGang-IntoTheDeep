@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.opmodes.test;
+package org.firstinspires.ftc.teamcode.greengang.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 
 @Disabled
 @TeleOp(name = "claw test",group = "test")

@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 public class ClawArmInSpecCommand extends InstantCommand {
     public ClawArmInSpecCommand(){
         super (
-                () -> Robot.getInstance().clawArm.inSpec()
+                () -> Robot.getInstance().clawArm.inspec()
         );
         addRequirements((Subsystem) Robot.getInstance().clawArm);
     }
