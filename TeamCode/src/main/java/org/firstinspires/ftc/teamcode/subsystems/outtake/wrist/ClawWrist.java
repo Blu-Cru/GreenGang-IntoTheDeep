@@ -6,9 +6,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 public class ClawWrist implements GreenSubsystem, Subsystem {
     Servo clawWrist;
+    double aMax = 2, vMax = 4;
+
     public enum STATE {
         INIT,
         BUCKET,
@@ -16,6 +19,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     }
 
     public STATE state;
+    MotionProfile mp;
 
     public ClawWrist(HardwareMap hardwareMap) {
         clawWrist =  hardwareMap.get(Servo.class, "outtake wrist");;
@@ -24,12 +28,12 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(.7);
+        mp = new MotionProfile(0.7, clawWrist.getPosition(),vMax,aMax ).start();
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(.42);
+        mp = new MotionProfile(0.42, clawWrist.getPosition(),vMax,aMax ).start();
         state = STATE.BUCKET;
     }
 
@@ -38,7 +42,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
     }
 
     public void Spec() {
-        clawWrist.setPosition(0.29);
+        mp = new MotionProfile(0.29, clawWrist.getPosition(),vMax,aMax ).start();
         state = STATE.SPEC;
     }
 
