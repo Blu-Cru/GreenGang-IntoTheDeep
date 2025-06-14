@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.util.GreenSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.util.MotionProfile;
 
 import java.util.List;
 
@@ -16,7 +15,9 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         INIT,
         OUTSAMPLE,
         INSPEC,
+        INSPECTRANSFER,
         OUTSPEC;
+
     }
 
     public STATE state;
@@ -31,7 +32,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public void transfer() { // Transfer
 //        targetPos = vertPos +0.4;
-        setAngle(-45.0);
+        setAngle(-35.0);
 
         state = STATE.INIT;
     }
@@ -42,10 +43,13 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
     public void specOuttake(){ //scoring specimen
 //        targetPos = vertPos -0.25;
-        setAngle(135.0);
+        setAngle(150.0);
         state = STATE.OUTSPEC;
     }
-
+    public void inSpecTransfer(){
+        setAngle(30);
+        state=STATE.INSPECTRANSFER;
+    }
     public void inSpec() {
 //        targetPos = vertPos +0.35;
         setAngle(15.0);

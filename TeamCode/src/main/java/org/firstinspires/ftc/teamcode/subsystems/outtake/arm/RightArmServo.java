@@ -8,12 +8,12 @@ public class RightArmServo extends ArmServo{
     @Override
     double getVerticalPos() {
         // TODO: Get the vertical position of the arm
-        return 0.47;
+        return 0.485;
     }
 
     @Override
     double getTicksPerDeg() {
-        // TODO: find tick delta for 90 degrees REMEMBER THIS IS +/-
-        return 1.0 / 255.0;
+        // TODO: find tick delta for 90 degrees REMEMBER THIS IS +/-   ticks of 90 degrees - ticks of 0 degrees / 90 degrees
+        return 0.28 / 90.0;
     }
 }

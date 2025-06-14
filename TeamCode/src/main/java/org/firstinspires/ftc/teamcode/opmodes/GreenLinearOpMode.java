@@ -46,6 +46,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
     @Override
     public final void runOpMode() throws InterruptedException {
+        Globals.hwMap = hardwareMap;
+        Globals.tele = telemetry;
         CommandScheduler.getInstance().cancelAll();
 
         stickyG1 = new StickyGamepad(gamepad1);
