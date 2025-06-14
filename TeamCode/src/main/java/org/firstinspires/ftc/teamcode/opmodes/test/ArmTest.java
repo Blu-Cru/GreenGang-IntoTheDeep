@@ -2,6 +2,11 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmBucketCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmInSpecCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmInitCommand;
+import org.firstinspires.ftc.teamcode.commands.controls.arm.ClawArmOutSpecCommand;
 import org.firstinspires.ftc.teamcode.opmodes.GreenLinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -21,16 +26,16 @@ public class ArmTest extends GreenLinearOpMode {
     @Override
     public void periodic(){
         if(stickyG1.a){
-            clawArm.transfer();
+            new ClawArmInitCommand().schedule();
         }
         else if(stickyG1.b){
-            clawArm.sampleOuttake();
+            new ClawArmBucketCommand().schedule();
         }
         else if(stickyG1.x){
-            clawArm.specOuttake();
+            new ClawArmInSpecCommand().schedule();
         }
         else if(stickyG1.y) {
-            clawArm.inSpec();
+            new ClawArmOutSpecCommand().schedule();
         }
 
 
