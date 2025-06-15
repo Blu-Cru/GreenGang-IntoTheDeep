@@ -10,9 +10,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.ResetCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristScoringSpecFlickCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.SpecIntakeCommand;
@@ -56,6 +58,7 @@ public class BluSpec2 extends GreenLinearOpMode {
         addTurret();
         addClawDistanceSensor();
         new OuttakeClawCloseCommand().schedule();
+        new SpecIntakeCommand().schedule();
 
         startPose = new Pose2d(0, 64, Math.PI/2);
         drivetrain.ppl.setPoseEstimate(startPose);
@@ -68,7 +71,7 @@ public class BluSpec2 extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new HighSpecCommand().schedule();
                 })
-
+                .waitSeconds(0.25)
                 .setTangent(-Math.PI/2)
                 .splineToConstantHeading(new Vector2d(6, 26.5), -Math.PI/2)
 
@@ -82,10 +85,16 @@ public class BluSpec2 extends GreenLinearOpMode {
                 .waitSeconds(0.5)
                 .setTangent(Math.PI/2)
 
-                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+                .setConstraints(SLOW_VEL,SLOW_ACCEL)
+
                 .addTemporalMarker(()->{
-                    new ResetCommand().schedule();
+                    new SequentialCommandGroup(
+                            new WaitCommand(1000),
+                            new ResetCommand()
+                    ).schedule();
                 })
+
+                .splineToConstantHeading(new Vector2d(1, 40), Math.toRadians(180))
                 .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
 
                 .splineToConstantHeading(new Vector2d(-40, 17), Math.toRadians(180))
@@ -99,13 +108,16 @@ public class BluSpec2 extends GreenLinearOpMode {
                 .splineToConstantHeading(new Vector2d(-56, 57.3), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-63.5, 17), Math.toRadians(90))
+
                 //SPECIMEN 1
                 .addTemporalMarker(() -> {
                     new SpecIntakeCommand().schedule();
                 })
                 .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-48, 56.3), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-48, 63.5), Math.toRadians(90))
 
-                .splineToConstantHeading(new Vector2d(-63.5, 63.5), Math.toRadians(90))
+
                 .waitSeconds(1)
 
                 .addTemporalMarker(() -> {
@@ -224,6 +236,12 @@ public class BluSpec2 extends GreenLinearOpMode {
 
     @Override
     public void initLoop() {
+        if(stickyG1.b){
+            new SequentialCommandGroup(
+                    new ClawArmInSpecCommand(),
+                    new ClawWristInSpecTransferCommand()
+            ).schedule();
+        }
         outtakeClaw.close();
     }
 

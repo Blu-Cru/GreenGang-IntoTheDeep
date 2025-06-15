@@ -31,54 +31,178 @@ public class MeepMeepTesting {
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0,64,Math.PI/2)).setTangent(-Math.PI/2)
 
-                    .setTangent(-Math.PI/2)
+//                        .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
 
-                    .splineToConstantHeading(new Vector2d(-5, 36.5 - 3), -Math.PI/2)
+//                        .addTemporalMarker(() -> {
+//                            new HighSpecCommand().schedule();
+//                        })
+                        .waitSeconds(0.25)
+                        .setTangent(-Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(6, 26.5), -Math.PI/2)
 
-                    .waitSeconds(0.5)
-                    .setTangent(Math.PI/2)
+//                        .addTemporalMarker(() -> {
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(200),
+//                                    new OuttakeClawOpenCommand()
+//                            ).schedule();
+//                        })
 
-                    .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
-                    .splineToConstantHeading(new Vector2d(-40, 17), Math.toRadians(180))
-                    .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(180))
+                        .waitSeconds(0.5)
                         .setTangent(Math.PI/2)
-                    .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
+
+//                        .setConstraints(SLOW_VEL,SLOW_ACCEL)
+
+//                        .addTemporalMarker(()->{
+//                            new SequentialCommandGroup(
+//                                    new WaitCommand(1000),
+//                                    new ResetCommand()
+//                            ).schedule();
+//                        })
+
+                        .splineToConstantHeading(new Vector2d(1, 40), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
+
+                        .splineToConstantHeading(new Vector2d(-40, 17), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(180))
+                        .setTangent(Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
+                        //JUST FINISHED PUSHING SAMPLE 1
+
+                        .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(-90))
                         .setTangent(Math.PI)
-                    .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(180))
+                        .setTangent(Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(-56, 51), Math.toRadians(90))
+                        //JUST FINISHED PUSHING SAMPLE 2
+                        .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(-90))
+                        .setTangent(Math.PI)
+                        .splineToConstantHeading(new Vector2d(-63.5, 17), Math.toRadians(180))
 
-                    .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-62, 17), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-62, 57.3), Math.toRadians(90))
-                    .waitSeconds(1.1)
-                    .setTangent(-Math.PI/4)
+                        //SPECIMEN 1
+//                        .addTemporalMarker(() -> {
+//                            new SpecIntakeCommand().schedule();
+//                        })
+                        .setTangent(Math.PI/2)
 
-                    .splineToConstantHeading(new Vector2d(-6, 38 - 3), Math.toRadians(-90))
-                    .waitSeconds(0.5)
-                    .setTangent(3/4.0*Math.PI)
+                        .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90))
+                        //JUST FINISHED PUSHING SAMPLE 3
+                        .splineToConstantHeading(new Vector2d(-48, 56.3), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(-48, 63.5), Math.toRadians(90))
 
-                    .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
 
-                    .splineToConstantHeading(new Vector2d(-48, 60.3), Math.toRadians(90))
-                    .waitSeconds(1.1)
+                        .waitSeconds(1)
 
-                    .setTangent(-Math.PI/4)
-                    .splineToConstantHeading(new Vector2d(-7, 38.5 - 3), Math.toRadians(-90))
-                    .waitSeconds(0.3)
+//                        .addTemporalMarker(() -> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawCloseCommand(),
+//                                    new WaitCommand(300),
+//                                    new HighSpecCommand()
+//                            ).schedule();
+//                        })
 
-                    .setTangent(3/4.0*Math.PI)
+//                        .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
+                        .setTangent(-Math.PI/4)
 
-                    .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-48, 62.5), Math.toRadians(90))
-                    .waitSeconds(1.1)
+                        .splineToConstantHeading(new Vector2d(4, 26.5), Math.toRadians(-90))
+//                        .addTemporalMarker(()->{
+//                            new ClawWristScoringSpecFlickCommand().schedule();
+//                        })
+                        .waitSeconds(0.5)
+                        .setTangent(1/2.0*Math.PI)
+                        //SPECIMEN 2
+//                        .addTemporalMarker(()-> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawOpenCommand(),
+//                                    new WaitCommand(500),
+//                                    new SpecIntakeCommand()
+//                            ).schedule();
+//                        })
 
-                    .setTangent(-Math.PI/4)
-                    .splineToConstantHeading(new Vector2d(-8, 40 - 3), Math.toRadians(-90))
-                    .waitSeconds(0.3)
+                        .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-48, 63.5), Math.toRadians(90))
+                        .waitSeconds(1.1)
 
-                    .setTangent(3/4.0*Math.PI)
-                    .splineToConstantHeading(new Vector2d(-52, 60), Math.toRadians(90))
+
+//                        .addTemporalMarker(() -> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawCloseCommand(),
+//                                    new WaitCommand(300),
+//                                    new HighSpecCommand()
+//                            ).schedule();
+//                        })
+                        .setTangent(-Math.PI/4)
+                        .splineToConstantHeading(new Vector2d(2, 26.5), Math.toRadians(-90))
+//                        .addTemporalMarker(()->{
+//                            new ClawWristScoringSpecFlickCommand().schedule();
+//                        })
+                        .waitSeconds(0.3)
+                        //SPECIMEN 3
+//                        .addTemporalMarker(()-> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawOpenCommand(),
+//                                    new WaitCommand(500),
+//                                    new SpecIntakeCommand()
+//                            ).schedule();
+//                        })
+                        .setTangent(1/2.0*Math.PI)
+
+                        .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-48, 62.8), Math.toRadians(90))
+                        .waitSeconds(1.1)
+
+                        .setTangent(-Math.PI/4)
+
+//                        .addTemporalMarker(() -> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawCloseCommand(),
+//                                    new WaitCommand(300),
+//                                    new HighSpecCommand()
+//                            ).schedule();
+//                        })
+
+                        .splineToConstantHeading(new Vector2d(0, 26.5), Math.toRadians(-90))
+//                        .waitSeconds(0.3)
+//                        .addTemporalMarker(()->{
+//                            new ClawWristScoringSpecFlickCommand().schedule();
+//                        })
+                        //SPECIMEN 4
+//                        .addTemporalMarker(()-> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawOpenCommand(),
+//                                    new WaitCommand(500),
+//                                    new SpecIntakeCommand()
+//                            ).schedule();
+//                        })
+                        .setTangent(1/2.0*Math.PI)
+
+                        .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-48, 62.8), Math.toRadians(90))
+                        .waitSeconds(1.1)
+
+                        .setTangent(-Math.PI/4)
+
+//                        .addTemporalMarker(() -> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawCloseCommand(),
+//                                    new WaitCommand(300),
+//                                    new HighSpecCommand()
+//                            ).schedule();
+//                        })
+                        .splineToConstantHeading(new Vector2d(-2, 26.5), Math.toRadians(-90))
+//
+//                        .addTemporalMarker(()->{
+//                            new ClawWristScoringSpecFlickCommand().schedule();
+//                        })
+
+//                        .addTemporalMarker(()-> {
+//                            new SequentialCommandGroup(
+//                                    new OuttakeClawOpenCommand(),
+//                                    new WaitCommand(1000),
+//                                    new ResetCommand()
+//                            ).schedule();
+//                        })
+                        .setTangent(1/2.0*Math.PI)
+                        .splineToConstantHeading(new Vector2d(-52, 60), Math.toRadians(90))
                     .build());
 
 
