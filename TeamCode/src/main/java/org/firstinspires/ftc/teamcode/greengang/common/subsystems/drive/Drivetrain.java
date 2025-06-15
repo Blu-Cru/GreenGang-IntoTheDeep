@@ -80,9 +80,11 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
         boolean translating = Math.abs(vert) > 0.05 || Math.abs(horiz) > 0.05;
         boolean turning = Math.abs(rotate) > 0.05;
+
         if (g1.left_stick_button) {
             g1.rumble(200);
-            setExternalHeading(Math.toRadians(90));
+            ppl.setHeading(Math.toRadians(90));
+//            setExternalHeading(Math.PI/2);
         }
 
         if(turning) {
@@ -159,9 +161,9 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     @Override
     public void update() {
         updatePID();
-        heading = getRawExternalHeading();
-        pose = getPoseEstimate();
-        vel = getPoseVelocity();
+        heading = ppl.getHeading();
+        pose = ppl.getPoseEstimate();
+        vel = ppl.getPoseVelocity();
         if (pose != null && vel != null) {
             xState = new Vector2d(pose.getX(), vel.getX());
             yState = new Vector2d(pose.getY(), vel.getY());

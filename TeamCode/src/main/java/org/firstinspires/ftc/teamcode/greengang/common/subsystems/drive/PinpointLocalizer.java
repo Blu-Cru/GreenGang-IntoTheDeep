@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
 public class PinpointLocalizer implements Localizer {
-    public static double xOffset = 140 , yOffset = -165.1;
+    public static double xOffset = -140.638 , yOffset = -166.375; //tuned
     GoBildaPinpointDriver pinpoint;
 
     public PinpointLocalizer(HardwareMap hardwareMap) {

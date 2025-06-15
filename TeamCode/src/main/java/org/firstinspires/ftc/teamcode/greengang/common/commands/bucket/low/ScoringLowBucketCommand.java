@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesLowBucketCommand;
 
@@ -16,11 +17,10 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class ScoringLowBucketCommand extends SequentialCommandGroup {
     public ScoringLowBucketCommand(){
         super (
-                    new OuttakeClawCloseCommand(),
+                    new OuttakeClawLooseCloseCommand(),
                     new VertSlidesLowBucketCommand(),
                     new ClawArmBucketCommand(),
                     new ClawWristBucketCommand()
-
         );
     }
 }

@@ -58,15 +58,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         motorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRight.setPower(0); // check what power it should be
         motorRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-//        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pidTo(0);
         state = STATE.INIT;
         type = TYPE.IDLE;
@@ -113,7 +110,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     }
 
     public void setPow(double power) {
-        motorPower = power;
+        motorPower = Range.clip(power, -1,1);
         motorLeft.setPower(power);
         motorRight.setPower(power);
     }

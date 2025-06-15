@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInspecTransferCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
@@ -22,23 +23,23 @@ resets all subsystems to how they were in initialization state
 public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
-                new OuttakeClawOpenCommand(),
+                new OuttakeClawCloseCommand(),
+
                 new ConditionalCommand(
+
                         new SequentialCommandGroup(
                                 new ClawArmInspecTransferCommand(),
                                 new ClawWristInSpecTransferCommand(),
-                                new WaitCommand(200),
-                                new ClawArmInitCommand(),
-                                new WaitCommand(300),
-                                new ClawWristTransferCommand()
+                                new WaitCommand(500)
+                        ),
 
-                        ),//true
-                        new SequentialCommandGroup(
-                                new ClawWristTransferCommand(),
-                                new ClawArmInitCommand()
-                        ),//false
-                        () -> Robot.getInstance().clawArm.state == ClawArm.STATE.INSPEC
+                        new WaitCommand(0),
+
+                        () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INSPEC
                 ),
+
+                new ClawArmInitCommand(),
+                new ClawWristTransferCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new TurretInitCommand(),
                 new WristParallelCommand(),
@@ -49,7 +50,7 @@ public class ResetCommand extends SequentialCommandGroup {
                         new WaitCommand(50),//false
                         () -> Robot.getInstance().vs.getVScurrRightPos() < 500
                 ),
-                new ClawWristTransferCommand(),
+
                 new VertSlidesStartCommand() //may need to swap
         );
     }
