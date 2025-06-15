@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.GreenSubsystem;
 
 @Config
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
-    public static double hsP = 0.005, hsI = 0, hsD = 0.0001;
+    public static double hsP = 0.005, hsI = 0, hsD = 0.0003;
     int minpos = 0;
     int maxpos = 575;
     enum STATE {
@@ -28,11 +28,11 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         EXTENDED
     }
 
-    public static double
+    public final static double
             instlower = 1300, // TODO: to be determined
-            instHalfway = 500,
+            extendFully = 575,
             retract = 0,
-            maxPower = 0.0;
+            maxPower = 1.0;
 
     public STATE state;
     public LOC loc;
@@ -48,18 +48,16 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor.setPower(0);
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pidTo(0);
         loc = LOC.RETRACTED;
     }
 
     public void pidTo(double ticks){
-        maxPower=0.4;
         state = STATE.PID;
         loc = LOC.EXTENDED;
         pid.setSetPoint(Range.clip(ticks, minpos, maxpos));
@@ -73,13 +71,12 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         state = STATE.PID;
         loc = LOC.EXTENDED;
         pidTo(instlower);
-        maxPower = 0.6;
 
     }
-    public void extendHalfway() {
+    public void extendFully() {
         state = STATE.PID;
         loc = LOC.EXTENDED;
-        pidTo(instHalfway);
+        pidTo(extendFully);
 
     }
 
@@ -99,7 +96,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public void manualSlide(double input) {
         state = STATE.MANUAL;
         loc = LOC.EXTENDED;
-        pidTo(Range.clip(position + 100 * input, minpos,maxpos));
+        pidTo(Range.clip(position + 130 * input, minpos,maxpos));
     }
 
     @Override

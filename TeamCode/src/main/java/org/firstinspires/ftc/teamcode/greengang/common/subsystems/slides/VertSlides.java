@@ -85,7 +85,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         switch (type) {
             case PID:
                 double vsCurrPosLeft = this.getVScurrLeftPos();
-                motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -0.6, 1);
+                motorPower = Range.clip(pid.calculate(vsCurrPosLeft), -1, 1);
                 setPow(motorPower);
                 break;
             case IDLE:

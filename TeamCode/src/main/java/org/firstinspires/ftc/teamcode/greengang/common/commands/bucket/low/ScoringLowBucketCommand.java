@@ -16,12 +16,11 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class ScoringLowBucketCommand extends SequentialCommandGroup {
     public ScoringLowBucketCommand(){
         super (
-                new SequentialCommandGroup(
-                        new OuttakeClawCloseCommand(),
-                        new VertSlidesLowBucketCommand(),
-                        new ClawArmBucketCommand(),
-                        new ClawWristBucketCommand()
-                )
+                    new OuttakeClawCloseCommand(),
+                    new VertSlidesLowBucketCommand(),
+                    new ClawArmBucketCommand(),
+                    new ClawWristBucketCommand()
+
         );
     }
 }

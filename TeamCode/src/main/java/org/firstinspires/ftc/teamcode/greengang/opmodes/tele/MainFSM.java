@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.Scor
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.low.ScoringLowBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseToggleCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeSpitCommand;
@@ -72,7 +73,7 @@ public class MainFSM extends GreenLinearOpMode {
                 .state(State.RETRACTED)
 
                 .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
-                .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE,()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
                     new SpecIntakeCommand().schedule();
                 })
 //                .transition(()-> stickyG1.left_bumper, State.HIGH_SPEC,()->{
@@ -86,6 +87,9 @@ public class MainFSM extends GreenLinearOpMode {
                 })
                 .transition(()-> stickyG2.right_bumper, State.HIGH_BUCKET,()->{
                     new ScoringHighBucketCommand().schedule();
+                })
+                .transition(()-> stickyG2.dpad_down, State.HORIZ_EXTENDED,()->{
+                    new HorizontalSlidesExtendFullyCommand().schedule();
                 })
                 .loop(()->{
                     if(stickyG1.a || stickyG2.a){
@@ -221,7 +225,7 @@ public class MainFSM extends GreenLinearOpMode {
 
                 })
 
-                //INTAKE EXTENDED
+                //HORIZ EXTENDED
                 .state(State.HORIZ_EXTENDED)
                 .loop(()->{
                     hsPow = -gamepad2.left_stick_y;
@@ -243,6 +247,17 @@ public class MainFSM extends GreenLinearOpMode {
                 })
                 .transition(()-> gamepad1.right_trigger <=0.2 && gamepad1.left_trigger <=0.2, State.HORIZ_EXTENDED,()->{
                     new IntakeStopCommand().schedule();
+                })
+                .transition(()-> stickyG2.left_bumper, State.LOW_BUCKET,()->{
+                    new ScoringLowBucketCommand().schedule();
+                })
+                .transition(()-> stickyG2.right_bumper, State.HIGH_BUCKET,()->{
+                    new ScoringHighBucketCommand().schedule();
+                })
+                .loop(()->{
+                    if(stickyG1.a || stickyG2.a){
+                        new OuttakeClawToggleCommand().schedule();
+                    }
                 })
 
                 // INTAKING

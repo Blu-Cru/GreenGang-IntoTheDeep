@@ -62,7 +62,7 @@ public class GreenLinearOpMode extends LinearOpMode {
             if(stickyG1.x) {
                 Globals.alliance = Globals.alliance.flip();
             }
-            if (stickyG1.b){
+            if (stickyG1.left_stick_button){
                 Globals.fieldCentric = !Globals.fieldCentric;
             }
 

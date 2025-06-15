@@ -17,13 +17,12 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class ScoringHighBucketCommand extends SequentialCommandGroup {
     public ScoringHighBucketCommand(){
         super (
-                new SequentialCommandGroup(
-                        new OuttakeClawCloseCommand(),
-                        new VertSlidesHighBucketCommand(),
-                        new WaitCommand(500),
-                        new ClawArmBucketCommand(),
-                        new ClawWristBucketCommand()
-                )
+                    new OuttakeClawCloseCommand(),
+                    new VertSlidesHighBucketCommand(),
+                    new WaitCommand(500),
+                    new ClawArmBucketCommand(),
+                    new ClawWristBucketCommand()
+
         );
     }
 }

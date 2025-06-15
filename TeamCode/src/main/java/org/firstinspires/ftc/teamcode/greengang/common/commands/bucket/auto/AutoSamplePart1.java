@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
-import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendHalfwayCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristDownCommand;
@@ -21,7 +21,7 @@ public class AutoSamplePart1 extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                         new SlidesLiftSlightlyCommand(),
                         new IntakeInCommand(),
-                        new HorizontalSlidesExtendHalfwayCommand(),
+                        new HorizontalSlidesExtendFullyCommand(),
                         new WristDownCommand(),
 
                         new WaitCommand(300), // change?

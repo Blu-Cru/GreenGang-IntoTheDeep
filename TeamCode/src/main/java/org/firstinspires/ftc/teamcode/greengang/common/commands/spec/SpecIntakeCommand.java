@@ -18,23 +18,22 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 public class SpecIntakeCommand extends SequentialCommandGroup {
     public SpecIntakeCommand(){
         super(
-                new SequentialCommandGroup(
-                        new ClawWristInSpecTransferCommand(),
-                        new WaitCommand(200),
-                        new ClawArmInspecTransferCommand(),
-                        new WaitCommand(500),
-                        new ClawWristInSpecCommand(),
-                        new ClawArmInSpecCommand(),
-                        new TurretInitCommand(),
-                        new OuttakeClawOpenCommand(),
-                        new ConditionalCommand(
-                                new SequentialCommandGroup(
-                                        new OuttakeClawLooseCloseCommand()
-                                ),
-                                new WaitCommand(0),
-                                ()-> Robot.getInstance().distanceSensor.isFull()
-                        )
-                )
+                new ClawWristInSpecTransferCommand(),
+                new WaitCommand(200),
+                new ClawArmInspecTransferCommand(),
+                new WaitCommand(200),
+                new ClawWristInSpecCommand(),
+                new ClawArmInSpecCommand(),
+                new TurretInitCommand(),
+                new VertSlidesStartCommand(),
+                new OuttakeClawOpenCommand()
+//                        new ConditionalCommand(
+//                                new SequentialCommandGroup(
+//                                        new OuttakeClawLooseCloseCommand()
+//                                ),
+//                                new WaitCommand(0),
+//                                ()-> Robot.getInstance().distanceSensor.isFull()
+//                        )
         );
     }
 }

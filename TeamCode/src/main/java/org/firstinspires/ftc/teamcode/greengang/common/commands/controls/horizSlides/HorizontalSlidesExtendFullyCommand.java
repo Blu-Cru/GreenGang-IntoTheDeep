@@ -5,11 +5,11 @@ import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 
-public class HorizontalSlidesExtendHalfwayCommand extends InstantCommand {
-    public HorizontalSlidesExtendHalfwayCommand(){
+public class HorizontalSlidesExtendFullyCommand extends InstantCommand {
+    public HorizontalSlidesExtendFullyCommand(){
         super(
                 () -> {
-                    Robot.getInstance().horizontalSlides.extendHalfway();
+                    Robot.getInstance().horizontalSlides.extendFully();
                 }
         );
 

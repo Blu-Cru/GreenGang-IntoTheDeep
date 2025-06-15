@@ -11,15 +11,11 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class LowSpecCommand extends SequentialCommandGroup {
     public LowSpecCommand(){
         super (
-                new SequentialCommandGroup(
-                        new VertSlidesLowSpecCommand(),
-                        new OuttakeClawCloseCommand(),
-                        new ClawWristLowOutSpecCommand(),
-                        new ClawArmOutSpecCommand(),
-                        new TurretFlipCommand()
-
-
-                )
+                new VertSlidesLowSpecCommand(),
+                new OuttakeClawCloseCommand(),
+                new ClawWristLowOutSpecCommand(),
+                new ClawArmOutSpecCommand(),
+                new TurretFlipCommand()
         );
     }
 }
