@@ -31,6 +31,7 @@ public class ResetCommand extends SequentialCommandGroup {
                                 new ClawWristInSpecTransferCommand(),
                                 new WaitCommand(300),
                                 new ClawArmInitCommand(),
+                                new WaitCommand(300),
                                 new ClawWristTransferCommand()
                         ),
 
