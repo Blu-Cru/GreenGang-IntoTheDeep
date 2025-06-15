@@ -23,23 +23,26 @@ resets all subsystems to how they were in initialization state
 public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
-                new OuttakeClawCloseCommand(),
 
                 new ConditionalCommand(
 
                         new SequentialCommandGroup(
                                 new ClawArmInspecTransferCommand(),
                                 new ClawWristInSpecTransferCommand(),
-                                new WaitCommand(500)
+                                new WaitCommand(300),
+                                new ClawArmInitCommand(),
+                                new ClawWristTransferCommand()
                         ),
 
-                        new WaitCommand(0),
+                        new SequentialCommandGroup(
+                                new ClawArmInitCommand(),
+                                new ClawWristTransferCommand()
+                        ),
 
                         () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INSPEC
                 ),
 
-                new ClawArmInitCommand(),
-                new ClawWristTransferCommand(),
+
                 new HorizontalSlidesRetractCommand(),
                 new TurretInitCommand(),
                 new WristParallelCommand(),

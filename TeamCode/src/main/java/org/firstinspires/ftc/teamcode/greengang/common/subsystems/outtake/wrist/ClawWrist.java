@@ -18,6 +18,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
         HIGHOUTSPEC,
         INSPECTRANSFER,
         INSPEC,
+        PARALLEL
 
     }
     double parallel = .45;
@@ -31,13 +32,13 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(parallel + 0.22);
+        clawWrist.setPosition(parallel + 0.2);
 //        mp=new MotionProfile(parallel+.2, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INIT;
     }
 
     public void bucket (){
-        clawWrist.setPosition(parallel - 0.1);
+        clawWrist.setPosition(parallel - 0);
 //        mp=new MotionProfile(parallel-.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.BUCKET;
     }
@@ -57,10 +58,22 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 //        mp=new MotionProfile(.29- parallel, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.LOWOUTSPEC;
     }
+    public void parallel(){
+        clawWrist.setPosition(parallel);
+        state = STATE.PARALLEL;
+    }
     public void highOutSpec(){
         clawWrist.setPosition(parallel+0.2);
 //        mp=new MotionProfile(parallel+.1, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.HIGHOUTSPEC;
+    }
+    public void specScoringToggle(){
+        if(state == STATE.HIGHOUTSPEC){
+            parallel();
+        }
+        else if(state == STATE.PARALLEL){
+            highOutSpec();
+        }
     }
 
     @Override

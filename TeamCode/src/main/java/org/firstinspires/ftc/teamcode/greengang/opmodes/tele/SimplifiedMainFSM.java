@@ -10,12 +10,14 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.Scor
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.low.ScoringLowBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseToggleCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawToggleCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristScoringSpecToggleCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeSpitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristDownCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretFlipCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretTurn90Command;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.HighSpecCommand;
@@ -58,6 +60,9 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
         sm = new StateMachineBuilder()
 
                 .state(State.DEFAULT)
+                .onEnter(()-> {
+                    new ResetCommand().schedule();
+                })
                 .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
                     new SpecIntakeCommand().schedule();
                 })
@@ -84,6 +89,10 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                         new IntakeInCommand().schedule();
                     } else if (gamepad1.right_trigger>.2){
                         new IntakeSpitCommand().schedule();
+                    }
+                    else{
+                        new WristParallelCommand().schedule();
+                        new IntakeStopCommand().schedule();
                     }
                 })
 
@@ -151,12 +160,18 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                     if(stickyG1.dpad_left){
                         new TurretFlipCommand().schedule();
                     }
+                    if(stickyG1.b){
+                        new ClawWristScoringSpecToggleCommand().schedule();
+                    }
 
                 })
-
+                //LOW SPECIMEN
                 .state(State.LOW_SPEC)
                 .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
                     new ResetCommand().schedule();
+                })
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
+                    new SpecIntakeCommand().schedule();
                 })
                 .loop(()->{
                     if(stickyG1.a || stickyG2.a){
@@ -169,9 +184,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                         new TurretFlipCommand().schedule();
                     }
                 })
-                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
-                    new SpecIntakeCommand().schedule();
-                })
+
 
                 // SPECIMEN INTAKE
                 .state(State.SPEC_INTAKE)
@@ -207,6 +220,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                     } else if (gamepad1.right_trigger>.2){
                         new IntakeSpitCommand().schedule();
                     } else {
+                        new WristParallelCommand().schedule();
                         new IntakeStopCommand().schedule();
                     }
                 })
@@ -236,6 +250,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
         if(intakeColorSensor.spit){
             new IntakeSpitCommand().schedule();
         }
+
     }
 
 }

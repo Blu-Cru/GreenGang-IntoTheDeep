@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.GreenSubsystem;
 public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Subsystem {
 
     public double drivePower;
-    PinpointLocalizer ppl;
+    public PinpointLocalizer ppl;
     public DrivePID pid;
     public double heading, headingVel;
     State state;
@@ -38,7 +38,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         lastTranslating=false;
         lastTurning=false;
         ppl = new PinpointLocalizer(hardwareMap);
-        setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
+//        setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
         setLocalizer(ppl);
     }
 
@@ -84,7 +84,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         if (g1.left_stick_button) {
             g1.rumble(200);
             ppl.setHeading(Math.toRadians(90));
-//            setExternalHeading(Math.PI/2);
+            setExternalHeading(Math.PI/2);
         }
 
         if(turning) {

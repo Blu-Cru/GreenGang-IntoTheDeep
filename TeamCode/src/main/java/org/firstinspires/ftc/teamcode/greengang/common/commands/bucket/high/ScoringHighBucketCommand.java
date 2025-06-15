@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.Cla
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretTurn90Command;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesHighBucketCommand;
 
 /*
@@ -18,11 +19,12 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class ScoringHighBucketCommand extends SequentialCommandGroup {
     public ScoringHighBucketCommand(){
         super (
-                    new OuttakeClawLooseCloseCommand(),
+                    new OuttakeClawCloseCommand(),
                     new VertSlidesHighBucketCommand(),
                     new WaitCommand(500),
                     new ClawWristBucketCommand(),
-                    new ClawArmBucketCommand()
+                    new ClawArmBucketCommand(),
+                    new TurretTurn90Command()
         );
     }
 }
