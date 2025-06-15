@@ -30,6 +30,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     public final static double
             instlower = 1300, // TODO: to be determined
+            extendHalfway = 300,
             extendFully = 575,
             retract = 0,
             maxPower = 1.0;
@@ -78,6 +79,11 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         loc = LOC.EXTENDED;
         pidTo(extendFully);
 
+    }
+    public void extendHalfWay(){
+        state = STATE.PID;
+        loc = LOC.EXTENDED;
+        pidTo(extendHalfway);
     }
 
 

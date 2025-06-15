@@ -138,7 +138,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SpecIntakeCommand().schedule();
                 })
                 .loop(()->{
@@ -169,7 +169,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                         new TurretFlipCommand().schedule();
                     }
                 })
-                .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SpecIntakeCommand().schedule();
                 })
 
