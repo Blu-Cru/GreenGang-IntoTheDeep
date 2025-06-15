@@ -19,11 +19,8 @@ public class AutoSamplePart1 extends SequentialCommandGroup {
     public AutoSamplePart1(){
         super(
                 new SequentialCommandGroup(
-                        new SlidesLiftSlightlyCommand(),
                         new IntakeInCommand(),
-                        new HorizontalSlidesExtendFullyCommand(),
                         new WristDownCommand(),
-
                         new WaitCommand(300), // change?
                         new HorizontalSlidesExtendCommand(),
                         new WaitCommand(2000), //orignial 3000
