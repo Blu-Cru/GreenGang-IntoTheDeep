@@ -65,12 +65,12 @@ public class BluSpecPath extends GreenLinearOpMode {
                 .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
                 .setTangent(Math.PI)
-                .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(90))
 
-                .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-62, 17), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-62, 57.3), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-56, 57.3), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-63.5, 17), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-63.5, 57.3), Math.toRadians(90))
                 .waitSeconds(1.1)
                 .setTangent(-Math.PI/4)
 

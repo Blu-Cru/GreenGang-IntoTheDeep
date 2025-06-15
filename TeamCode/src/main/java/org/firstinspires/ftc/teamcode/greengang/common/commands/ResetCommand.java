@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeW
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.slides.VertSlides;
 import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 
 /*
@@ -52,7 +53,7 @@ public class ResetCommand extends SequentialCommandGroup {
                 new ConditionalCommand(
                         new WaitCommand(1000),//true
                         new WaitCommand(50),//false
-                        () -> Robot.getInstance().vs.getVScurrRightPos() < 500
+                        () -> Robot.getInstance().vs.getVScurrRightPos() < 500 || Robot.getInstance().vs.state == VertSlides.STATE.HIGHSPEC
                 ),
 
                 new VertSlidesStartCommand() //may need to swap

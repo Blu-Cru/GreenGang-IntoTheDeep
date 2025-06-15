@@ -100,6 +100,12 @@ public class MainFSM extends GreenLinearOpMode {
                     hsPow = -gamepad2.left_stick_y;
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
+                    if(gamepad1.left_trigger > 0.2){
+                        new IntakeInCommand().schedule();
+                    }
+                    else if(gamepad1.right_trigger > 0.2){
+                        new IntakeSpitCommand().schedule();
+                    }
                 })
 //                .transition(()-> gamepad1.dpad_down, State.HANG_EXTENDED)
                 .transition(()-> gamepad1.left_trigger > 0.2, State.INTAKING, ()->{
