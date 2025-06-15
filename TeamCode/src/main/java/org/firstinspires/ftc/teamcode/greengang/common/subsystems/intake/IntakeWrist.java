@@ -19,6 +19,9 @@ public class IntakeWrist implements GreenSubsystem, Subsystem {
     public void init() {
         wrist.setPosition(parallelPos);
     }
+    public void transfer(){
+        wrist.setPosition(parallelPos - 0.18);
+    }
 
     public void parallel() {
         wrist.setPosition(parallelPos);

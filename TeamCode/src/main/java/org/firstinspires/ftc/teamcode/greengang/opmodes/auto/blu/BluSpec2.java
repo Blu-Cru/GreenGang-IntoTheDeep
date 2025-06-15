@@ -57,12 +57,11 @@ public class BluSpec2 extends GreenLinearOpMode {
         addIntakeColorSensor();
         addTurret();
         addClawDistanceSensor();
+
         new OuttakeClawCloseCommand().schedule();
         new SpecIntakeCommand().schedule();
 
         startPose = new Pose2d(0, 64, Math.PI/2);
-        drivetrain.ppl.setPoseEstimate(startPose);
-        drivetrain.setPoseEstimate(startPose);
 
         farBlue = drivetrain.trajectorySequenceBuilder(startPose)
 

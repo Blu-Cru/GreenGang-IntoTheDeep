@@ -30,7 +30,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
             lowBucket = 1070,
             ascent2 = 976,
             lowSpec = 465,
-            highSpec = 530; //todo: change
+            highSpec = 530;
 
 
     public enum STATE {

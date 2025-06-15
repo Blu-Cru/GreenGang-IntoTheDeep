@@ -15,9 +15,9 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.GreenSubsystem;
 @Config
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public static double hsP = 0.005, hsI = 0, hsD = 0.0003;
-    int minpos = 0;
+    public int minpos = -5;
     int maxpos = 575;
-    enum STATE {
+    public enum STATE {
         IDLE,
         PID,
         MANUAL
@@ -54,7 +54,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pidTo(0);
+        pidTo(-5);
         loc = LOC.RETRACTED;
     }
 
