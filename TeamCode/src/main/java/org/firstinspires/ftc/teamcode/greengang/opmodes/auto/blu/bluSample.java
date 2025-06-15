@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.auto.Auto
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendHalfwayCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristDownCommand;
@@ -83,10 +84,6 @@ public class bluSample extends GreenLinearOpMode {
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(200),
-                            new VertSlidesStartCommand(),
-                            new WaitCommand(200),
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
                             new ScoringHighBucketCommand()
@@ -121,10 +118,6 @@ public class bluSample extends GreenLinearOpMode {
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(100),
-                            new VertSlidesStartCommand(),
-                            new WaitCommand(200),
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
                             new ScoringHighBucketCommand()
@@ -152,9 +145,8 @@ public class bluSample extends GreenLinearOpMode {
                 //made sample 3 intaking time longer
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                        new SlidesLiftSlightlyCommand(),
                         new IntakeInCommand(),
-                        new HorizontalSlidesExtendFullyCommand(),
+                        new HorizontalSlidesExtendHalfwayCommand(),
                         new WristDownCommand(),
 
                         new WaitCommand(300), // change?
@@ -168,10 +160,6 @@ public class bluSample extends GreenLinearOpMode {
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand(),
-                            new WaitCommand(100),
-                            new VertSlidesStartCommand(),
-                            new WaitCommand(200),
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
                             new ScoringHighBucketCommand()
@@ -194,10 +182,8 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 .addTemporalMarker(() -> {
-                    new SequentialCommandGroup(
-                            new ResetCommand(),
-                            new VertSlidesStartCommand()
-                    ).schedule();
+                    new ResetCommand().schedule();
+
                 })
 
                 // PARK
