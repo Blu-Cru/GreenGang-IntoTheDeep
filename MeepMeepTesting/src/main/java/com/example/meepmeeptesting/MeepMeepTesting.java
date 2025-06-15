@@ -38,11 +38,15 @@ public class MeepMeepTesting {
                     .waitSeconds(0.5)
                     .setTangent(Math.toRadians(90))
 
-                    .splineToConstantHeading(new Vector2d(-35, 37), Math.toRadians(-90))
-                    .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
+                    .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
+                    .splineToConstantHeading(new Vector2d(-40, 17), Math.toRadians(180))
+                    .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(180))
+                        .setTangent(90)
                     .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
                     .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
+                        .setTangent(180)
                     .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
+
                     .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
                     .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
                     .splineToConstantHeading(new Vector2d(-62, 17), Math.toRadians(90))
