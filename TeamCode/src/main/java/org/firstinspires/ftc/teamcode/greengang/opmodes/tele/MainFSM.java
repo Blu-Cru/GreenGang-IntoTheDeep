@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.Scor
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.low.ScoringLowBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseToggleCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristScoringSpecToggleCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
@@ -163,7 +164,7 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad2.left_trigger>0.2, State.RETRACTED,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SpecIntakeCommand().schedule();
                 })
                 .loop(()->{
@@ -175,6 +176,9 @@ public class MainFSM extends GreenLinearOpMode {
                     }
                     if(stickyG1.dpad_left){
                         new TurretFlipCommand().schedule();
+                    }
+                    if(stickyG1.b){
+                        new ClawWristScoringSpecToggleCommand().schedule();
                     }
 
                 })
@@ -192,6 +196,9 @@ public class MainFSM extends GreenLinearOpMode {
                     }
                     if(stickyG1.dpad_left){
                         new TurretFlipCommand().schedule();
+                    }
+                    if(stickyG1.b){
+                        new ClawWristScoringSpecToggleCommand().schedule();
                     }
                 })
                 .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE, ()->{

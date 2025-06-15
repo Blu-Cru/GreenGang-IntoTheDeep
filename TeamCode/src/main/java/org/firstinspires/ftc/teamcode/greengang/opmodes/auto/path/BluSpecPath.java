@@ -43,7 +43,7 @@ public class BluSpecPath extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
 
-        startPose = new Pose2d(-24, 64, Math.toRadians(90));
+        startPose = new Pose2d(0, 64, Math.toRadians(90));
         drivetrain.ppl.setPoseEstimate(startPose);
         drivetrain.setPoseEstimate(startPose);
 
@@ -52,47 +52,50 @@ public class BluSpecPath extends GreenLinearOpMode {
                 .setTangent(Math.toRadians(-90))
                 .setConstraints(SLOW_VEL, SLOW_ACCEL)
 
-                .splineToLinearHeading(new Pose2d(-5, 36.5 - 3, Math.toRadians(90)), Math.toRadians(-90))
+                .setTangent(Math.toRadians(-90))
+
+                .splineToConstantHeading(new Vector2d(-5, 36.5 - 3), Math.toRadians(-90))
 
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(90))
 
-                .splineToSplineHeading(new Pose2d(-35, 26, Math.toRadians(90)), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-35, 19), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-35, 37), Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-47, 17), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-58, 57.3), Math.toRadians(90))
-
+                .splineToConstantHeading(new Vector2d(-58, 17), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-62, 17), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-62, 57.3), Math.toRadians(90))
                 .waitSeconds(1.1)
                 .setTangent(Math.toRadians(-45))
 
-                .splineToLinearHeading(new Pose2d(-6, 38 - 3, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-6, 38 - 3), Math.toRadians(-90))
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(135))
 
-                .splineToSplineHeading(new Pose2d(-48, 56, Math.toRadians(90)), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
 
                 .splineToConstantHeading(new Vector2d(-48, 60.3), Math.toRadians(90))
                 .waitSeconds(1.1)
 
                 .setTangent(Math.toRadians(-45))
-                .splineToLinearHeading(new Pose2d(-7, 38.5 - 3, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-7, 38.5 - 3), Math.toRadians(-90))
                 .waitSeconds(0.3)
 
                 .setTangent(Math.toRadians(135))
 
-                .splineToSplineHeading(new Pose2d(-48, 56, Math.toRadians(90)), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-48, 56), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-48, 62.5), Math.toRadians(90))
                 .waitSeconds(1.1)
 
                 .setTangent(Math.toRadians(-45))
-                .splineToLinearHeading(new Pose2d(-8, 40 - 3, Math.toRadians(90)), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-8, 40 - 3), Math.toRadians(-90))
                 .waitSeconds(0.3)
 
                 .setTangent(Math.toRadians(135))
-                .splineToSplineHeading(new Pose2d(-52, 60, Math.toRadians(90)), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-52, 60), Math.toRadians(90))
                 .build();
     }
 
