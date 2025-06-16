@@ -62,7 +62,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
         addClawDistanceSensor();
 
         new OuttakeClawCloseCommand().schedule();
-        new SpecIntakeCommand().schedule();
+//        new SpecIntakeCommand().schedule();
 
         startPose = new Pose2d(0, 64, Math.PI/2);
 
@@ -179,12 +179,12 @@ public class BluSpecForLoop extends GreenLinearOpMode {
 
     @Override
     public void initLoop() {
-        if(stickyG1.b){
-            new SequentialCommandGroup(
-                    new ClawArmInSpecCommand(),
-                    new ClawWristInSpecTransferCommand()
-            ).schedule();
-        }
+//        if(stickyG1.b){
+//            new SequentialCommandGroup(
+//                    new ClawArmInSpecCommand(),
+//                    new ClawWristInSpecTransferCommand()
+//            ).schedule();
+//        }
         outtakeClaw.close();
     }
 
