@@ -104,12 +104,10 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     }
 
     public void fieldCentricDrive(double x, double y, double rotate){
-        double botHeading = getExternalHeading();
-
         Vector2d input = new Vector2d(x,y);
         Vector2d output;
 
-        output = input.rotated(-botHeading);
+        output = input.rotated(-heading);
 
         x = output.getX();
         y = output.getY();
