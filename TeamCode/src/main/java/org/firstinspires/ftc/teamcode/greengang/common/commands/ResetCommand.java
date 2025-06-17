@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.Ou
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristParallelCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
@@ -46,6 +47,21 @@ public class ResetCommand extends SequentialCommandGroup {
 
 
                 new HorizontalSlidesRetractCommand(),
+
+                new ConditionalCommand(
+
+                        new SequentialCommandGroup(
+                                new WaitCommand(1000),
+                                new IntakeInCommand()
+                        ),
+
+                        new WaitCommand(0),
+
+                        () -> Robot.getInstance().color.isFull()
+
+                ),
+
+
                 new TurretInitCommand(),
                 new WristParallelCommand(),
                 new OuttakeClawOpenCommand(),
