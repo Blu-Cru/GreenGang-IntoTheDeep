@@ -5,8 +5,8 @@ import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 
-public class ClawWristLowOutSpecCommand extends InstantCommand {
-    public ClawWristLowOutSpecCommand(){
+public class ClawWristFlatCommand extends InstantCommand {
+    public ClawWristFlatCommand(){
         super(
                 () -> Robot.getInstance().clawWrist.lowOutspec()
         );

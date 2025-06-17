@@ -39,7 +39,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public LOC loc;
     DcMotorEx motor;
     PIDController pid;
-    double position, velocity;
+    public double position, velocity;
 
     public HorizontalSlides(HardwareMap hardwareMap){
         motor = hardwareMap.get(DcMotorEx.class, "hs motor");

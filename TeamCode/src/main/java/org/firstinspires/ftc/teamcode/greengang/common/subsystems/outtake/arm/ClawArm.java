@@ -14,6 +14,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     public enum STATE {
         INIT,
         OUTSAMPLE,
+        FLAT,
         INSPEC,
         INSPECTRANSFER,
         OUTSPEC;
@@ -39,18 +40,22 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public void transfer() { // Transfer
 //        targetPos = vertPos +0.4;
-        setAngle(-28.0);
+        setAngle(-23.0);
 
         state = STATE.INIT;
     }
+    public void flat(){
+        setAngle(0);
+        state = STATE.FLAT;
+    }
     public void sampleOuttake() { // scoring samples
 //        targetPos = vertPos -0.15;
-        setAngle(135.0);
+        setAngle(120.0);
         state = STATE.OUTSAMPLE;
     }
     public void specOuttake(){ //scoring specimen
 //        targetPos = vertPos -0.25;
-        setAngle(177.0);
+        setAngle(167.0);
         state = STATE.OUTSPEC;
     }
     public void inSpecTransfer(){
@@ -59,7 +64,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
     public void inSpec() {
 //        targetPos = vertPos +0.35;
-        setAngle(-15.0);
+        setAngle(-12.0);
         state = STATE.INSPEC;
     }
 

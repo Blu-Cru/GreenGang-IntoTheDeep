@@ -39,6 +39,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         START,
         HIGH,
         HIGHSPEC,
+        HIGHSPECSCORE,
         LOWSPEC,
         ASCENT2,
         MANUAL;
@@ -144,6 +145,12 @@ public class VertSlides implements GreenSubsystem, Subsystem {
         targetHeight = highSpec;
         pidTo(targetHeight);
         highspec =!highspec;
+    }
+    public void highSpecScore(){
+        state = STATE.HIGHSPECSCORE;
+        targetHeight = highSpec-40;
+        pidTo(targetHeight);
+
     }
 
     public void lowBucket() {

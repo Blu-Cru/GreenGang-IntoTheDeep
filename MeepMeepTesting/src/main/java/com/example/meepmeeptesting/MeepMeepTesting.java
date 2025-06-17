@@ -39,7 +39,7 @@ public class MeepMeepTesting {
 
                         .waitSeconds(0.25)
                         .setTangent(-Math.PI/2)
-                        .splineToConstantHeading(new Vector2d(6, 26.5), -Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(6, 28), -Math.PI/2)
 
 //                        .addTemporalMarker(() -> {
 //                            new SequentialCommandGroup(
@@ -64,23 +64,23 @@ public class MeepMeepTesting {
                         .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
 
                         .splineToConstantHeading(new Vector2d(-40, 16), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(180))
-                        .setTangent(Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(90))
+//                        .setTangent(Math.PI/2)
                         .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
 
                         //JUST FINISHED PUSHING SAMPLE 1
-                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(-90))
-                        .setTangent(Math.PI)
-                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(180))
-                        .setTangent(Math.PI/2)
+                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(180))
+//                        .setTangent(Math.PI)
+                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(90))
+//                        .setTangent(Math.PI/2)
                         .splineToConstantHeading(new Vector2d(-56, 51), Math.toRadians(90))
 
                         //JUST FINISHED PUSHING SAMPLE 2
-                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(-90))
-                        .setTangent(Math.PI)
-                        .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(180))
+//                        .setTangent(Math.PI)
+                        .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(90))
 
-                        .setTangent(Math.PI/2)
+//                        .setTangent(Math.PI/2)
                         .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90));
 
                             //SPECIMEN 1
@@ -99,8 +99,11 @@ public class MeepMeepTesting {
 //                            ).schedule();
 //                        })
                                 //-----
-                                .setTangent(Math.PI/2)
-                                .splineToConstantHeading(new Vector2d(-48, 56 + (i == 0 ? 0.3 : 0)), (i == 0 ? 0 : Math.PI/2))
+                                .setTangent(Math.PI/2);
+                                if(i>0){
+                                    builder.splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
+                                }
+                                builder.splineToConstantHeading(new Vector2d(-48, 54), (i == 0 ? 0 : Math.PI/2))
                                 .splineToConstantHeading(new Vector2d(-48, 63.5 - (i > 1 ? 0.7 : 0)), Math.PI/2)
                                 .waitSeconds(1)
                                 .setTangent(-Math.PI/4)
@@ -113,7 +116,8 @@ public class MeepMeepTesting {
     //                        })
     //                        .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
 
-                                .splineToConstantHeading(new Vector2d(4-2*i, 26.5), Math.toRadians(-90))
+                                .splineToConstantHeading(new Vector2d(4-2*i, 28), Math.toRadians(-90))
+
 //                        .addTemporalMarker(()->{
 //                            new ClawWristScoringSpecFlickCommand().schedule();
 //                        })
@@ -129,7 +133,7 @@ public class MeepMeepTesting {
 //                        });
                     builder
                         .setTangent(Math.PI/2)
-                        .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90));
+                            .splineToLinearHeading(new Pose2d(-40, 56.3, Math.toRadians(-90)), Math.toRadians(90));
                         return builder.build();
                 });
 

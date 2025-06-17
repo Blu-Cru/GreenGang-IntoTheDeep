@@ -33,7 +33,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        clawWrist.setPosition(parallel + 0.205);
+        clawWrist.setPosition(parallel + 0.21);
 //        mp=new MotionProfile(parallel+.2, clawWrist.getPosition(), vMax,aMax).start();
         state = STATE.INIT;
     }

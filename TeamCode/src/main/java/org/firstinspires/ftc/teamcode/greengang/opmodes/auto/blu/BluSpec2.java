@@ -14,12 +14,15 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.Cla
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawToggleCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristScoringSpecFlickCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.SpecIntakeCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.auto.AutoSpecDunk;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.auto.AutoSpecOuttake;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.arm.ClawArm;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -57,9 +60,11 @@ public class BluSpec2 extends GreenLinearOpMode {
         addIntakeColorSensor();
         addTurret();
         addClawDistanceSensor();
+        new SequentialCommandGroup(
+                new ClawArmInSpecCommand(),
+                new ClawWristTransferCommand()
+        ).schedule();
 
-        new OuttakeClawCloseCommand().schedule();
-        new SpecIntakeCommand().schedule();
 
         startPose = new Pose2d(0, 64, Math.PI/2);
 
@@ -236,12 +241,8 @@ public class BluSpec2 extends GreenLinearOpMode {
     @Override
     public void initLoop() {
         if(stickyG1.b){
-            new SequentialCommandGroup(
-                    new ClawArmInSpecCommand(),
-                    new ClawWristInSpecTransferCommand()
-            ).schedule();
+            new OuttakeClawToggleCommand().schedule();
         }
-        outtakeClaw.close();
     }
 
     @Override

@@ -85,7 +85,6 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                         horizontalSlides.manualSlide(hsPow);}
 
                     if(gamepad1.left_trigger>.2){
-                        new WristDownCommand().schedule();
                         new IntakeInCommand().schedule();
                     } else if (gamepad1.right_trigger>.2){
                         new IntakeSpitCommand().schedule();
@@ -230,7 +229,7 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad2.left_trigger > 0.2, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED, State.DEFAULT, ()->{})
+                .transition(()-> horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED || horizontalSlides.position < 20, State.DEFAULT, ()->{})
 
                 .build();
         sm.setState(State.DEFAULT);
@@ -246,7 +245,10 @@ public class SimplifiedMainFSM extends GreenLinearOpMode {
         drivetrain.teleOpDrive(gamepad1);
         sm.update();
         telemetry.update();
-
+        if(gamepad1.right_stick_button) {
+            drivetrain.setHeading(Math.PI/2);
+            gamepad1.rumble(150);
+        }
         if(intakeColorSensor.spit){
             new IntakeSpitCommand().schedule();
         }
