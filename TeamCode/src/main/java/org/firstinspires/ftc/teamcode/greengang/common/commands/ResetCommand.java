@@ -47,6 +47,9 @@ public class ResetCommand extends SequentialCommandGroup {
 
 
                 new HorizontalSlidesRetractCommand(),
+                new TurretInitCommand(),
+                new WristParallelCommand(),
+                new OuttakeClawOpenCommand(),
 
                 new ConditionalCommand(
 
@@ -60,11 +63,6 @@ public class ResetCommand extends SequentialCommandGroup {
                         () -> Robot.getInstance().color.isFull()
 
                 ),
-
-
-                new TurretInitCommand(),
-                new WristParallelCommand(),
-                new OuttakeClawOpenCommand(),
 
                 new ConditionalCommand(
                         new WaitCommand(1000),//true
