@@ -13,7 +13,7 @@ public class LowSpecCommand extends SequentialCommandGroup {
         super (
                 new VertSlidesLowSpecCommand(),
                 new OuttakeClawCloseCommand(),
-                new ClawWristFlatCommand(),
+//                new ClawWristFlatCommand(),
                 new ClawArmOutSpecCommand(),
                 new TurretFlipCommand()
         );

@@ -20,7 +20,7 @@ public class ScoringLowBucketCommand extends SequentialCommandGroup {
         super (
                 new VertSlidesLowBucketCommand(),
                 new ClawArmBucketCommand(),
-                new ClawWristBucketCommand(),
+//                new ClawWristBucketCommand(),
                 new TurretTurn90Command()
         );
     }

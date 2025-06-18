@@ -20,7 +20,7 @@ public class SamplePassThroughCommand extends SequentialCommandGroup {
                         new TransferCommand(),
                         new OuttakeClawCloseCommand(),
                         new ClawArmBucketCommand(),
-                        new ClawWristBucketCommand(),
+//                        new ClawWristBucketCommand(),
                         new OuttakeClawOpenCommand()
                 )
         );

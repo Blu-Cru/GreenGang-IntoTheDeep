@@ -25,7 +25,7 @@ public class SpecIntakeCommand extends SequentialCommandGroup {
                 new ConditionalCommand(
 
                         new SequentialCommandGroup(
-                                new ClawWristInSpecTransferCommand(),
+//                                new ClawWristInSpecTransferCommand(),
                                 new WaitCommand(200),
                                 new ClawArmInspecTransferCommand(),
                                 new WaitCommand(200)
@@ -38,7 +38,7 @@ public class SpecIntakeCommand extends SequentialCommandGroup {
                         () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INIT
                 ),
 
-                new ClawWristInSpecCommand(),
+//                new ClawWristInSpecCommand(),
                 new ClawArmInSpecCommand(),
                 new TurretTurn90Command(),
                 new TurretInitCommand(),

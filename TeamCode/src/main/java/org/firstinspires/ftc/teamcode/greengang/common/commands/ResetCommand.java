@@ -30,22 +30,18 @@ public class ResetCommand extends SequentialCommandGroup {
 
                         new SequentialCommandGroup(
                                 new ClawArmInspecTransferCommand(),
-                                new ClawWristInSpecTransferCommand(),
+//                                new ClawWristInSpecTransferCommand(),
                                 new WaitCommand(300),
                                 new ClawArmInitCommand(),
-                                new WaitCommand(300),
-                                new ClawWristTransferCommand()
+                                new WaitCommand(300)
                         ),
 
-                        new SequentialCommandGroup(
-                                new ClawArmInitCommand(),
-                                new ClawWristTransferCommand()
-                        ),
+                        new ClawArmInitCommand(),
 
                         () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INSPEC
                 ),
 
-
+                // new ClawWristTransferCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new TurretInitCommand(),
                 new WristParallelCommand(),

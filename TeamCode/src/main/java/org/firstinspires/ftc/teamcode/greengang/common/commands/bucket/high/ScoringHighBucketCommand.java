@@ -22,7 +22,7 @@ public class ScoringHighBucketCommand extends SequentialCommandGroup {
                     new OuttakeClawCloseCommand(),
                     new VertSlidesHighBucketCommand(),
                     new WaitCommand(500),
-                    new ClawWristBucketCommand(),
+//                    new ClawWristBucketCommand(),
                     new ClawArmBucketCommand(),
                     new TurretTurn90Command()
         );
