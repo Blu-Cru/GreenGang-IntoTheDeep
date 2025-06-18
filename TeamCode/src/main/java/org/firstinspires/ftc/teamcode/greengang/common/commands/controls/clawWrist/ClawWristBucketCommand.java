@@ -10,6 +10,6 @@ public class ClawWristBucketCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().clawWrist.bucket()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+        addRequirements(Robot.getInstance().clawWrist);
     }
 }

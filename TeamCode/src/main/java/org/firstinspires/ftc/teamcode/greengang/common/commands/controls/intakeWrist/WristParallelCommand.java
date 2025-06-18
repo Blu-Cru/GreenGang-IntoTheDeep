@@ -12,6 +12,6 @@ public class WristParallelCommand extends InstantCommand {
                     Robot.getInstance().wrist.parallel();
                 }
         );
-        addRequirements((Subsystem) Robot.getInstance().wrist);
+        addRequirements(Robot.getInstance().wrist);
     }
 }

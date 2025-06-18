@@ -12,6 +12,6 @@ public class OuttakeClawToggleCommand extends InstantCommand {
                     Robot.getInstance().outtakeClaw.toggle();
                 }
         );
-        addRequirements((Subsystem) Robot.getInstance().outtakeClaw);
+        addRequirements(Robot.getInstance().outtakeClaw);
     }
 }

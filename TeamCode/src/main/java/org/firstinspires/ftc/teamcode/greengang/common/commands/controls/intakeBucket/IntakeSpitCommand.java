@@ -11,6 +11,6 @@ public class IntakeSpitCommand extends InstantCommand {
                 () -> Robot.getInstance().intake.spit()
         );
 
-        addRequirements((Subsystem) Robot.getInstance().intake);
+        addRequirements(Robot.getInstance().intake);
     }
 }

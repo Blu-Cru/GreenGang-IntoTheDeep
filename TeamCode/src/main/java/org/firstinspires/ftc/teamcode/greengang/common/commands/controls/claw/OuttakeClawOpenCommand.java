@@ -13,6 +13,6 @@ public class OuttakeClawOpenCommand extends InstantCommand {
 
 
 
-        addRequirements((Subsystem) Robot.getInstance().outtakeClaw);
+        addRequirements(Robot.getInstance().outtakeClaw);
     }
 }

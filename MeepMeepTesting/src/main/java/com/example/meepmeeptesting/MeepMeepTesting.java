@@ -69,14 +69,14 @@ public class MeepMeepTesting {
                         .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
 
                         //JUST FINISHED PUSHING SAMPLE 1
-                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
                         .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
                         .splineToConstantHeading(new Vector2d(-56, 51), Math.toRadians(90))
 
                         //JUST FINISHED PUSHING SAMPLE 2
-                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
                         .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(90))
 

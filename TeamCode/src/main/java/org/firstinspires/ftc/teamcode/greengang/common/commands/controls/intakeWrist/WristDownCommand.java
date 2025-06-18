@@ -12,6 +12,6 @@ public class WristDownCommand extends InstantCommand {
                     Robot.getInstance().wrist.down();
                 }
         );
-        addRequirements((Subsystem) Robot.getInstance().wrist);
+        addRequirements(Robot.getInstance().wrist);
     }
 }

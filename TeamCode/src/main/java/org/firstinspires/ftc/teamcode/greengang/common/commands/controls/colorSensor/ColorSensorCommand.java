@@ -12,7 +12,7 @@ public class ColorSensorCommand extends InstantCommand {
                 () -> Robot.getInstance().color.init()
         );
 
-        addRequirements((Subsystem) Robot.getInstance().color);
+        addRequirements(Robot.getInstance().color);
 
     }
 }

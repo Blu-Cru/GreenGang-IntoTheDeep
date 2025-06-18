@@ -11,6 +11,6 @@ public class ClawWristInSpecCommand extends InstantCommand {
                 () -> Robot.getInstance().clawWrist.inspec()
         );
 
-        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+        addRequirements(Robot.getInstance().clawWrist);
     }
 }

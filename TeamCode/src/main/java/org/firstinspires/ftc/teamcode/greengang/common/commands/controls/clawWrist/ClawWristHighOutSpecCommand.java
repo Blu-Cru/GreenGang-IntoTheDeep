@@ -11,6 +11,6 @@ public class ClawWristHighOutSpecCommand extends InstantCommand {
                 () -> Robot.getInstance().clawWrist.highOutSpec()
         );
 
-        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+        addRequirements(Robot.getInstance().clawWrist);
     }
 }

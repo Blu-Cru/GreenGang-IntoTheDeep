@@ -13,6 +13,6 @@ public class IntakeInCommand extends InstantCommand{
                 }
         );
 
-        addRequirements((Subsystem) Robot.getInstance().intake);
+        addRequirements(Robot.getInstance().intake);
     }
 }

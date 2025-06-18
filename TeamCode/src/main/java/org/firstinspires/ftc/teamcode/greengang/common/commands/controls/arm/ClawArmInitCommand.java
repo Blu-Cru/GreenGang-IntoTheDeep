@@ -10,6 +10,6 @@ public class ClawArmInitCommand extends InstantCommand {
         super (
                 () -> Robot.getInstance().clawArm.init()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawArm);
+        addRequirements(Robot.getInstance().clawArm);
     }
 }

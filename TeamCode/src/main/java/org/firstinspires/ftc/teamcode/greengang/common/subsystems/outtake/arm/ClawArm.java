@@ -55,6 +55,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
     public void specOuttake(){ //scoring specimen
 //        targetPos = vertPos -0.25;
+
         setAngle(167.0);
         state = STATE.OUTSPEC;
     }
@@ -64,7 +65,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
     public void inSpec() {
 //        targetPos = vertPos +0.35;
-        setAngle(-12.0);
+        setAngle(-7.0);
         state = STATE.INSPEC;
     }
 

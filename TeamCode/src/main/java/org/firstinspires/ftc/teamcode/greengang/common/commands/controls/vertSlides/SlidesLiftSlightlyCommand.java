@@ -15,6 +15,6 @@ public class SlidesLiftSlightlyCommand extends InstantCommand {
         super (
                 () -> Robot.getInstance().vs.slightLift()
         );
-        addRequirements((Subsystem) Robot.getInstance().vs);
+        addRequirements( Robot.getInstance().vs);
     }
 }

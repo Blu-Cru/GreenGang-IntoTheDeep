@@ -12,6 +12,6 @@ public class OuttakeClawLooseCloseCommand extends InstantCommand {
                     Robot.getInstance().outtakeClaw.looseClose();
                 }
         );
-        addRequirements((Subsystem) Robot.getInstance().outtakeClaw);
+        addRequirements(Robot.getInstance().outtakeClaw);
     }
 }

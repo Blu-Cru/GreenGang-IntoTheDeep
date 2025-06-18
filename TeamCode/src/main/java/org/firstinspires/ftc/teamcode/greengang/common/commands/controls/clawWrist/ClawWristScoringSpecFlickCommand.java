@@ -11,6 +11,6 @@ public class ClawWristScoringSpecFlickCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().clawWrist.specFlick()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+        addRequirements(Robot.getInstance().clawWrist);
     }
 }

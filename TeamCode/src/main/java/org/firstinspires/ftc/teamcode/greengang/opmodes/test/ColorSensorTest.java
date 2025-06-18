@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 
-@TeleOp(name = "distance sensor test", group = "test")
+@TeleOp(name = "color sensor test", group = "test")
 public class ColorSensorTest extends GreenLinearOpMode {
     @Override
     public void periodic() {

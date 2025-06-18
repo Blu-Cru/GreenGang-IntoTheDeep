@@ -10,6 +10,6 @@ public class ClawArmInspecTransferCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().clawArm.inSpecTransfer()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawArm);
+        addRequirements(Robot.getInstance().clawArm);
     }
 }

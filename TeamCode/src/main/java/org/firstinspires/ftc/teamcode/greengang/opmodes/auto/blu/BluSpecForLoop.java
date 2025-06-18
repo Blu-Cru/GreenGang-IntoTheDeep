@@ -39,11 +39,11 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 public class BluSpecForLoop extends GreenLinearOpMode {
     public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(48, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
-    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(27, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
 
     public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(48);
     public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
-    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(27);
+    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(25);
 
     public static TrajectoryVelocityConstraint[] velos = {SLOW_VEL, NORMAL_VEL, FAST_VEL};
     public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
@@ -75,13 +75,13 @@ public class BluSpecForLoop extends GreenLinearOpMode {
 
         TrajectorySequenceBuilder builder = drivetrain.trajectorySequenceBuilder(startPose)
 
-                .setConstraints(FAST_VEL, FAST_ACCEL)
+                .setConstraints(SLOW_VEL, SLOW_ACCEL)
 
                 .setTangent(-Math.PI/2)
                 .addTemporalMarker(() -> {
                     new HighSpecAutoCommand().schedule();
                 })
-                .waitSeconds(0.25)
+                .waitSeconds(0.5)
                 .setTangent(-Math.PI/2)
                 .splineToConstantHeading(new Vector2d(6, 26), -Math.PI/2)
 
@@ -117,19 +117,21 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                 .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 1
-                .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
                 .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
                 .splineToConstantHeading(new Vector2d(-56, 51), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 2
-                .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
                 .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(90))
 
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90));
+                .splineToConstantHeading(new Vector2d(-63.5, 51), Math.toRadians(90))
+                .setTangent(0);
+
 
                 for (int i = 0; i < 4; i++) {
 
@@ -164,7 +166,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                 })
                                     .waitSeconds(0.3)
 
-                            .setConstraints(FAST_VEL, FAST_ACCEL)
+                            .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
                             .splineToConstantHeading(new Vector2d(4-2*i, 26), Math.toRadians(-90))
                             .addTemporalMarker(()->{
                                 new SequentialCommandGroup(

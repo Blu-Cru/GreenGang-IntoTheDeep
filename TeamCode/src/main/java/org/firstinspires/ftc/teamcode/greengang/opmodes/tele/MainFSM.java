@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.greengang.opmodes.tele;
 
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.sfdev.assembly.state.StateMachine;
 import com.sfdev.assembly.state.StateMachineBuilder;
@@ -25,6 +27,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.SpecIntakeCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.Intake;
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.slides.HorizontalSlides;
 import org.firstinspires.ftc.teamcode.greengang.common.util.Globals;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
@@ -65,13 +68,14 @@ public class MainFSM extends GreenLinearOpMode {
         addIntakeColorSensor();
         addTurret();
         addClawDistanceSensor();
+        intakeColorSensor.startReading();
         sm = new StateMachineBuilder()
 
                 // RETRACTED
                 .state(State.DEFAULT)
 
                 .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
-                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
+                .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE,()->{
                     new SpecIntakeCommand().schedule();
                 })
 //                .transition(()-> stickyG1.left_bumper, State.HIGH_SPEC,()->{
@@ -97,6 +101,7 @@ public class MainFSM extends GreenLinearOpMode {
                     hsPow = -gamepad2.left_stick_y;
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
+
                 })
 //                .transition(()-> gamepad1.dpad_down, State.HANG_EXTENDED)
                 .transition(()-> gamepad2.left_trigger > 0.2 || gamepad1.left_trigger > 0.2, State.HORIZ_EXTENDED, ()->{
@@ -109,7 +114,7 @@ public class MainFSM extends GreenLinearOpMode {
                 //LOW BUCKET
                 .state(State.LOW_BUCKET)
 
-                .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
 
@@ -120,13 +125,13 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
                     }
-                    if(stickyG1.dpad_right){
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
                         new TurretTurn90Command().schedule();
                     }
-                    if(stickyG1.dpad_left){
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
                         new TurretFlipCommand().schedule();
                     }
-                    wristRotationPow = -gamepad1.left_stick_y;
+                    wristRotationPow = -gamepad2.left_stick_y;
                     if (Math.abs(wristRotationPow) > 0.1) {
                         robot.turret.manualRotate(wristRotationPow / 500);
                     }
@@ -134,7 +139,7 @@ public class MainFSM extends GreenLinearOpMode {
 
                 //HIGH BUCKET
                 .state(State.HIGH_BUCKET)
-                .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
                 .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
@@ -144,13 +149,13 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
                     }
-                    if(stickyG1.dpad_right){
+                    if(stickyG1.dpad_right || stickyG2.dpad_right){
                         new TurretTurn90Command().schedule();
                     }
-                    if(stickyG1.dpad_left){
+                    if(stickyG1.dpad_left || stickyG2.dpad_left){
                         new TurretFlipCommand().schedule();
                     }
-                    wristRotationPow = -gamepad1.left_stick_y;
+                    wristRotationPow = -gamepad2.left_stick_y;
                     if (Math.abs(wristRotationPow) > 0.1) {
                         robot.turret.manualRotate(wristRotationPow / 500);
                     }
@@ -158,10 +163,10 @@ public class MainFSM extends GreenLinearOpMode {
 
                 //HIGH SPECIMEN
                 .state(State.HIGH_SPEC)
-                .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
-                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE, ()->{
                     new SpecIntakeCommand().schedule();
                 })
                 .loop(()->{
@@ -181,7 +186,7 @@ public class MainFSM extends GreenLinearOpMode {
                 })
 
                 .state(State.LOW_SPEC)
-                .transition(()-> gamepad2.left_trigger>0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
                 .loop(()->{
@@ -198,7 +203,7 @@ public class MainFSM extends GreenLinearOpMode {
                         new ClawWristScoringSpecToggleCommand().schedule();
                     }
                 })
-                .transition(()-> gamepad1.left_bumper, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG1.dpad_up || stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SpecIntakeCommand().schedule();
                 })
 
@@ -219,12 +224,12 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad1.right_bumper, State.HIGH_SPEC,()->{
                     new HighSpecCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger >0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
                 .loop(()->{
                     if(stickyG1.a || stickyG2.a){
-                        new OuttakeClawLooseToggleCommand().schedule();
+                        new OuttakeClawToggleCommand().schedule();
                     }
 
                 })
@@ -252,7 +257,7 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> gamepad2.dpad_down, State.DEFAULT,()->{
                     new HorizontalSlidesRetractCommand().schedule();
                 })
-                .transition(()-> gamepad2.left_trigger > 0.2, State.DEFAULT,()->{
+                .transition(()-> gamepad2.y, State.DEFAULT,()->{
                     new ResetCommand().schedule();
                 })
                 .transition(()-> stickyG2.left_bumper, State.LOW_BUCKET,()->{
@@ -275,6 +280,7 @@ public class MainFSM extends GreenLinearOpMode {
 
     public void telemetry(Telemetry telemetry){
         telemetry.addData("Robot State: ", sm.getState());
+        telemetry.update();
     }
 
     @Override

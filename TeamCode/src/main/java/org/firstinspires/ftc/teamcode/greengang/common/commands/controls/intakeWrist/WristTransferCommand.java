@@ -12,6 +12,6 @@ public class WristTransferCommand extends InstantCommand {
                     Robot.getInstance().wrist.transfer();
                 }
         );
-        addRequirements((Subsystem) Robot.getInstance().wrist);
+        addRequirements(Robot.getInstance().wrist);
     }
 }

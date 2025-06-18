@@ -10,6 +10,6 @@ public class VertSlidesStartCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().vs.start()
         );
-        addRequirements((Subsystem) Robot.getInstance().vs);
+        addRequirements( Robot.getInstance().vs);
     }
 }

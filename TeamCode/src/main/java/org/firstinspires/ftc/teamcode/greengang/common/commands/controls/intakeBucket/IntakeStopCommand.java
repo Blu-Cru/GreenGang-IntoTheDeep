@@ -11,6 +11,6 @@ public class IntakeStopCommand extends InstantCommand {
                 () -> Robot.getInstance().intake.stop()
         );
 
-        addRequirements((Subsystem) Robot.getInstance().intake);
+        addRequirements(Robot.getInstance().intake);
     }
 }

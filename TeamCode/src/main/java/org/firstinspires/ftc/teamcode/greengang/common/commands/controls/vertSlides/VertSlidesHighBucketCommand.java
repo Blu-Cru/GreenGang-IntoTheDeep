@@ -10,6 +10,6 @@ public class VertSlidesHighBucketCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().vs.highBucket()
         );
-        addRequirements((Subsystem) Robot.getInstance().vs);
+        addRequirements(Robot.getInstance().vs);
     }
 }

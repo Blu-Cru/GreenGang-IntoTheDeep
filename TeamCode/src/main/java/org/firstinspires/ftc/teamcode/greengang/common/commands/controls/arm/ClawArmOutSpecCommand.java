@@ -8,6 +8,6 @@ public class ClawArmOutSpecCommand extends InstantCommand {
         super (
                 () -> Robot.getInstance().clawArm.specOuttake()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawArm);
+        addRequirements(Robot.getInstance().clawArm);
     }
 }

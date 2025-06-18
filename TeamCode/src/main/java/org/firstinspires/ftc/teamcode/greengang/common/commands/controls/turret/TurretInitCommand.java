@@ -13,6 +13,6 @@ public class TurretInitCommand extends InstantCommand {
 
 
 
-        addRequirements((Subsystem) Robot.getInstance().turret);
+        addRequirements(Robot.getInstance().turret);
     }
 }

@@ -22,7 +22,6 @@ public class ScoringLowBucketCommand extends SequentialCommandGroup {
                 new ClawArmBucketCommand(),
                 new ClawWristBucketCommand(),
                 new TurretTurn90Command()
-
         );
     }
 }

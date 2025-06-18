@@ -11,6 +11,6 @@ public class ClawWristScoringSpecToggleCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().clawWrist.specScoringToggle()
         );
-        addRequirements((Subsystem) Robot.getInstance().clawWrist);
+        addRequirements(Robot.getInstance().clawWrist);
     }
 }

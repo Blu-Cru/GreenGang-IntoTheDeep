@@ -10,6 +10,6 @@ public class VertSlidesHighSpecCommand extends InstantCommand {
         super(
                 () -> Robot.getInstance().vs.highSpec()
         );
-        addRequirements((Subsystem) Robot.getInstance().vs);
+        addRequirements( Robot.getInstance().vs);
     }
 }

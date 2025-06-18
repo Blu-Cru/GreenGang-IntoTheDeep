@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -25,6 +26,7 @@ public class BluSamplePath extends GreenLinearOpMode {
 
     TrajectorySequence farBlue;
     boolean done;
+    Pose2d startPose;
 
     @Override
     public void initialize() {
@@ -40,7 +42,8 @@ public class BluSamplePath extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
 
-        Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
+        startPose = new Pose2d(39.6, 65, Math.toRadians(180));
+        drivetrain.ppl.setPoseEstimate(startPose);
         drivetrain.setPoseEstimate(startPose);
 
         farBlue = drivetrain.trajectorySequenceBuilder(startPose)
@@ -97,9 +100,9 @@ public class BluSamplePath extends GreenLinearOpMode {
 
     @Override
     public void periodic() {
-
-
         if (!drivetrain.isBusy() && !done){
+            drivetrain.setPoseEstimate(startPose);
+            drivetrain.ppl.setPoseEstimate(startPose);
             drivetrain.followTrajectorySequenceAsync(farBlue);
             done = true;
         }
@@ -109,5 +112,11 @@ public class BluSamplePath extends GreenLinearOpMode {
 //            requestOpModeStop();
         }
     }
+
+    public void telemetry(Telemetry tele){
+        tele.addData("pose ", drivetrain.getPoseEstimate());
+        tele.addData("ppl pose ", drivetrain.ppl.getPoseEstimate());
+    }
+
 
 }
