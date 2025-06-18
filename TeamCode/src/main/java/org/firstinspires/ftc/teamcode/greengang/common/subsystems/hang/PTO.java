@@ -30,7 +30,7 @@ public class PTO implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("PTO state ", state);
+//        telemetry.addData("PTO state ", state);
     }
 
     @Override

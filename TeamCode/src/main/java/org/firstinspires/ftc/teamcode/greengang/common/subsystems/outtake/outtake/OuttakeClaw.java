@@ -53,7 +53,7 @@ public class OuttakeClaw implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry){
-        telemetry.addData("Outk claw pos ", outtakeClaw.getPosition());
+//        telemetry.addData("Outk claw pos ", outtakeClaw.getPosition());
         telemetry.addData("Outk claw state ", state);
     }
 

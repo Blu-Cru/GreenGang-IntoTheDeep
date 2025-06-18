@@ -91,8 +91,8 @@ public class Turret implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("Wrist Position", pos);
-        telemetry.addData("Current State", currentState);
-        telemetry.addData("Target State", targetState);
+//        telemetry.addData("Wrist Position", pos);
+        telemetry.addData("Turret Current State", currentState);
+//        telemetry.addData("Target State", targetState);
     }
 }

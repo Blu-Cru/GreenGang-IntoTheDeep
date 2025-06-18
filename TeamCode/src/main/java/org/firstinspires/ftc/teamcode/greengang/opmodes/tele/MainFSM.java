@@ -356,10 +356,6 @@ public class MainFSM extends GreenLinearOpMode {
         if(intakeColorSensor.spit){
             intake.spit();
         }
-
-        if (horizontalSlides.state == HorizontalSlides.STATE.IDLE) {
-            horizontalSlides.pidTo(horizontalSlides.minpos);
-        }
     }
 
 }

@@ -66,8 +66,8 @@ public class SmoothServo extends GreenServo {
     }
 
     public void telemetry() {
-        Globals.tele.addData("Smooth Servo: ", getName());
-        Globals.tele.addData("Target Pos: ", finalPosition);
+//        Globals.tele.addData("Smooth Servo: ", getName());
+//        Globals.tele.addData("Target Pos: ", finalPosition);
         super.telemetry();
     }
 }

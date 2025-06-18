@@ -140,7 +140,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 
     public void telemetry(Telemetry tele) {
         tele.addData("heading current pos ", heading);
-        tele.addData("rotate pow ", pid.getRotate(heading));
+//        tele.addData("rotate pow ", pid.getRotate(heading));
         tele.addData("drive train power ", drivePower);
     }
 
@@ -153,16 +153,14 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     public void update() {
         updatePID();
         heading = ppl.getHeading();
-        headingVel = ppl.getHeadingVelocity();
         pose = ppl.getPoseEstimate();
-        vel = ppl.getPoseVelocity();
-        if (pose != null && vel != null) {
-            xState = new Vector2d(pose.getX(), vel.getX());
-            yState = new Vector2d(pose.getY(), vel.getY());
-        } else {
-            xState = new Vector2d(0,0);
-            yState = new Vector2d(0,0);
-        }
+//        if (pose != null && vel != null) {
+//            xState = new Vector2d(pose.getX(), vel.getX());
+//            yState = new Vector2d(pose.getY(), vel.getY());
+//        } else {
+//            xState = new Vector2d(0,0);
+//            yState = new Vector2d(0,0);
+//        }
         headingState = new Vector2d(heading, headingVel);
         ppl.update();
     }

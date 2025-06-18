@@ -33,7 +33,7 @@ public class TiltServos implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry) {
-        telemetry.addData("tilt ", leftTilt.getPosition() == 1 ? "tilted" : "untilted");
+//        telemetry.addData("tilt ", leftTilt.getPosition() == 1 ? "tilted" : "untilted");
     }
 
     @Override

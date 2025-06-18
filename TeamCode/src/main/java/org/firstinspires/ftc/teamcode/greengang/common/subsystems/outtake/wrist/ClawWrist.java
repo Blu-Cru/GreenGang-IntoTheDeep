@@ -83,7 +83,7 @@ public class ClawWrist implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry telemetry){
-        telemetry.addData("Claw wrist pos ", clawWrist.getPosition());
+//        telemetry.addData("Claw wrist pos ", clawWrist.getPosition());
         telemetry.addData("Claw wrist state ", state);
     }
 
