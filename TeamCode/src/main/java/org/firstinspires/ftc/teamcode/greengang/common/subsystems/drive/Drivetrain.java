@@ -17,10 +17,11 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
     public double drivePower;
     public PinpointLocalizer ppl;
     public DrivePID pid;
-    public double heading, headingVel;
+    public double heading;
     State state;
-    public Pose2d pose, vel;
-    public Vector2d xState, yState, headingState;
+    public Pose2d pose;
+    public Vector2d headingState = new Vector2d(0, 0);
+
     boolean lastTurning, lastTranslating;
     enum State {
         IDLE,
@@ -31,9 +32,6 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         pid = new DrivePID();
         drivePower = 1;
         state = State.IDLE;
-        xState = new Vector2d();
-        yState = new Vector2d();
-        headingState = new Vector2d();
         lastTranslating=false;
         lastTurning=false;
         ppl = new PinpointLocalizer(hardwareMap);
@@ -154,6 +152,7 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
         updatePID();
         heading = ppl.getHeading();
         pose = ppl.getPoseEstimate();
+        headingState = new Vector2d(heading, ppl.getHeadingVelocity());
 //        if (pose != null && vel != null) {
 //            xState = new Vector2d(pose.getX(), vel.getX());
 //            yState = new Vector2d(pose.getY(), vel.getY());
@@ -161,7 +160,6 @@ public class Drivetrain extends SampleMecanumDrive implements GreenSubsystem, Su
 //            xState = new Vector2d(0,0);
 //            yState = new Vector2d(0,0);
 //        }
-        headingState = new Vector2d(heading, headingVel);
         ppl.update();
     }
 }

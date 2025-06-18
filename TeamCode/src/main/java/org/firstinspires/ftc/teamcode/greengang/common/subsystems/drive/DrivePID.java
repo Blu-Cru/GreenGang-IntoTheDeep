@@ -29,12 +29,12 @@ public class DrivePID {
         return new Vector2d(xPower, yPower);
     }
 
-    public Pose2d calculate(Drivetrain dt) {
-        double xPower = xController.calculate(dt.xState.getX());
-        double yPower = yController.calculate(dt.yState.getY());
-        double headingPower = getRotate(dt.heading);
-        return new Pose2d(xPower, yPower, headingPower);
-    }
+//    public Pose2d calculate(Drivetrain dt) {
+//        double xPower = xController.calculate(dt.xState.getX());
+//        double yPower = yController.calculate(dt.yState.getY());
+//        double headingPower = getRotate(dt.heading);
+//        return new Pose2d(xPower, yPower, headingPower);
+//    }
 
     public double calcX(Vector2d xState) {
         return xController.calculate(xState.getX());
