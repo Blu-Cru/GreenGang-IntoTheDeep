@@ -27,7 +27,7 @@ public class VertSlides implements GreenSubsystem, Subsystem {
     public static int
             init = 0,
             highBucket = 2120,
-            lowBucket = 1070,
+            lowBucket = 800,
             ascent2 = 976,
             lowSpec = 465,
             highSpec = 580;

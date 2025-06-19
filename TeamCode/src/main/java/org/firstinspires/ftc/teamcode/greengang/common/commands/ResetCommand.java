@@ -30,7 +30,6 @@ public class ResetCommand extends SequentialCommandGroup {
 
                 new ClawArmInitCommand(),
                 new HorizontalSlidesRetractCommand(),
-                new TurretInitCommand(),
                 new WristParallelCommand(),
                 new OuttakeClawOpenCommand(),
 

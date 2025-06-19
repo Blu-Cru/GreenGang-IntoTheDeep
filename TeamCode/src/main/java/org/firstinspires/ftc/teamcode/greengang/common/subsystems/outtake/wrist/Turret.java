@@ -29,22 +29,11 @@ public class Turret implements GreenSubsystem, Subsystem {
     }
 
     public void flip() {
-        if (targetState == STATE.INIT) {
-            targetState = STATE.FLIPPED;
-        } else if (targetState == STATE.FLIPPED || targetState == STATE.NINETY) {
-            targetState = STATE.INIT;
-        }
-        else{
-            targetState = STATE.INIT;
-        }
+        turret.setPosition(1);
     }
 
     public void turn90() {
-        if (targetState != STATE.NINETY) {
-            targetState = STATE.NINETY;
-        } else {
-            targetState = STATE.INIT;
-        }
+        turret.setPosition(0.5);
     }
 
     public void manualRotate(double increment) {
@@ -56,37 +45,37 @@ public class Turret implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        turret.setPosition(0.3);
-        currentState = STATE.INIT;
-        targetState = STATE.INIT;
+        turret.setPosition(0);
+//        currentState = STATE.INIT;
+//        targetState = STATE.INIT;
     }
 
     @Override
     public void update() {
-        if (targetState != null && currentState != targetState) {
-            switch (targetState) {
-                case INIT:
-                    turret.setPosition(0.3);
-//                    mp = new MotionProfile(0.3, pos, vMax, aMax).start();
-                    break;
-                case FLIPPED:
-                    turret.setPosition(.85);
-//                    mp = new MotionProfile(.85, pos,vMax,aMax).start();
-                    break;
-                case NINETY:
-                    turret.setPosition(.55);
-//                    mp = new MotionProfile(.55, pos, vMax,aMax).start();
-                    break;
-            }
-            currentState = targetState;
-        }
-
-        if (mp != null && !mp.done()) {
-            double leftPos = mp.getInstantTargetPosition();
-            turret.setPosition(leftPos);
-        }
-
-        pos = turret.getPosition();
+//        if (targetState != null && currentState != targetState) {
+//            switch (targetState) {
+//                case INIT:
+//                    turret.setPosition(0.3);
+////                    mp = new MotionProfile(0.3, pos, vMax, aMax).start();
+//                    break;
+//                case FLIPPED:
+//                    turret.setPosition(.85);
+////                    mp = new MotionProfile(.85, pos,vMax,aMax).start();
+//                    break;
+//                case NINETY:
+//                    turret.setPosition(.55);
+////                    mp = new MotionProfile(.55, pos, vMax,aMax).start();
+//                    break;
+//            }
+//            currentState = targetState;
+//        }
+//
+//        if (mp != null && !mp.done()) {
+//            double leftPos = mp.getInstantTargetPosition();
+//            turret.setPosition(leftPos);
+//        }
+//
+//        pos = turret.getPosition();
     }
 
     @Override

@@ -87,14 +87,15 @@ public class MainFSM extends GreenLinearOpMode {
                 // RETRACTED
                 .state(State.DEFAULT)
                 .onEnter(()->{
-                    new TurretInitCommand().schedule();
+                    turret.init();
                 })
                 .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
                 .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
+                    new ClawWristInSpecTransferCommand().schedule();
+
                     new SequentialCommandGroup(
+                            new WaitCommand(300),
                             new ClawArmInspecTransferCommand(),
-                            new WaitCommand(200),
-                            new ClawWristInSpecTransferCommand(),
                             new WaitCommand(200),
                             new ClawWristInSpecCommand(),
                             new ClawArmInSpecCommand(),
@@ -150,11 +151,11 @@ public class MainFSM extends GreenLinearOpMode {
                 //LOW BUCKET
                 .state(State.LOW_BUCKET)
                 .transition(()-> stickyG2.y, State.DEFAULT,()->{
+                    new ClawWristTransferCommand().schedule();
                     new SequentialCommandGroup(
                             new ClawArmInitCommand(),
-                            new ClawWristTransferCommand(),
-                            new TurretInitCommand(),
                             new OuttakeClawOpenCommand(),
+                            new WaitCommand(500),
                             new VertSlidesStartCommand()
                     ).schedule();
                 })
@@ -168,26 +169,17 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.a || stickyG2.a){
                         new OuttakeClawToggleCommand().schedule();
                     }
-                    if(stickyG1.dpad_right || stickyG2.dpad_right){
-                        new TurretTurn90Command().schedule();
-                    }
-                    if(stickyG1.dpad_left || stickyG2.dpad_left){
-                        new TurretFlipCommand().schedule();
-                    }
-                    wristRotationPow = -gamepad2.left_stick_y;
-                    if (Math.abs(wristRotationPow) > 0.1) {
-                        robot.turret.manualRotate(wristRotationPow / 500);
-                    }
+
                 })
 
                 //HIGH BUCKET
                 .state(State.HIGH_BUCKET)
                 .transition(()-> stickyG2.y, State.DEFAULT,()->{
+                    new ClawWristTransferCommand().schedule();
                     new SequentialCommandGroup(
                             new ClawArmInitCommand(),
-                            new ClawWristTransferCommand(),
-                            new TurretInitCommand(),
                             new OuttakeClawOpenCommand(),
+                            new WaitCommand(300),
                             new VertSlidesStartCommand()
                     ).schedule();
                 })
@@ -207,26 +199,23 @@ public class MainFSM extends GreenLinearOpMode {
                     if(stickyG1.dpad_left || stickyG2.dpad_left){
                         new TurretFlipCommand().schedule();
                     }
-                    wristRotationPow = -gamepad2.left_stick_y;
-                    if (Math.abs(wristRotationPow) > 0.1) {
-                        robot.turret.manualRotate(wristRotationPow / 500);
-                    }
+
                 })
 
                 //HIGH SPECIMEN
                 .state(State.HIGH_SPEC)
                 .transition(()-> stickyG2.y, State.DEFAULT,()->{
+                    new ClawWristTransferCommand().schedule();
                     new SequentialCommandGroup(
                             new ClawArmInitCommand(),
-                            new ClawWristTransferCommand(),
-                            new TurretInitCommand(),
                             new OuttakeClawOpenCommand(),
-                            new WaitCommand(200),
+                            new WaitCommand(500),
                             new VertSlidesStartCommand()
                     ).schedule();
                 })
                 .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE, ()->{
                     new SequentialCommandGroup(
+                            new TurretInitCommand(),
                             new ClawWristInSpecTransferCommand(),
                             new SpecIntakeCommand(),
                             new ClawWristInSpecCommand()
@@ -270,6 +259,7 @@ public class MainFSM extends GreenLinearOpMode {
                 })
                 .transition(()-> stickyG1.dpad_up || stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SequentialCommandGroup(
+                            new TurretInitCommand(),
                             new ClawWristInSpecTransferCommand(),
                             new SpecIntakeCommand(),
                             new ClawWristInSpecCommand()
@@ -298,9 +288,9 @@ public class MainFSM extends GreenLinearOpMode {
                             new ClawArmInspecTransferCommand(),
                             new WaitCommand(200),
                             new ClawWristInSpecTransferCommand(),
-                            new WaitCommand(200),
+                            new WaitCommand(100),
                             new ClawArmInitCommand(),
-                            new WaitCommand(200),
+                            new WaitCommand(400),
                             new ClawWristTransferCommand()
                     ).schedule();
                 })

@@ -18,6 +18,8 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.Ou
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawToggleCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristFlatCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristHighOutSpecCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristScoringSpecFlickCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
@@ -64,24 +66,20 @@ public class BluSpecForLoop extends GreenLinearOpMode {
         addClawWrist();
         addVertSlides();
         addHang();
-        addIntakeColorSensor();
         addTurret();
-        addClawDistanceSensor();
-
-
-
 
         startPose = new Pose2d(0, 64, Math.PI/2);
 
         TrajectorySequenceBuilder builder = drivetrain.trajectorySequenceBuilder(startPose)
 
-                .setConstraints(SLOW_VEL, SLOW_ACCEL)
+                .setConstraints(FAST_VEL, FAST_ACCEL)
 
                 .setTangent(-Math.PI/2)
                 .addTemporalMarker(() -> {
-                    new HighSpecAutoCommand().schedule();
+                    new ClawWristHighOutSpecCommand().schedule();
+                    new HighSpecCommand().schedule();
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(1)
                 .setTangent(-Math.PI/2)
                 .splineToConstantHeading(new Vector2d(6, 26), -Math.PI/2)
 
@@ -102,7 +100,8 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                 .addTemporalMarker(()->{
                     new SequentialCommandGroup(
                             new WaitCommand(1000),
-                            new SpecIntakeCommand()
+                            new SpecIntakeCommand(),
+                            new ClawWristInSpecCommand()
                     ).schedule();
                 })
 
@@ -119,17 +118,17 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                 //JUST FINISHED PUSHING SAMPLE 1
                 .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
-                .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-53, 16), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-56, 51), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-53, 51), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 2
                 .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(225))
 //                        .setTangent(Math.PI)
-                .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-60, 16), Math.toRadians(90))
 
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-63.5, 51), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-60, 51), Math.toRadians(90))
                 .setTangent(0);
 
 
@@ -140,7 +139,8 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                             new SequentialCommandGroup(
                                     new OuttakeClawOpenCommand(),
                                     new WaitCommand(500),
-                                    new SpecIntakeCommand()
+                                    new SpecIntakeCommand(),
+                                    new ClawWristInSpecCommand()
                             ).schedule();
                         });
                     }
@@ -161,7 +161,9 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                     new SequentialCommandGroup(
                                             new OuttakeClawCloseCommand(),
                                             new WaitCommand(300),
-                                            new HighSpecAutoCommand()
+                                            new ClawWristHighOutSpecCommand(),
+                                            new HighSpecCommand()
+
                                     ).schedule();
                                 })
                                     .waitSeconds(0.3)
@@ -182,7 +184,8 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                             new SequentialCommandGroup(
                                     new OuttakeClawOpenCommand(),
                                     new WaitCommand(500),
-                                    new ResetCommand()
+                                    new ResetCommand(),
+                                    new ClawWristTransferCommand()
                             ).schedule();
                         })
                         .setTangent(Math.PI/2)
