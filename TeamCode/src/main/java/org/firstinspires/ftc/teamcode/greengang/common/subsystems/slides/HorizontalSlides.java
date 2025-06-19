@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.GreenSubsystem;
 @Config
 public class HorizontalSlides implements GreenSubsystem, Subsystem {
     public static double hsP = 0.005, hsI = 0, hsD = 0.0003;
-    public int minpos = -5;
+    public int minpos = 0;
     int maxpos = 575;
     public enum STATE {
         IDLE,
@@ -54,7 +54,6 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pidTo(-5);
         loc = LOC.RETRACTED;
     }
 
@@ -107,10 +106,10 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
 
     @Override
     public void telemetry(Telemetry tele){
-        tele.addData("HS State", state);
-        tele.addData("HS State (extend/retract) ", loc);
-        tele.addData("HS PID Setpoint", pid.getSetPoint());
-        tele.addData("Pos ", position);
+//        tele.addData("HS State", state);
+//        tele.addData("HS State (extend/retract) ", loc);
+//        tele.addData("HS PID Setpoint", pid.getSetPoint());
+        tele.addData("Horiz Slides Pos ", position);
     }
 
     public void update() {
@@ -126,7 +125,7 @@ public class HorizontalSlides implements GreenSubsystem, Subsystem {
                 motor.setPower(power);
                 break;
         }
-        if (position < 10) {
+        if (position < 15) {
             loc = LOC.RETRACTED;
         } else {
             loc = LOC.EXTENDED;

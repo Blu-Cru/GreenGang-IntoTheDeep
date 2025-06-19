@@ -3,20 +3,22 @@ package org.firstinspires.ftc.teamcode.greengang.common.util;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 // StickyGamepad is a copy pasted class that does rising edge detection for the buttons
-public class StickyGamepad  {
+public class StickyGamepad {
     private final Gamepad gamepad;
 
     public boolean dpad_up, dpad_down, dpad_left, dpad_right;
     public boolean a, b, x, y;
     public boolean left_bumper, right_bumper;
     public boolean left_stick_button, right_stick_button;
-    public boolean back;
+    public boolean back, share;
+    public boolean left_trigger, right_trigger;
 
     private boolean dpad_up_down, dpad_down_down, dpad_left_down, dpad_right_down;
     private boolean a_down, b_down, x_down, y_down;
     private boolean left_bumper_down, right_bumper_down;
     private boolean left_stick_button_down, right_stick_button_down;
-    private boolean back_down;
+    private boolean back_down, share_down;
+    double lastLT = 0, lastRT = 0;
 
     public StickyGamepad(Gamepad gamepad) {
         this.gamepad = gamepad;
@@ -178,5 +180,35 @@ public class StickyGamepad  {
             back = false;
             back_down = false;
         }
+
+        if(gamepad.share) {
+            if(share_down) {
+                share = false;
+            } else {
+                share_down = true;
+                share = true;
+            }
+        } else {
+            share = false;
+            share_down = false;
+        }
+
+        if(gamepad.right_trigger > 0.1) {
+            if(lastRT > 0.1) {
+                right_trigger = false;
+            } else {
+                right_trigger = true;
+            }
+        }
+        lastRT = gamepad.right_trigger;
+
+        if(gamepad.left_trigger > 0.1) {
+            if(lastLT > 0.1) {
+                left_trigger = false;
+            } else {
+                left_trigger = true;
+            }
+        }
+        lastLT = gamepad.left_trigger;
     }
 }

@@ -10,7 +10,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.low.ScoringLowBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInSpecCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInitCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInspecTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseToggleCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristHighOutSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristInSpecCommand;
@@ -28,7 +32,9 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.Ou
 //import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.Level;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretFlipCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretTurn90Command;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.HighSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.LowSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.spec.SpecIntakeCommand;
@@ -72,20 +78,27 @@ public class MainFSM extends GreenLinearOpMode {
         addHang();
         addIntakeColorSensor();
         addTurret();
-        addClawDistanceSensor();
+//        addClawDistanceSensor();
         intakeColorSensor.startReading();
-        hang.pmo.disengagePTO();
+//        hang.pmo.disengagePTO();
 
         sm = new StateMachineBuilder()
 
                 // RETRACTED
                 .state(State.DEFAULT)
+                .onEnter(()->{
+                    new TurretInitCommand().schedule();
+                })
                 .transition(()-> Math.abs(-gamepad2.left_stick_y) > 0.1, State.HORIZ_EXTENDED)
-                .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE,()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE,()->{
                     new SequentialCommandGroup(
+                            new ClawArmInspecTransferCommand(),
+                            new WaitCommand(200),
                             new ClawWristInSpecTransferCommand(),
-                            new SpecIntakeCommand(),
-                            new ClawWristInSpecCommand()
+                            new WaitCommand(200),
+                            new ClawWristInSpecCommand(),
+                            new ClawArmInSpecCommand(),
+                            new OuttakeClawOpenCommand()
                     ).schedule();
                 })
 //                .transition(()-> stickyG1.left_bumper, State.HIGH_SPEC,()->{
@@ -118,29 +131,34 @@ public class MainFSM extends GreenLinearOpMode {
                     hsPow = -gamepad2.left_stick_y;
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
+                    if(stickyG2.dpad_down || stickyG1.dpad_down){
+                        new HorizontalSlidesRetractCommand().schedule();
+                    }
 
                 })
-                .transition(()-> gamepad2.left_trigger > 0.2 || gamepad1.left_trigger > 0.2, State.HORIZ_EXTENDED, ()->{
+                .transition(()-> stickyG2.left_trigger || stickyG1.left_trigger, State.HORIZ_EXTENDED, ()->{
                     new IntakeInCommand().schedule();
                 })
-                .transition(()-> gamepad2.right_trigger > 0.2 || gamepad1.right_trigger > 0.2, State.HORIZ_EXTENDED,()-> {
+                .transition(()-> stickyG2.right_trigger || stickyG1.right_trigger, State.HORIZ_EXTENDED,()-> {
                     new IntakeSpitCommand().schedule();
                 })
-                .transition(()-> gamepad2.right_trigger<.2 && gamepad1.right_trigger<.2 &&
-                        gamepad1.left_trigger<.2 && gamepad2.left_trigger<.2, State.DEFAULT,()->{
+                .transition(()-> stickyG2.right_trigger && stickyG1.right_trigger &&
+                        stickyG1.left_trigger && stickyG2.left_trigger, State.DEFAULT,()->{
                     new IntakeStopCommand().schedule();
                 })
 
                 //LOW BUCKET
                 .state(State.LOW_BUCKET)
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
-                            new ClawWristInSpecTransferCommand(),
-                            new ResetCommand(),
-                            new ClawWristTransferCommand()
+                            new ClawArmInitCommand(),
+                            new ClawWristTransferCommand(),
+                            new TurretInitCommand(),
+                            new OuttakeClawOpenCommand(),
+                            new VertSlidesStartCommand()
                     ).schedule();
                 })
-                .transition(()-> gamepad2.right_bumper, State.HIGH_BUCKET,()->{
+                .transition(()-> stickyG2.right_bumper, State.HIGH_BUCKET,()->{
                     new SequentialCommandGroup(
                             new ScoringHighBucketCommand(),
                             new ClawWristBucketCommand()
@@ -164,14 +182,16 @@ public class MainFSM extends GreenLinearOpMode {
 
                 //HIGH BUCKET
                 .state(State.HIGH_BUCKET)
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
-                            new ClawWristInSpecTransferCommand(),
-                            new ResetCommand(),
-                            new ClawWristTransferCommand()
+                            new ClawArmInitCommand(),
+                            new ClawWristTransferCommand(),
+                            new TurretInitCommand(),
+                            new OuttakeClawOpenCommand(),
+                            new VertSlidesStartCommand()
                     ).schedule();
                 })
-                .transition(()-> gamepad2.left_bumper, State.LOW_BUCKET,()->{
+                .transition(()-> stickyG2.left_bumper, State.LOW_BUCKET,()->{
                     new SequentialCommandGroup(
                             new ScoringLowBucketCommand(),
                             new ClawWristBucketCommand()
@@ -195,11 +215,14 @@ public class MainFSM extends GreenLinearOpMode {
 
                 //HIGH SPECIMEN
                 .state(State.HIGH_SPEC)
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
-                            new ClawWristInSpecTransferCommand(),
-                            new ResetCommand(),
-                            new ClawWristTransferCommand()
+                            new ClawArmInitCommand(),
+                            new ClawWristTransferCommand(),
+                            new TurretInitCommand(),
+                            new OuttakeClawOpenCommand(),
+                            new WaitCommand(200),
+                            new VertSlidesStartCommand()
                     ).schedule();
                 })
                 .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE, ()->{
@@ -225,9 +248,8 @@ public class MainFSM extends GreenLinearOpMode {
                 })
 
                 .state(State.LOW_SPEC)
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
-                            new ClawWristInSpecTransferCommand(),
                             new ResetCommand(),
                             new ClawWristTransferCommand()
                     ).schedule();
@@ -267,14 +289,18 @@ public class MainFSM extends GreenLinearOpMode {
                 .transition(()-> stickyG1.left_bumper, State.LOW_SPEC, ()->{
                     new LowSpecCommand().schedule();
                 })
-                .transition(()-> gamepad1.right_bumper, State.HIGH_SPEC,()->{
+                .transition(()-> stickyG1.right_bumper, State.HIGH_SPEC,()->{
                     new ClawWristHighOutSpecCommand().schedule();
                     new HighSpecCommand().schedule();
                 })
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
+                            new ClawArmInspecTransferCommand(),
+                            new WaitCommand(200),
                             new ClawWristInSpecTransferCommand(),
-                            new ResetCommand(),
+                            new WaitCommand(200),
+                            new ClawArmInitCommand(),
+                            new WaitCommand(200),
                             new ClawWristTransferCommand()
                     ).schedule();
                 })
@@ -291,9 +317,9 @@ public class MainFSM extends GreenLinearOpMode {
                     if (Math.abs(hsPow) > .1){
                         horizontalSlides.manualSlide(hsPow);}
 
-                    if(gamepad1.right_trigger>.2 || gamepad2.right_trigger>.2){
+                    if(stickyG1.right_trigger|| stickyG2.right_trigger){
                         new IntakeSpitCommand().schedule();
-                    } else if(gamepad2.left_trigger>.2 || gamepad1.left_trigger>.2){
+                    } else if(stickyG2.left_trigger|| stickyG1.left_trigger){
                         new WristDownCommand().schedule();
                         new IntakeInCommand().schedule();
                     } else {
@@ -302,10 +328,10 @@ public class MainFSM extends GreenLinearOpMode {
                     }
                 })
                 .transition(()-> horizontalSlides.loc == HorizontalSlides.LOC.RETRACTED, State.DEFAULT)
-                .transition(()-> gamepad2.dpad_down, State.DEFAULT,()->{
+                .transition(()-> stickyG2.dpad_down, State.DEFAULT,()->{
                     new HorizontalSlidesRetractCommand().schedule();
                 })
-                .transition(()-> gamepad2.y, State.DEFAULT,()->{
+                .transition(()-> stickyG2.y, State.DEFAULT,()->{
                     new SequentialCommandGroup(
                             new ClawWristInSpecTransferCommand(),
                             new ResetCommand(),
@@ -355,6 +381,10 @@ public class MainFSM extends GreenLinearOpMode {
 
         if(intakeColorSensor.spit){
             intake.spit();
+        }
+
+        if (horizontalSlides.state == HorizontalSlides.STATE.IDLE) {
+            horizontalSlides.pidTo(horizontalSlides.minpos);
         }
     }
 

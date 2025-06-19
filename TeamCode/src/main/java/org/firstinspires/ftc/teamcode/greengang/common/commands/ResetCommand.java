@@ -26,42 +26,29 @@ public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(){
         super (
 
-                new ConditionalCommand(
 
-                        new SequentialCommandGroup(
-                                new ClawArmInspecTransferCommand(),
-//                                new ClawWristInSpecTransferCommand(),
-                                new WaitCommand(300),
-                                new ClawArmInitCommand(),
-                                new WaitCommand(300)
-                        ),
 
-                        new ClawArmInitCommand(),
-
-                        () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INSPEC
-                ),
-
-                // new ClawWristTransferCommand(),
+                new ClawArmInitCommand(),
                 new HorizontalSlidesRetractCommand(),
                 new TurretInitCommand(),
                 new WristParallelCommand(),
                 new OuttakeClawOpenCommand(),
 
+//                new ConditionalCommand(
+//
+//                        new SequentialCommandGroup(
+//                                new WaitCommand(1000),
+//                                new IntakeInCommand()
+//                        ),
+//
+//                        new WaitCommand(0),
+//
+//                        () -> Robot.getInstance().color.isFull()
+//
+//                ),
+
                 new ConditionalCommand(
-
-                        new SequentialCommandGroup(
-                                new WaitCommand(1000),
-                                new IntakeInCommand()
-                        ),
-
-                        new WaitCommand(0),
-
-                        () -> Robot.getInstance().color.isFull()
-
-                ),
-
-                new ConditionalCommand(
-                        new WaitCommand(1000),//true
+                        new WaitCommand(500),//true
                         new WaitCommand(50),//false
                         () -> Robot.getInstance().vs.getVScurrRightPos() < 500 || Robot.getInstance().vs.state == VertSlides.STATE.HIGHSPEC
                 ),

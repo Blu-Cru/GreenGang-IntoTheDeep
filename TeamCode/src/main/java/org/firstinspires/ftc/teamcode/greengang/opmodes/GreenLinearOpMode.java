@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.hang.Hang;
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.outtake.ClawDistanceSensor;
@@ -42,10 +43,14 @@ public class GreenLinearOpMode extends LinearOpMode {
     public Alliance alliance;
     public Drive drive;
     public ClawDistanceSensor distanceSensor;
+    double lastTime, loopTimeSum, loopTimeAvg = 0;
+    int loopTimeCount;
+
 //    public PinPointLocalizer ppl;
 
     @Override
     public final void runOpMode() throws InterruptedException {
+        Globals.runtime = new ElapsedTime();
         Globals.hwMap = hardwareMap;
         Globals.tele = telemetry;
         CommandScheduler.getInstance().cancelAll();
@@ -82,8 +87,9 @@ public class GreenLinearOpMode extends LinearOpMode {
             telemetry.update();
         }
 
-
         waitForStart();
+        Globals.runtime = new ElapsedTime();
+
         onStart();
 
         while (opModeIsActive()) {
@@ -97,6 +103,8 @@ public class GreenLinearOpMode extends LinearOpMode {
 
             telemetry();
             robot.telemetry(telemetry);
+            telemetry.addData("Loop Time", calculateAvgLoopTime());
+
             telemetry.update();
         }
 
@@ -133,4 +141,17 @@ public class GreenLinearOpMode extends LinearOpMode {
     public void addStickyG2() {stickyG2 = new StickyGamepad(gamepad2);}
     public void addHang() {hang = robot.addHang();}
     public void addTurret(){turret = robot.addTurret();}
+    private double calculateAvgLoopTime() {
+        loopTimeSum += Globals.runtime.milliseconds() - lastTime;
+        lastTime = Globals.runtime.milliseconds();
+        loopTimeCount++;
+
+        if(loopTimeCount > 5) {
+            loopTimeAvg = loopTimeSum / loopTimeCount;
+            loopTimeSum = 0;
+            loopTimeCount = 0;
+        }
+
+        return loopTimeAvg;
+    }
 }

@@ -17,6 +17,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         FLAT,
         INSPEC,
         INSPECTRANSFER,
+        VERT,
         OUTSPEC;
 
     }
@@ -60,8 +61,12 @@ public class ClawArm implements GreenSubsystem, Subsystem {
         state = STATE.OUTSPEC;
     }
     public void inSpecTransfer(){
-        setAngle(30);
+        setAngle(40);
         state=STATE.INSPECTRANSFER;
+    }
+    public void vert(){
+        setAngle(90);
+        state=STATE.VERT;
     }
     public void inSpec() {
 //        targetPos = vertPos +0.35;

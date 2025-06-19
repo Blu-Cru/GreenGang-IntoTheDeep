@@ -22,23 +22,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 public class SpecIntakeCommand extends SequentialCommandGroup {
     public SpecIntakeCommand(){
         super(
-                new ConditionalCommand(
 
-                        new SequentialCommandGroup(
-//                                new ClawWristInSpecTransferCommand(),
-                                new WaitCommand(200),
-                                new ClawArmInspecTransferCommand(),
-                                new WaitCommand(200)
-                        ),
-
-                        new SequentialCommandGroup(
-                                new WaitCommand(0)
-                        ),
-
-                        () -> Robot.getInstance().clawArm.state== ClawArm.STATE.INIT
-                ),
-
-//                new ClawWristInSpecCommand(),
                 new ClawArmInSpecCommand(),
                 new TurretTurn90Command(),
                 new TurretInitCommand(),
