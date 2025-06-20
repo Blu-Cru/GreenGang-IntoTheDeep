@@ -81,7 +81,7 @@ public class MeepMeepTesting {
                         .splineToConstantHeading(new Vector2d(-63.5, 16), Math.toRadians(90))
 
 //                        .setTangent(Math.PI/2)
-                        .splineToConstantHeading(new Vector2d(-63.5, 56.3), Math.toRadians(90));
+                        .splineToConstantHeading(new Vector2d(-63.5, 51), Math.toRadians(90));
 
                             //SPECIMEN 1
 //                        .addTemporalMarker(() -> {
@@ -89,7 +89,7 @@ public class MeepMeepTesting {
 //                        }
 
                     for (int i = 0; i < 4; i++) {
-                        builder
+
                                 // IF I>0:
 //                                .addTemporalMarker(()-> {
 //                            new SequentialCommandGroup(
@@ -99,9 +99,10 @@ public class MeepMeepTesting {
 //                            ).schedule();
 //                        })
                                 //-----
-                                .setTangent(Math.PI/2);
                                 if(i>0){
-                                    builder.splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
+                                    builder
+                                            .setTangent(Math.PI/2)
+                                            .splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
                                 }
                                 builder.splineToConstantHeading(new Vector2d(-48, 54), (i == 0 ? 0 : Math.PI/2))
                                 .splineToConstantHeading(new Vector2d(-48, 63.5 - (i > 1 ? 0.7 : 0)), Math.PI/2)

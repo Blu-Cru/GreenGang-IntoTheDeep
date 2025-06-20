@@ -145,10 +145,10 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                         });
                     }
 
-                    builder
-                            .setTangent(Math.PI/2);
                             if(i>0){
-                                builder.splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
+                                builder
+                                        .setTangent(Math.PI/2)
+                                        .splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
                             }
                             builder.splineToConstantHeading(new Vector2d(-36, 56), (i == 0 ? 0 : Math.PI/2))
                             .setConstraints(SLOW_VEL,SLOW_ACCEL)
@@ -168,7 +168,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                 })
                                     .waitSeconds(0.3)
 
-                            .setConstraints(NORMAL_VEL, NORMAL_ACCEL)
+                            .setConstraints(FAST_VEL, FAST_ACCEL)
                             .splineToConstantHeading(new Vector2d(4-2*i, 26), Math.toRadians(-90))
                             .addTemporalMarker(()->{
                                 new SequentialCommandGroup(
