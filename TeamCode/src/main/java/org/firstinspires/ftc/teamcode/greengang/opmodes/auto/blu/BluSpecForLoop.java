@@ -39,13 +39,13 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 
 @Autonomous(group = "paths")
 public class BluSpecForLoop extends GreenLinearOpMode {
-    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(48, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(52, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
     public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
-    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(27, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(32, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
 
-    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(48);
+    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(52);
     public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
-    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(25);
+    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(29);
 
     public static TrajectoryVelocityConstraint[] velos = {SLOW_VEL, NORMAL_VEL, FAST_VEL};
     public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
@@ -68,6 +68,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
         addHang();
         addTurret();
 
+
         startPose = new Pose2d(0, 64, Math.PI/2);
 
         TrajectorySequenceBuilder builder = drivetrain.trajectorySequenceBuilder(startPose)
@@ -79,20 +80,25 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                     new ClawWristHighOutSpecCommand().schedule();
                     new HighSpecCommand().schedule();
                 })
-                .waitSeconds(1)
-                .setTangent(-Math.PI/2)
-                .splineToConstantHeading(new Vector2d(6, 26), -Math.PI/2)
-
+                .waitSeconds(0.8)
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
+                            new WaitCommand(1000),
                             new ClawWristScoringSpecFlickCommand(),
-                            new VertSlidesHighSpecAutoScoreCommand()
+                            new VertSlidesHighSpecAutoScoreCommand(),
+                            new OuttakeClawOpenCommand()
                     ).schedule();
                 })
-                .waitSeconds(0.15)
-                .addTemporalMarker(()->{
-                    new OuttakeClawOpenCommand().schedule();
-                })
+                .splineToConstantHeading(new Vector2d(6, 24), -Math.PI/2)
+
+//                .addTemporalMarker(() -> {
+//                    new SequentialCommandGroup(
+//                            new ClawWristScoringSpecFlickCommand(),
+//                            new VertSlidesHighSpecAutoScoreCommand(),
+//                            new OuttakeClawOpenCommand()
+//                    ).schedule();
+//                })
+
                 .setTangent(Math.PI/2)
 
                 .setConstraints(SLOW_VEL,SLOW_ACCEL)
@@ -106,33 +112,32 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                 })
 
 
-
                 .splineToConstantHeading(new Vector2d(1, 40), Math.toRadians(180))
+
                 .splineToConstantHeading(new Vector2d(-33, 37), Math.toRadians(180))
 
-                .splineToConstantHeading(new Vector2d(-40, 16), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-40, 19), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-45, 19), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-47, 51), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-45, 47), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 1
-                .splineToConstantHeading(new Vector2d(-47, 16), Math.toRadians(225))
+                .splineToConstantHeading(new Vector2d(-45, 19), Math.toRadians(225))
 //                        .setTangent(Math.PI)
-                .splineToConstantHeading(new Vector2d(-53, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-53, 19), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-53, 51), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-53, 47), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 2
-                .splineToConstantHeading(new Vector2d(-56, 16), Math.toRadians(225))
+                .splineToConstantHeading(new Vector2d(-56, 19), Math.toRadians(225))
 //                        .setTangent(Math.PI)
-                .splineToConstantHeading(new Vector2d(-60, 16), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-62, 19), Math.toRadians(90))
 
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-60, 51), Math.toRadians(90))
-                .setTangent(0);
+                .splineToConstantHeading(new Vector2d(-62, 47), Math.toRadians(90));
 
 
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 3; i++) {
 
                     if (i > 0) {
                         builder.addTemporalMarker(() -> {
@@ -151,6 +156,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                         .splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
                             }
                             builder.splineToConstantHeading(new Vector2d(-36, 56), (i == 0 ? 0 : Math.PI/2))
+                            .setTangent(Math.PI/2)
                             .setConstraints(SLOW_VEL,SLOW_ACCEL)
                             .splineToConstantHeading(new Vector2d(-36, 62.4), Math.PI/2)
 
@@ -175,8 +181,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                         new VertSlidesHighSpecAutoScoreCommand(),
                                         new ClawWristScoringSpecFlickCommand()
                                 ).schedule();
-                            })
-                            .waitSeconds(0.15);
+                            });
                 }
 
                 builder
@@ -195,12 +200,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
 
     @Override
     public void initLoop() {
-        if(stickyG1.b) {
-            outtakeClaw.close();
-            clawArm.flat();
-            clawWrist.lowOutspec();
-            turret.turn90();
-        }
+
     }
 
     @Override
@@ -217,6 +217,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
         } catch (Exception e){
 //            requestOpModeStop();
         }
+        horizontalSlides.pidTo(horizontalSlides.minpos); // may need to remove
     }
 
     public void telemetry(Telemetry tele){

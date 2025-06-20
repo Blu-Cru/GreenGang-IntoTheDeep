@@ -45,7 +45,7 @@ public class Turret implements GreenSubsystem, Subsystem {
 
     @Override
     public void init() {
-        turret.setPosition(0);
+        turret.setPosition(0.04);
 //        currentState = STATE.INIT;
 //        targetState = STATE.INIT;
     }

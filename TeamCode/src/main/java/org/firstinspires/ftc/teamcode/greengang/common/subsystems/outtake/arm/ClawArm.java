@@ -41,7 +41,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public void transfer() { // Transfer
 //        targetPos = vertPos +0.4;
-        setAngle(-23.0);
+        setAngle(-19.0);
 
         state = STATE.INIT;
     }

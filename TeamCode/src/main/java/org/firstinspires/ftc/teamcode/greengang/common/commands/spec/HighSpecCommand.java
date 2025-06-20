@@ -15,9 +15,8 @@ public class HighSpecCommand extends SequentialCommandGroup {
         super (
                 new ClawArmOutSpecCommand(),
                 new VertSlidesHighSpecCommand(),
-//                new WaitCommand(300),
-//                new ClawWristHighOutSpecCommand(),
                 new OuttakeClawCloseCommand(),
+                new WaitCommand(200),
                 new TurretFlipCommand()
         );
     }

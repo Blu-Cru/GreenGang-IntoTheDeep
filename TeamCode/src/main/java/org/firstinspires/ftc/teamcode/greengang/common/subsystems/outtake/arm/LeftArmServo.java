@@ -8,7 +8,7 @@ public class LeftArmServo extends ArmServo {
     @Override
     double getVerticalPos() {
         // TODO: Get the vertical position of the arm
-        return 0.41;
+        return 0.42;
     }
 
     @Override
