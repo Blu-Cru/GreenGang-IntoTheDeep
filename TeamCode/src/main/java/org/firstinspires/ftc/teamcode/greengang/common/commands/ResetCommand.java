@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeW
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.arm.ClawArm;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.wrist.Turret;
 import org.firstinspires.ftc.teamcode.greengang.common.subsystems.slides.VertSlides;
 import org.firstinspires.ftc.teamcode.greengang.common.util.Robot;
 
@@ -32,6 +33,8 @@ public class ResetCommand extends SequentialCommandGroup {
                 new HorizontalSlidesRetractCommand(),
                 new WristParallelCommand(),
                 new OuttakeClawOpenCommand(),
+                new TurretInitCommand(),
+
 
 //                new ConditionalCommand(
 //
@@ -47,7 +50,7 @@ public class ResetCommand extends SequentialCommandGroup {
 //                ),
 
                 new ConditionalCommand(
-                        new WaitCommand(500),//true
+                        new WaitCommand(800),//true
                         new WaitCommand(50),//false
                         () -> Robot.getInstance().vs.getVScurrRightPos() < 500 || Robot.getInstance().vs.state == VertSlides.STATE.HIGHSPEC
                 ),

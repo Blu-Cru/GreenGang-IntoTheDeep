@@ -13,11 +13,11 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.outtake.OuttakeI
 public class TransferCommand extends SequentialCommandGroup {
     public TransferCommand(){
         super (
-                new SequentialCommandGroup(
-                        new HorizontalSlidesRetractCommand(),
-                        new WristParallelCommand(),
-                        new OuttakeIntakeCommand()
-                )
+
+                    new HorizontalSlidesRetractCommand(),
+                    new WristParallelCommand(),
+                    new OuttakeIntakeCommand()
+
         );
     }
 }

@@ -19,17 +19,16 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.transfer.Transfe
 public class AutoSamplePart1 extends SequentialCommandGroup {
     public AutoSamplePart1(){
         super(
-                new SequentialCommandGroup(
-                        new IntakeInCommand(),
-                        new HorizontalSlidesExtendHalfwayCommand(),
-                        new WristDownCommand(),
 
-                        new WaitCommand(300), // change?
-                        new HorizontalSlidesExtendFullyCommand(),
-                        new WaitCommand(2000), //orignial 3000
-                        new IntakeStopCommand(),
-                        new TransferCommand()
-                )
+                    new IntakeInCommand(),
+                    new HorizontalSlidesExtendHalfwayCommand(),
+                    new WristDownCommand(),
+
+                    new WaitCommand(300), // change?
+                    new HorizontalSlidesExtendFullyCommand(),
+                    new WaitCommand(2000), //orignial 3000
+                    new TransferCommand()
+
         );
     }
 }

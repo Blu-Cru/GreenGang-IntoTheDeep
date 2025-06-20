@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.ScoringHighBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristFlatCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendFullyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesExtendHalfwayCommand;
@@ -16,16 +20,20 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeB
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristDownCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.transfer.TransferCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.Intake;
+import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.wrist.Turret;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name = "close blue auto", group = "paths")
+@Autonomous(name = "4 Sample", group = "paths")
 public class bluSample extends GreenLinearOpMode {
     TrajectorySequence closeBlue;
     boolean done;
+    Pose2d startPose;
 
     @Override
     public void initialize() {
@@ -39,9 +47,9 @@ public class bluSample extends GreenLinearOpMode {
         addClawWrist();
         addVertSlides();
         addHang();
-        addIntakeColorSensor();
+        addTurret();
 
-        Pose2d startPose = new Pose2d(39.6, 65, Math.toRadians(180));
+        startPose = new Pose2d(31, 57, Math.toRadians(180));
         drivetrain.setPoseEstimate(startPose);
 
 
@@ -57,28 +65,33 @@ public class bluSample extends GreenLinearOpMode {
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new WaitCommand(500), //original 1000
-                            new ScoringHighBucketCommand()
+                            new ScoringHighBucketCommand(),
+                            new ClawWristBucketCommand()
                     ).schedule();
                 })
-                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 57, 55 before
-                .waitSeconds(0.2)//original 1
+                .splineToLinearHeading(new Pose2d(56, 55, Math.toRadians(225)), Math.toRadians(0)) // 57, 55 before
+                .waitSeconds(0.3)//original 1
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new OuttakeClawOpenCommand()).schedule();
-                })
-                .waitSeconds(.2)
-
-                .addTemporalMarker(() -> {
-                    new SequentialCommandGroup(
+                            new OuttakeClawOpenCommand(),
+                            new WaitCommand(200),
+                            new ClawWristTransferCommand(),
                             new ResetCommand()
+
                     ).schedule();
+
                 })
 
 //                SAMPLE 1
-                .splineToLinearHeading(new Pose2d(48, 45, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
+                .splineToLinearHeading(new Pose2d(53, 50, Math.toRadians(-90)), Math.toRadians(180)) //47 b4
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart1().schedule();
+                    new SequentialCommandGroup(
+                        new AutoSamplePart1(),
+                        new WaitCommand(1000),
+                        new IntakeStopCommand()
+                    ).schedule();
+
                 })
                 .waitSeconds(3)//3.5
 
@@ -86,13 +99,16 @@ public class bluSample extends GreenLinearOpMode {
                     new SequentialCommandGroup(
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
-                            new ScoringHighBucketCommand()
+                            new ScoringHighBucketCommand(),
+                            new ClawWristBucketCommand()
+
+
                     ).schedule();
                 })
                 .waitSeconds(.75)//prev .75
 
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
+                .splineToLinearHeading(new Pose2d(56, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -105,14 +121,19 @@ public class bluSample extends GreenLinearOpMode {
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
+                            new ClawWristTransferCommand(),
                             new ResetCommand()
                     ).schedule();
                 })
 
                 //   SAMPLE 2
-                .splineToLinearHeading(new Pose2d(57.8,45, Math.toRadians(-90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(62,50, Math.toRadians(-90)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
-                    new AutoSamplePart1().schedule();
+                    new SequentialCommandGroup(
+                            new AutoSamplePart1(),
+                            new WaitCommand(1000),
+                            new IntakeStopCommand()
+                    ).schedule();
                 })
                 .waitSeconds(3)//3.5
 
@@ -120,19 +141,22 @@ public class bluSample extends GreenLinearOpMode {
                     new SequentialCommandGroup(
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
-                            new ScoringHighBucketCommand()
+                            new ScoringHighBucketCommand(),
+                            new ClawWristBucketCommand()
+
                     ).schedule();
                 })
                 .waitSeconds(0.75) //previous 0.75
 
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
+                .splineToLinearHeading(new Pose2d(56, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
                             new WaitCommand(500),
                             new OuttakeClawOpenCommand(),
                             new WaitCommand(600),
+                            new ClawWristTransferCommand(),
                             new ResetCommand()
                     ).schedule();
                 })
@@ -141,7 +165,7 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 // SAMPLE 3
-                .splineToLinearHeading(new Pose2d(55,39.6, Math.toRadians(-45)), Math.toRadians(225)) //old: 55,39.6,-70,225
+                .splineToLinearHeading(new Pose2d(55,53, Math.toRadians(-45)), Math.toRadians(225)) //old: 55,39.6,-70,225
                 //made sample 3 intaking time longer
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -152,8 +176,9 @@ public class bluSample extends GreenLinearOpMode {
                         new WaitCommand(300), // change?
                         new HorizontalSlidesExtendCommand(),
                         new WaitCommand(2000), //orignial 3000
-                        new IntakeStopCommand(),
-                        new TransferCommand()
+                        new TransferCommand(),
+                        new WaitCommand(1000),
+                        new IntakeStopCommand()
                     ).schedule();
                 })
                 .waitSeconds(3)//3.5
@@ -162,13 +187,15 @@ public class bluSample extends GreenLinearOpMode {
                     new SequentialCommandGroup(
                             new OuttakeClawCloseCommand(),
                             new WaitCommand(200),
-                            new ScoringHighBucketCommand()
+                            new ScoringHighBucketCommand(),
+                            new ClawWristBucketCommand()
+
                     ).schedule();
                 })
                 .waitSeconds(.5)
 
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(53, 55, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
+                .splineToLinearHeading(new Pose2d(56, 52, Math.toRadians(225)), Math.toRadians(0)) // 225, 180 before
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -182,8 +209,12 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 .addTemporalMarker(() -> {
-                    new ResetCommand().schedule();
-
+                    new SequentialCommandGroup(
+                            new ClawWristFlatCommand(),
+                            new ClawArmBucketCommand(),
+                            new TurretInitCommand(),
+                            new VertSlidesStartCommand()
+                    ).schedule();
                 })
 
                 // PARK
@@ -197,6 +228,8 @@ public class bluSample extends GreenLinearOpMode {
 
 
         if (!drivetrain.isBusy() && !done){
+            drivetrain.setPoseEstimate(startPose);
+            drivetrain.ppl.setPoseEstimate(startPose);
             drivetrain.followTrajectorySequenceAsync(closeBlue);
             done = true;
         }

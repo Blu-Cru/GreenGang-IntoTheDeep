@@ -13,8 +13,9 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSli
 public class HighSpecCommand extends SequentialCommandGroup {
     public HighSpecCommand(){
         super (
-                new ClawArmOutSpecCommand(),
                 new VertSlidesHighSpecCommand(),
+//                new WaitCommand(50),
+                new ClawArmOutSpecCommand(),
                 new OuttakeClawCloseCommand(),
                 new WaitCommand(200),
                 new TurretFlipCommand()

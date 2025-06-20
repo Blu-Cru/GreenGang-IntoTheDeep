@@ -213,7 +213,7 @@ public class MainFSM extends GreenLinearOpMode {
                             new VertSlidesStartCommand()
                     ).schedule();
                 })
-                .transition(()-> stickyG2.dpad_up || stickyG1.dpad_up, State.SPEC_INTAKE, ()->{
+                .transition(()-> stickyG2.dpad_up, State.SPEC_INTAKE, ()->{
                     new SequentialCommandGroup(
                             new TurretInitCommand(),
                             new ClawWristInSpecTransferCommand(),
@@ -244,14 +244,8 @@ public class MainFSM extends GreenLinearOpMode {
                     ).schedule();
                 })
                 .loop(()->{
-                    if(stickyG1.a || stickyG2.a){
+                    if(stickyG1.a || stickyG2.a) {
                         new OuttakeClawToggleCommand().schedule();
-                    }
-                    if(stickyG1.dpad_right){
-                        new TurretTurn90Command().schedule();
-                    }
-                    if(stickyG1.dpad_left){
-                        new TurretFlipCommand().schedule();
                     }
                     if(stickyG1.b){
                         new ClawWristScoringSpecToggleCommand().schedule();
@@ -276,12 +270,15 @@ public class MainFSM extends GreenLinearOpMode {
 //                            new HighSpecCommand()
 //                    ).schedule();
 //                })
-                .transition(()-> stickyG1.left_bumper, State.LOW_SPEC, ()->{
+                .transition(()-> stickyG2.left_bumper, State.LOW_SPEC, ()->{
                     new LowSpecCommand().schedule();
                 })
-                .transition(()-> stickyG1.right_bumper, State.HIGH_SPEC,()->{
+                .transition(()-> stickyG2.right_bumper, State.HIGH_SPEC,()->{
                     new HighSpecCommand().schedule();
-                    new ClawWristHighOutSpecCommand().schedule();
+                    new SequentialCommandGroup(
+                            new WaitCommand(400),
+                            new ClawWristHighOutSpecCommand()
+                    ).schedule();
 
                 })
                 .transition(()-> stickyG2.y, State.DEFAULT,()->{
