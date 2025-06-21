@@ -308,7 +308,7 @@ public class MainFSM extends GreenLinearOpMode {
                     if(gamepad1.right_trigger>0.2|| gamepad2.right_trigger>0.2){
                         new IntakeSpitCommand().schedule();
                     } else if(gamepad1.left_trigger>0.2|| gamepad2.left_trigger>0.2){
-                        if(horizontalSlides.position>20){
+                        if(horizontalSlides.position>50){
                         new WristDownCommand().schedule();
                         }
                         new IntakeInCommand().schedule();

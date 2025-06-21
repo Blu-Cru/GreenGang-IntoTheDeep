@@ -24,7 +24,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
 
     public STATE state;
     public ClawArm(HardwareMap hardwareMap) {
-        armServos = new ArmServo[]{new LeftArmServo()};
+        armServos = new ArmServo[]{new LeftArmServo(), };
         // Set higher constraints for faster, immediate movement
 //        for (ArmServo armServo : armServos) {
 //            armServo.setConstraints(15.0, 30.0); // You can adjust these values as needed
@@ -70,7 +70,7 @@ public class ClawArm implements GreenSubsystem, Subsystem {
     }
     public void inSpec() {
 //        targetPos = vertPos +0.35;
-        setAngle(-7.0);
+        setAngle(-6.0);
         state = STATE.INSPEC;
     }
 

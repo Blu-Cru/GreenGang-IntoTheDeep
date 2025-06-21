@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.Cla
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmInspecTransferCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmOutSpecCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawLooseCloseCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
@@ -26,6 +27,7 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWri
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSlides.HorizontalSlidesRetractCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristParallelCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretFlipCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesHighSpecAutoScoreCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesHighSpecCommand;
@@ -82,13 +84,18 @@ public class BluSpecForLoop extends GreenLinearOpMode {
 
                 .setTangent(-Math.PI/2)
                 .addTemporalMarker(() -> {
-                    new ClawWristHighOutSpecCommand().schedule();
-                    new HighSpecCommand().schedule();
+                    new SequentialCommandGroup(
+                            new ClawArmOutSpecCommand(),
+                            new ClawWristHighOutSpecCommand(),
+                            new VertSlidesHighSpecCommand(),
+                            new TurretFlipCommand()
+
+                    ).schedule();
                 })
-                .waitSeconds(1.0)
+                .waitSeconds(1.40)
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
-                            new WaitCommand(1400),
+                            new WaitCommand(1600),
                             new ClawWristScoringSpecFlickCommand(),
                             new VertSlidesHighSpecAutoScoreCommand(),
                             new OuttakeClawOpenCommand()
@@ -116,7 +123,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                 .splineToConstantHeading(new Vector2d(-40, 19), Math.toRadians(180))
                 .splineToConstantHeading(new Vector2d(-43, 19), Math.toRadians(90))
 //                        .setTangent(Math.PI/2)
-                .splineToConstantHeading(new Vector2d(-43, 50), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-43, 51), Math.toRadians(90))
 
                 //JUST FINISHED PUSHING SAMPLE 1
                 .splineToConstantHeading(new Vector2d(-43, 19), Math.toRadians(225))
@@ -152,7 +159,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
                                         .setTangent(Math.PI/2)
                                         .splineToConstantHeading(new Vector2d(4-2*i, 35), Math.toRadians(90));
                             }
-                            builder.splineToConstantHeading(new Vector2d(-36, 58), (i == 0 ? 0 : Math.PI/2))
+                            builder.splineToConstantHeading(new Vector2d(-36, 58), Math.toRadians(135))
                             .setTangent(Math.PI/2)
                             .setConstraints(SLOW_VEL,SLOW_ACCEL)
                             .splineToConstantHeading(new Vector2d(-36, 62.4), Math.PI/2)
@@ -170,7 +177,7 @@ public class BluSpecForLoop extends GreenLinearOpMode {
 
                                     ).schedule();
                                 })
-                                    .waitSeconds(0.5)
+                                    .waitSeconds(0.8)
 
                             .setConstraints(FAST_VEL, FAST_ACCEL)
                             .splineToConstantHeading(new Vector2d(4-2*i, 26), Math.toRadians(-90))

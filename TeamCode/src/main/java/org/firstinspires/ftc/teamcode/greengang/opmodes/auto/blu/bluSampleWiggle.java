@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.greengang.opmodes.auto.blu;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -9,6 +11,8 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.ResetCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.auto.AutoSamplePart1;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.bucket.high.ScoringHighBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.arm.ClawArmBucketCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
+import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristBucketCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristFlatCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.clawWrist.ClawWristTransferCommand;
@@ -19,19 +23,27 @@ import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.horizSl
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeInCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeBucket.IntakeStopCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.intakeWrist.WristDownCommand;
-import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawCloseCommand;
-import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.claw.OuttakeClawOpenCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.turret.TurretInitCommand;
-import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.SlidesLiftSlightlyCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.controls.vertSlides.VertSlidesStartCommand;
 import org.firstinspires.ftc.teamcode.greengang.common.commands.transfer.TransferCommand;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.intake.Intake;
-import org.firstinspires.ftc.teamcode.greengang.common.subsystems.outtake.wrist.Turret;
 import org.firstinspires.ftc.teamcode.greengang.opmodes.GreenLinearOpMode;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name = "4 Sample", group = "paths")
-public class bluSample extends GreenLinearOpMode {
+@Autonomous(name = "4 Sample Wiggle", group = "paths")
+public class bluSampleWiggle extends GreenLinearOpMode {
+    public static TrajectoryVelocityConstraint FAST_VEL = SampleMecanumDrive.getVelocityConstraint(47, Math.toRadians(220), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint NORMAL_VEL = SampleMecanumDrive.getVelocityConstraint(41, Math.toRadians(180), DriveConstants.TRACK_WIDTH);
+    public static TrajectoryVelocityConstraint SLOW_VEL = SampleMecanumDrive.getVelocityConstraint(15, Math.toRadians(150), DriveConstants.TRACK_WIDTH);
+
+    public static TrajectoryAccelerationConstraint FAST_ACCEL = SampleMecanumDrive.getAccelerationConstraint(50);
+    public static TrajectoryAccelerationConstraint NORMAL_ACCEL = SampleMecanumDrive.getAccelerationConstraint(40);
+    public static TrajectoryAccelerationConstraint SLOW_ACCEL = SampleMecanumDrive.getAccelerationConstraint(15);
+
+    public static TrajectoryVelocityConstraint[] velos = {SLOW_VEL, NORMAL_VEL, FAST_VEL};
+    public static TrajectoryAccelerationConstraint[] accels = {SLOW_ACCEL, NORMAL_ACCEL, FAST_ACCEL};
+
     TrajectorySequence closeBlue;
     boolean done;
     Pose2d startPose;
@@ -55,7 +67,7 @@ public class bluSample extends GreenLinearOpMode {
 
 
         closeBlue = drivetrain.trajectorySequenceBuilder(startPose)
-
+                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
                 .setTangent(Math.toRadians(-90))
 
                 .addTemporalMarker(() -> {
@@ -166,7 +178,7 @@ public class bluSample extends GreenLinearOpMode {
 
 
                 // SAMPLE 3
-                .splineToLinearHeading(new Pose2d(55,50, Math.toRadians(-45)), Math.toRadians(225)) //old: 55,39.6,-70,225
+                .splineToLinearHeading(new Pose2d(55,50, Math.toRadians(-45)), Math.toRadians(135)) //old: 55,39.6,-70,225
                 //made sample 3 intaking time longer
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
@@ -182,7 +194,28 @@ public class bluSample extends GreenLinearOpMode {
                         new IntakeStopCommand()
                     ).schedule();
                 })
-                .waitSeconds(3)
+                .setConstraints(SLOW_VEL,SLOW_ACCEL)
+                .splineToLinearHeading(new Pose2d(58,45, Math.toRadians(-80)), Math.toRadians(135)) //old: 55,39.6,-70,225
+                .setConstraints(NORMAL_VEL,NORMAL_ACCEL)
+//                .waitSeconds(0.5)
+//                .splineToLinearHeading(new Pose2d(55,49.5, Math.toRadians(-55)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,49., Math.toRadians(-35)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,48.5, Math.toRadians(-55)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,48., Math.toRadians(-35)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,47.5, Math.toRadians(-55)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,47, Math.toRadians(-35)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,46.5, Math.toRadians(-55)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,46, Math.toRadians(-35)), Math.toRadians(225)) //old: 55,39.6,-70,225
+//                .waitSeconds(0.3)
+//                .splineToLinearHeading(new Pose2d(55,45.5, Math.toRadians(-55)), Math.toRadians(225)) //old: 55,39.6,-70,225
+
 
                 .addTemporalMarker(() -> {
                     new SequentialCommandGroup(
